@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { AllPosts } from "@/app/components/Posts";
 import GetStartedCode from "@/app/components/GetStartedCode";
+import { Button } from "@/components/ui/button";
 
 export default async function Page() {
   return (
@@ -16,6 +17,7 @@ export default async function Page() {
               <div className=" text-md leading-6 prose uppercase text-primary">
                 A starter template for
               </div>
+              <Button>ShadCN Button</Button>
               <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-black">
                 <Link className="text-red-500 " href="https://sanity.io/">
                   Sanity
