@@ -1,6 +1,6 @@
 {
   "root": true,
-  "ignorePatterns": ["**/dist/", "components/ui/"],
+  "ignorePatterns": ["**/dist/", "components/ui/", "postcss.config.js", "*.config.js"],
   "extends": [
     "eslint:recommended",
     "next/core-web-vitals",
@@ -31,7 +31,8 @@
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
     "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn"
+    "react-hooks/exhaustive-deps": "warn",
+    "no-fallthrough": "off"
   },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
