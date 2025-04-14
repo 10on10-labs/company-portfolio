@@ -3,6 +3,7 @@ import { Suspense } from 'react';
 
 import GetStartedCode from '@/app/components/GetStartedCode';
 import { AllPosts } from '@/app/components/Posts';
+import { Button } from '@/components/ui/button';
 
 export default async function Page() {
   return (
@@ -13,7 +14,10 @@ export default async function Page() {
         <div className="container relative">
           <div className="mx-auto max-w-2xl py-20 text-center lg:max-w-4xl lg:px-12">
             <div className="flex flex-col items-center gap-4">
-              <div className=" text-md prose uppercase leading-6">A starter template for</div>
+              <div className=" text-md prose text-primary uppercase leading-6">
+                A starter template for
+              </div>
+              <Button>ShadCN Button</Button>
               <h1 className="font-display text-5xl font-bold tracking-tighter text-black sm:text-6xl md:text-7xl lg:text-8xl">
                 <Link className="text-red-500 " href="https://sanity.io/">
                   Sanity
