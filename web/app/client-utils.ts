@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { isCorsOriginError } from "next-sanity";
-import { toast } from "sonner";
+import { isCorsOriginError } from 'next-sanity';
+import { toast } from 'sonner';
 
 export function handleError(error: unknown) {
   if (isCorsOriginError(error)) {
@@ -12,19 +12,19 @@ export function handleError(error: unknown) {
       duration: Infinity,
       action: addOriginUrl
         ? {
-            label: "Manage",
-            onClick: () => window.open(addOriginUrl.toString(), "_blank"),
+            label: 'Manage',
+            onClick: () => window.open(addOriginUrl.toString(), '_blank')
           }
-        : undefined,
+        : undefined
     });
   } else if (error instanceof Error) {
     console.error(error);
     toast.error(error.name, { description: error.message, duration: Infinity });
   } else {
     console.error(error);
-    toast.error("Unknown error", {
-      description: "Check the console for more details",
-      duration: Infinity,
+    toast.error('Unknown error', {
+      description: 'Check the console for more details',
+      duration: Infinity
     });
   }
 }
