@@ -7,17 +7,10 @@
     "plugin:tailwindcss/recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
-    "plugin:prettier/recommended",
-    "plugin:@next/next/recommended"
+    "plugin:@next/next/recommended",
+    "plugin:prettier/recommended"
   ],
-  "plugins": [
-    "tailwindcss",
-    "simple-import-sort",
-    "@typescript-eslint",
-    "react",
-    "prettier"
-    // "react-hooks"
-  ],
+  "plugins": ["tailwindcss", "simple-import-sort", "@typescript-eslint", "react", "prettier"],
   "settings": {
     "tailwindcss": {
       "callees": ["cn"],

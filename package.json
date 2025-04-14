@@ -1,11 +1,13 @@
 {
   "name": "company-portfolio",
-  "description": "Comapny portfolio to showcase company profile and projects",
+  "description": "Company portfolio to showcase company profile and projects",
   "scripts": {
     "dev": "npm-run-all --parallel dev:*",
     "dev:web": "npm run dev --workspace=web",
     "dev:studio": "npm run dev --workspace=studio",
     "import-sample-data": "cd studio && sanity dataset import sample-data.tar.gz --replace",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx .",
+    "lint:fix": "eslint --fix --ext .js,.jsx,.ts,.tsx .",
     "format:write": "prettier --write \"**/*.{ts,tsx,mdx}\" --cache",
     "format:check": "prettier --check \"**/*.{ts,tsx,mdx}\" --cache"
   },

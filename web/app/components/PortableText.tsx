@@ -8,7 +8,7 @@
  *
  */
 
-import { PortableText, type PortableTextComponents, type PortableTextBlock } from 'next-sanity';
+import { PortableText, type PortableTextBlock, type PortableTextComponents } from 'next-sanity';
 
 import ResolvedLink from '@/app/components/ResolvedLink';
 
@@ -27,11 +27,11 @@ export default function CustomPortableText({
           {children}
           <a
             href={`#${value?._key}`}
-            className="absolute left-0 top-0 bottom-0 -ml-6 flex items-center opacity-0 group-hover:opacity-100 transition-opacity"
+            className="absolute inset-y-0 left-0 -ml-6 flex items-center opacity-0 transition-opacity group-hover:opacity-100"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-4 w-4"
+              className="size-4"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -53,11 +53,11 @@ export default function CustomPortableText({
             {children}
             <a
               href={`#${value?._key}`}
-              className="absolute left-0 top-0 bottom-0 -ml-6 flex items-center opacity-0 group-hover:opacity-100 transition-opacity"
+              className="absolute inset-y-0 left-0 -ml-6 flex items-center opacity-0 transition-opacity group-hover:opacity-100"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-4 w-4"
+                className="size-4"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"

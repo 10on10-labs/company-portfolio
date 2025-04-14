@@ -5,10 +5,10 @@
  * Once you have provided a url for the environment variable NEXT_PUBLIC_SANITY_STUDIO_URL, and have content, you can delete this file.
  */
 
-import Link from 'next/link';
-import { useIsPresentationTool } from 'next-sanity/hooks';
-import { createDataAttribute } from 'next-sanity';
 import { uuid } from '@sanity/uuid';
+import Link from 'next/link';
+import { createDataAttribute } from 'next-sanity';
+import { useIsPresentationTool } from 'next-sanity/hooks';
 
 import { studioUrl } from '@/sanity/lib/api';
 
@@ -39,20 +39,20 @@ const OnboardingMessage = ({ message, link, type, path }: OnboardingMessageProps
       <div>
         {!isPresentation ? (
           <Link
-            className="inline-flex rounded-full gap-2 items-center bg-white text-red-500 hover:bg-red-100 focus:bg-red-200 py-3 px-6 transition-colors duration-200"
+            className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-red-500 transition-colors duration-200 hover:bg-red-100 focus:bg-red-200"
             href={link.href}
             target="_blank"
           >
             {link.title}
             {(link.showIcon ?? true) && (
-              <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <svg className="size-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                 <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
               </svg>
             )}
           </Link>
         ) : (
           <button
-            className="cursor-pointer inline-flex rounded-full gap-2 items-center bg-white text-red-500 hover:bg-red-100 focus:bg-red-200 py-3 px-6 transition-colors duration-200"
+            className="inline-flex cursor-pointer items-center gap-2 rounded-full bg-white px-6 py-3 text-red-500 transition-colors duration-200 hover:bg-red-100 focus:bg-red-200"
             data-sanity={createDataAttribute({
               id: uuid(),
               type,
@@ -61,7 +61,7 @@ const OnboardingMessage = ({ message, link, type, path }: OnboardingMessageProps
           >
             {link.title}
             {(link.showIcon ?? true) && (
-              <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <svg className="size-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                 <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
               </svg>
             )}
@@ -74,9 +74,9 @@ const OnboardingMessage = ({ message, link, type, path }: OnboardingMessageProps
 
 export default function Onboarding() {
   return (
-    <div className="max-w-2xl mx-auto grid grid-flow-row gap-6 py-12 text-center bg-red-500 text-white rounded-lg p-8">
+    <div className="mx-auto grid max-w-2xl grid-flow-row gap-6 rounded-lg bg-red-500 p-8 py-12 text-center text-white">
       <svg
-        className="mx-auto h-10 w-10 text-gray-400"
+        className="mx-auto size-10 text-gray-400"
         aria-hidden="true"
         width="512"
         height="512"
@@ -118,9 +118,9 @@ export default function Onboarding() {
 
 export function PageOnboarding() {
   return (
-    <div className="max-w-2xl mx-auto grid grid-flow-row gap-6 py-12 text-center bg-red-500 text-white rounded-lg p-8">
+    <div className="mx-auto grid max-w-2xl grid-flow-row gap-6 rounded-lg bg-red-500 p-8 py-12 text-center text-white">
       <svg
-        className="mx-auto h-10 w-10 text-gray-400"
+        className="mx-auto size-10 text-gray-400"
         aria-hidden="true"
         width="512"
         height="512"

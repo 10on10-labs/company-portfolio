@@ -51,7 +51,7 @@ export default function BlockRenderer({ block, index, pageId, pageType }: BlockP
   // Block doesn't exist yet
   return React.createElement(
     () => (
-      <div className="w-full bg-gray-100 text-center text-gray-500 p-20 rounded">
+      <div className="w-full rounded bg-gray-100 p-20 text-center text-gray-500">
         A &ldquo;{block._type}&rdquo; block hasn&apos;t been created
       </div>
     ),
