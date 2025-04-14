@@ -13,7 +13,7 @@ export default async function Page() {
         <div className="container relative">
           <div className="mx-auto max-w-2xl py-20 lg:max-w-4xl lg:px-12 text-center">
             <div className="flex flex-col gap-4 items-center">
-              <div className=" text-md leading-6 prose uppercase">
+              <div className=" text-md leading-6 prose uppercase text-primary">
                 A starter template for
               </div>
               <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-black">
