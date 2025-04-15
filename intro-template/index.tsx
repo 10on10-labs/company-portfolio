@@ -1,43 +1,44 @@
-'use client'
+'use client';
 
-import {studioUrl} from '@/sanity/lib/api'
-import Image from 'next/image'
-import Link from 'next/link'
-import {usePathname} from 'next/navigation'
-import {useSyncExternalStore} from 'react'
-import cover from './cover.png'
+import { useSyncExternalStore } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { studioUrl } from '@/sanity/lib/api';
 
-const subscribe = () => () => {}
+import cover from './cover.png';
+
+const subscribe = () => () => {};
 function useAfterHydration<Snapshot>(
   getSnapshot: () => Snapshot,
   serverSnapshot: Snapshot,
 ): Snapshot {
-  return useSyncExternalStore<Snapshot>(subscribe, getSnapshot, () => serverSnapshot)
+  return useSyncExternalStore<Snapshot>(subscribe, getSnapshot, () => serverSnapshot);
 }
 
 export default function IntroTemplate() {
-  const studioURL = useAfterHydration(() => `${location.origin}${studioUrl}`, null)
-  const isLocalHost = useAfterHydration(() => window.location.hostname === 'localhost', false)
-  const hasUTMtags = useAfterHydration(() => window.location.search.includes('utm'), false)
-  const pathname = usePathname()
+  const studioURL = useAfterHydration(() => `${location.origin}${studioUrl}`, null);
+  const isLocalHost = useAfterHydration(() => window.location.hostname === 'localhost', false);
+  const hasUTMtags = useAfterHydration(() => window.location.search.includes('utm'), false);
+  const pathname = usePathname();
 
-  const hasEnvFile = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID
+  const hasEnvFile = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
   const hasRepoEnvVars =
     process.env.NEXT_PUBLIC_VERCEL_GIT_PROVIDER &&
     process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER &&
-    process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG
-  const repoURL = `https://${process.env.NEXT_PUBLIC_VERCEL_GIT_PROVIDER}.com/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER}/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG}`
+    process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG;
+  const repoURL = `https://${process.env.NEXT_PUBLIC_VERCEL_GIT_PROVIDER}.com/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER}/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG}`;
   const removeBlockURL = hasRepoEnvVars
     ? `https://${process.env.NEXT_PUBLIC_VERCEL_GIT_PROVIDER}.com/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER}/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG}/blob/main/README.md#how-can-i-remove-the-next-steps-block-from-my-app`
-    : `https://github.com/sanity-io/template-nextjs-clean#how-can-i-remove-the-next-steps-block-from-my-app`
+    : `https://github.com/sanity-io/template-nextjs-clean#how-can-i-remove-the-next-steps-block-from-my-app`;
 
   // Only display this on the home page
   if (pathname !== '/') {
-    return null
+    return null;
   }
 
   if (hasUTMtags || !studioURL) {
-    return null
+    return null;
   }
 
   return (
@@ -170,10 +171,10 @@ export default function IntroTemplate() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-function Box({circleTitle, element}: {circleTitle: string; element: React.JSX.Element}) {
+function Box({ circleTitle, element }: { circleTitle: string; element: React.JSX.Element }) {
   return (
     <li className="mt-2 grid grid-flow-col grid-rows-1 place-content-start gap-3">
       <div className="row-span-3 select-none">
@@ -183,10 +184,10 @@ function Box({circleTitle, element}: {circleTitle: string; element: React.JSX.El
       </div>
       {element}
     </li>
-  )
+  );
 }
 
-function BlueLink({href, text}: {href: string; text: string}) {
+function BlueLink({ href, text }: { href: string; text: string }) {
   return (
     <a
       href={href}
@@ -196,22 +197,22 @@ function BlueLink({href, text}: {href: string; text: string}) {
     >
       {text}
     </a>
-  )
+  );
 }
 
-const RemoveBlock = ({url}: {url: string}) => (
+const RemoveBlock = ({ url }: { url: string }) => (
   <a className="hover:text-blue-800" href={url} target="_blank" rel="noreferrer">
     How to remove this block?
   </a>
-)
+);
 
 function getGitProvider() {
   switch (process.env.NEXT_PUBLIC_VERCEL_GIT_PROVIDER) {
     case 'gitlab':
-      return 'GitLab'
+      return 'GitLab';
     case 'bitbucket':
-      return 'Bitbucket'
+      return 'Bitbucket';
     default:
-      return 'GitHub'
+      return 'GitHub';
   }
 }

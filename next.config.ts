@@ -1,4 +1,4 @@
-import {NextConfig} from 'next'
+import { NextConfig } from 'next';
 
 const config: NextConfig = {
   // Helps catch bugs
@@ -8,7 +8,7 @@ const config: NextConfig = {
     reactCompiler: true,
   },
   images: {
-    remotePatterns: [{hostname: 'cdn.sanity.io'}],
+    remotePatterns: [{ hostname: 'cdn.sanity.io' }],
   },
   typescript: {
     // Set this to false if you want production builds to abort if there's type errors
@@ -27,6 +27,6 @@ const config: NextConfig = {
     // Matches the behavior of `sanity dev` which sets styled-components to use the fastest way of inserting CSS rules in both dev and production. It's default behavior is to disable it in dev mode.
     SC_DISABLE_SPEEDY: 'false',
   },
-}
+};
 
-export default config
+export default config;

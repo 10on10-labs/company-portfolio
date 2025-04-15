@@ -1,18 +1,19 @@
-import {CustomPortableText} from '@/components/CustomPortableText'
-import type {PathSegment} from 'sanity'
+import type { PathSegment } from 'sanity';
+
+import { CustomPortableText } from '@/components/CustomPortableText';
 
 interface HeaderProps {
-  id: string | null
-  type: string | null
-  path: PathSegment[]
-  centered?: boolean
-  description?: null | any[]
-  title?: string | null
+  id: string | null;
+  type: string | null;
+  path: PathSegment[];
+  centered?: boolean;
+  description?: null | any[];
+  title?: string | null;
 }
 export function Header(props: HeaderProps) {
-  const {id, type, path, title, description, centered = false} = props
+  const { id, type, path, title, description, centered = false } = props;
   if (!description && !title) {
-    return null
+    return null;
   }
   return (
     <div className={`${centered ? 'text-center' : 'w-5/6 lg:w-3/5'}`}>
@@ -25,5 +26,5 @@ export function Header(props: HeaderProps) {
         </div>
       )}
     </div>
-  )
+  );
 }

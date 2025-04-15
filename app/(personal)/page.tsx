@@ -1,11 +1,12 @@
-import {HomePage} from '@/components/HomePage'
-import {studioUrl} from '@/sanity/lib/api'
-import {sanityFetch} from '@/sanity/lib/live'
-import {homePageQuery} from '@/sanity/lib/queries'
-import Link from 'next/link'
+import Link from 'next/link';
+import { studioUrl } from '@/sanity/lib/api';
+import { sanityFetch } from '@/sanity/lib/live';
+import { homePageQuery } from '@/sanity/lib/queries';
+
+import { HomePage } from '@/components/HomePage';
 
 export default async function IndexRoute() {
-  const {data} = await sanityFetch({query: homePageQuery})
+  const { data } = await sanityFetch({ query: homePageQuery });
 
   if (!data) {
     return (
@@ -16,8 +17,8 @@ export default async function IndexRoute() {
         </Link>
         !
       </div>
-    )
+    );
   }
 
-  return <HomePage data={data} />
+  return <HomePage data={data} />;
 }

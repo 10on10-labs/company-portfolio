@@ -1,5 +1,5 @@
-import {CogIcon} from '@sanity/icons'
-import {defineArrayMember, defineField, defineType} from 'sanity'
+import { CogIcon } from '@sanity/icons';
+import { defineArrayMember, defineField, defineType } from 'sanity';
 
 export default defineType({
   name: 'settings',
@@ -74,7 +74,7 @@ export default defineType({
       return {
         title: 'Settings',
         subtitle: 'Menu Items, Footer Info, and Open Graph Image',
-      }
+      };
     },
   },
-})
+});

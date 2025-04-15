@@ -1,4 +1,4 @@
-import {defineQuery} from 'next-sanity'
+import { defineQuery } from 'next-sanity';
 
 export const homePageQuery = defineQuery(`
   *[_type == "home"][0]{
@@ -19,7 +19,7 @@ export const homePageQuery = defineQuery(`
     },
     title,
   }
-`)
+`);
 
 export const pagesBySlugQuery = defineQuery(`
   *[_type == "page" && slug.current == $slug][0] {
@@ -30,7 +30,7 @@ export const pagesBySlugQuery = defineQuery(`
     title,
     "slug": slug.current,
   }
-`)
+`);
 
 export const projectBySlugQuery = defineQuery(`
   *[_type == "project" && slug.current == $slug][0] {
@@ -46,7 +46,7 @@ export const projectBySlugQuery = defineQuery(`
     tags,
     title,
   }
-`)
+`);
 
 export const settingsQuery = defineQuery(`
   *[_type == "settings"][0]{
@@ -63,8 +63,8 @@ export const settingsQuery = defineQuery(`
     },
     ogImage,
   }
-`)
+`);
 
 export const slugsByTypeQuery = defineQuery(`
   *[_type == $type && defined(slug.current)]{"slug": slug.current}
-`)
+`);

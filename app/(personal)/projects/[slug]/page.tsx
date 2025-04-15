@@ -1,33 +1,34 @@
-import {CustomPortableText} from '@/components/CustomPortableText'
-import {Header} from '@/components/Header'
-import ImageBox from '@/components/ImageBox'
-import {studioUrl} from '@/sanity/lib/api'
-import {sanityFetch} from '@/sanity/lib/live'
-import {projectBySlugQuery, slugsByTypeQuery} from '@/sanity/lib/queries'
-import {urlForOpenGraphImage} from '@/sanity/lib/utils'
-import type {Metadata, ResolvingMetadata} from 'next'
-import {createDataAttribute, toPlainText} from 'next-sanity'
-import {draftMode} from 'next/headers'
-import Link from 'next/link'
-import {notFound} from 'next/navigation'
+import type { Metadata, ResolvingMetadata } from 'next';
+import { draftMode } from 'next/headers';
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
+import { studioUrl } from '@/sanity/lib/api';
+import { sanityFetch } from '@/sanity/lib/live';
+import { projectBySlugQuery, slugsByTypeQuery } from '@/sanity/lib/queries';
+import { urlForOpenGraphImage } from '@/sanity/lib/utils';
+import { createDataAttribute, toPlainText } from 'next-sanity';
+
+import { CustomPortableText } from '@/components/CustomPortableText';
+import { Header } from '@/components/Header';
+import ImageBox from '@/components/ImageBox';
 
 type Props = {
-  params: Promise<{slug: string}>
-}
+  params: Promise<{ slug: string }>;
+};
 
 export async function generateMetadata(
-  {params}: Props,
+  { params }: Props,
   parent: ResolvingMetadata,
 ): Promise<Metadata> {
-  const {data: project} = await sanityFetch({
+  const { data: project } = await sanityFetch({
     query: projectBySlugQuery,
     params,
     stega: false,
-  })
+  });
   const ogImage = urlForOpenGraphImage(
     // @ts-expect-error - @TODO update @sanity/image-url types so it's compatible
     project?.coverImage,
-  )
+  );
 
   return {
     title: project?.title,
@@ -37,25 +38,25 @@ export async function generateMetadata(
           images: [ogImage, ...((await parent).openGraph?.images || [])],
         }
       : {},
-  }
+  };
 }
 
 export async function generateStaticParams() {
-  const {data} = await sanityFetch({
+  const { data } = await sanityFetch({
     query: slugsByTypeQuery,
-    params: {type: 'project'},
+    params: { type: 'project' },
     stega: false,
     perspective: 'published',
-  })
-  return data
+  });
+  return data;
 }
 
-export default async function ProjectSlugRoute({params}: Props) {
-  const {data} = await sanityFetch({query: projectBySlugQuery, params})
+export default async function ProjectSlugRoute({ params }: Props) {
+  const { data } = await sanityFetch({ query: projectBySlugQuery, params });
 
   // Only show the 404 page if we're in production, when in draft mode we might be about to create a project on this slug, and live reload won't work on the 404 route
   if (!data?._id && !(await draftMode()).isEnabled) {
-    notFound()
+    notFound();
   }
 
   const dataAttribute =
@@ -65,13 +66,13 @@ export default async function ProjectSlugRoute({params}: Props) {
           id: data._id,
           type: data._type,
         })
-      : null
+      : null;
 
   // Default to an empty object to allow previews on non-existent documents
-  const {client, coverImage, description, duration, overview, site, tags, title} = data ?? {}
+  const { client, coverImage, description, duration, overview, site, tags, title } = data ?? {};
 
-  const startYear = new Date(duration?.start!).getFullYear()
-  const endYear = duration?.end ? new Date(duration?.end).getFullYear() : 'Now'
+  const startYear = new Date(duration?.start!).getFullYear();
+  const endYear = duration?.end ? new Date(duration?.end).getFullYear() : 'Now';
 
   return (
     <div>
@@ -155,5 +156,5 @@ export default async function ProjectSlugRoute({params}: Props) {
       </div>
       <div className="absolute left-0 w-screen border-t" />
     </div>
-  )
+  );
 }

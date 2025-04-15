@@ -3,8 +3,8 @@
  * see https://www.sanity.io/docs/presentation-resolver-api for more information.
  */
 
-import {resolveHref} from '@/sanity/lib/utils'
-import {defineDocuments, defineLocations} from 'sanity/presentation'
+import { resolveHref } from '@/sanity/lib/utils';
+import { defineDocuments, defineLocations } from 'sanity/presentation';
 
 export const mainDocuments = defineDocuments([
   {
@@ -15,7 +15,7 @@ export const mainDocuments = defineDocuments([
     route: '/:slug',
     filter: `_type == "page" && slug.current == $slug`,
   },
-])
+]);
 
 export const locations = {
   settings: defineLocations({
@@ -25,11 +25,11 @@ export const locations = {
   home: defineLocations({
     message: 'This document is used to render the front page',
     tone: 'positive',
-    locations: [{title: 'Home', href: resolveHref('home')!}],
+    locations: [{ title: 'Home', href: resolveHref('home')! }],
   }),
   project: defineLocations({
-    select: {title: 'title', slug: 'slug.current'},
-    resolve: (doc) => ({
+    select: { title: 'title', slug: 'slug.current' },
+    resolve: doc => ({
       locations: [
         {
           title: doc?.title || 'Untitled',
@@ -39,8 +39,8 @@ export const locations = {
     }),
   }),
   page: defineLocations({
-    select: {title: 'title', slug: 'slug.current'},
-    resolve: (doc) => ({
+    select: { title: 'title', slug: 'slug.current' },
+    resolve: doc => ({
       locations: [
         {
           title: doc?.title || 'Untitled',
@@ -49,4 +49,4 @@ export const locations = {
       ],
     }),
   }),
-}
+};

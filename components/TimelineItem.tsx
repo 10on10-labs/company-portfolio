@@ -1,10 +1,11 @@
-import ImageBox from '@/components/ImageBox'
-import type {MilestoneItem} from '@/types'
+import type { MilestoneItem } from '@/types';
 
-export function TimelineItem({milestone}: {milestone: MilestoneItem}) {
-  const {description, duration, image, tags, title} = milestone
-  const startYear = duration?.start ? new Date(duration.start).getFullYear() : undefined
-  const endYear = duration?.end ? new Date(duration.end).getFullYear() : 'Now'
+import ImageBox from '@/components/ImageBox';
+
+export function TimelineItem({ milestone }: { milestone: MilestoneItem }) {
+  const { description, duration, image, tags, title } = milestone;
+  const startYear = duration?.start ? new Date(duration.start).getFullYear() : undefined;
+  const endYear = duration?.end ? new Date(duration.end).getFullYear() : 'Now';
 
   return (
     <div className="flex min-h-[200px] font-sans last:pb-2">
@@ -12,7 +13,7 @@ export function TimelineItem({milestone}: {milestone: MilestoneItem}) {
         {/* Thumbnail */}
         <div
           className="relative overflow-hidden rounded-md bg-black"
-          style={{width: '65px', height: '65px'}}
+          style={{ width: '65px', height: '65px' }}
         >
           <ImageBox
             image={image}
@@ -42,5 +43,5 @@ export function TimelineItem({milestone}: {milestone: MilestoneItem}) {
         <div className="pb-5 pt-3 font-serif text-gray-600">{description}</div>
       </div>
     </div>
-  )
+  );
 }

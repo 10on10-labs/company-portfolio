@@ -1,8 +1,9 @@
-import ImageBox from '@/components/ImageBox'
-import {TimelineSection} from '@/components/TimelineSection'
-import type {PathSegment, StudioPathLike} from '@sanity/client/csm'
-import {PortableText, type PortableTextBlock, type PortableTextComponents} from 'next-sanity'
-import type {Image} from 'sanity'
+import type { PathSegment, StudioPathLike } from '@sanity/client/csm';
+import { PortableText, type PortableTextBlock, type PortableTextComponents } from 'next-sanity';
+import type { Image } from 'sanity';
+
+import ImageBox from '@/components/ImageBox';
+import { TimelineSection } from '@/components/TimelineSection';
 
 export function CustomPortableText({
   id,
@@ -11,20 +12,20 @@ export function CustomPortableText({
   paragraphClasses,
   value,
 }: {
-  id: string | null
-  type: string | null
-  path: PathSegment[]
-  paragraphClasses?: string
-  value: PortableTextBlock[]
+  id: string | null;
+  type: string | null;
+  path: PathSegment[];
+  paragraphClasses?: string;
+  value: PortableTextBlock[];
 }) {
   const components: PortableTextComponents = {
     block: {
-      normal: ({children}) => {
-        return <p className={paragraphClasses}>{children}</p>
+      normal: ({ children }) => {
+        return <p className={paragraphClasses}>{children}</p>;
       },
     },
     marks: {
-      link: ({children, value}) => {
+      link: ({ children, value }) => {
         return (
           <a
             className="underline transition hover:opacity-50"
@@ -33,11 +34,11 @@ export function CustomPortableText({
           >
             {children}
           </a>
-        )
+        );
       },
     },
     types: {
-      image: ({value}: {value: Image & {alt?: string; caption?: string}}) => {
+      image: ({ value }: { value: Image & { alt?: string; caption?: string } }) => {
         return (
           <div className="my-6 space-y-2">
             <ImageBox image={value} alt={value.alt} classesWrapper="relative aspect-[16/9]" />
@@ -45,22 +46,22 @@ export function CustomPortableText({
               <div className="font-sans text-sm text-gray-600">{value.caption}</div>
             )}
           </div>
-        )
+        );
       },
-      timeline: ({value}) => {
-        const {items, _key} = value || {}
+      timeline: ({ value }) => {
+        const { items, _key } = value || {};
         return (
           <TimelineSection
             key={_key}
             id={id}
             type={type}
-            path={[...path, {_key}, 'items']}
+            path={[...path, { _key }, 'items']}
             timelines={items}
           />
-        )
+        );
       },
     },
-  }
+  };
 
-  return <PortableText components={components} value={value} />
+  return <PortableText components={components} value={value} />;
 }

@@ -1,14 +1,15 @@
-import {CustomPortableText} from '@/components/CustomPortableText'
-import ImageBox from '@/components/ImageBox'
-import type {ShowcaseProject} from '@/types'
-import type {PortableTextBlock} from 'next-sanity'
+import type { ShowcaseProject } from '@/types';
+import type { PortableTextBlock } from 'next-sanity';
+
+import { CustomPortableText } from '@/components/CustomPortableText';
+import ImageBox from '@/components/ImageBox';
 
 interface ProjectProps {
-  project: ShowcaseProject
+  project: ShowcaseProject;
 }
 
 export function ProjectListItem(props: ProjectProps) {
-  const {project} = props
+  const { project } = props;
 
   return (
     <>
@@ -23,11 +24,11 @@ export function ProjectListItem(props: ProjectProps) {
         <TextBox project={project} />
       </div>
     </>
-  )
+  );
 }
 
-function TextBox({project}: {project: ShowcaseProject}) {
-  console.log(project)
+function TextBox({ project }: { project: ShowcaseProject }) {
+  console.log(project);
   return (
     <div className="relative mt-2 flex w-full flex-col justify-between p-3 xl:mt-0">
       <div>
@@ -54,5 +55,5 @@ function TextBox({project}: {project: ShowcaseProject}) {
         ))}
       </div>
     </div>
-  )
+  );
 }

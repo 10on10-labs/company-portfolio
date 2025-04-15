@@ -6,11 +6,14 @@
     "predev": "pnpm run typegen",
     "dev": "next --turbopack",
     "format": "npx prettier --write . --ignore-path .gitignore",
+    "format:check": "prettier --check \"**/*.{ts,tsx,mdx}\" --cache",
+    "format:write": "prettier --write \"**/*.{ts,tsx,mdx}\" --cache",
     "lint": "next lint .",
     "lint:fix": "pnpm run format && pnpm run lint -- --fix",
     "start": "next start",
-    "type-check": "tsc --noEmit",
-    "typegen": "sanity schema extract && sanity typegen generate"
+    "typecheck": "tsc --noEmit",
+    "typegen": "sanity schema extract && sanity typegen generate",
+    "prepare": "husky"
   },
   "dependencies": {
     "@next/env": "15.3.0",
@@ -37,6 +40,10 @@
     "styled-components": "6.1.17"
   },
   "devDependencies": {
+    "@eslint/compat": "^1.2.7",
+    "@eslint/eslintrc": "^3.3.0",
+    "@eslint/js": "^9.21.0",
+    "@next/eslint-plugin-next": "^15.1.7",
     "@ianvs/prettier-plugin-sort-imports": "4.4.1",
     "@sanity/prettier-config": "1.0.3",
     "@types/react": "19.1.0",
@@ -44,7 +51,15 @@
     "babel-plugin-react-compiler": "beta",
     "eslint": "9.24.0",
     "eslint-config-next": "15.3.0",
+    "eslint-config-prettier": "^10.1.2",
+    "eslint-plugin-prettier": "^5.2.6",
     "eslint-plugin-react-compiler": "beta",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "eslint-plugin-tailwindcss": "^3.18.0",
+    "eslint-prettier-config": "^1.0.1",
+    "eslint-plugin-react": "^7.35.0",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "husky": "^9.1.7",
     "postcss": "8.5.3",
     "prettier": "3.5.3",
     "prettier-plugin-tailwindcss": "0.6.11",
