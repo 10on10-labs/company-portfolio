@@ -13,6 +13,7 @@ export interface HomePageProps {
   data: HomePageQueryResult | null;
 }
 
+const test = [];
 export async function HomePage({ data }: HomePageProps) {
   // Default to an empty object to allow previews on non-existent documents
   const { overview = [], showcaseProjects = [], title = '' } = data ?? {};
@@ -51,7 +52,7 @@ export async function HomePage({ data }: HomePageProps) {
               }
               return (
                 <Link
-                  className="flex flex-col gap-x-5 p-2 transition odd:border-b odd:border-t hover:bg-gray-50/50 xl:flex-row odd:xl:flex-row-reverse"
+                  className="flex flex-col gap-x-5 p-2 transition odd:border-y hover:bg-gray-50/50 xl:flex-row odd:xl:flex-row-reverse"
                   key={project._key}
                   href={href}
                   data-sanity={dataAttribute?.(['showcaseProjects', { _key: project._key }])}

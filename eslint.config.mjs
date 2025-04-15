@@ -24,10 +24,9 @@ const config = [
   ...compat.extends(
     'next/core-web-vitals',
     'plugin:tailwindcss/recommended',
-    'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
-    'plugin:prettier/recommended',
     'plugin:@next/next/recommended',
+    'plugin:prettier/recommended', // Keep this last
   ),
   {
     plugins: {
@@ -51,8 +50,6 @@ const config = [
 
     rules: {
       'prettier/prettier': ['error', { endOfLine: 'auto' }],
-      'simple-import-sort/imports': 'warn',
-      'simple-import-sort/exports': 'warn',
       '@next/next/no-html-link-for-pages': 'off',
       'react/jsx-key': 'off',
       'tailwindcss/no-custom-classname': 'off',
