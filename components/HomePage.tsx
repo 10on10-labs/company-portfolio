@@ -1,4 +1,3 @@
-import { draftMode } from 'next/headers';
 import Link from 'next/link';
 import type { HomePageQueryResult } from '@/sanity.types';
 import { studioUrl } from '@/sanity/lib/api';
@@ -13,7 +12,6 @@ export interface HomePageProps {
   data: HomePageQueryResult | null;
 }
 
-const test = [];
 export async function HomePage({ data }: HomePageProps) {
   // Default to an empty object to allow previews on non-existent documents
   const { overview = [], showcaseProjects = [], title = '' } = data ?? {};
