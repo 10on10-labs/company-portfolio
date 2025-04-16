@@ -1,4 +1,4 @@
-import { theme as sanityTheme } from '@sanity/demo/tailwind';
+// import { theme as sanityTheme } from '@sanity/demo/tailwind';
 
 /** @type {import('tailwindcss').Config} */
 export const content = [
