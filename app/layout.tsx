@@ -1,6 +1,12 @@
 import './globals.css';
 
 import { IBM_Plex_Mono, Inter, PT_Serif } from 'next/font/google';
+import { draftMode } from 'next/headers';
+import { SanityLive } from '@/sanity/lib/live';
+import { VisualEditing } from 'next-sanity';
+
+import { handleError } from './client-functions';
+import { DraftModeToast } from './DraftModeToast';
 
 const serif = PT_Serif({
   variable: '--font-serif',
@@ -23,7 +29,16 @@ const mono = IBM_Plex_Mono({
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${mono.variable} ${sans.variable} ${serif.variable}`}>
-      <body>{children}</body>
+      <body>
+        {children}
+        <SanityLive onError={handleError} />
+        {(await draftMode()).isEnabled && (
+          <>
+            <DraftModeToast />
+            <VisualEditing />
+          </>
+        )}
+      </body>
     </html>
   );
 }
