@@ -1,0 +1,40 @@
+/** @type {import('prettier').Config} */
+module.exports = {
+  // Only keep formatting rules that don't conflict with ESLint
+  plugins: [], // Remove import sorting plugin
+  // These can stay if you want, but ESLint should handle them:
+  printWidth: 100,
+  semi: true,
+  singleQuote: true,
+  trailingComma: 'all',
+  tabWidth: 2,
+  useTabs: false,
+  arrowParens: 'avoid',
+  singleQuote: true,
+  trailingComma: 'all',
+  jsxBracketSameLine: false,
+  importOrder: [
+    '^(react/(.*)$)|^(react$)',
+    '^(next/(.*)$)|^(next$)',
+    '<THIRD_PARTY_MODULES>',
+    '',
+    '^types$',
+    '^@/types/(.*)$',
+    '^@/config/(.*)$',
+    '^@/lib/(.*)$',
+    '^@/hooks/(.*)$',
+    '^@/components/ui/(.*)$',
+    '^@/components/(.*)$',
+    '^@/styles/(.*)$',
+    '^@/app/(.*)$',
+    '',
+    '^[./]',
+  ],
+  importOrderSeparation: false,
+  importOrderSortSpecifiers: true,
+  importOrderBuiltinModulesToTop: true,
+  importOrderParserPlugins: ['typescript', 'jsx', 'tsx', 'decorators-legacy'],
+  importOrderMergeDuplicateImports: true,
+  importOrderCombineTypeAndValueImports: true,
+  plugins: ['@ianvs/prettier-plugin-sort-imports'],
+};
