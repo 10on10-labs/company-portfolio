@@ -2,12 +2,14 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { FlatCompat } from '@eslint/eslintrc';
 import js from '@eslint/js';
-import typescriptEslintEslintPlugin from '@typescript-eslint/eslint-plugin';
-import tsParser from '@typescript-eslint/parser';
-import eslintPluginPrettier from 'eslint-plugin-prettier';
+import eslintPluginPrettier from 'eslint-plugin-prettier/recommended';
 import react from 'eslint-plugin-react';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
-import tailwindcss from 'eslint-plugin-tailwindcss';
+import tsEslint from 'typescript-eslint';
+
+//Ref#1:  will have to find compatible plugin with tailwind css v4
+//@TODO Ref#1
+// import tailwindcss from 'eslint-plugin-tailwindcss';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -23,18 +25,20 @@ const config = [
   },
   ...compat.extends(
     'next/core-web-vitals',
-    'plugin:tailwindcss/recommended',
+    //@TODO Ref#1
+    // 'plugin:tailwindcss/recommended',
     'plugin:react/recommended',
     'plugin:@next/next/recommended',
     'plugin:prettier/recommended', // Keep this last
   ),
   {
     plugins: {
-      tailwindcss,
+      //@TODO Ref#1
+      // tailwindcss,
       'simple-import-sort': simpleImportSort,
-      '@typescript-eslint': typescriptEslintEslintPlugin,
+      '@typescript-eslint': tsEslint.plugin,
       react,
-      prettier: eslintPluginPrettier,
+      eslintPluginPrettier,
     },
 
     settings: {
@@ -65,7 +69,7 @@ const config = [
     files: ['**/*.ts', '**/*.tsx'],
 
     languageOptions: {
-      parser: tsParser,
+      parser: tsEslint.parser,
       parserOptions: {
         ecmaFeatures: {
           jsx: true,

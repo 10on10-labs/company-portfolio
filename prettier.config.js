@@ -1,8 +1,5 @@
 /** @type {import('prettier').Config} */
 module.exports = {
-  // Only keep formatting rules that don't conflict with ESLint
-  plugins: [], // Remove import sorting plugin
-  // These can stay if you want, but ESLint should handle them:
   printWidth: 100,
   semi: true,
   singleQuote: true,
@@ -10,9 +7,10 @@ module.exports = {
   tabWidth: 2,
   useTabs: false,
   arrowParens: 'avoid',
-  singleQuote: true,
-  trailingComma: 'all',
   jsxBracketSameLine: false,
+  endOfLine: 'auto',
+  
+  // Import sorting configuration
   importOrder: [
     '^(react/(.*)$)|^(react$)',
     '^(next/(.*)$)|^(next$)',

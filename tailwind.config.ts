@@ -7,7 +7,7 @@ export const content = [
   './intro-template/**/*.{js,ts,jsx,tsx}',
 ];
 export const theme = {
-  ...sanityTheme,
+  // ...sanityTheme,
   // Overriding fontFamily to use @next/font loaded families
   fontFamily: {
     mono: 'var(--font-mono)',

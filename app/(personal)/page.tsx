@@ -1,5 +1,3 @@
-import Link from 'next/link';
-import { studioUrl } from '@/sanity/lib/api';
 import { sanityFetch } from '@/sanity/lib/live';
 import { homePageQuery } from '@/sanity/lib/queries';
 
@@ -10,12 +8,8 @@ export default async function IndexRoute() {
 
   if (!data) {
     return (
-      <div className="text-center">
-        You don&rsquo;t have a homepage yet,{' '}
-        <Link href={`${studioUrl}/structure/home`} className="underline">
-          create one now
-        </Link>
-        !
+      <div className="text-center text-primary">
+       <p className="text-primary">TEST color</p>
       </div>
     );
   }
