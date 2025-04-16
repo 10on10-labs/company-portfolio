@@ -45,3 +45,5 @@ studio/.env.development
 
 # Sentry Config File
 .env.sentry-build-plugin
+
+.next
