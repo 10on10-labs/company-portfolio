@@ -3,7 +3,6 @@
   "private": true,
   "scripts": {
     "build": "next build",
-    "predev": "pnpm run typegen",
     "dev": "next --turbopack",
     "format": "npx prettier --write . --ignore-path .gitignore",
     "format:check": "prettier --check \"**/*.{ts,tsx,mdx}\" --cache",
@@ -12,6 +11,8 @@
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "typegen": "sanity schema extract && sanity typegen generate",
+    "sanity:extract": "sanity schema extract",
+    "sanity:generate": "sanity typegen generate",
     "prepare": "husky"
   },
   "dependencies": {
