@@ -23,7 +23,7 @@ const menuItems = [
 
 export const MainSidebar = () => {
   return (
-    <div className="bg-primary h-screen w-120 sticky top-0 flex overflow-y-auto hide-scrollbar">
+    <div className="bg-primary h-screen w-90 sticky top-0 flex overflow-y-auto hide-scrollbar">
       <div className="p-20 w-full">
         <ul className="text-secondary uppercase font-extrabold text-4xl">
           {menuItems.map(({ title }, key) => (
