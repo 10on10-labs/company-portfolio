@@ -1,5 +1,20 @@
 import { defineQuery } from 'next-sanity';
 
+export const blogsByCategoryQuery = defineQuery(`
+  *[_type == "blog"] {
+    _id,
+  title,
+  subTitle,
+  blogCategories[]->{
+    title,
+    "chipColor": chipColor.hex
+  },
+  "slug": slug.current,
+  thumbnail,
+  publishedAt
+ }
+`);
+
 export const homePageQuery = defineQuery(`
   *[_type == "home"][0]{
     _id,
