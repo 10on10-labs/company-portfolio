@@ -1,6 +1,6 @@
 import { defineField, defineType } from 'sanity';
 
-export default defineType({
+export const milestone = defineType({
   name: 'milestone',
   title: 'Milestone',
   type: 'object',
