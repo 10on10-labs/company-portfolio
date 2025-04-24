@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@next/env": "15.3.0",
+    "@radix-ui/react-slot": "^1.2.0",
     "@sanity/client": "6.29.0",
     "@sanity/demo": "2.0.0",
     "@sanity/icons": "3.7.0",
