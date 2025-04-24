@@ -6,6 +6,7 @@
 import { apiVersion, dataset, projectId, studioUrl } from '@/sanity/lib/api';
 import * as resolve from '@/sanity/plugins/resolve';
 import { pageStructure, singletonPlugin } from '@/sanity/plugins/settings';
+import { codeInput } from '@sanity/code-input';
 import { colorInput } from '@sanity/color-input';
 import { visionTool } from '@sanity/vision';
 import { defineConfig } from 'sanity';
@@ -27,6 +28,7 @@ export default defineConfig({
   schema: sanitySchema,
   plugins: [
     colorInput(),
+    codeInput(),
     structureTool({
       structure: pageStructure([home, settings]),
     }),
