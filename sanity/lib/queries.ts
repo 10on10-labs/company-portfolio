@@ -1,18 +1,20 @@
 import { defineQuery } from 'next-sanity';
 
 export const blogsByCategoryQuery = defineQuery(`
-  *[_type == "blog"] {
+   *[_type == "blog" && 
+    ($categorySlugs == null || references(*[_type == "blogCategory" && slug.current in $categorySlugs]._id))
+  ] {
     _id,
-  title,
-  subTitle,
-  blogCategories[]->{
     title,
-    "chipColor": chipColor.hex
-  },
-  "slug": slug.current,
-  thumbnail,
-  publishedAt
- }
+    subTitle,
+    blogCategories[]->{
+      title,
+      "chipColor": chipColor.hex
+    },
+    "slug": slug.current,
+    thumbnail,
+    publishedAt
+  }
 `);
 
 export const homePageQuery = defineQuery(`

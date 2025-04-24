@@ -71,6 +71,98 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type Settings = {
+  _id: string;
+  _type: 'settings';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  menuItems?: Array<
+    | {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'home';
+      }
+    | {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'page';
+      }
+    | {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'project';
+      }
+  >;
+  footer?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: 'span';
+      _key: string;
+    }>;
+    style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote';
+    listItem?: 'bullet' | 'number';
+    markDefs?: Array<{
+      href?: string;
+      _type: 'link';
+      _key: string;
+    }>;
+    level?: number;
+    _type: 'block';
+    _key: string;
+  }>;
+  ogImage?: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: 'image';
+  };
+};
+
+export type Home = {
+  _id: string;
+  _type: 'home';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  overview?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: 'span';
+      _key: string;
+    }>;
+    style?: 'normal';
+    listItem?: never;
+    markDefs?: Array<{
+      href?: string;
+      _type: 'link';
+      _key: string;
+    }>;
+    level?: number;
+    _type: 'block';
+    _key: string;
+  }>;
+  showcaseProjects?: Array<{
+    _ref: string;
+    _type: 'reference';
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: 'project';
+  }>;
+};
+
 export type Timeline = {
   _type: 'timeline';
   items?: Array<{
@@ -183,6 +275,12 @@ export type Project = {
   >;
 };
 
+export type Duration = {
+  _type: 'duration';
+  start?: string;
+  end?: string;
+};
+
 export type Page = {
   _id: string;
   _type: 'page';
@@ -245,63 +343,102 @@ export type Page = {
   >;
 };
 
-export type Slug = {
-  _type: 'slug';
-  current?: string;
-  source?: string;
-};
-
-export type Duration = {
-  _type: 'duration';
-  start?: string;
-  end?: string;
-};
-
-export type Settings = {
+export type BlogCategory = {
   _id: string;
-  _type: 'settings';
+  _type: 'blogCategory';
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  menuItems?: Array<
-    | {
-        _ref: string;
-        _type: 'reference';
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: 'home';
-      }
-    | {
-        _ref: string;
-        _type: 'reference';
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: 'page';
-      }
-    | {
-        _ref: string;
-        _type: 'reference';
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: 'project';
-      }
-  >;
-  footer?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: 'span';
-      _key: string;
-    }>;
-    style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote';
-    listItem?: 'bullet' | 'number';
-    markDefs?: Array<{
-      href?: string;
-      _type: 'link';
-      _key: string;
-    }>;
-    level?: number;
-    _type: 'block';
+  title?: string;
+  slug?: Slug;
+  description?: string;
+  chipColor?: Color;
+};
+
+export type Blog = {
+  _id: string;
+  _type: 'blog';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  slug?: Slug;
+  subTitle?: string;
+  author?: {
+    _ref: string;
+    _type: 'reference';
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: 'author';
+  };
+  thumbnail?: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: 'image';
+  };
+  blogCategories?: Array<{
+    _ref: string;
+    _type: 'reference';
+    _weak?: boolean;
     _key: string;
+    [internalGroqTypeReferenceTo]?: 'blogCategory';
   }>;
-  ogImage?: {
+  publishedAt?: string;
+  body?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: 'span';
+          _key: string;
+        }>;
+        style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote';
+        listItem?: 'bullet' | 'number';
+        markDefs?: Array<{
+          href?: string;
+          _type: 'link';
+          _key: string;
+        }>;
+        level?: number;
+        _type: 'block';
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: 'reference';
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        _type: 'image';
+        _key: string;
+      }
+    | ({
+        _key: string;
+      } & Code)
+  >;
+};
+
+export type Author = {
+  _id: string;
+  _type: 'author';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  image?: {
     asset?: {
       _ref: string;
       _type: 'reference';
@@ -313,7 +450,69 @@ export type Settings = {
     crop?: SanityImageCrop;
     _type: 'image';
   };
+  bio?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: 'span';
+      _key: string;
+    }>;
+    style?: 'normal';
+    listItem?: never;
+    markDefs?: Array<{
+      href?: string;
+      _type: 'link';
+      _key: string;
+    }>;
+    level?: number;
+    _type: 'block';
+    _key: string;
+  }>;
 };
+
+export type Slug = {
+  _type: 'slug';
+  current?: string;
+  source?: string;
+};
+
+export type BlockContent = Array<
+  | {
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: 'span';
+        _key: string;
+      }>;
+      style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote';
+      listItem?: 'bullet' | 'number';
+      markDefs?: Array<{
+        href?: string;
+        _type: 'link';
+        _key: string;
+      }>;
+      level?: number;
+      _type: 'block';
+      _key: string;
+    }
+  | {
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: 'image';
+      _key: string;
+    }
+  | ({
+      _key: string;
+    } & Code)
+>;
 
 export type SanityImageCrop = {
   _type: 'sanity.imageCrop';
@@ -372,38 +571,45 @@ export type SanityImageMetadata = {
   isOpaque?: boolean;
 };
 
-export type Home = {
-  _id: string;
-  _type: 'home';
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
-  overview?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: 'span';
-      _key: string;
-    }>;
-    style?: 'normal';
-    listItem?: never;
-    markDefs?: Array<{
-      href?: string;
-      _type: 'link';
-      _key: string;
-    }>;
-    level?: number;
-    _type: 'block';
-    _key: string;
-  }>;
-  showcaseProjects?: Array<{
-    _ref: string;
-    _type: 'reference';
-    _weak?: boolean;
-    _key: string;
-    [internalGroqTypeReferenceTo]?: 'project';
-  }>;
+export type Code = {
+  _type: 'code';
+  language?: string;
+  filename?: string;
+  code?: string;
+  highlightedLines?: Array<number>;
+};
+
+export type Color = {
+  _type: 'color';
+  hex?: string;
+  alpha?: number;
+  hsl?: HslaColor;
+  hsv?: HsvaColor;
+  rgb?: RgbaColor;
+};
+
+export type RgbaColor = {
+  _type: 'rgbaColor';
+  r?: number;
+  g?: number;
+  b?: number;
+  a?: number;
+};
+
+export type HsvaColor = {
+  _type: 'hsvaColor';
+  h?: number;
+  s?: number;
+  v?: number;
+  a?: number;
+};
+
+export type HslaColor = {
+  _type: 'hslaColor';
+  h?: number;
+  s?: number;
+  l?: number;
+  a?: number;
 };
 
 export type AllSanitySchemaTypes =
@@ -412,21 +618,56 @@ export type AllSanitySchemaTypes =
   | SanityImageDimensions
   | SanityFileAsset
   | Geopoint
+  | Settings
+  | Home
   | Timeline
   | Milestone
   | Project
-  | Page
-  | Slug
   | Duration
-  | Settings
+  | Page
+  | BlogCategory
+  | Blog
+  | Author
+  | Slug
+  | BlockContent
   | SanityImageCrop
   | SanityImageHotspot
   | SanityImageAsset
   | SanityAssetSourceData
   | SanityImageMetadata
-  | Home;
+  | Code
+  | Color
+  | RgbaColor
+  | HsvaColor
+  | HslaColor;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/queries.ts
+// Variable: blogsByCategoryQuery
+// Query: *[_type == "blog" &&     ($categorySlugs == null || references(*[_type == "blogCategory" && slug.current in $categorySlugs]._id))  ] {    _id,    title,    subTitle,    blogCategories[]->{      title,      "chipColor": chipColor.hex    },    "slug": slug.current,    thumbnail,    publishedAt  }
+export type BlogsByCategoryQueryResult = Array<{
+  _id: string;
+  title: string | null;
+  subTitle: string | null;
+  blogCategories: Array<{
+    title: string | null;
+    chipColor: string | null;
+  }> | null;
+  slug: string | null;
+  thumbnail: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: 'image';
+  } | null;
+  publishedAt: string | null;
+}>;
 // Variable: homePageQuery
 // Query: *[_type == "home"][0]{    _id,    _type,    overview,    showcaseProjects[]{      _key,      ...@->{        _id,        _type,        coverImage,        overview,        "slug": slug.current,        tags,        title,      }    },    title,  }
 export type HomePageQueryResult = {
@@ -686,6 +927,7 @@ export type SlugsByTypeQueryResult = Array<{
 
 declare module '@sanity/client' {
   interface SanityQueries {
+    '\n   *[_type == "blog" && \n    ($categorySlugs == null || references(*[_type == "blogCategory" && slug.current in $categorySlugs]._id))\n  ] {\n    _id,\n    title,\n    subTitle,\n    blogCategories[]->{\n      title,\n      "chipColor": chipColor.hex\n    },\n    "slug": slug.current,\n    thumbnail,\n    publishedAt\n  }\n': BlogsByCategoryQueryResult;
     '\n  *[_type == "home"][0]{\n    _id,\n    _type,\n    overview,\n    showcaseProjects[]{\n      _key,\n      ...@->{\n        _id,\n        _type,\n        coverImage,\n        overview,\n        "slug": slug.current,\n        tags,\n        title,\n      }\n    },\n    title,\n  }\n': HomePageQueryResult;
     '\n  *[_type == "page" && slug.current == $slug][0] {\n    _id,\n    _type,\n    body,\n    overview,\n    title,\n    "slug": slug.current,\n  }\n': PagesBySlugQueryResult;
     '\n  *[_type == "project" && slug.current == $slug][0] {\n    _id,\n    _type,\n    client,\n    coverImage,\n    description,\n    duration,\n    overview,\n    site,\n    "slug": slug.current,\n    tags,\n    title,\n  }\n': ProjectBySlugQueryResult;
