@@ -91,7 +91,7 @@ export default function ProcessSlider() {
           <motion.div
             className="flex absolute w-full"
             animate={{ x: `-${current * 75}%` }}
-            transition={{ duration: 0.8, ease: 'easeInOut' }}
+            transition={{ duration: 0.8, delay: 0.1, ease: 'easeInOut' }}
           >
             {slides.map(slide => (
               <div key={slide.id} className="w-3/4 pr-4 flex-shrink-0">
