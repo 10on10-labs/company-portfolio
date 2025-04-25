@@ -6,7 +6,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <div className="bg-white flex overscroll-none overflow-hidden">
       <MainSidebar />
-      {children}
+      <div className="container p-10">{children}</div>
     </div>
   );
 }
