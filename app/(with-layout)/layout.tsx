@@ -8,7 +8,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <div>
         <MainSidebar />
       </div>
-      <div className="container flex items-center p-10">{children}</div>
+      <div className="container flex items-center pt-10 pb-10">{children}</div>
     </div>
   );
 }
