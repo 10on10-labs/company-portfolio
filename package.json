@@ -17,6 +17,8 @@
   },
   "dependencies": {
     "@next/env": "15.3.0",
+    "@radix-ui/react-avatar": "^1.1.7",
+    "@radix-ui/react-slot": "^1.2.0",
     "@sanity/client": "6.29.0",
     "@sanity/code-input": "^5.1.2",
     "@sanity/color-input": "^4.0.3",

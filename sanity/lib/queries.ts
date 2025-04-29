@@ -7,6 +7,13 @@ export const blogsByCategoryQuery = defineQuery(`
     _id,
     title,
     subTitle,
+    // assumes 5 characters as mean word length
+    // https://ux.stackexchange.com/questions/22520/how-long-does-it-take-to-read-x-number-of-characters
+    "estimatedReadingTime": round(length(pt::text(body)) / 5 / 180 ),
+    author->{
+     name,
+     image
+    },
     blogCategories[]->{
       title,
       "chipColor": chipColor.hex
