@@ -62,15 +62,6 @@ export const BlogCategorySelector: FC<Props> = ({ blogCategories }) => {
             )}
           >
             {category.title}
-            {/* Active indicator animation */}
-            {isActive && (
-              <span
-                className="absolute inset-0 rounded-2xl bg-white/10 pointer-events-none"
-                style={{
-                  animation: 'pulse 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                }}
-              />
-            )}
           </button>
         );
       })}
