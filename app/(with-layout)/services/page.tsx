@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Service, Services } from './services';
+import { Service, Services } from './_components/services';
 
 const services: Service[] = [
   {
@@ -54,11 +54,7 @@ const services: Service[] = [
 ];
 
 const ServicesPage = () => {
-  return (
-    <div className="md:w-full flex flex-col md:flex-row h-full gap-4 md:items-center lg:justify-center">
-      <Services services={services} />
-    </div>
-  );
+  return <Services services={services} />;
 };
 
 export default ServicesPage;
