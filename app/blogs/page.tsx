@@ -1,7 +1,7 @@
 import { BlogsByCategoryQueryResult } from '@/sanity.types';
 import { client } from '@/sanity/lib/client';
 import { urlFor } from '@/sanity/lib/image';
-import { blogsByCategoryQuery } from '@/sanity/lib/queries';
+import { blogCategoriesQuery, blogsByCategoryQuery } from '@/sanity/lib/queries';
 
 import { BlogCard } from '@/components/blog-card';
 import {
@@ -13,6 +13,13 @@ import {
   BreadcrumbSeparator,
 } from '@/components/shadcn/breadcrumb';
 import { Button } from '@/components/shadcn/button';
+
+import { BlogCategorySelector } from './components/blog-category-selector';
+
+const fetchBlogCategories = async () => {
+  const blogCategories = await client.fetch(blogCategoriesQuery);
+  return blogCategories;
+};
 
 const fetchBlogsByCategory = async (categories: string | string[] | undefined) => {
   const categorySlugs = categories ? (Array.isArray(categories) ? categories : [categories]) : null;
@@ -37,6 +44,7 @@ export default async function BlogsPage({
 }) {
   const { category } = await searchParams;
   const blogs = await fetchBlogsByCategory(category);
+  const blogCategories = await fetchBlogCategories();
   if (!blogs) return <p>No blogs found!</p>;
   return (
     <>
@@ -64,7 +72,8 @@ export default async function BlogsPage({
           <span className="bg-primary h-6 w-1 mr-3 rounded-sm"></span>
           Latest Articles
         </h2>
-        <div className="flex flex-wrap gap-2">
+        <BlogCategorySelector blogCategories={blogCategories} />
+        <div className="flex flex-wrap gap-4 mt-12">
           {blogs.map(blog => (
             <BlogCard
               key={blog._id}

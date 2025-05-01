@@ -75,13 +75,13 @@ export const BlogCard: FC<Props> = ({
           </span>
         </div>
         <Link href={redirectUrl} className="hover:underline decoration-primary">
-          <CardTitle className="text-xl tracking-tight line-clamp-2 text-primary">
+          <CardTitle className="text-xl h-16 tracking-tight line-clamp-2 text-primary">
             {title}
           </CardTitle>
         </Link>
       </CardHeader>
       <CardContent className="flex-grow">
-        <p className="text-primary/70 line-clamp-2 text-xs">{subTitle}</p>
+        <p className="text-primary/70 line-clamp-2 text-sm">{subTitle}</p>
       </CardContent>
       <CardFooter className="flex justify-between items-center border-t-accent [.border-t]:pt-3 mt-3 border-t">
         <div className="flex items-center gap-x-2 capitalize text-neutral-500">

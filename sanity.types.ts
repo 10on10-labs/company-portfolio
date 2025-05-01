@@ -642,6 +642,12 @@ export type AllSanitySchemaTypes =
   | HslaColor;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/queries.ts
+// Variable: blogCategoriesQuery
+// Query: *[_type == "blogCategory"] {  title,  "slug": slug.current}
+export type BlogCategoriesQueryResult = Array<{
+  title: string | null;
+  slug: string | null;
+}>;
 // Variable: blogsByCategoryQuery
 // Query: *[_type == "blog" &&     ($categorySlugs == null || references(*[_type == "blogCategory" && slug.current in $categorySlugs]._id))  ] {    _id,    title,    subTitle,    // assumes 5 characters as mean word length    // https://ux.stackexchange.com/questions/22520/how-long-does-it-take-to-read-x-number-of-characters    "readingTimeInMins": round(length(pt::text(body)) / 5 / 180 ),    author->{     name,     image    },    blogCategories[]->{      title,      "chipColor": chipColor.hex    },    "slug": slug.current,    thumbnail,    publishedAt  }
 export type BlogsByCategoryQueryResult = Array<{
@@ -943,6 +949,7 @@ export type SlugsByTypeQueryResult = Array<{
 
 declare module '@sanity/client' {
   interface SanityQueries {
+    '\n  *[_type == "blogCategory"] {\n  title,\n  "slug": slug.current\n}\n': BlogCategoriesQueryResult;
     '\n   *[_type == "blog" && \n    ($categorySlugs == null || references(*[_type == "blogCategory" && slug.current in $categorySlugs]._id))\n  ] {\n    _id,\n    title,\n    subTitle,\n    // assumes 5 characters as mean word length\n    // https://ux.stackexchange.com/questions/22520/how-long-does-it-take-to-read-x-number-of-characters\n    "readingTimeInMins": round(length(pt::text(body)) / 5 / 180 ),\n    author->{\n     name,\n     image\n    },\n    blogCategories[]->{\n      title,\n      "chipColor": chipColor.hex\n    },\n    "slug": slug.current,\n    thumbnail,\n    publishedAt\n  }\n': BlogsByCategoryQueryResult;
     '\n  *[_type == "home"][0]{\n    _id,\n    _type,\n    overview,\n    showcaseProjects[]{\n      _key,\n      ...@->{\n        _id,\n        _type,\n        coverImage,\n        overview,\n        "slug": slug.current,\n        tags,\n        title,\n      }\n    },\n    title,\n  }\n': HomePageQueryResult;
     '\n  *[_type == "page" && slug.current == $slug][0] {\n    _id,\n    _type,\n    body,\n    overview,\n    title,\n    "slug": slug.current,\n  }\n': PagesBySlugQueryResult;

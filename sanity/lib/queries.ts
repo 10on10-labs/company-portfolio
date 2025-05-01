@@ -1,5 +1,12 @@
 import { defineQuery } from 'next-sanity';
 
+export const blogCategoriesQuery = defineQuery(`
+  *[_type == "blogCategory"] {
+  title,
+  "slug": slug.current
+}
+`);
+
 export const blogsByCategoryQuery = defineQuery(`
    *[_type == "blog" && 
     ($categorySlugs == null || references(*[_type == "blogCategory" && slug.current in $categorySlugs]._id))
