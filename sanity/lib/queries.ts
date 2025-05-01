@@ -9,7 +9,7 @@ export const blogsByCategoryQuery = defineQuery(`
     subTitle,
     // assumes 5 characters as mean word length
     // https://ux.stackexchange.com/questions/22520/how-long-does-it-take-to-read-x-number-of-characters
-    "estimatedReadingTime": round(length(pt::text(body)) / 5 / 180 ),
+    "readingTimeInMins": round(length(pt::text(body)) / 5 / 180 ),
     author->{
      name,
      image

@@ -3,7 +3,7 @@ import { client } from '@/sanity/lib/client';
 import { urlFor } from '@/sanity/lib/image';
 import { blogsByCategoryQuery } from '@/sanity/lib/queries';
 
-import { BaseContentCard } from '@/components/base-content-card';
+import { BlogCard } from '@/components/blog-card';
 
 const fetchBlogsByCategory = async (categories: string | string[] | undefined) => {
   const categorySlugs = categories ? (Array.isArray(categories) ? categories : [categories]) : null;
@@ -32,12 +32,12 @@ export default async function BlogsPage({
   return (
     <div className="flex flex-wrap gap-2">
       {blogs.map(blog => (
-        <BaseContentCard
+        <BlogCard
           key={blog._id}
           redirectUrl={`blog/${blog.slug}`}
           title={blog.title}
           subTitle={blog.subTitle}
-          duration={`${blog.estimatedReadingTime} mins`}
+          duration={`${blog.readingTimeInMins} mins read`}
           publishedAt={blog.publishedAt}
           thumbnail={blog.thumbnail}
           categories={blog.blogCategories}
