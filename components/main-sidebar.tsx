@@ -25,6 +25,10 @@ const menuItems = [
     href: '/reviews',
   },
   {
+    title: 'Blogs',
+    href: '/blogs',
+  },
+  {
     title: 'Contact Us',
     href: '/contact-us',
   },
