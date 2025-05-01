@@ -20,7 +20,7 @@ export const BlogCategorySelector: FC<Props> = ({ blogCategories }) => {
   const searchParams = useSearchParams();
   const currentCategory = searchParams.get('category');
 
-  const allCategories = [{ title: 'All', slug: null }, ...blogCategories];
+  const allCategories = [{ title: 'View All', slug: null }, ...blogCategories];
 
   const handleCategoryChange = (slug: string | null) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -34,17 +34,17 @@ export const BlogCategorySelector: FC<Props> = ({ blogCategories }) => {
   };
 
   return (
-    <div className="px-4 text-lg py-2 rounded-2xl shadow-amber-500 text-primary mx-auto gap-x-4 flex bg-primary/5 w-max">
+    <div className="text-lg p-1 gap-x-2 text-primary rounded-3xl overflow-hidden bg-secondary mx-auto flex w-max">
       {allCategories.map(category => (
         <button
           key={category.slug || 'all'}
           onClick={() => handleCategoryChange(category.slug)}
           className={cn(
-            'cursor-pointer',
+            'cursor-pointer px-2 py-1 rounded-3xl w-max',
             `${
               currentCategory === category.slug ||
               (currentCategory === null && category.slug === null)
-                ? 'font-bold text-amber-600'
+                ? 'text-white bg-primary'
                 : 'hover:text-amber-500'
             }`,
           )}
