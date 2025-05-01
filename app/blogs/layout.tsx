@@ -6,7 +6,7 @@ export default function BlogsLayout({ children }: { children: React.ReactNode })
           <div>10 on 10 labs</div>
         </div>
       </header>
-      <div className="container mx-auto px-4 py-12">{children}</div>
+      <div className="container mx-auto px-4 pt-4 pb-12">{children}</div>
     </>
   );
 }
