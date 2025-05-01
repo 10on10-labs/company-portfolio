@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Service, ServiceCard } from './service-card';
+import { Service, Services } from './services';
 
 const services: Service[] = [
   {
@@ -52,15 +52,13 @@ const services: Service[] = [
     ],
   },
 ];
-const Services = () => {
+
+const ServicesPage = () => {
   return (
-    <div className="md:w-full flex flex-col md:flex-row h-full gap-4 items-center">
-      {services.map((service, index) => {
-        const step = index < 10 ? `0${index + 1}` : index + 1;
-        return <ServiceCard key={service.id} service={service} step={step} />;
-      })}
+    <div className="md:w-full flex flex-col md:flex-row h-full gap-4 md:items-center lg:justify-center">
+      <Services services={services} />
     </div>
   );
 };
 
-export default Services;
+export default ServicesPage;

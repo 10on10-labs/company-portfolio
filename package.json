@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@next/env": "15.3.0",
+    "@radix-ui/react-slot": "^1.2.0",
     "@sanity/client": "6.29.0",
     "@sanity/demo": "2.0.0",
     "@sanity/icons": "3.7.0",
@@ -30,6 +31,7 @@
     "classnames": "2.5.1",
     "clsx": "^2.1.1",
     "date-fns": "4.1.0",
+    "embla-carousel-react": "^8.6.0",
     "lucide-react": "^0.488.0",
     "motion": "^12.9.1",
     "next": "15.3.0",
