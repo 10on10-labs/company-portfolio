@@ -22,7 +22,7 @@ type Props = {
 export const ServicesCarousel: React.FC<Props> = ({ services }) => {
   return (
     <>
-      <Carousel className="block sm:hidden" opts={{ loop: true }} orientation="horizontal">
+      <Carousel opts={{ loop: true }} orientation="horizontal">
         <CarouselContent>
           {services.map((service, index) => {
             const step = index < 10 ? `0${index + 1}` : index + 1;

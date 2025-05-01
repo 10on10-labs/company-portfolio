@@ -1,7 +1,10 @@
 import React from 'react';
+import dynamic from 'next/dynamic';
 
-import { ServiceCard } from './service-card';
-import { ServicesCarousel } from './service-carousel';
+const ServiceCard = dynamic(() => import('./service-card').then(module => module.ServiceCard));
+const ServicesCarousel = dynamic(() =>
+  import('./service-carousel').then(module => module.ServicesCarousel),
+);
 
 export type Service = {
   name: string;
@@ -21,7 +24,9 @@ export const Services: React.FC<Props> = ({ services }) => {
           return <ServiceCard key={service.id} service={service} step={step} />;
         })}
       </div>
-      <ServicesCarousel services={services} />
+      <div className="block sm:hidden">
+        <ServicesCarousel services={services} />
+      </div>
     </>
   );
 };
