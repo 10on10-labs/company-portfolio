@@ -5,6 +5,15 @@ import { urlFor } from '@/sanity/lib/image';
 import { blogBySlugQuery, blogsSlugQuery } from '@/sanity/lib/queries';
 import { PortableText } from '@portabletext/react';
 
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '@/components/shadcn/breadcrumb';
+
 import { BlogBannerCard } from '../components/blog-banner-card';
 
 type Props = {
@@ -72,7 +81,23 @@ export default async function BlogDetailsPage({ params }: Props) {
   const twitterShareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(article?.title || '')}&url=${encodeURIComponent(currentUrl)}`;
 
   return (
-    <div className="mb-8 p-4">
+    <div className="flex flex-col gap-y-4">
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/">Home</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/blogs">Blogs</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>{article?.title}</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+
       <BlogBannerCard
         title={article?.title}
         subTitle={article?.subTitle}
@@ -82,6 +107,7 @@ export default async function BlogDetailsPage({ params }: Props) {
         linkedInShareUrl={linkedInShareUrl}
         twitterShareUrl={twitterShareUrl}
       />
+
       {article?.body && (
         <div className="mt-8">
           <PortableText value={article.body} components={SanityPortableTextStyle} />
