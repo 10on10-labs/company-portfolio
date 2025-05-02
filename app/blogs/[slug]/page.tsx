@@ -14,6 +14,8 @@ import {
   BreadcrumbSeparator,
 } from '@/components/shadcn/breadcrumb';
 
+import { BlogCard } from '../components/blog-card';
+import { fetchBlogsByCategorySlugs } from '../page';
 import { AuthorCard } from './components/author-card';
 import { BlogBannerCard } from './components/blog-banner-card';
 
@@ -69,6 +71,14 @@ export const revalidate = 43200; // 12 hours
 export default async function BlogDetailsPage({ params }: Props) {
   const { slug } = await params;
   const blog = await fetchBlogBySlug(slug);
+  const blogsWithSameCategory = await fetchBlogsByCategorySlugs(
+    blog?.blogCategories
+      ?.map(category => category.slug)
+      .filter((slug): slug is string => slug !== null),
+  );
+
+  // exclude the current blog as it also has the same category and will be part of the query result
+  const relatedBlogs = blogsWithSameCategory.filter(blog => blog.slug !== slug);
 
   const currentUrl = process.env.NEXT_PUBLIC_DEPLOYED_URL + '/blogs/' + slug;
   const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`;
@@ -110,13 +120,39 @@ export default async function BlogDetailsPage({ params }: Props) {
         )}
       </section>
 
-      <section>
-        <h2 className="text-xl font-semibold mb-6 flex text-primary items-center">
+      <section className="mt-8">
+        <h2 className="text-xl font-semibold mb-4 flex text-primary items-center">
           <span className="bg-primary h-6 w-1 mr-3 rounded-sm"></span>
           About the Author
         </h2>
         <AuthorCard {...blog?.author} />
       </section>
+
+      {relatedBlogs.length ? (
+        <section className="mt-16">
+          <h2 className="text-xl font-semibold mb-4 flex text-primary items-center">
+            <span className="bg-primary h-6 w-1 mr-3 rounded-sm"></span>
+            Related Blogs
+          </h2>
+          <div className="flex flex-wrap gap-4 mt-4">
+            {relatedBlogs.map(blog => (
+              <BlogCard
+                key={blog._id}
+                redirectUrl={`blogs/${blog.slug}`}
+                title={blog.title}
+                subTitle={blog.subTitle}
+                duration={`${blog.readingTimeInMins} mins read`}
+                publishedAt={blog.publishedAt}
+                thumbnail={blog.thumbnail}
+                categories={blog.blogCategories}
+                author={{ name: blog.author?.name, image: blog.author?.image }}
+              />
+            ))}
+          </div>
+        </section>
+      ) : (
+        <></>
+      )}
     </div>
   );
 }

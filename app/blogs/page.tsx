@@ -23,7 +23,7 @@ const fetchBlogCategories = async () => {
   return blogCategories;
 };
 
-const fetchBlogsByCategory = async (categories: string | string[] | undefined) => {
+export const fetchBlogsByCategorySlugs = async (categories: string | string[] | undefined) => {
   const categorySlugs = categories ? (Array.isArray(categories) ? categories : [categories]) : null;
   const blogs: BlogsByCategoryQueryResult = await client.fetch(blogsByCategoryQuery, {
     categorySlugs,
@@ -45,7 +45,7 @@ export default async function BlogsPage({
   searchParams: Promise<{ category: string | string[] | undefined }>;
 }) {
   const { category } = await searchParams;
-  const blogs = await fetchBlogsByCategory(category);
+  const blogs = await fetchBlogsByCategorySlugs(category);
   const blogCategories = await fetchBlogCategories();
   if (!blogs) return <p>No blogs found!</p>;
   return (

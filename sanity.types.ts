@@ -643,7 +643,7 @@ export type AllSanitySchemaTypes =
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/queries/blog-queries.ts
 // Variable: blogBySlugQuery
-// Query: *[_type == "blog" && slug.current == $slug][0] {        title,        subTitle,        "modifiedAt": _updatedAt,        author->,        thumbnail,        body,        blogCategories[]->{            title,            "chipColor": chipColor.hex        },    }
+// Query: *[_type == "blog" && slug.current == $slug][0] {        title,        subTitle,        "modifiedAt": _updatedAt,        author->,        thumbnail,        body,        blogCategories[]->{            title,            "chipColor": chipColor.hex,            "slug": slug.current,         },    }
 export type BlogBySlugQueryResult = {
   title: string | null;
   subTitle: string | null;
@@ -740,6 +740,7 @@ export type BlogBySlugQueryResult = {
   blogCategories: Array<{
     title: string | null;
     chipColor: string | null;
+    slug: string | null;
   }> | null;
 } | null;
 // Variable: blogsSlugQuery
@@ -1056,7 +1057,7 @@ export type SlugsByTypeQueryResult = Array<{
 
 declare module '@sanity/client' {
   interface SanityQueries {
-    '\n    *[_type == "blog" && slug.current == $slug][0] {\n        title,\n        subTitle,\n        "modifiedAt": _updatedAt,\n        author->,\n        thumbnail,\n        body,\n        blogCategories[]->{\n            title,\n            "chipColor": chipColor.hex\n        },\n    }\n': BlogBySlugQueryResult;
+    '\n    *[_type == "blog" && slug.current == $slug][0] {\n        title,\n        subTitle,\n        "modifiedAt": _updatedAt,\n        author->,\n        thumbnail,\n        body,\n        blogCategories[]->{\n            title,\n            "chipColor": chipColor.hex,\n            "slug": slug.current, \n        },\n    }\n': BlogBySlugQueryResult;
     '\n    *[_type == "blog"] {\n        "slug": slug.current\n    }\n': BlogsSlugQueryResult;
     '\n  *[_type == "blogCategory"] {\n  title,\n  "slug": slug.current\n}\n': BlogCategoriesQueryResult;
     '\n   *[_type == "blog" && \n    ($categorySlugs == null || references(*[_type == "blogCategory" && slug.current in $categorySlugs]._id))\n  ] {\n    _id,\n    title,\n    subTitle,\n    // assumes 5 characters as mean word length\n    // https://ux.stackexchange.com/questions/22520/how-long-does-it-take-to-read-x-number-of-characters\n    "readingTimeInMins": round(length(pt::text(body)) / 5 / 180 ),\n    author->{\n     name,\n     image\n    },\n    blogCategories[]->{\n      title,\n      "chipColor": chipColor.hex\n    },\n    "slug": slug.current,\n    thumbnail,\n    publishedAt\n  }\n': BlogsByCategoryQueryResult;

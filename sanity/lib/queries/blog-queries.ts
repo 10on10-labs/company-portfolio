@@ -10,7 +10,8 @@ export const blogBySlugQuery = defineQuery(`
         body,
         blogCategories[]->{
             title,
-            "chipColor": chipColor.hex
+            "chipColor": chipColor.hex,
+            "slug": slug.current, 
         },
     }
 `);
