@@ -4,7 +4,7 @@ import { Author } from '@/sanity.types';
 import { urlFor } from '@/sanity/lib/image';
 import { PortableText } from 'next-sanity';
 
-import { getNameAbbreviation } from '@/lib/utils';
+import { getAbbreviation } from '@/lib/utils';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/shadcn/avatar';
 import { Card, CardContent } from '@/components/shadcn/card';
 
@@ -16,7 +16,9 @@ export const AuthorCard: FC<Partial<Author>> = ({ name, image, bio }) => {
         <div className="flex flex-col sm:flex-row gap-4 items-center sm:items-start">
           <Avatar className="h-20 w-20 border-2 border-muted">
             <AvatarImage src={imageUrl || '/placeholder.svg'} alt={name || ''} />
-            <AvatarFallback className="text-lg">{getNameAbbreviation(name || '')}</AvatarFallback>
+            <AvatarFallback className="text-lg">
+              {getAbbreviation(name || '').slice(0, 2)}
+            </AvatarFallback>
           </Avatar>
           <PortableText value={bio || []} components={SanityPortableTextStyle} />
         </div>
