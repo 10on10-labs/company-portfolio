@@ -3,7 +3,6 @@ import { client } from '@/sanity/lib/client';
 import { urlFor } from '@/sanity/lib/image';
 import { blogCategoriesQuery, blogsByCategoryQuery } from '@/sanity/lib/queries';
 
-import { BlogCard } from '@/components/blog-card';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -13,6 +12,7 @@ import {
   BreadcrumbSeparator,
 } from '@/components/shadcn/breadcrumb';
 import { Button } from '@/components/shadcn/button';
+import { BlogCard } from '@/app/blogs/components/blog-card';
 
 import { BlogCategorySelector } from './components/blog-category-selector';
 

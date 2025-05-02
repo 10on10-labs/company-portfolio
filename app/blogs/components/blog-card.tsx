@@ -9,7 +9,7 @@ import { Badge } from '@/components/shadcn/badge';
 import { Button } from '@/components/shadcn/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/shadcn/card';
 
-import { Avatar, AvatarFallback, AvatarImage } from './shadcn/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '../../../components/shadcn/avatar';
 
 type Props = {
   title: string | null;
