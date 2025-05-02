@@ -1,36 +1,5 @@
 import { defineQuery } from 'next-sanity';
 
-export const blogCategoriesQuery = defineQuery(`
-  *[_type == "blogCategory"] {
-  title,
-  "slug": slug.current
-}
-`);
-
-export const blogsByCategoryQuery = defineQuery(`
-   *[_type == "blog" && 
-    ($categorySlugs == null || references(*[_type == "blogCategory" && slug.current in $categorySlugs]._id))
-  ] {
-    _id,
-    title,
-    subTitle,
-    // assumes 5 characters as mean word length
-    // https://ux.stackexchange.com/questions/22520/how-long-does-it-take-to-read-x-number-of-characters
-    "readingTimeInMins": round(length(pt::text(body)) / 5 / 180 ),
-    author->{
-     name,
-     image
-    },
-    blogCategories[]->{
-      title,
-      "chipColor": chipColor.hex
-    },
-    "slug": slug.current,
-    thumbnail,
-    publishedAt
-  }
-`);
-
 export const homePageQuery = defineQuery(`
   *[_type == "home"][0]{
     _id,

@@ -16,6 +16,8 @@ import { BlogCard } from '@/app/blogs/components/blog-card';
 
 import { BlogCategorySelector } from './components/blog-category-selector';
 
+export const revalidate = 43200; // 12 hours
+
 const fetchBlogCategories = async () => {
   const blogCategories = await client.fetch(blogCategoriesQuery);
   return blogCategories;
@@ -77,7 +79,7 @@ export default async function BlogsPage({
           {blogs.map(blog => (
             <BlogCard
               key={blog._id}
-              redirectUrl={`blog/${blog.slug}`}
+              redirectUrl={`blogs/${blog.slug}`}
               title={blog.title}
               subTitle={blog.subTitle}
               duration={`${blog.readingTimeInMins} mins read`}
