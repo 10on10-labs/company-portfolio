@@ -643,14 +643,20 @@ export type AllSanitySchemaTypes =
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/queries/blog-queries.ts
 // Variable: blogBySlugQuery
-// Query: *[_type == "blog" && slug.current == $slug][0] {        title,        subTitle,        "modifiedAt": _updatedAt,        author->{            name,            image        },        thumbnail,        body,        blogCategories[]->{            title,            "chipColor": chipColor.hex        },    }
+// Query: *[_type == "blog" && slug.current == $slug][0] {        title,        subTitle,        "modifiedAt": _updatedAt,        author->,        thumbnail,        body,        blogCategories[]->{            title,            "chipColor": chipColor.hex        },    }
 export type BlogBySlugQueryResult = {
   title: string | null;
   subTitle: string | null;
   modifiedAt: string;
   author: {
-    name: string | null;
-    image: {
+    _id: string;
+    _type: 'author';
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    name?: string;
+    slug?: Slug;
+    image?: {
       asset?: {
         _ref: string;
         _type: 'reference';
@@ -661,7 +667,25 @@ export type BlogBySlugQueryResult = {
       hotspot?: SanityImageHotspot;
       crop?: SanityImageCrop;
       _type: 'image';
-    } | null;
+    };
+    bio?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: 'span';
+        _key: string;
+      }>;
+      style?: 'normal';
+      listItem?: never;
+      markDefs?: Array<{
+        href?: string;
+        _type: 'link';
+        _key: string;
+      }>;
+      level?: number;
+      _type: 'block';
+      _key: string;
+    }>;
   } | null;
   thumbnail: {
     asset?: {
@@ -1032,7 +1056,7 @@ export type SlugsByTypeQueryResult = Array<{
 
 declare module '@sanity/client' {
   interface SanityQueries {
-    '\n    *[_type == "blog" && slug.current == $slug][0] {\n        title,\n        subTitle,\n        "modifiedAt": _updatedAt,\n        author->{\n            name,\n            image\n        },\n        thumbnail,\n        body,\n        blogCategories[]->{\n            title,\n            "chipColor": chipColor.hex\n        },\n    }\n': BlogBySlugQueryResult;
+    '\n    *[_type == "blog" && slug.current == $slug][0] {\n        title,\n        subTitle,\n        "modifiedAt": _updatedAt,\n        author->,\n        thumbnail,\n        body,\n        blogCategories[]->{\n            title,\n            "chipColor": chipColor.hex\n        },\n    }\n': BlogBySlugQueryResult;
     '\n    *[_type == "blog"] {\n        "slug": slug.current\n    }\n': BlogsSlugQueryResult;
     '\n  *[_type == "blogCategory"] {\n  title,\n  "slug": slug.current\n}\n': BlogCategoriesQueryResult;
     '\n   *[_type == "blog" && \n    ($categorySlugs == null || references(*[_type == "blogCategory" && slug.current in $categorySlugs]._id))\n  ] {\n    _id,\n    title,\n    subTitle,\n    // assumes 5 characters as mean word length\n    // https://ux.stackexchange.com/questions/22520/how-long-does-it-take-to-read-x-number-of-characters\n    "readingTimeInMins": round(length(pt::text(body)) / 5 / 180 ),\n    author->{\n     name,\n     image\n    },\n    blogCategories[]->{\n      title,\n      "chipColor": chipColor.hex\n    },\n    "slug": slug.current,\n    thumbnail,\n    publishedAt\n  }\n': BlogsByCategoryQueryResult;

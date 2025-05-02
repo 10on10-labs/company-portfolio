@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { format, parseISO } from 'date-fns';
 import { ArrowRight, Clock } from 'lucide-react';
 
-import { cn } from '@/lib/utils';
+import { cn, getNameAbbreviation } from '@/lib/utils';
 import { Badge } from '@/components/shadcn/badge';
 import { Button } from '@/components/shadcn/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/shadcn/card';
@@ -88,11 +88,7 @@ export const BlogCard: FC<Props> = ({
           <Avatar className="bg-primary-blue-200">
             <AvatarImage src={author?.image || ''} alt="author_image" />
             <AvatarFallback className="uppercase">
-              {author?.name
-                ?.split(' ')
-                .slice(0, 2)
-                .map(namePart => namePart[0])
-                .join('')}
+              {getNameAbbreviation(author?.name || '')}
             </AvatarFallback>
           </Avatar>
           <span>{author?.name}</span>

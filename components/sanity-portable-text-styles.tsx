@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { urlFor } from '@/sanity/lib/image';
 import { PortableTextComponents } from 'next-sanity';
+import SyntaxHighlighter from 'react-syntax-highlighter';
 
 export const SanityPortableTextStyle: PortableTextComponents = {
   block: {
@@ -53,9 +54,15 @@ export const SanityPortableTextStyle: PortableTextComponents = {
       );
     },
     code: ({ value }) => (
-      <pre className="my-3 overflow-x-auto rounded-md bg-gray-900 p-4 text-white">
-        <code>{value.code}</code>
-      </pre>
+      <div className="my-3 overflow-x-auto rounded-md bg-gray-900 p-4 text-white">
+        {value.language ? (
+          <SyntaxHighlighter language={value.language}>{value.code}</SyntaxHighlighter>
+        ) : (
+          <pre>
+            <code>{value.code}</code>
+          </pre>
+        )}
+      </div>
     ),
   },
 };

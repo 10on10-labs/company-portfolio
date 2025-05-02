@@ -5,10 +5,7 @@ export const blogBySlugQuery = defineQuery(`
         title,
         subTitle,
         "modifiedAt": _updatedAt,
-        author->{
-            name,
-            image
-        },
+        author->,
         thumbnail,
         body,
         blogCategories[]->{
