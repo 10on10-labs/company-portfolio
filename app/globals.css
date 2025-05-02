@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 
 html {
-  font-family: var(--font-saira-condensed);
+  font-family: var(--font-poppins);
 }
 
 .hide-scrollbar::-webkit-scrollbar {
