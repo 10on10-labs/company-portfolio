@@ -7,7 +7,7 @@ import {
   PortableTextProps,
 } from 'next-sanity';
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import { a11yDark } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import { kimbieLight } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 type TypedObject = {
   _type: string;
@@ -74,9 +74,9 @@ export function CustomPortableText<B extends TypedObject = PortableTextBlock>({
         );
       },
       code: ({ value }) => (
-        <div className="my-3 overflow-x-auto rounded-md ">
+        <div className="my-3 overflow-x-auto rounded-md m-8">
           {value.language ? (
-            <SyntaxHighlighter language={value.language} style={a11yDark}>
+            <SyntaxHighlighter language={value.language} style={kimbieLight}>
               {value.code}
             </SyntaxHighlighter>
           ) : (
