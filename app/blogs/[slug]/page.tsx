@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-import { SanityPortableTextStyle } from '@/components';
 import { client } from '@/sanity/lib/client';
 import { urlFor } from '@/sanity/lib/image';
 import { blogBySlugQuery, blogsSlugQuery } from '@/sanity/lib/queries';
@@ -17,7 +16,7 @@ import { BlogCard } from '../components/blog-card';
 import { fetchBlogsByCategorySlugs } from '../page';
 import { AuthorCard } from './components/author-card';
 import { BlogBannerCard } from './components/blog-banner-card';
-import PortableText from './components/CustomPortable';
+import { CustomPortableText } from './components/custom-portable-text';
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -72,9 +71,7 @@ export default async function BlogDetailsPage({ params }: Props) {
   const { slug } = await params;
   const blog = await fetchBlogBySlug(slug);
   const blogsWithSameCategory = await fetchBlogsByCategorySlugs(
-    blog?.blogCategories
-      ?.map(category => category.slug)
-      .filter((slug): slug is string => slug !== null),
+    blog?.blogCategories?.map(category => category.slug).filter(slug => slug !== null),
   );
 
   // exclude the current blog as it also has the same category and will be part of the query result
@@ -115,7 +112,7 @@ export default async function BlogDetailsPage({ params }: Props) {
       <section>
         {blog?.body && (
           <div className="mt-8">
-            <PortableText value={blog.body} components={SanityPortableTextStyle} />
+            <CustomPortableText value={blog.body || []} />
           </div>
         )}
       </section>

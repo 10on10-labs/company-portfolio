@@ -1,12 +1,12 @@
 import { FC } from 'react';
-import { SanityPortableTextStyle } from '@/components';
 import { Author } from '@/sanity.types';
 import { urlFor } from '@/sanity/lib/image';
-import { PortableText } from 'next-sanity';
 
 import { getAbbreviation } from '@/lib/utils';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/shadcn/avatar';
 import { Card, CardContent, CardTitle } from '@/components/shadcn/card';
+
+import { CustomPortableText } from './custom-portable-text';
 
 export const AuthorCard: FC<Partial<Author>> = ({ name, image, bio }) => {
   const imageUrl = image ? urlFor(image).width(50).url() : null;
@@ -21,7 +21,7 @@ export const AuthorCard: FC<Partial<Author>> = ({ name, image, bio }) => {
         </Avatar>
         <div>
           <CardTitle className="text-lg text-primary text-center sm:text-start">{name}</CardTitle>
-          <PortableText value={bio || []} components={SanityPortableTextStyle} />
+          <CustomPortableText value={bio || []} />
         </div>
       </CardContent>
     </Card>
