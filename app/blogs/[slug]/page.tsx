@@ -3,7 +3,6 @@ import { SanityPortableTextStyle } from '@/components';
 import { client } from '@/sanity/lib/client';
 import { urlFor } from '@/sanity/lib/image';
 import { blogBySlugQuery, blogsSlugQuery } from '@/sanity/lib/queries';
-import { PortableText } from '@portabletext/react';
 
 import {
   Breadcrumb,
@@ -18,6 +17,7 @@ import { BlogCard } from '../components/blog-card';
 import { fetchBlogsByCategorySlugs } from '../page';
 import { AuthorCard } from './components/author-card';
 import { BlogBannerCard } from './components/blog-banner-card';
+import PortableText from './components/CustomPortable';
 
 type Props = {
   params: Promise<{ slug: string }>;
