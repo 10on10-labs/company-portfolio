@@ -44,7 +44,8 @@ export const timeline = defineType({
             prepare({ items, title }) {
               const hasItems = items && items.length > 0;
               const milestoneNames =
-                hasItems && items.map((timeline: { title: any }) => timeline.title).join(', ');
+                hasItems &&
+                (items ?? []).map((timeline: { title: string }) => timeline.title).join(', ');
 
               return {
                 subtitle: hasItems
@@ -62,9 +63,10 @@ export const timeline = defineType({
     select: {
       items: 'items',
     },
-    prepare({ items }: { items: { title: string }[] }) {
+    prepare({ items }: Record<string, any>) {
       const hasItems = items && items.length > 0;
-      const timelineNames = hasItems && items.map(timeline => timeline.title).join(', ');
+      const timelineNames =
+        hasItems && (items ?? []).map((timeline: { title: any }) => timeline.title).join(', ');
 
       return {
         title: 'Timelines',
