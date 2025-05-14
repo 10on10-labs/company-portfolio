@@ -8,7 +8,7 @@ import { Button } from '@/components/shadcn/button';
 
 export default function HeroSection() {
   return (
-    <section className="relative w-full min-h-screen  text-black overflow-hidden">
+    <section className="relative w-full p-5 pt-20  text-black overflow-hidden">
       <div
         className="absolute inset-0 opacity-30"
         style={{
@@ -56,7 +56,7 @@ export default function HeroSection() {
         </svg>
       </div>
 
-      <div className="relative z-10 flex flex-col justify-center items-center text-center px-6 md:px-16 lg:px-32 py-32">
+      <div className="relative z-10 flex flex-col justify-center items-center text-center ">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -81,8 +81,10 @@ export default function HeroSection() {
           transition={{ delay: 0.8, duration: 0.6 }}
           className="mt-8 flex gap-4 flex-wrap justify-center"
         >
-          <Button className="hover:bg-primary-600 rounded-2xl p-8 text-lg">Explore Services</Button>
-          <Button variant="outline" className="border-primary text-beige rounded-2xl p-8 text-lg">
+          <Button className="hover:bg-primary rounded-2xl p-8 text-lg hover:opacity-85 cursor-pointer ease-in-out duration-300">
+            Explore Services
+          </Button>
+          <Button className="border-primary/50 bg-white text-black rounded-2xl p-8 text-md hover:text-white duration-300  cursor-pointer">
             Contact Us
           </Button>
         </motion.div>

@@ -70,9 +70,10 @@ export const MainSidebar = () => {
         className={`fixed inset-0 z-40 ${isMenuOpen ? 'block' : 'hidden'} md:relative md:block md:inset-auto`}
       >
         <div className="absolute inset-0 bg-black bg-opacity-50 md:hidden" onClick={closeMenu} />
-        <div className="bg-primary h-screen md:w-90 w-full sticky top-0 flex overflow-y-auto hide-scrollbar">
-          <div className="p-20 w-full">
-            <ul className="text-secondary uppercase font-extrabold text-4xl">
+        <div className="bg-primary h-screen md:w-90 w-full sticky top-0 flex flex-col overflow-y-auto hide-scrollbar">
+          <div className="flex max-w-md">Logo</div>
+          <div className="p-20 pt-10 pb-0 w-full">
+            <ul className="text-secondary uppercase font-extrabold text-3xl">
               {menuItems.map(({ title, href }, key) => (
                 <Link href={href} key={key}>
                   <li className="mb-6 cursor-pointer">

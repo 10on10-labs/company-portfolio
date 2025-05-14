@@ -57,7 +57,7 @@ export const ReviewsCarousel = () => {
         dragFree: false,
       }}
       orientation="horizontal"
-      className="h-full"
+      className="h-full w-full"
     >
       <CarouselContent className="-ml-4">
         {reviews.map(review => (
@@ -69,8 +69,8 @@ export const ReviewsCarousel = () => {
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselNext className="md:size-15 right-1" />
-      <CarouselPrevious className="md:size-15 left-1" />
+      <CarouselNext className="md:size-12 right-1 opacity-80 hover:opacity-100" />
+      <CarouselPrevious className="md:size-12 left-1 opacity-80 hover:opacity-100" />
     </Carousel>
   );
 };
