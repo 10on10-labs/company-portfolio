@@ -35,11 +35,11 @@ const timelineData = [
 
 export const CompanyTimeline = () => {
   return (
-    <div className="py-20 bg-[#020817] text-white">
+    <div className="py-20">
       <div className="max-w-3xl mx-auto px-4">
         <div className="relative">
           {/* Timeline line */}
-          <div className="absolute left-[120px] top-3 bottom-[72px] w-[2px] bg-primary/30" />
+          <div className="absolute left-[26px] top-3 bottom-[85px] w-[2px] bg-primary/30" />
 
           {/* Timeline items */}
           {timelineData.map((item, index) => (
@@ -49,21 +49,21 @@ export const CompanyTimeline = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.2 }}
-              className="mb-12 relative pl-[140px]"
+              className="mb-12 relative pl-14"
             >
               {/* Year */}
-              <div className="absolute left-0 top-0 text-primary/80 text-lg font-medium">
+              <div className="absolute -left-2 px-3 py-1 rounded-full bg-primary/20 text-primary font-medium text-sm">
                 {item.year}
               </div>
 
               {/* Dot */}
-              <div className="absolute left-[119px] top-[10px] w-[4px] h-[4px] rounded-full bg-primary z-10" />
+              <div className="absolute left-[22px] top-[10px] w-[10px] h-[10px] rounded-full bg-primary z-10" />
 
               {/* Content */}
               <div>
                 <span className="text-primary/80 text-sm">{item.tag}</span>
-                <h3 className="text-xl font-semibold mt-1 mb-2 text-white">{item.title}</h3>
-                <p className="text-gray-400 text-sm">{item.description}</p>
+                <h3 className="text-xl font-semibold mt-1 mb-2 text-black">{item.title}</h3>
+                <p className="text-gray-600 text-sm">{item.description}</p>
               </div>
             </motion.div>
           ))}
