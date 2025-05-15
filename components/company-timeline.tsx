@@ -35,11 +35,11 @@ const timelineData = [
 
 export const CompanyTimeline = () => {
   return (
-    <div className="py-20 bg-gray-900 text-white">
+    <div className="py-20 bg-[#020817] text-white">
       <div className="max-w-3xl mx-auto px-4">
         <div className="relative">
           {/* Timeline line */}
-          <div className="absolute left-[28px] top-3 bottom-3 w-[2px] bg-blue-900/30" />
+          <div className="absolute left-[120px] top-3 bottom-[72px] w-[2px] bg-primary/30" />
 
           {/* Timeline items */}
           {timelineData.map((item, index) => (
@@ -49,19 +49,19 @@ export const CompanyTimeline = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.2 }}
-              className="mb-12 relative pl-16"
+              className="mb-12 relative pl-[140px]"
             >
-              {/* Year bubble */}
-              <div className="absolute left-0 flex items-center justify-center w-14 h-7 bg-blue-900/40 text-blue-400 rounded-full text-sm">
+              {/* Year */}
+              <div className="absolute left-0 top-0 text-primary/80 text-lg font-medium">
                 {item.year}
               </div>
 
               {/* Dot */}
-              <div className="absolute left-[27px] top-[13px] w-[4px] h-[4px] rounded-full bg-blue-400" />
+              <div className="absolute left-[119px] top-[10px] w-[4px] h-[4px] rounded-full bg-primary z-10" />
 
               {/* Content */}
               <div>
-                <span className="text-blue-400 text-sm">{item.tag}</span>
+                <span className="text-primary/80 text-sm">{item.tag}</span>
                 <h3 className="text-xl font-semibold mt-1 mb-2 text-white">{item.title}</h3>
                 <p className="text-gray-400 text-sm">{item.description}</p>
               </div>
