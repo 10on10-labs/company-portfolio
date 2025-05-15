@@ -13,6 +13,7 @@ const config: NextConfig = {
       { hostname: 'cdn.sanity.io' },
       { hostname: 'www.therawmaterials.com' },
       { hostname: 'source.unsplash.com' },
+      { hostname: 'https://source.unsplash.com' },
     ],
   },
   typescript: {
