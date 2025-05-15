@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 
 const timelineData = [
   {
@@ -36,7 +36,7 @@ const timelineData = [
 export const CompanyTimeline = () => {
   return (
     <div className="py-20">
-      <div className="max-w-3xl mx-auto px-4">
+      <div className="mx-auto px-4 w-[calc(100%-90px)]">
         <div className="relative">
           {/* Timeline line */}
           <div className="absolute left-[26px] top-3 bottom-[85px] w-[2px] bg-primary/30" />
@@ -52,7 +52,7 @@ export const CompanyTimeline = () => {
               className="mb-12 relative pl-14"
             >
               {/* Year */}
-              <div className="absolute -left-4 px-3 py-1 rounded-full bg-primary/20 text-primary font-medium text-sm">
+              <div className="absolute -left-12 px-3 py-1 rounded-full bg-primary/20 text-primary font-medium text-sm">
                 {item.year}
               </div>
 

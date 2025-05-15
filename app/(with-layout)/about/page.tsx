@@ -123,10 +123,12 @@ export default function AboutPage() {
       </section>
 
       {/* Company Timeline */}
-      <CompanyTimeline />
+      <section>
+        <CompanyTimeline />
+      </section>
 
       {/* Values Section with Staggered Animation */}
-      <section className="py-20 bg-gradient-to-br from-gray-50 to-white">
+      <section className="py-20 from-gray-50 to-white">
         <div className="container mx-auto px-4">
           <motion.h2
             initial={{ opacity: 0 }}
