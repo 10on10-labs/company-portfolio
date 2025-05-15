@@ -52,7 +52,7 @@ export const CompanyTimeline = () => {
               className="mb-12 relative pl-14"
             >
               {/* Year */}
-              <div className="absolute -left-2 px-3 py-1 rounded-full bg-primary/20 text-primary font-medium text-sm">
+              <div className="absolute -left-4 px-3 py-1 rounded-full bg-primary/20 text-primary font-medium text-sm">
                 {item.year}
               </div>
 
