@@ -25,11 +25,11 @@ export const ReviewsCard: React.FC<{ review: Review }> = ({ review }) => {
       ));
   };
   return (
-    <Card className="rounded-3xl flex flex-col h-full pt-4 pb-4 border border-secondary shadow-sm w-full">
-      <CardContent className="p-2 flex-1 flex items-center justify-center h-auto">
-        <div className="flex items-center flex-col justify-center gap-6 w-full">
+    <Card className="rounded-3xl flex flex-col h-full pt-2 pb-2 md:pb-4 md:pt-4 border border-secondary shadow-sm w-full">
+      <CardContent className="p-2 flex-1 flex items-center justify-center">
+        <div className="flex items-center flex-col justify-center gap-2 md:gap-6 w-full">
           <p className="text-lg mb-6 text-black text-center max-w-5xl">{review.content}</p>
-          <div className="flex items-center mb-3">{renderStars(review.rating)}</div>
+          <div className="flex items-center mb-0 md:mb-3">{renderStars(review.rating)}</div>
           <div className="flex items-center flex-col gap-2">
             <div className="w-20 h-20 rounded-full overflow-hidden flex-shrink-0 border-2 border-orange-400">
               <Image

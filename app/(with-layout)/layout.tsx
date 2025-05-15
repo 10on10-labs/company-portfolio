@@ -6,7 +6,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <div className="bg-secondary flex overscroll-none overflow-hidden h-full w-full">
       <MainSidebar />
-      <div className="w-full p-5 max-[600px]:pt-20 h-screen overflow-y-auto overflow-hidden hide-scrollbar">
+      <div className="w-full  h-screen overflow-y-auto overflow-hidden hide-scrollbar">
         {children}
       </div>
     </div>

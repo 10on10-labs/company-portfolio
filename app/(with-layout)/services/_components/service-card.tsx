@@ -14,7 +14,7 @@ export const ServiceCard = ({ service, step }: { service: Service; step: string 
       <CardHeader>
         <CardTitle className="flex justify-between items-center mb-4">
           <h2 className="text-2xl font-bold tracking-tight">{service?.name}</h2>
-          <div className="rounded-full border-2 border-secondary px-2.5 py-0.5 text-md font-bold">
+          <div className="rounded-full border-2 border-secondary px-2.5 py-0.5 text-md text-sm md:text-md font-bold">
             {step}
           </div>
         </CardTitle>
@@ -22,7 +22,7 @@ export const ServiceCard = ({ service, step }: { service: Service; step: string 
       </CardHeader>
       <CardContent className="space-y-1">
         {service?.categories?.map((category, index) => (
-          <div key={index} className="border-b border-primary py-2">
+          <div key={index} className="border-b border-primary py-1 md:py-2">
             <p className="text-base font-medium">{category}</p>
           </div>
         ))}
