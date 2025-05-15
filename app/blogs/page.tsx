@@ -3,7 +3,6 @@ import { client } from '@/sanity/lib/client';
 import { urlFor } from '@/sanity/lib/image';
 import { blogCategoriesQuery, blogsByCategoryQuery } from '@/sanity/lib/queries';
 
-import { BlogCard } from '@/components/blog-card';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -13,15 +12,18 @@ import {
   BreadcrumbSeparator,
 } from '@/components/shadcn/breadcrumb';
 import { Button } from '@/components/shadcn/button';
+import { BlogCard } from '@/app/blogs/components/blog-card';
 
 import { BlogCategorySelector } from './components/blog-category-selector';
+
+export const revalidate = 43200; // 12 hours
 
 const fetchBlogCategories = async () => {
   const blogCategories = await client.fetch(blogCategoriesQuery);
   return blogCategories;
 };
 
-const fetchBlogsByCategory = async (categories: string | string[] | undefined) => {
+export const fetchBlogsByCategorySlugs = async (categories: string | string[] | undefined) => {
   const categorySlugs = categories ? (Array.isArray(categories) ? categories : [categories]) : null;
   const blogs: BlogsByCategoryQueryResult = await client.fetch(blogsByCategoryQuery, {
     categorySlugs,
@@ -43,7 +45,7 @@ export default async function BlogsPage({
   searchParams: Promise<{ category: string | string[] | undefined }>;
 }) {
   const { category } = await searchParams;
-  const blogs = await fetchBlogsByCategory(category);
+  const blogs = await fetchBlogsByCategorySlugs(category);
   const blogCategories = await fetchBlogCategories();
   if (!blogs) return <p>No blogs found!</p>;
   return (
@@ -77,7 +79,7 @@ export default async function BlogsPage({
           {blogs.map(blog => (
             <BlogCard
               key={blog._id}
-              redirectUrl={`blog/${blog.slug}`}
+              redirectUrl={`blogs/${blog.slug}`}
               title={blog.title}
               subTitle={blog.subTitle}
               duration={`${blog.readingTimeInMins} mins read`}
