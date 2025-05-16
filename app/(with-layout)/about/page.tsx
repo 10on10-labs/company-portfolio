@@ -20,7 +20,7 @@ export default function AboutPage() {
       />
 
       {/* Hero Section */}
-      <section className="relative py-20 md:py-32">
+      <section className="relative py-20">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -28,7 +28,7 @@ export default function AboutPage() {
             transition={{ duration: 0.8 }}
             className="max-w-4xl mx-auto text-center"
           >
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-primary via-black to-primary bg-clip-text text-transparent">
+            <h1 className="text-5xl w-[600px] mx-auto md:text-7xl font-bold mb-6 bg-gradient-to-r from-primary via-black to-primary bg-clip-text text-transparent">
               Crafting Digital Excellence
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 mb-12">
@@ -72,7 +72,7 @@ export default function AboutPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6 }}
-            className="text-4xl font-bold text-center mb-16"
+            className="text-4xl font-bold text-center mb-16 text-primary"
           >
             Meet Our Leadership
           </motion.h2>
@@ -133,7 +133,7 @@ export default function AboutPage() {
           <motion.h2
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="text-4xl font-bold text-center mb-16"
+            className="text-4xl font-bold text-center mb-16 text-primary"
           >
             Our Core Values
           </motion.h2>
