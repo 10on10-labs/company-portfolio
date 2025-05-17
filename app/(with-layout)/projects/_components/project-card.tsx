@@ -16,7 +16,7 @@ export const ProjectCard: React.FC<ProjectType> = ({ id, name, logoUrl, coverIma
 
   return (
     <div
-      className={`w-full   sm:h-[100px] md:h-[150px] perspective-[1200px] perspective-origin-center relative`}
+      className={`w-full h-[100px]   sm:h-[100px] md:h-[150px] perspective-[1200px] perspective-origin-center relative`}
     >
       <motion.div
         className={`relative sm:h-[100px]  md:h-[150px] w-full `}
