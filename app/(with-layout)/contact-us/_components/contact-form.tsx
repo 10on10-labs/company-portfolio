@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { motion } from 'motion/react';
 
 import { Button } from '@/components/shadcn/button';
 import { Input } from '@/components/shadcn/input';
@@ -49,7 +50,12 @@ export function ContactForm() {
   };
 
   return (
-    <div className="bg-card border border-border p-8 rounded-xl">
+    <motion.div
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5, delay: 0.4 }}
+      className="bg-card border border-border p-8 rounded-xl shadow-lg"
+    >
       <h2 className="text-2xl font-bold mb-6">Send us a message</h2>
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
@@ -89,6 +95,6 @@ export function ContactForm() {
           {sending ? 'Sending...' : 'Send Message'}
         </Button>
       </form>
-    </div>
+    </motion.div>
   );
 }
