@@ -12,7 +12,7 @@ export function ContactHero() {
           transition={{ duration: 0.6 }}
           className="text-4xl md:text-6xl font-black mb-6"
         >
-          Contact 10on10Labs
+          Let&apos;s talk
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: 20 }}

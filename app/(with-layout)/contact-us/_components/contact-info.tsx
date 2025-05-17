@@ -14,7 +14,7 @@ export function ContactInfo() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <Card className="shadow-lg hover:shadow-xl transition-shadow">
+          <Card className="shadow-lg h-full hover:shadow-xl border-0 transition-shadow">
             <CardContent className="flex flex-col items-center p-6 text-center">
               <AtSign className="h-10 w-10 text-primary mb-4" />
               <h3 className="text-xl font-semibold mb-2">E-mail us</h3>
@@ -33,14 +33,14 @@ export function ContactInfo() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
-          <Card className="shadow-lg hover:shadow-xl transition-shadow">
+          <Card className="shadow-lg h-full border-0 hover:shadow-xl transition-shadow">
             <CardContent className="flex flex-col items-center p-6 text-center">
               <MapPin className="h-10 w-10 text-primary mb-4" />
               <h3 className="text-xl font-semibold mb-2">Find us</h3>
               <div className="text-muted-foreground">
-                <p className="font-medium">Succeed Offices</p>
-                <p>123 Tech Street</p>
-                <p>10001 — New York, USA</p>
+                <p className="font-medium">10on10 labs</p>
+                <p>Bahria Town, Phase 7</p>
+                <p>Islamabad, Pakistan</p>
               </div>
             </CardContent>
           </Card>
@@ -51,13 +51,13 @@ export function ContactInfo() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.6 }}
         >
-          <Card className="shadow-lg hover:shadow-xl transition-shadow">
+          <Card className="shadow-lg border-0 h-full hover:shadow-xl transition-shadow">
             <CardContent className="flex flex-col items-center p-6 text-center">
               <Info className="h-10 w-10 text-primary mb-4" />
               <h3 className="text-xl font-semibold mb-2">Info</h3>
               <div className="text-muted-foreground">
                 <p>Chamber of Commerce: 80195520</p>
-                <p>VAT: NL861584594B01</p>
+                <p>NTN: NL861584594B01</p>
               </div>
             </CardContent>
           </Card>

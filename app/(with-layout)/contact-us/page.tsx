@@ -8,7 +8,7 @@ export default function ContactPage() {
     <div className="min-h-screen w-full">
       <ContactHero />
       <ContactInfo />
-      <div className="container mx-auto px-4 py-12 grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <div className="container mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-2 gap-12">
         <ContactForm />
         <CalendlyEmbed />
       </div>
