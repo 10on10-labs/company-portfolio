@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
 
+import { Icons } from '@/components/icons';
 import { Button } from '@/components/shadcn/button';
 import { Input } from '@/components/shadcn/input';
 import { Label } from '@/components/shadcn/label';
@@ -56,6 +57,43 @@ export function ContactForm() {
       transition={{ duration: 0.5, delay: 0.4 }}
       className="bg-card border border-border p-8 rounded-xl shadow-lg"
     >
+      <div className="mb-8 text-sm text-muted-foreground">
+        <p className="mb-4">
+          Fill in the information required in the form and we will get back to you within one hour.
+        </p>
+        <p className="mb-4">
+          Your information will be kept private and confidential and will be used by 10on10Labs
+          only. All details provided by you will be held by 10on10Labs and used in accordance with
+          our Privacy Policy.
+        </p>
+        <div className="flex gap-4 items-center">
+          <span>Follow us:</span>
+          <a
+            href="https://facebook.com/10on10labs"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[#1877F2] hover:opacity-80"
+          >
+            <Icons.facebook />
+          </a>
+          <a
+            href="https://linkedin.com/company/10on10labs"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[#0077B5] hover:opacity-80"
+          >
+            <Icons.linkedin />
+          </a>
+          <a
+            href="https://x.com/10on10labs"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:opacity-80"
+          >
+            <Icons.X />
+          </a>
+        </div>
+      </div>
       <h2 className="text-2xl font-bold mb-6">Send us a message</h2>
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
