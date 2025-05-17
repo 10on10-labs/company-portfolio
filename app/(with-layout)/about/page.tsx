@@ -1,10 +1,10 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
 import { motion } from 'motion/react';
 
-import { CompanyTimeline } from '@/components/company-timeline';
+import { CompanyTimeline } from './_components/company-timeline';
+import { EmployeeCard } from './_components/employee-card';
 
 export default function AboutPage() {
   return (
@@ -28,7 +28,7 @@ export default function AboutPage() {
             transition={{ duration: 0.8 }}
             className="max-w-4xl mx-auto text-center"
           >
-            <h1 className="text-5xl w-max sm:w-[600px] mx-auto md:text-7xl font-bold mb-6 bg-gradient-to-r from-primary via-black to-primary bg-clip-text text-transparent">
+            <h1 className="text-5xl w-[600px] mx-auto md:text-7xl font-bold mb-6 bg-gradient-to-r from-primary via-black to-primary bg-clip-text text-transparent">
               Crafting Digital Excellence
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 mb-12">
@@ -74,49 +74,36 @@ export default function AboutPage() {
             transition={{ duration: 0.6 }}
             className="text-4xl font-bold text-center mb-16 text-primary"
           >
-            Meet Our Leadership
+            It&apos;s all about the people
           </motion.h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
-                name: 'John Doe',
+                fullName: 'Danish Mehmood',
                 role: 'CEO & Founder',
                 image: 'https://source.unsplash.com/300x300/?portrait,man,1',
-                delay: 0.2,
+                redirectUrl: 'youtube.com',
               },
               {
-                name: 'Jane Smith',
-                role: 'Creative Director',
+                fullName: 'Kaleem Ullah',
+                role: 'Co Founder',
                 image: 'https://source.unsplash.com/300x300/?portrait,woman,1',
-                delay: 0.4,
+                redirectUrl: 'youtube.com',
               },
               {
-                name: 'Mike Johnson',
-                role: 'Tech Lead',
+                fullName: 'Moiz Ahmad',
+                role: 'Co Founder',
                 image: 'https://source.unsplash.com/300x300/?portrait,man,2',
-                delay: 0.6,
+                redirectUrl: 'youtube.com',
+              },
+              {
+                fullName: 'Osama Ehsan',
+                role: 'Co Founder',
+                image: 'https://source.unsplash.com/300x300/?portrait,man,2',
+                redirectUrl: 'youtube.com',
               },
             ].map((member, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: member.delay, duration: 0.6 }}
-                whileHover={{ y: -10 }}
-                className="bg-white rounded-2xl p-8 shadow-lg text-center"
-              >
-                <div className="relative w-48 h-48 mx-auto mb-6">
-                  <div className="absolute inset-0 bg-primary/10 rounded-full" />
-                  <Image
-                    src={member.image}
-                    alt={member.name}
-                    fill
-                    className="object-cover rounded-full"
-                  />
-                </div>
-                <h3 className="text-2xl font-semibold mb-2">{member.name}</h3>
-                <p className="text-gray-600">{member.role}</p>
-              </motion.div>
+              <EmployeeCard key={index} {...member} />
             ))}
           </div>
         </div>
