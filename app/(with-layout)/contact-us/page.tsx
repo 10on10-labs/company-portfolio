@@ -1,6 +1,6 @@
-import { CalendlyEmbed } from './components/calendly-embed';
-import { ContactForm } from './components/contact-form';
-import { ContactHero } from './components/contact-hero';
+import { CalendlyEmbed } from './_components/calendly-embed';
+import { ContactForm } from './_components/contact-form';
+import { ContactHero } from './_components/contact-hero';
 
 export default function ContactPage() {
   return (

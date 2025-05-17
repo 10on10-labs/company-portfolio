@@ -3,6 +3,9 @@
 import { useState } from 'react';
 
 import { Button } from '@/components/shadcn/button';
+import { Input } from '@/components/shadcn/input';
+import { Label } from '@/components/shadcn/label';
+import { Textarea } from '@/components/shadcn/textarea';
 
 export function ContactForm() {
   const [sending, setSending] = useState(false);
@@ -50,8 +53,8 @@ export function ContactForm() {
       <h2 className="text-2xl font-bold mb-6">Send us a message</h2>
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label className="block text-sm font-medium mb-2">Name</label>
-          <input
+          <Label className="block text-sm font-medium mb-2">Name</Label>
+          <Input
             type="text"
             name="name"
             required
@@ -61,8 +64,8 @@ export function ContactForm() {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium mb-2">Email</label>
-          <input
+          <Label className="block text-sm font-medium mb-2">Email</Label>
+          <Input
             type="email"
             name="email"
             required
@@ -72,8 +75,8 @@ export function ContactForm() {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium mb-2">Message</label>
-          <textarea
+          <Label className="block text-sm font-medium mb-2">Message</Label>
+          <Textarea
             name="message"
             required
             rows={4}
