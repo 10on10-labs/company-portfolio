@@ -160,15 +160,15 @@ export const ProcessSection = () => {
   const progress = ((current + 1) / slides.length) * 100;
 
   return (
-    <div className="w-full h-full @container flex flex-col justify-between items-center">
+    <div className="w-full h-screen @container flex flex-col  items-center">
       <motion.div
-        className="mb-8"
+        className="mb-20"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
         <div className="text-sm mb-2 text-center">Setting your comfort</div>
-        <h1 className="text-3xl text-center sm:text-4xl md:text-5xl font-black leading-tight tracking-tighter">
+        <h1 className="text-3xl text-center sm:text-3xl md:text-4xl font-black leading-tight tracking-tighter">
           Step-by-step process to bring your project to life
         </h1>
       </motion.div>
@@ -176,7 +176,7 @@ export const ProcessSection = () => {
       <div ref={carouselContainerRef} className="relative w-full overflow-hidden">
         <Carousel
           opts={{
-            loop: true,
+            // loop: true,
             align: 'start',
             dragFree: false,
           }}
@@ -197,7 +197,7 @@ export const ProcessSection = () => {
         </Carousel>
       </div>
 
-      <div className="h-2 w-full bg-white mt-4">
+      <div className="h-2 mt-20 w-full bg-white">
         <motion.div
           className="h-full  bg-gradient-to-r from-primary via-black to-primary"
           animate={{ width: `${progress}%` }}
