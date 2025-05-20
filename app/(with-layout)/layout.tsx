@@ -1,14 +1,12 @@
 import '../globals.css';
 
-import { MainSidebar } from '@/components/main-sidebar';
+import { TopNavbar } from '@/components/top-navbar';
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="bg-secondary flex overscroll-none overflow-hidden h-full w-full">
-      <MainSidebar />
-      <div className="w-full  h-screen overflow-y-auto overflow-hidden hide-scrollbar">
-        {children}
-      </div>
+    <div className="flex flex-col items-center h-full w-full z-1">
+      <TopNavbar />
+      <div className="w-full  h-full hide-scrollbar  mt-20 sm:mt-30 mb-20">{children}</div>
     </div>
   );
 }

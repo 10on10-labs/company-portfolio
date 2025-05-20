@@ -24,7 +24,7 @@ export const Services: React.FC<Props> = ({ services }) => {
           return <ServiceCard key={service.id} service={service} step={step} />;
         })}
       </div>
-      <div className="w-full h-full pt-20 p-5 sm:hidden">
+      <div className="w-full h-full  pt-10 sm:pt-20 p-5 sm:hidden">
         <ServicesCarousel services={services} />
       </div>
     </>
