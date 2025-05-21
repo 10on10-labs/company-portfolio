@@ -81,7 +81,7 @@ export default function AboutPage() {
               {
                 fullName: 'Danish Mehmood',
                 role: 'CEO & Founder',
-                image: 'https://source.unsplash.com/300x300/?portrait,man,1',
+                image: '/danish-mehmood.jpeg',
                 redirectUrl: 'youtube.com',
               },
               {
