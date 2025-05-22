@@ -37,7 +37,7 @@ export const MobileBlogCategorySelector: React.FC<Props> = ({ blogCategories }) 
           variant="outline"
           aria-expanded={openPopOver}
           role="combobox"
-          className="w-[200px] justify-between text-primary float-right"
+          className="w-[200px] justify-between text-primary float-right mb-12"
         >
           {currentCategory
             ? blogCategories.find(cat => cat.slug === currentCategory)?.title

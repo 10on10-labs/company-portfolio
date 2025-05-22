@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic';
 import { BlogsByCategoryQueryResult } from '@/sanity.types';
-import { client } from '@/sanity/lib/client';
+import { sanityClient } from '@/sanity/lib/client';
 import { urlFor } from '@/sanity/lib/image';
 import { blogCategoriesQuery, blogsByCategoryQuery } from '@/sanity/lib/queries';
 
@@ -26,13 +26,13 @@ const DesktopBlogCategorySelector = dynamic(() =>
 export const revalidate = 43200; // 12 hours
 
 const fetchBlogCategories = async () => {
-  const blogCategories = await client.fetch(blogCategoriesQuery);
+  const blogCategories = await sanityClient.fetch(blogCategoriesQuery);
   return blogCategories;
 };
 
 export const fetchBlogsByCategorySlugs = async (categories: string | string[] | undefined) => {
   const categorySlugs = categories ? (Array.isArray(categories) ? categories : [categories]) : null;
-  const blogs: BlogsByCategoryQueryResult = await client.fetch(blogsByCategoryQuery, {
+  const blogs: BlogsByCategoryQueryResult = await sanityClient.fetch(blogsByCategoryQuery, {
     categorySlugs,
   });
 
@@ -88,7 +88,7 @@ export default async function BlogsPage({
         <div className="block sm:hidden">
           <MobileBlogCategorySelector blogCategories={allBlogCategories} />
         </div>
-        <div className="flex flex-wrap gap-4 mt-12">
+        <div className="flex w-full flex-wrap gap-4">
           {blogs.map(blog => (
             <BlogCard
               key={blog._id}

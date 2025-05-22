@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { client } from '@/sanity/lib/client';
+import { sanityClient } from '@/sanity/lib/client';
 import { urlFor } from '@/sanity/lib/image';
 import { blogBySlugQuery, blogsSlugQuery } from '@/sanity/lib/queries';
 
@@ -23,12 +23,12 @@ type Props = {
 };
 
 const fetchBlogsSlug = async () => {
-  const blogsSlugs = await client.fetch(blogsSlugQuery);
+  const blogsSlugs = await sanityClient.fetch(blogsSlugQuery);
   return blogsSlugs;
 };
 
 const fetchBlogBySlug = async (slug: string) => {
-  const blog = await client.fetch(blogBySlugQuery, { slug });
+  const blog = await sanityClient.fetch(blogBySlugQuery, { slug });
   if (!blog) return null;
   return blog;
 };

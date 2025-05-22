@@ -18,7 +18,7 @@ type Props = {
 export const DesktopBlogCategorySelector: FC<Props> = ({ blogCategories }) => {
   const { currentCategory, handleCategoryChange } = useBlogCategorySelector();
   return (
-    <div className="text-lg p-1 gap-x-2 text-primary rounded-3xl bg-secondary/80 backdrop-blur-sm mx-auto flex w-fit border border-secondary/20 shadow-sm">
+    <div className="text-lg p-1 mb-12 gap-x-2 text-primary rounded-3xl bg-secondary/80 backdrop-blur-sm mx-auto flex w-fit border border-secondary/20 shadow-sm">
       {blogCategories.map(category => {
         const isActive =
           currentCategory === category.slug || (currentCategory === null && category.slug === null);
