@@ -20,7 +20,7 @@ export default function AboutPage() {
       />
 
       {/* Hero Section */}
-      <section className="relative py-20">
+      <section className="relative pt-20 pb-10 sm:py-20">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -28,7 +28,7 @@ export default function AboutPage() {
             transition={{ duration: 0.8 }}
             className="max-w-4xl mx-auto text-center"
           >
-            <h1 className="text-5xl w-[600px] mx-auto md:text-7xl font-bold mb-6 bg-gradient-to-r from-primary via-black to-primary bg-clip-text text-transparent">
+            <h1 className="text-5xl w-fit sm:w-[600px] mx-auto md:text-7xl font-bold mb-6 bg-gradient-to-r from-primary via-black to-primary bg-clip-text text-transparent">
               Crafting Digital Excellence
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 mb-12">
@@ -40,7 +40,7 @@ export default function AboutPage() {
       </section>
 
       {/* Stats Section with Hover Effects */}
-      <section className="py-16">
+      <section className="py-10 sm:py-16">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {[
@@ -66,7 +66,7 @@ export default function AboutPage() {
       </section>
 
       {/* Team Section with Card Hover Effects */}
-      <section className="py-20 relative">
+      <section className="py-10 sm:py-20 relative">
         <div className="container mx-auto px-4">
           <motion.h2
             initial={{ opacity: 0 }}
@@ -110,7 +110,7 @@ export default function AboutPage() {
       </section>
 
       {/* Company Timeline */}
-      <section>
+      <section className="py-10 sm:py-20">
         <CompanyTimeline />
       </section>
 

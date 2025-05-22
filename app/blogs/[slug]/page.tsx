@@ -12,11 +12,11 @@ import {
   BreadcrumbSeparator,
 } from '@/components/shadcn/breadcrumb';
 
-import { BlogCard } from '../components/blog-card';
+import { BlogCard } from '../_components/blog-card';
 import { fetchBlogsByCategorySlugs } from '../page';
-import { AuthorCard } from './components/author-card';
-import { BlogBannerCard } from './components/blog-banner-card';
-import { CustomPortableText } from './components/custom-portable-text';
+import { AuthorCard } from './_components/author-card';
+import { BlogBannerCard } from './_components/blog-banner-card';
+import { CustomPortableText } from './_components/custom-portable-text';
 
 type Props = {
   params: Promise<{ slug: string }>;
