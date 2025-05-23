@@ -1,27 +1,11 @@
-import { getClient } from '@/sanity/lib/client';
+import { sanityClient } from '@/sanity/lib/client';
 import { testimonialsQuery } from '@/sanity/lib/queries/queries';
 
 import { ReviewsCarousel } from './reviews-carousel';
 
-type Testimonial = {
-  clientName: string;
-  testimonial: string;
-  clientImage: {
-    asset: {
-      url: string;
-      metadata: {
-        dimensions: {
-          width: number;
-          height: number;
-        };
-      };
-    };
-  };
-};
-
 async function getTestimonials() {
-  const client = getClient();
-  return client.fetch<Testimonial[]>(testimonialsQuery);
+  const clientTestimonials = await sanityClient.fetch(testimonialsQuery);
+  return clientTestimonials;
 }
 
 const Reviews = async () => {

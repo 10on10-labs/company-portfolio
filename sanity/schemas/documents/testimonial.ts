@@ -1,3 +1,4 @@
+import { StarRatingInput } from '@/sanity/components/star-rating-input';
 import { defineField, defineType } from 'sanity';
 
 export const testimonial = defineType({
@@ -8,6 +9,12 @@ export const testimonial = defineType({
     defineField({
       name: 'clientName',
       title: 'Client Name',
+      type: 'string',
+      validation: rule => rule.required(),
+    }),
+    defineField({
+      name: 'role',
+      title: 'Client Role',
       type: 'string',
       validation: rule => rule.required(),
     }),
@@ -24,6 +31,14 @@ export const testimonial = defineType({
       options: {
         hotspot: true,
       },
+    }),
+    defineField({
+      name: 'rating',
+      type: 'number',
+      components: {
+        input: StarRatingInput,
+      },
+      validation: Rule => Rule.min(1).max(5).integer().required(),
     }),
   ],
 });
