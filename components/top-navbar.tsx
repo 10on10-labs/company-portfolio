@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { AnimatePresence, motion } from 'motion/react';
@@ -91,16 +92,14 @@ export const TopNavbar = () => {
     <header className="fixed top-2 left-0 right-0  z-50">
       <div className="container mx-auto px-4">
         <div className="hidden md:flex items-center justify-center">
+          <div className="pr-10">
+            <Link href="/" className="text-gray-800 font-bold text-xl">
+              <Image src="/logo.png" width={80} height={80} alt="logo" />
+            </Link>
+          </div>
           <nav className="flex items-center h-full w-full justify-center ">
-            <div className="bg-primary rounded-full h-full shadow-md px-2 py-1 border-4 border-white">
+            <div className="bg-primary rounded-2xl opacity-90 h-full shadow-md  shadow-primary px-2 py-1 border-4 border-white">
               <ul className="flex items-center h-full px-4 py-4 text-white">
-                <li>
-                  <div className="pr-10">
-                    <Link href="/" className="text-gray-800 font-bold text-xl">
-                      Logo
-                    </Link>
-                  </div>
-                </li>
                 {menuItems.map(({ title, href }, index) => (
                   <li key={index} className="px-2">
                     <Link

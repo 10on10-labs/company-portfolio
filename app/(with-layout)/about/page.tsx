@@ -8,7 +8,7 @@ import { EmployeeCard } from './_components/employee-card';
 
 export default function AboutPage() {
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-white via-gray-50 to-gray-100">
+    <div className="relative min-h-screen">
       {/* Animated gradient background */}
       <div
         className="absolute inset-0 opacity-30"
@@ -81,7 +81,7 @@ export default function AboutPage() {
               {
                 fullName: 'Danish Mehmood',
                 role: 'CEO & Founder',
-                image: 'https://source.unsplash.com/300x300/?portrait,man,1',
+                image: '/danish-mehmood.jpeg',
                 redirectUrl: 'youtube.com',
               },
               {

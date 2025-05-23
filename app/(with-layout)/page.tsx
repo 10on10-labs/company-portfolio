@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { Sparkles } from 'lucide-react';
 import { motion } from 'motion/react';
 
@@ -8,7 +9,7 @@ import { Button } from '@/components/shadcn/button';
 
 export default function HeroSection() {
   return (
-    <section className="relative w-full p-5 pt-20  text-black overflow-hidden">
+    <section className="relative w-full p-5 md:pt-20  text-black overflow-hidden">
       <div className="relative z-10 flex flex-col justify-center items-center text-center ">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
@@ -34,12 +35,16 @@ export default function HeroSection() {
           transition={{ delay: 0.8, duration: 0.6 }}
           className="mt-8 flex gap-4 flex-wrap justify-center"
         >
-          <Button className="hover:bg-primary rounded-2xl p-8 text-lg hover:opacity-85 cursor-pointer ease-in-out duration-300">
-            Explore Services
-          </Button>
-          <Button className="border-primary/50 bg-white text-black rounded-2xl p-8 text-md hover:text-white duration-300  cursor-pointer">
-            Contact Us
-          </Button>
+          <Link href="/services">
+            <Button className="hover:bg-primary rounded-2xl p-7 text-md md:text-lg hover:opacity-85 cursor-pointer ease-in-out duration-300">
+              Explore Services
+            </Button>
+          </Link>
+          <Link href="/contact-us">
+            <Button className="border-primary/50 bg-white text-black rounded-2xl p-7 text-md hover:text-white duration-300  cursor-pointer">
+              Contact Us
+            </Button>
+          </Link>
         </motion.div>
 
         <motion.div
@@ -52,7 +57,7 @@ export default function HeroSection() {
             (item, index) => (
               <div
                 key={index}
-                className="bg-white rounded-xl p-4 border border-white/10 hover:scale-105 transition-transform"
+                className="bg-white rounded-xl p-4  shadow shadow-secondary hover:scale-105 transition-transform"
               >
                 <Sparkles className="text-primary mb-2" />
                 <p className=" text-black font-semibold">{item}</p>
@@ -78,10 +83,9 @@ export default function HeroSection() {
             ].map((brand, i) => (
               <div
                 key={i}
-                className="text-black flex items-center gap-2 text-sm md:text-base font-semibold bg-white px-4 py-2 rounded-lg border border-white/10 shadow-md"
+                className="text-black flex items-center gap-2 text-sm md:text-base font-semibold bg-white  rounded-full border border-black shadow-md"
               >
                 <Image src={`/${brand.icon}.svg`} width={50} height={50} alt="Google" />
-                {brand.name}
               </div>
             ))}
           </div>
