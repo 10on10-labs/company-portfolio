@@ -1,4 +1,3 @@
-// ./components/StarRatingInput.jsx
 import { StarIcon } from '@sanity/icons';
 import { Button, Flex } from '@sanity/ui';
 import { NumberInputProps, NumberSchemaType, set, unset } from 'sanity';
