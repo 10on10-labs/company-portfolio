@@ -68,3 +68,25 @@ export const settingsQuery = defineQuery(`
 export const slugsByTypeQuery = defineQuery(`
   *[_type == $type && defined(slug.current)]{"slug": slug.current}
 `);
+export const servicesQuery = `
+  *[_type == "service"] {
+    name,
+    "id": id.current,
+    categories
+  }
+`;
+
+export const testimonialsQuery = `
+  *[_type == "testimonial"] {
+    clientName,
+    testimonial,
+    clientImage {
+      asset->{
+        url,
+        metadata {
+          dimensions
+        }
+      }
+    }
+  }
+`;
