@@ -11,7 +11,7 @@ export const ProjectCard: FC<AllProjectsQueryResult[number]> = ({
   coverImages,
   logo,
   name,
-  id,
+  slug,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const logoUrl = logo ? urlFor(logo).width(50).url() : null;
@@ -71,7 +71,7 @@ export const ProjectCard: FC<AllProjectsQueryResult[number]> = ({
           }}
           transition={{ duration: 0.5, ease: 'easeInOut' }}
         >
-          <Link className="p-6 h-full flex flex-col justify-center" href={`/projects/${id}`}>
+          <Link className="p-6 h-full flex flex-col justify-center" href={`/projects/${slug}`}>
             <div className="flex justify-between items-center">
               <div>
                 <h1 className="text-xl font-bold">7-Eleven Mobile</h1>

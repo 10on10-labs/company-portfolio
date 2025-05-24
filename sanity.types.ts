@@ -245,8 +245,8 @@ export type Project = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  id?: Slug;
   name?: string;
+  slug?: Slug;
   category?: string;
   logo?: {
     asset?: {
@@ -844,7 +844,7 @@ export type HomePageQueryResult = {
     _type: 'project';
     coverImage: null;
     overview: null;
-    slug: null;
+    slug: string | null;
     tags: null;
     title: null;
   }> | null;
@@ -911,10 +911,10 @@ export type PagesBySlugQueryResult = {
   slug: string | null;
 } | null;
 // Variable: projectBySlugQuery
-// Query: *[_type == "project" && slug.current == $slug][0] {    _id,    id,    name,    category,    logo,    coverImages,    projectSections,  }
+// Query: *[_type == "project" && slug.current == $slug][0] {    _id,    "slug": slug.current,    name,    category,    logo,    coverImages,    projectSections,  }
 export type ProjectBySlugQueryResult = {
   _id: string;
-  id: Slug | null;
+  slug: string | null;
   name: string | null;
   category: string | null;
   logo: {
@@ -965,10 +965,10 @@ export type ProjectBySlugQueryResult = {
   }> | null;
 } | null;
 // Variable: allProjectsQuery
-// Query: *[_type == "project"] {    _id,    id,    name,    category,    logo,    coverImages,    projectSections,  }
+// Query: *[_type == "project"] {    _id,    "slug": slug.current,    name,    category,    logo,    coverImages,    projectSections,  }
 export type AllProjectsQueryResult = Array<{
   _id: string;
-  id: Slug | null;
+  slug: string | null;
   name: string | null;
   category: string | null;
   logo: {
@@ -1057,7 +1057,7 @@ export type SettingsQueryResult = {
     | {
         _key: null;
         _type: 'project';
-        slug: null;
+        slug: string | null;
         title: null;
       }
   > | null;
@@ -1113,8 +1113,8 @@ declare module '@sanity/client' {
     '\n   *[_type == "blog" && \n    ($categorySlugs == null || references(*[_type == "blogCategory" && slug.current in $categorySlugs]._id))\n  ] {\n    _id,\n    title,\n    subTitle,\n    // assumes 5 characters as mean word length\n    // https://ux.stackexchange.com/questions/22520/how-long-does-it-take-to-read-x-number-of-characters\n    "readingTimeInMins": round(length(pt::text(body)) / 5 / 180 ),\n    author->{\n     name,\n     image\n    },\n    blogCategories[]->{\n      title,\n      "chipColor": chipColor.hex\n    },\n    "slug": slug.current,\n    thumbnail,\n    publishedAt\n  }\n': BlogsByCategoryQueryResult;
     '\n  *[_type == "home"][0]{\n    _id,\n    _type,\n    overview,\n    showcaseProjects[]{\n      _key,\n      ...@->{\n        _id,\n        _type,\n        coverImage,\n        overview,\n        "slug": slug.current,\n        tags,\n        title,\n      }\n    },\n    title,\n  }\n': HomePageQueryResult;
     '\n  *[_type == "page" && slug.current == $slug][0] {\n    _id,\n    _type,\n    body,\n    overview,\n    title,\n    "slug": slug.current,\n  }\n': PagesBySlugQueryResult;
-    '\n  *[_type == "project" && slug.current == $slug][0] {\n    _id,\n    id,\n    name,\n    category,\n    logo,\n    coverImages,\n    projectSections,\n  }\n': ProjectBySlugQueryResult;
-    '\n  *[_type == "project"] {\n    _id,\n    id,\n    name,\n    category,\n    logo,\n    coverImages,\n    projectSections,\n  }\n': AllProjectsQueryResult;
+    '\n  *[_type == "project" && slug.current == $slug][0] {\n    _id,\n    "slug": slug.current,\n    name,\n    category,\n    logo,\n    coverImages,\n    projectSections,\n  }\n': ProjectBySlugQueryResult;
+    '\n  *[_type == "project"] {\n    _id,\n    "slug": slug.current,\n    name,\n    category,\n    logo,\n    coverImages,\n    projectSections,\n  }\n': AllProjectsQueryResult;
     '\n  *[_type == "settings"][0]{\n    _id,\n    _type,\n    footer,\n    menuItems[]{\n      _key,\n      ...@->{\n        _type,\n        "slug": slug.current,\n        title\n      }\n    },\n    ogImage,\n  }\n': SettingsQueryResult;
     '\n  *[_type == $type && defined(slug.current)]{"slug": slug.current}\n': SlugsByTypeQueryResult;
     '\n  *[_type == "service"] {\n    name,\n    "id": id.current,\n    description,\n    categories\n  }\n': ServicesQueryResult;

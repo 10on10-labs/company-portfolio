@@ -35,7 +35,7 @@ export const pagesBySlugQuery = defineQuery(`
 export const projectBySlugQuery = defineQuery(`
   *[_type == "project" && slug.current == $slug][0] {
     _id,
-    id,
+    "slug": slug.current,
     name,
     category,
     logo,
@@ -46,7 +46,7 @@ export const projectBySlugQuery = defineQuery(`
 export const allProjectsQuery = defineQuery(`
   *[_type == "project"] {
     _id,
-    id,
+    "slug": slug.current,
     name,
     category,
     logo,

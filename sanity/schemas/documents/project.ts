@@ -8,16 +8,18 @@ export const project = defineType({
   icon: DocumentIcon,
   fields: [
     defineField({
-      name: 'id',
-      title: 'ID',
-      type: 'slug',
-      validation: rule => rule.required(),
-    }),
-    defineField({
       name: 'name',
       title: 'Name',
       type: 'string',
       validation: rule => rule.required(),
+    }),
+    defineField({
+      name: 'slug',
+      type: 'slug',
+      validation: rule => rule.required(),
+      options: {
+        source: 'name',
+      },
     }),
     defineField({
       name: 'category',
