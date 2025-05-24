@@ -35,16 +35,23 @@ export const pagesBySlugQuery = defineQuery(`
 export const projectBySlugQuery = defineQuery(`
   *[_type == "project" && slug.current == $slug][0] {
     _id,
-    _type,
-    client,
-    coverImage,
-    description,
-    duration,
-    overview,
-    site,
-    "slug": slug.current,
-    tags,
-    title,
+    id,
+    name,
+    category,
+    logo,
+    coverImages,
+    projectSections,
+  }
+`);
+export const allProjectsQuery = defineQuery(`
+  *[_type == "project"] {
+    _id,
+    id,
+    name,
+    category,
+    logo,
+    coverImages,
+    projectSections,
   }
 `);
 

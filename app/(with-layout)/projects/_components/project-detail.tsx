@@ -2,17 +2,18 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { ProjectBySlugQueryResult } from '@/sanity.types';
+import { urlFor } from '@/sanity/lib/image';
 import { motion } from 'motion/react';
 
-import { ProjectType } from './projects-list';
-
 type Props = {
-  project?: ProjectType;
+  project?: ProjectBySlugQueryResult;
 };
 
 export const ProjectDetail: React.FC<Props> = ({ project }) => {
   if (!project) return null;
-  const { logoUrl, name, projectSections } = project;
+  const { logo, name, projectSections } = project;
+  const logoUrl = logo ? urlFor(logo).width(50).url() : null;
   return (
     <Link href="/projects" className="relative">
       <motion.div
@@ -38,8 +39,8 @@ export const ProjectDetail: React.FC<Props> = ({ project }) => {
             </div>
             <div className="w-8 h-8 bg-white rounded-sm flex items-center justify-end">
               <Image
-                src={logoUrl}
-                alt={name}
+                src={logoUrl || ''}
+                alt={name || 'company logo'}
                 width={50}
                 height={50}
                 className="text-black font-bold text-xs"
