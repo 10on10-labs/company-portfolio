@@ -91,21 +91,21 @@ export const TopNavbar = () => {
   return (
     <header className="fixed top-2 left-0 right-0  z-50">
       <div className="container mx-auto px-4">
-        <div className="hidden md:flex items-center justify-center">
-          <div className="pr-10">
-            <Link href="/" className="text-gray-800 font-bold text-xl">
-              <Image src="/logo.png" width={80} height={80} alt="logo" />
+        <div className="hidden  lg:flex items-center justify-center">
+          <div>
+            <Link href="/">
+              <Image src="/logo.png" width={50} height={50} alt="logo" />
             </Link>
           </div>
           <nav className="flex items-center h-full w-full justify-center ">
             <div className="bg-primary rounded-2xl opacity-90 h-full shadow-md  shadow-primary px-2 py-1 border-4 border-white">
               <ul className="flex items-center h-full px-4 py-4 text-white">
                 {menuItems.map(({ title, href }, index) => (
-                  <li key={index} className="px-2">
+                  <li key={index} className="">
                     <Link
                       href={href}
                       // onClick={() => setActiveTab(href)}
-                      className={`relative py-2 px-4 rounded-full font-medium text-sm transition-all duration-300 ${pathname == href ? activeTabClass : ''}`}
+                      className={`relative py-2 px-4 rounded-[10px] font-medium text-sm transition-all duration-300 ${pathname == href ? activeTabClass : ''}`}
                     >
                       {title}
                     </Link>
@@ -114,7 +114,7 @@ export const TopNavbar = () => {
                 <li>
                   <Link
                     href="/contact-us"
-                    className="bg-black text-white px-6 py-2 rounded-full font-medium text-sm hover:bg-red-600 transition-colors duration-300 shadow-sm"
+                    className="bg-black text-white px-6 py-2 rounded-[10px] font-medium text-sm hover:bg-red-600 transition-colors duration-300 shadow-sm"
                   >
                     Contact Us
                   </Link>
@@ -124,31 +124,41 @@ export const TopNavbar = () => {
           </nav>
         </div>
       </div>
-      <motion.button
-        onClick={toggleMenu}
-        className="md:hidden fixed top-4 right-4 z-50 p-2 bg-primary text-secondary rounded-md hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-secondary"
-        aria-label={isMenuOpen ? 'Close main menu' : 'Open main menu'}
-        aria-expanded={isMenuOpen}
-        initial="closed"
-        animate={isMenuOpen ? 'open' : 'closed'}
-        whileTap="tap"
-        variants={buttonVariants}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d={isMenuOpen ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16M4 18h16'}
-          />
-        </svg>
-      </motion.button>
+      <div className="fixed top-0 left-0 right-0 z-50 lg:hidden">
+        <div className="flex items-center justify-between px-4 py-4">
+          <Link href="/" className="flex-shrink-0">
+            <div className="bg-white rounded-lg">
+              <Image src="/logo.png" width={40} height={40} alt="logo" />
+            </div>
+          </Link>
+
+          <motion.button
+            onClick={toggleMenu}
+            className="flex-shrink-0 bg-primary p-2 text-secondary rounded-md hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-secondary"
+            aria-label={isMenuOpen ? 'Close main menu' : 'Open main menu'}
+            aria-expanded={isMenuOpen}
+            initial="closed"
+            animate={isMenuOpen ? 'open' : 'closed'}
+            whileTap="tap"
+            variants={buttonVariants}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d={isMenuOpen ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16M4 18h16'}
+              />
+            </svg>
+          </motion.button>
+        </div>
+      </div>
 
       {/* Overlay - only on mobile */}
       <AnimatePresence>
@@ -158,7 +168,7 @@ export const TopNavbar = () => {
             animate={{ opacity: 0.6 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.4 }}
-            className="fixed inset-0 bg-black z-40 md:hidden backdrop-blur-sm"
+            className="fixed inset-0 bg-black z-40 lg:hidden backdrop-blur-sm"
             onClick={closeMenu}
             aria-hidden="true"
           />
@@ -166,15 +176,13 @@ export const TopNavbar = () => {
       </AnimatePresence>
 
       <motion.div
-        className="fixed inset-y-0 left-0 z-40 md:hidden"
+        className="fixed inset-y-0 left-0 z-40 lg:hidden w-full"
         initial="closed"
         animate={isMenuOpen ? 'open' : 'closed'}
         variants={sidebarVariants}
       >
         <div className="bg-primary h-screen w-full flex flex-col overflow-y-auto hide-scrollbar shadow-xl">
-          <div className="flex max-w-md p-6">Logo</div>
-
-          <nav className="p-20 pt-10 pb-0 w-full">
+          <nav className="p-20 pt-10 mt-10 pb-0 w-full">
             <ul className="text-secondary uppercase font-extrabold text-3xl">
               {menuItems.map(({ title, href }, index) => (
                 <motion.li
