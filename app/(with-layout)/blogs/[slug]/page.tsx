@@ -83,7 +83,7 @@ export default async function BlogDetailsPage({ params }: Props) {
   const twitterShareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(blog?.title || '')}&url=${encodeURIComponent(currentUrl)}`;
 
   return (
-    <div className="flex flex-col gap-y-4">
+    <div className="flex flex-col gap-y-4 py-5 px-16">
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>

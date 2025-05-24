@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { Sparkles } from 'lucide-react';
 import { motion } from 'motion/react';
 
@@ -8,54 +9,7 @@ import { Button } from '@/components/shadcn/button';
 
 export default function HeroSection() {
   return (
-    <section className="relative w-full p-5 pt-20  text-black overflow-hidden">
-      <div
-        className="absolute inset-0 opacity-30"
-        style={{
-          background:
-            'radial-gradient(circle at 20% 30%, rgba(255, 126, 0, 0.5) 0%, transparent 35%), radial-gradient(circle at 80% 70%, rgba(255, 126, 0, 0.3) 0%, transparent 40%)',
-          filter: 'blur(60px)',
-        }}
-      ></div>
-
-      <div className="absolute inset-0 opacity-20">
-        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <pattern
-              id="neural-net"
-              x="0"
-              y="0"
-              width="100"
-              height="100"
-              patternUnits="userSpaceOnUse"
-            >
-              {/* All circles */}
-              <g fill="#ff7e00" r="2">
-                <circle cx="50" cy="50" r="2" />
-                <circle cx="15" cy="15" r="2" />
-                <circle cx="85" cy="15" r="2" />
-                <circle cx="15" cy="85" r="2" />
-                <circle cx="85" cy="85" r="2" />
-              </g>
-
-              {/* Connecting lines */}
-              <g stroke="#ff7e00" strokeWidth="0.5">
-                {/* Center to corners */}
-                <g opacity="0.6">
-                  <line x1="50" y1="50" x2="15" y2="15" />
-                  <line x1="50" y1="50" x2="85" y2="15" />
-                  <line x1="50" y1="50" x2="15" y2="85" />
-                  <line x1="50" y1="50" x2="85" y2="85" />
-                </g>
-
-                {/* Diagonal connections between corners */}
-              </g>
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#neural-net)" />
-        </svg>
-      </div>
-
+    <section className="relative w-full p-5 md:pt-20  text-black overflow-hidden">
       <div className="relative z-10 flex flex-col justify-center items-center text-center ">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
@@ -81,12 +35,16 @@ export default function HeroSection() {
           transition={{ delay: 0.8, duration: 0.6 }}
           className="mt-8 flex gap-4 flex-wrap justify-center"
         >
-          <Button className="hover:bg-primary rounded-2xl p-8 text-lg hover:opacity-85 cursor-pointer ease-in-out duration-300">
-            Explore Services
-          </Button>
-          <Button className="border-primary/50 bg-white text-black rounded-2xl p-8 text-md hover:text-white duration-300  cursor-pointer">
-            Contact Us
-          </Button>
+          <Link href="/services">
+            <Button className="hover:bg-primary rounded-2xl p-7 text-md md:text-lg hover:opacity-85 cursor-pointer ease-in-out duration-300">
+              Explore Services
+            </Button>
+          </Link>
+          <Link href="/contact-us">
+            <Button className="border-primary/50 bg-white text-black rounded-2xl p-7 text-md hover:text-white duration-300  cursor-pointer">
+              Contact Us
+            </Button>
+          </Link>
         </motion.div>
 
         <motion.div
@@ -99,7 +57,7 @@ export default function HeroSection() {
             (item, index) => (
               <div
                 key={index}
-                className="bg-white rounded-xl p-4 border border-white/10 hover:scale-105 transition-transform"
+                className="bg-white rounded-xl p-4  shadow shadow-secondary hover:scale-105 transition-transform"
               >
                 <Sparkles className="text-primary mb-2" />
                 <p className=" text-black font-semibold">{item}</p>
@@ -125,10 +83,9 @@ export default function HeroSection() {
             ].map((brand, i) => (
               <div
                 key={i}
-                className="text-black flex items-center gap-2 text-sm md:text-base font-semibold bg-white px-4 py-2 rounded-lg border border-white/10 shadow-md"
+                className="text-black flex items-center gap-2 text-sm md:text-base font-semibold bg-white  rounded-full border border-black shadow-md"
               >
                 <Image src={`/${brand.icon}.svg`} width={50} height={50} alt="Google" />
-                {brand.name}
               </div>
             ))}
           </div>

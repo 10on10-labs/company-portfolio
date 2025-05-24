@@ -41,7 +41,7 @@ export const BlogCard: FC<Props> = ({
     <Link href={redirectUrl} className="flex cursor-pointer">
       <Card
         className={cn(
-          'overflow-hidden gap-1 w-full sm:w-96 pb-4 pt-0 border-0 flex flex-col h-full transition-all duration-300 hover:shadow-lg hover:border-primary/20 group',
+          'overflow-hidden gap-1 w-full md:w-96 pb-4 pt-0 border-0 flex flex-col h-full transition-all duration-300 hover:shadow-lg hover:border-primary/20 group',
           className,
         )}
       >

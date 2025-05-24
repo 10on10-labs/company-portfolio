@@ -29,7 +29,7 @@ export const ProjectCard: FC<AllProjectsQueryResult[number]> = ({
       className={`w-full h-[100px] sm:h-[100px] md:h-[150px] perspective-[1200px] perspective-origin-center relative`}
     >
       <motion.div
-        className={`relative sm:h-[100px]  md:h-[150px] w-full `}
+        className={`relative h-[100px] sm:h-[100px]  md:h-[150px] w-full `}
         style={{ transformStyle: 'preserve-3d' }}
         initial={isExpanded ? 'rest' : 'expanded'}
         animate={isExpanded ? 'expanded' : 'rest'}

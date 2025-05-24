@@ -2,8 +2,8 @@
 
 html {
   font-family: var(--font-poppins);
-  overflow: hidden;
 }
+
 html,
 body {
   height: 100%;
@@ -21,6 +21,13 @@ main {
   flex: 1;
   display: flex;
   flex-direction: column;
+}
+html::-webkit-scrollbar {
+  display: none;
+}
+html {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 .hide-scrollbar::-webkit-scrollbar {
