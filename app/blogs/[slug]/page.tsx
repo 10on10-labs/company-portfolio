@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { client } from '@/sanity/lib/client';
+import { sanityClient } from '@/sanity/lib/client';
 import { urlFor } from '@/sanity/lib/image';
 import { blogBySlugQuery, blogsSlugQuery } from '@/sanity/lib/queries';
 
@@ -12,23 +12,23 @@ import {
   BreadcrumbSeparator,
 } from '@/components/shadcn/breadcrumb';
 
-import { BlogCard } from '../components/blog-card';
+import { BlogCard } from '../_components/blog-card';
 import { fetchBlogsByCategorySlugs } from '../page';
-import { AuthorCard } from './components/author-card';
-import { BlogBannerCard } from './components/blog-banner-card';
-import { CustomPortableText } from './components/custom-portable-text';
+import { AuthorCard } from './_components/author-card';
+import { BlogBannerCard } from './_components/blog-banner-card';
+import { CustomPortableText } from './_components/custom-portable-text';
 
 type Props = {
   params: Promise<{ slug: string }>;
 };
 
 const fetchBlogsSlug = async () => {
-  const blogsSlugs = await client.fetch(blogsSlugQuery);
+  const blogsSlugs = await sanityClient.fetch(blogsSlugQuery);
   return blogsSlugs;
 };
 
 const fetchBlogBySlug = async (slug: string) => {
-  const blog = await client.fetch(blogBySlugQuery, { slug });
+  const blog = await sanityClient.fetch(blogBySlugQuery, { slug });
   if (!blog) return null;
   return blog;
 };

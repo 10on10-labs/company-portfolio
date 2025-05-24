@@ -19,7 +19,7 @@ export const EmployeeCard: FC<Props> = ({ redirectUrl, fullName, role, image }) 
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.6 }}
     whileHover={{ y: -10 }}
-    className="p-4 rounded-4xl relative flex flex-col items-center cursor-pointer bg-transparent hover:shadow-lg hover:shadow-primary/50 group"
+    className="p-4 rounded-4xl relative flex flex-col items-center cursor-pointer hover:shadow-xl bg-white hover:shadow-primary/20 group"
   >
     <ExternalLink className="absolute top-4 right-4 text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity" />
     <Avatar className="size-24">

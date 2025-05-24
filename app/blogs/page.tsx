@@ -1,5 +1,6 @@
+import dynamic from 'next/dynamic';
 import { BlogsByCategoryQueryResult } from '@/sanity.types';
-import { client } from '@/sanity/lib/client';
+import { sanityClient } from '@/sanity/lib/client';
 import { urlFor } from '@/sanity/lib/image';
 import { blogCategoriesQuery, blogsByCategoryQuery } from '@/sanity/lib/queries';
 
@@ -12,20 +13,26 @@ import {
   BreadcrumbSeparator,
 } from '@/components/shadcn/breadcrumb';
 import { Button } from '@/components/shadcn/button';
-import { BlogCard } from '@/app/blogs/components/blog-card';
 
-import { BlogCategorySelector } from './components/blog-category-selector';
+import { BlogCard } from './_components/blog-card';
+
+const MobileBlogCategorySelector = dynamic(() =>
+  import('./_components/blog-category-selector').then(mod => mod.MobileBlogCategorySelector),
+);
+const DesktopBlogCategorySelector = dynamic(() =>
+  import('./_components/blog-category-selector').then(mod => mod.DesktopBlogCategorySelector),
+);
 
 export const revalidate = 43200; // 12 hours
 
 const fetchBlogCategories = async () => {
-  const blogCategories = await client.fetch(blogCategoriesQuery);
+  const blogCategories = await sanityClient.fetch(blogCategoriesQuery);
   return blogCategories;
 };
 
 export const fetchBlogsByCategorySlugs = async (categories: string | string[] | undefined) => {
   const categorySlugs = categories ? (Array.isArray(categories) ? categories : [categories]) : null;
-  const blogs: BlogsByCategoryQueryResult = await client.fetch(blogsByCategoryQuery, {
+  const blogs: BlogsByCategoryQueryResult = await sanityClient.fetch(blogsByCategoryQuery, {
     categorySlugs,
   });
 
@@ -47,6 +54,7 @@ export default async function BlogsPage({
   const { category } = await searchParams;
   const blogs = await fetchBlogsByCategorySlugs(category);
   const blogCategories = await fetchBlogCategories();
+  const allBlogCategories = [{ title: 'View All', slug: null }, ...blogCategories];
   if (!blogs) return <p>No blogs found!</p>;
   return (
     <>
@@ -74,8 +82,13 @@ export default async function BlogsPage({
           <span className="bg-primary h-6 w-1 mr-3 rounded-sm"></span>
           Latest Articles
         </h2>
-        <BlogCategorySelector blogCategories={blogCategories} />
-        <div className="flex flex-wrap gap-4 mt-12">
+        <div className="hidden sm:block">
+          <DesktopBlogCategorySelector blogCategories={allBlogCategories} />
+        </div>
+        <div className="block sm:hidden">
+          <MobileBlogCategorySelector blogCategories={allBlogCategories} />
+        </div>
+        <div className="flex w-full flex-wrap gap-4">
           {blogs.map(blog => (
             <BlogCard
               key={blog._id}

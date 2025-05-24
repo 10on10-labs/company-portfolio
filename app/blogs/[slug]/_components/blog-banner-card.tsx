@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { Author } from '@/sanity.types';
 import { urlFor } from '@/sanity/lib/image';
 import { format } from 'date-fns';
+import { Facebook, Linkedin } from 'lucide-react';
 
 import { Icons } from '@/components/icons';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/shadcn/avatar';
@@ -30,11 +31,11 @@ export const BlogBannerCard: FC<Props> = ({
   return (
     <Card className="bg-primary/5 text-primary-900 border-0">
       <CardHeader>
-        <CardTitle className="text-primary text-5xl font-bold">{title}</CardTitle>
+        <CardTitle className="text-primary text-2xl sm:text-5xl font-bold">{title}</CardTitle>
         <CardDescription>{subTitle}</CardDescription>
       </CardHeader>
       <hr className="border-neutral-200 pb-6" />
-      <CardFooter className="flex justify-between">
+      <CardFooter className="flex flex-col sm:flex-row gap-y-8 justify-between">
         <div className="flex items-center gap-x-2 capitalize text-neutral-500">
           <Avatar className="bg-primary-blue-200">
             <AvatarImage src={authorImageUrl || ''} alt="author_image" />
@@ -58,7 +59,7 @@ export const BlogBannerCard: FC<Props> = ({
                 rel="noreferrer"
                 className="overflow-hidden rounded-lg"
               >
-                <Icons.facebook className="hover:scale-105" />
+                <Facebook className="hover:scale-105 text-black" />
               </a>
               <a
                 href={linkedInShareUrl}
@@ -66,7 +67,7 @@ export const BlogBannerCard: FC<Props> = ({
                 rel="noreferrer"
                 className="text-blue-500 hover:text-blue-600"
               >
-                <Icons.linkedin />
+                <Linkedin className="hover:scale-105 text-black" />
               </a>
               <a
                 href={twitterShareUrl}
@@ -74,7 +75,7 @@ export const BlogBannerCard: FC<Props> = ({
                 rel="noreferrer"
                 className="text-primary-blue hover:text-primary-blue-400"
               >
-                <Icons.X />
+                <Icons.X className="hover:scale-105 text-black" />
               </a>
             </div>
           </div>
