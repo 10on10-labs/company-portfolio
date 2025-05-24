@@ -8,7 +8,9 @@ async function getTestimonials() {
   return clientTestimonials;
 }
 
-const Reviews = async () => {
+export const revalidate = 43200; // 12 hours
+
+export default async function ReviewsPage() {
   const testimonials = await getTestimonials();
 
   return (
@@ -19,6 +21,4 @@ const Reviews = async () => {
       </div>
     </div>
   );
-};
-
-export default Reviews;
+}
