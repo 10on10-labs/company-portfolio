@@ -35,16 +35,25 @@ export const pagesBySlugQuery = defineQuery(`
 export const projectBySlugQuery = defineQuery(`
   *[_type == "project" && slug.current == $slug][0] {
     _id,
-    _type,
-    client,
-    coverImage,
-    description,
-    duration,
-    overview,
-    site,
     "slug": slug.current,
-    tags,
-    title,
+    name,
+    category,
+    description,
+    logo,
+    coverImages,
+    projectSections,
+  }
+`);
+export const allProjectsQuery = defineQuery(`
+  *[_type == "project"] {
+    _id,
+    "slug": slug.current,
+    name,
+    category,
+    description,
+    logo,
+    coverImages,
+    projectSections,
   }
 `);
 
@@ -67,4 +76,30 @@ export const settingsQuery = defineQuery(`
 
 export const slugsByTypeQuery = defineQuery(`
   *[_type == $type && defined(slug.current)]{"slug": slug.current}
+`);
+export const servicesQuery = defineQuery(`
+  *[_type == "service"] {
+    name,
+    "id": id.current,
+    description,
+    categories
+  }
+`);
+
+export const testimonialsQuery = defineQuery(`
+  *[_type == "testimonial"] {
+    _id,
+    clientName,
+    role,
+    testimonial,
+    rating,
+    clientImage {
+      asset->{
+        url,
+        metadata {
+          dimensions
+        }
+      }
+    }
+  }
 `);

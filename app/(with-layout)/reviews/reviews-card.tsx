@@ -1,13 +1,13 @@
-import Image from 'next/image';
 import { Star } from 'lucide-react';
 
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/shadcn/avatar';
 import { Card, CardContent } from '@/components/shadcn/card';
 
 export type Review = {
-  id: number;
+  id: string;
   name: string;
   role: string;
-  image: string;
+  image: string | null;
   content: string;
   rating: number;
 };
@@ -31,15 +31,16 @@ export const ReviewsCard: React.FC<{ review: Review }> = ({ review }) => {
           <p className="text-lg mb-6 text-black text-center max-w-5xl">{review.content}</p>
           <div className="flex items-center mb-0 md:mb-3">{renderStars(review.rating)}</div>
           <div className="flex items-center flex-col gap-2">
-            <div className="w-20 h-20 rounded-full overflow-hidden flex-shrink-0 border-2 border-orange-400">
-              <Image
-                src={review.image}
-                width={50}
-                height={50}
-                alt={review.name}
-                className="w-full h-full object-cover"
-              />
-            </div>
+            <Avatar className="size-20 border-2 border-orange-400">
+              <AvatarImage src={review.image || ''} alt="author_image" />
+              <AvatarFallback className="uppercase bg-gray-200">
+                {review.name
+                  ?.split(' ')
+                  .slice(0, 2)
+                  .map(namePart => namePart[0])
+                  .join('')}
+              </AvatarFallback>
+            </Avatar>
 
             <h4 className="text-lg font-bold text-black">{review.name}</h4>
             <p className="text-orange-600">{review.role}</p>
