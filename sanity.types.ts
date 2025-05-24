@@ -229,6 +229,7 @@ export type Service = {
   _rev: string;
   name?: string;
   id?: Slug;
+  description?: string;
   categories?: Array<string>;
 };
 
@@ -1092,10 +1093,11 @@ export type SlugsByTypeQueryResult = Array<{
   slug: string | null;
 }>;
 // Variable: servicesQuery
-// Query: *[_type == "service"] {    name,    "id": id.current,    categories  }
+// Query: *[_type == "service"] {    name,    "id": id.current,    description,    categories  }
 export type ServicesQueryResult = Array<{
   name: string | null;
   id: string | null;
+  description: string | null;
   categories: Array<string> | null;
 }>;
 // Variable: testimonialsQuery
@@ -1117,7 +1119,6 @@ export type TestimonialsQueryResult = Array<{
 }>;
 
 declare module '@sanity/client' {
-  // eslint-disable-next-line no-unused-vars
   interface SanityQueries {
     '\n    *[_type == "blog" && slug.current == $slug][0] {\n        title,\n        subTitle,\n        "modifiedAt": _updatedAt,\n        author->,\n        thumbnail,\n        body,\n        blogCategories[]->{\n            title,\n            "chipColor": chipColor.hex,\n            "slug": slug.current, \n        },\n    }\n': BlogBySlugQueryResult;
     '\n    *[_type == "blog"] {\n        "slug": slug.current\n    }\n': BlogsSlugQueryResult;
@@ -1128,7 +1129,7 @@ declare module '@sanity/client' {
     '\n  *[_type == "project" && slug.current == $slug][0] {\n    _id,\n    _type,\n    client,\n    coverImage,\n    description,\n    duration,\n    overview,\n    site,\n    "slug": slug.current,\n    tags,\n    title,\n  }\n': ProjectBySlugQueryResult;
     '\n  *[_type == "settings"][0]{\n    _id,\n    _type,\n    footer,\n    menuItems[]{\n      _key,\n      ...@->{\n        _type,\n        "slug": slug.current,\n        title\n      }\n    },\n    ogImage,\n  }\n': SettingsQueryResult;
     '\n  *[_type == $type && defined(slug.current)]{"slug": slug.current}\n': SlugsByTypeQueryResult;
-    '\n  *[_type == "service"] {\n    name,\n    "id": id.current,\n    categories\n  }\n': ServicesQueryResult;
+    '\n  *[_type == "service"] {\n    name,\n    "id": id.current,\n    description,\n    categories\n  }\n': ServicesQueryResult;
     '\n  *[_type == "testimonial"] {\n    _id,\n    clientName,\n    role,\n    testimonial,\n    rating,\n    clientImage {\n      asset->{\n        url,\n        metadata {\n          dimensions\n        }\n      }\n    }\n  }\n': TestimonialsQueryResult;
   }
 }

@@ -72,6 +72,7 @@ export const servicesQuery = defineQuery(`
   *[_type == "service"] {
     name,
     "id": id.current,
+    description,
     categories
   }
 `);

@@ -1,6 +1,6 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
-import { getClient } from '@/sanity/lib/client';
+import { sanityClient } from '@/sanity/lib/client';
 import { servicesQuery } from '@/sanity/lib/queries/queries';
 
 const ServiceCard = dynamic(() => import('./service-card').then(module => module.ServiceCard));
@@ -8,15 +8,9 @@ const ServicesCarousel = dynamic(() =>
   import('./service-carousel').then(module => module.ServicesCarousel),
 );
 
-export type Service = {
-  name: string;
-  id: string;
-  categories: string[];
-};
-
 async function getServices() {
-  const client = getClient();
-  return client.fetch<Service[]>(servicesQuery);
+  const services = await sanityClient.fetch(servicesQuery);
+  return services;
 }
 
 export const Services = async () => {
