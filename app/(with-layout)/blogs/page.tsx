@@ -57,7 +57,7 @@ export default async function BlogsPage({
   const allBlogCategories = [{ title: 'View All', slug: null }, ...blogCategories];
   if (!blogs) return <p>No blogs found!</p>;
   return (
-    <>
+    <div className="py-5 px-16">
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
@@ -120,6 +120,6 @@ export default async function BlogsPage({
           <Button>Subscribe</Button>
         </div>
       </section>
-    </>
+    </div>
   );
 }
