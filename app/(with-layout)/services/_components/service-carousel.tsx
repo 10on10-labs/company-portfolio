@@ -1,4 +1,5 @@
 import React from 'react';
+import { ServicesQueryResult } from '@/sanity.types';
 
 import {
   Carousel,
@@ -10,13 +11,8 @@ import {
 
 import { ServiceCard } from './service-card';
 
-export type Service = {
-  name: string;
-  id: string;
-  categories: string[];
-};
 type Props = {
-  services: Service[];
+  services: ServicesQueryResult;
 };
 
 export const ServicesCarousel: React.FC<Props> = ({ services }) => {

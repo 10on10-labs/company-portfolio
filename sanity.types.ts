@@ -197,29 +197,22 @@ export type Milestone = {
   duration?: Duration;
 };
 
-export type Project = {
+export type Duration = {
+  _type: 'duration';
+  start?: string;
+  end?: string;
+};
+
+export type Testimonial = {
   _id: string;
-  _type: 'project';
+  _type: 'testimonial';
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  title?: string;
-  slug?: Slug;
-  overview?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: 'span';
-      _key: string;
-    }>;
-    style?: 'normal';
-    listItem?: never;
-    markDefs?: null;
-    level?: number;
-    _type: 'block';
-    _key: string;
-  }>;
-  coverImage?: {
+  clientName?: string;
+  role?: string;
+  testimonial?: string;
+  clientImage?: {
     asset?: {
       _ref: string;
       _type: 'reference';
@@ -231,54 +224,77 @@ export type Project = {
     crop?: SanityImageCrop;
     _type: 'image';
   };
-  duration?: Duration;
-  client?: string;
-  site?: string;
-  tags?: Array<string>;
-  description?: Array<
-    | {
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: 'span';
-          _key: string;
-        }>;
-        style?: 'normal';
-        listItem?: 'bullet' | 'number';
-        markDefs?: Array<{
-          href?: string;
-          _type: 'link';
-          _key: string;
-        }>;
-        level?: number;
-        _type: 'block';
-        _key: string;
-      }
-    | ({
-        _key: string;
-      } & Timeline)
-    | {
-        asset?: {
-          _ref: string;
-          _type: 'reference';
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-        };
-        media?: unknown;
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        caption?: string;
-        alt?: string;
-        _type: 'image';
-        _key: string;
-      }
-  >;
+  rating?: number;
 };
 
-export type Duration = {
-  _type: 'duration';
-  start?: string;
-  end?: string;
+export type Service = {
+  _id: string;
+  _type: 'service';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  id?: Slug;
+  description?: string;
+  categories?: Array<string>;
+};
+
+export type Project = {
+  _id: string;
+  _type: 'project';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  description?: string;
+  category?: string;
+  logo?: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: 'image';
+  };
+  coverImages?: Array<{
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: 'image';
+    _key: string;
+  }>;
+  projectSections?: Array<{
+    id?: string;
+    name?: string;
+    description?: string;
+    images?: Array<{
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: 'image';
+      _key: string;
+    }>;
+    _key: string;
+  }>;
 };
 
 export type Page = {
@@ -622,8 +638,10 @@ export type AllSanitySchemaTypes =
   | Home
   | Timeline
   | Milestone
-  | Project
   | Duration
+  | Testimonial
+  | Service
+  | Project
   | Page
   | BlogCategory
   | Blog
@@ -825,35 +843,11 @@ export type HomePageQueryResult = {
     _key: string;
     _id: string;
     _type: 'project';
-    coverImage: {
-      asset?: {
-        _ref: string;
-        _type: 'reference';
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-      };
-      media?: unknown;
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: 'image';
-    } | null;
-    overview: Array<{
-      children?: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: 'span';
-        _key: string;
-      }>;
-      style?: 'normal';
-      listItem?: never;
-      markDefs?: null;
-      level?: number;
-      _type: 'block';
-      _key: string;
-    }> | null;
+    coverImage: null;
+    overview: null;
     slug: string | null;
-    tags: Array<string> | null;
-    title: string | null;
+    tags: null;
+    title: null;
   }> | null;
   title: string | null;
 } | null;
@@ -918,12 +912,14 @@ export type PagesBySlugQueryResult = {
   slug: string | null;
 } | null;
 // Variable: projectBySlugQuery
-// Query: *[_type == "project" && slug.current == $slug][0] {    _id,    _type,    client,    coverImage,    description,    duration,    overview,    site,    "slug": slug.current,    tags,    title,  }
+// Query: *[_type == "project" && slug.current == $slug][0] {    _id,    "slug": slug.current,    name,    category,    description,    logo,    coverImages,    projectSections,  }
 export type ProjectBySlugQueryResult = {
   _id: string;
-  _type: 'project';
-  client: string | null;
-  coverImage: {
+  slug: string | null;
+  name: string | null;
+  category: string | null;
+  description: string | null;
+  logo: {
     asset?: {
       _ref: string;
       _type: 'reference';
@@ -935,64 +931,96 @@ export type ProjectBySlugQueryResult = {
     crop?: SanityImageCrop;
     _type: 'image';
   } | null;
-  description: Array<
-    | ({
-        _key: string;
-      } & Timeline)
-    | {
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: 'span';
-          _key: string;
-        }>;
-        style?: 'normal';
-        listItem?: 'bullet' | 'number';
-        markDefs?: Array<{
-          href?: string;
-          _type: 'link';
-          _key: string;
-        }>;
-        level?: number;
-        _type: 'block';
-        _key: string;
-      }
-    | {
-        asset?: {
-          _ref: string;
-          _type: 'reference';
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-        };
-        media?: unknown;
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        caption?: string;
-        alt?: string;
-        _type: 'image';
-        _key: string;
-      }
-  > | null;
-  duration: Duration | null;
-  overview: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: 'span';
-      _key: string;
-    }>;
-    style?: 'normal';
-    listItem?: never;
-    markDefs?: null;
-    level?: number;
-    _type: 'block';
+  coverImages: Array<{
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: 'image';
     _key: string;
   }> | null;
-  site: string | null;
-  slug: string | null;
-  tags: Array<string> | null;
-  title: string | null;
+  projectSections: Array<{
+    id?: string;
+    name?: string;
+    description?: string;
+    images?: Array<{
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: 'image';
+      _key: string;
+    }>;
+    _key: string;
+  }> | null;
 } | null;
+// Variable: allProjectsQuery
+// Query: *[_type == "project"] {    _id,    "slug": slug.current,    name,    category,    description,    logo,    coverImages,    projectSections,  }
+export type AllProjectsQueryResult = Array<{
+  _id: string;
+  slug: string | null;
+  name: string | null;
+  category: string | null;
+  description: string | null;
+  logo: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: 'image';
+  } | null;
+  coverImages: Array<{
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: 'image';
+    _key: string;
+  }> | null;
+  projectSections: Array<{
+    id?: string;
+    name?: string;
+    description?: string;
+    images?: Array<{
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: 'image';
+      _key: string;
+    }>;
+    _key: string;
+  }> | null;
+}>;
 // Variable: settingsQuery
 // Query: *[_type == "settings"][0]{    _id,    _type,    footer,    menuItems[]{      _key,      ...@->{        _type,        "slug": slug.current,        title      }    },    ogImage,  }
 export type SettingsQueryResult = {
@@ -1033,7 +1061,7 @@ export type SettingsQueryResult = {
         _key: null;
         _type: 'project';
         slug: string | null;
-        title: string | null;
+        title: null;
       }
   > | null;
   ogImage: {
@@ -1054,6 +1082,31 @@ export type SettingsQueryResult = {
 export type SlugsByTypeQueryResult = Array<{
   slug: string | null;
 }>;
+// Variable: servicesQuery
+// Query: *[_type == "service"] {    name,    "id": id.current,    description,    categories  }
+export type ServicesQueryResult = Array<{
+  name: string | null;
+  id: string | null;
+  description: string | null;
+  categories: Array<string> | null;
+}>;
+// Variable: testimonialsQuery
+// Query: *[_type == "testimonial"] {    _id,    clientName,    role,    testimonial,    rating,    clientImage {      asset->{        url,        metadata {          dimensions        }      }    }  }
+export type TestimonialsQueryResult = Array<{
+  _id: string;
+  clientName: string | null;
+  role: string | null;
+  testimonial: string | null;
+  rating: number | null;
+  clientImage: {
+    asset: {
+      url: string | null;
+      metadata: {
+        dimensions: SanityImageDimensions | null;
+      } | null;
+    } | null;
+  } | null;
+}>;
 
 declare module '@sanity/client' {
   interface SanityQueries {
@@ -1063,8 +1116,11 @@ declare module '@sanity/client' {
     '\n   *[_type == "blog" && \n    ($categorySlugs == null || references(*[_type == "blogCategory" && slug.current in $categorySlugs]._id))\n  ] {\n    _id,\n    title,\n    subTitle,\n    // assumes 5 characters as mean word length\n    // https://ux.stackexchange.com/questions/22520/how-long-does-it-take-to-read-x-number-of-characters\n    "readingTimeInMins": round(length(pt::text(body)) / 5 / 180 ),\n    author->{\n     name,\n     image\n    },\n    blogCategories[]->{\n      title,\n      "chipColor": chipColor.hex\n    },\n    "slug": slug.current,\n    thumbnail,\n    publishedAt\n  }\n': BlogsByCategoryQueryResult;
     '\n  *[_type == "home"][0]{\n    _id,\n    _type,\n    overview,\n    showcaseProjects[]{\n      _key,\n      ...@->{\n        _id,\n        _type,\n        coverImage,\n        overview,\n        "slug": slug.current,\n        tags,\n        title,\n      }\n    },\n    title,\n  }\n': HomePageQueryResult;
     '\n  *[_type == "page" && slug.current == $slug][0] {\n    _id,\n    _type,\n    body,\n    overview,\n    title,\n    "slug": slug.current,\n  }\n': PagesBySlugQueryResult;
-    '\n  *[_type == "project" && slug.current == $slug][0] {\n    _id,\n    _type,\n    client,\n    coverImage,\n    description,\n    duration,\n    overview,\n    site,\n    "slug": slug.current,\n    tags,\n    title,\n  }\n': ProjectBySlugQueryResult;
+    '\n  *[_type == "project" && slug.current == $slug][0] {\n    _id,\n    "slug": slug.current,\n    name,\n    category,\n    description,\n    logo,\n    coverImages,\n    projectSections,\n  }\n': ProjectBySlugQueryResult;
+    '\n  *[_type == "project"] {\n    _id,\n    "slug": slug.current,\n    name,\n    category,\n    description,\n    logo,\n    coverImages,\n    projectSections,\n  }\n': AllProjectsQueryResult;
     '\n  *[_type == "settings"][0]{\n    _id,\n    _type,\n    footer,\n    menuItems[]{\n      _key,\n      ...@->{\n        _type,\n        "slug": slug.current,\n        title\n      }\n    },\n    ogImage,\n  }\n': SettingsQueryResult;
     '\n  *[_type == $type && defined(slug.current)]{"slug": slug.current}\n': SlugsByTypeQueryResult;
+    '\n  *[_type == "service"] {\n    name,\n    "id": id.current,\n    description,\n    categories\n  }\n': ServicesQueryResult;
+    '\n  *[_type == "testimonial"] {\n    _id,\n    clientName,\n    role,\n    testimonial,\n    rating,\n    clientImage {\n      asset->{\n        url,\n        metadata {\n          dimensions\n        }\n      }\n    }\n  }\n': TestimonialsQueryResult;
   }
 }
