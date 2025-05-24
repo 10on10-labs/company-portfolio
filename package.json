@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "build": "next build",
-    "dev": "next --turbopack",
+    "dev": "next",
     "format": "npx prettier --write . --ignore-path .gitignore",
     "format:check": "prettier --check \"**/*.{ts,tsx,mdx}\" --cache",
     "lint": "next lint .",
