@@ -1,4 +1,4 @@
-import { DocumentIcon, ImageIcon } from '@sanity/icons';
+import { DocumentIcon } from '@sanity/icons';
 import { defineField, defineType } from 'sanity';
 
 export const project = defineType({
@@ -26,9 +26,12 @@ export const project = defineType({
       validation: rule => rule.required(),
     }),
     defineField({
-      name: 'logoUrl',
-      title: 'Logo URL',
-      type: 'url',
+      name: 'logo',
+      title: 'Logo',
+      type: 'image',
+      options: {
+        hotspot: true,
+      },
       validation: rule => rule.required(),
     }),
     defineField({
@@ -37,11 +40,17 @@ export const project = defineType({
       type: 'array',
       of: [
         {
-          type: 'object',
+          type: 'image',
+          options: {
+            hotspot: true,
+          },
           fields: [
-            { name: 'id', type: 'string', title: 'ID' },
-            { name: 'src', type: 'url', title: 'Image URL' },
-            { name: 'alt', type: 'string', title: 'Alt Text' },
+            {
+              name: 'alt',
+              type: 'string',
+              title: 'Alt Text',
+              validation: rule => rule.required(),
+            },
           ],
         },
       ],
@@ -54,20 +63,41 @@ export const project = defineType({
         {
           type: 'object',
           fields: [
-            { name: 'id', type: 'string', title: 'ID' },
-            { name: 'name', type: 'string', title: 'Name' },
-            { name: 'description', type: 'text', title: 'Description' },
+            {
+              name: 'id',
+              type: 'string',
+              title: 'ID',
+              validation: rule => rule.required(),
+            },
+            {
+              name: 'name',
+              type: 'string',
+              title: 'Name',
+              validation: rule => rule.required(),
+            },
+            {
+              name: 'description',
+              type: 'text',
+              title: 'Description',
+              validation: rule => rule.required(),
+            },
             {
               name: 'images',
               type: 'array',
               title: 'Images',
               of: [
                 {
-                  type: 'object',
+                  type: 'image',
+                  options: {
+                    hotspot: true,
+                  },
                   fields: [
-                    { name: 'id', type: 'string', title: 'ID' },
-                    { name: 'src', type: 'url', title: 'Image URL' },
-                    { name: 'alt', type: 'string', title: 'Alt Text' },
+                    {
+                      name: 'alt',
+                      type: 'string',
+                      title: 'Alt Text',
+                      validation: rule => rule.required(),
+                    },
                   ],
                 },
               ],
