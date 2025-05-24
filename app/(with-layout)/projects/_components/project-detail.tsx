@@ -12,7 +12,7 @@ type Props = {
 
 export const ProjectDetail: React.FC<Props> = ({ project }) => {
   if (!project) return null;
-  const { logo, name, projectSections } = project;
+  const { logo, name, projectSections, description } = project;
   const logoUrl = logo ? urlFor(logo).width(50).url() : null;
   return (
     <Link href="/projects" className="relative">
@@ -32,11 +32,9 @@ export const ProjectDetail: React.FC<Props> = ({ project }) => {
         <div className="p-6 h-full flex flex-col justify-center">
           <div className="flex justify-between items-center">
             <div>
-              <h1 className="text-xl font-bold">7-Eleven Mobile</h1>
+              <h1 className="text-xl font-bold">{name}</h1>
             </div>
-            <div>
-              <h2 className="text-gray-300">Product Innovation</h2>
-            </div>
+            <div>{description && <h2 className="text-gray-300">{description}</h2>}</div>
             <div className="w-8 h-8 bg-white rounded-sm flex items-center justify-end">
               <Image
                 src={logoUrl || ''}

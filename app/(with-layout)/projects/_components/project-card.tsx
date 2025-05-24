@@ -10,6 +10,7 @@ import { motion } from 'motion/react';
 export const ProjectCard: FC<AllProjectsQueryResult[number]> = ({
   coverImages,
   logo,
+  description,
   name,
   slug,
 }) => {
@@ -74,11 +75,9 @@ export const ProjectCard: FC<AllProjectsQueryResult[number]> = ({
           <Link className="p-6 h-full flex flex-col justify-center" href={`/projects/${slug}`}>
             <div className="flex justify-between items-center">
               <div>
-                <h1 className="text-xl font-bold">7-Eleven Mobile</h1>
+                <h1 className="text-xl font-bold">{name}</h1>
               </div>
-              <div>
-                <h2 className="text-gray-300">Product Innovation</h2>
-              </div>
+              <div>{description && <h2 className="text-gray-300">{description}</h2>}</div>
               <div className="w-8 h-8 bg-white rounded-sm flex items-center justify-end">
                 <Image
                   src={logoUrl || ''}
