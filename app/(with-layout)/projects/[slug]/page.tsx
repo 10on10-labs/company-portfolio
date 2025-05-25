@@ -4,7 +4,7 @@ import { sanityClient } from '@/sanity/lib/client';
 import { urlFor } from '@/sanity/lib/image';
 import { allProjectsQuery, projectBySlugQuery } from '@/sanity/lib/queries';
 
-import { ProjectDetail } from '../_components/project-detail';
+// import { ProjectDetail } from '../_components/project-detail';
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -50,12 +50,45 @@ export async function generateStaticParams() {
 export const revalidate = 43200; // 12 hours
 
 const ProjectDetailsPage: FC<Props> = async ({ params }) => {
+  // eslint-disable-next-line
   const pageParams = await params;
-  const slug = pageParams.slug;
-  const project = await fetchProjectBySlug(slug);
+  // const slug = pageParams.slug;
+  // const project = {
+  //   _id: 'db38aed7-7aca-4c75-ac95-96577f66074b',
+  //   category: 'Entertainment',
+  //   coverImages: [
+  //     {
+  //       _key: '2cacc47ac243',
+  //       _type: 'image',
+  //       alt: 'sample image',
+  //       asset: [Object],
+  //     },
+  //   ],
+  //   description: null,
+  //   logo: {
+  //     _type: 'image',
+  //     asset: {
+  //       _ref: 'image-7839690bac0cae9f16619e6e837eaab7ad9cce30-225x225-jpg',
+  //       _type: 'reference',
+  //     },
+  //   },
+  //   name: 'Yoga internantional',
+  //   projectSections: [
+  //     {
+  //       _key: '750c70f3fcac',
+  //       description: 'We added about section and this is the test description for that',
+  //       id: 'id-1',
+  //       images: [Array],
+  //       name: 'About section',
+  //     },
+  //   ],
+  //   slug: 'yoga-internantional',
+  // };
+  // await fetchProjectBySlug(slug);
+  // console.log('project', project);
   return (
     <div className="flex flex-col w-full items-stretch pr-15 pl-15 pt-10 gap-10">
-      <ProjectDetail project={project} />
+      {/* <ProjectDetail project={project} /> */}
     </div>
   );
 };

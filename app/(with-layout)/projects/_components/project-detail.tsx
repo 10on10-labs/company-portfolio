@@ -2,12 +2,12 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { ProjectBySlugQueryResult } from '@/sanity.types';
+// import { ProjectBySlugQueryResult } from '@/sanity.types';
 import { urlFor } from '@/sanity/lib/image';
 import { motion } from 'motion/react';
 
 type Props = {
-  project?: ProjectBySlugQueryResult;
+  project?: any;
 };
 
 export const ProjectDetail: React.FC<Props> = ({ project }) => {

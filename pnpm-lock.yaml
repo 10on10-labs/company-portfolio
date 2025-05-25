@@ -10501,11 +10501,11 @@ snapshots:
     transitivePeerDependencies:
       - '@sanity/types'
 
-  '@sanity/presentation-comlink@1.0.19(@sanity/client@6.29.0(debug@4.4.0))(@sanity/types@3.84.0(@types/react@19.1.0)(debug@4.4.0))':
+  '@sanity/presentation-comlink@1.0.19(@sanity/client@6.29.0)(@sanity/types@3.84.0(@types/react@19.1.0)(debug@4.4.0))':
     dependencies:
       '@sanity/client': 6.29.0(debug@4.4.0)
       '@sanity/comlink': 3.0.3
-      '@sanity/visual-editing-types': 1.0.18(@sanity/client@6.29.0(debug@4.4.0))(@sanity/types@3.84.0(@types/react@19.1.0)(debug@4.4.0))
+      '@sanity/visual-editing-types': 1.0.18(@sanity/client@6.29.0)(@sanity/types@3.84.0(@types/react@19.1.0)(debug@4.4.0))
     transitivePeerDependencies:
       - '@sanity/types'
 
@@ -10525,7 +10525,7 @@ snapshots:
     transitivePeerDependencies:
       - '@sanity/types'
 
-  '@sanity/preview-url-secret@2.1.11(@sanity/client@6.29.0(debug@4.4.0))':
+  '@sanity/preview-url-secret@2.1.11(@sanity/client@6.29.0)':
     dependencies:
       '@sanity/client': 6.29.0(debug@4.4.0)
       '@sanity/uuid': 3.0.2
@@ -10712,7 +10712,7 @@ snapshots:
     optionalDependencies:
       '@sanity/types': 3.84.0(@types/react@19.1.0)(debug@4.4.0)
 
-  '@sanity/visual-editing-types@1.0.18(@sanity/client@6.29.0(debug@4.4.0))(@sanity/types@3.84.0(@types/react@19.1.0)(debug@4.4.0))':
+  '@sanity/visual-editing-types@1.0.18(@sanity/client@6.29.0)(@sanity/types@3.84.0(@types/react@19.1.0)(debug@4.4.0))':
     dependencies:
       '@sanity/client': 6.29.0(debug@4.4.0)
     optionalDependencies:
@@ -15101,8 +15101,8 @@ snapshots:
       '@sanity/logos': 2.2.0(@sanity/color@3.0.6)(react@19.1.0)
       '@sanity/migrate': 3.84.0(@types/react@19.1.0)
       '@sanity/mutator': 3.84.0(@types/react@19.1.0)
-      '@sanity/presentation-comlink': 1.0.19(@sanity/client@6.29.0(debug@4.4.0))(@sanity/types@3.84.0(@types/react@19.1.0)(debug@4.4.0))
-      '@sanity/preview-url-secret': 2.1.11(@sanity/client@6.29.0(debug@4.4.0))
+      '@sanity/presentation-comlink': 1.0.19(@sanity/client@6.29.0)(@sanity/types@3.84.0(@types/react@19.1.0)(debug@4.4.0))
+      '@sanity/preview-url-secret': 2.1.11(@sanity/client@6.29.0)
       '@sanity/schema': 3.84.0(@types/react@19.1.0)(debug@4.4.0)
       '@sanity/telemetry': 0.8.1(react@19.1.0)
       '@sanity/types': 3.84.0(@types/react@19.1.0)(debug@4.4.0)
