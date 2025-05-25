@@ -2,7 +2,8 @@ import { FC } from 'react';
 import { Metadata } from 'next';
 import { sanityClient } from '@/sanity/lib/client';
 import { urlFor } from '@/sanity/lib/image';
-import { allProjectsQuery, projectBySlugQuery } from '@/sanity/lib/queries';
+// import { allProjectsQuery,
+import { projectBySlugQuery } from '@/sanity/lib/queries';
 
 // import { ProjectDetail } from '../_components/project-detail';
 
@@ -15,11 +16,12 @@ const fetchProjectBySlug = async (slug: string) => {
   if (!project) return null;
   return project;
 };
-const fetchAllProjects = async () => {
-  const allProjects = await sanityClient.fetch(allProjectsQuery);
-  if (!allProjects) return null;
-  return allProjects;
-};
+
+// const fetchAllProjects = async () => {
+//   const allProjects = await sanityClient.fetch(allProjectsQuery);
+//   if (!allProjects) return null;
+//   return allProjects;
+// };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;

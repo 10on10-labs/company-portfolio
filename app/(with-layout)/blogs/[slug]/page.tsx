@@ -43,7 +43,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     applicationName: '10on10Labs',
     authors: { name: blog?.author?.name || '' },
     openGraph: {
-      url: new URL(`/blogs/${slug}`, process.env.NEXT_PUBLIC_DEPLOYED_URL).href,
+      // url: new URL(`/blogs/${slug}`, process.env.NEXT_PUBLIC_DEPLOYED_URL).href,
       title: blog?.title || '',
       description: blog?.subTitle || '',
       siteName: '10on10Labs',
