@@ -39,13 +39,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export async function generateStaticParams() {
-  const allProjects = await fetchAllProjects();
-  if (!allProjects) return [];
-  return allProjects?.map(project => ({
-    slug: project.slug,
-  }));
-}
+// export async function generateStaticParams() {
+//   const allProjects = await fetchAllProjects();
+//   if (!allProjects) return [];
+//   return allProjects?.map(project => ({
+//     slug: project.slug,
+//   }));
+// }
 
 export const revalidate = 43200; // 12 hours
 
