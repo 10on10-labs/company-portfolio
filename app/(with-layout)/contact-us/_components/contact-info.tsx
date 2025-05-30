@@ -20,8 +20,8 @@ export function ContactInfo() {
               <h3 className="text-xl font-semibold mb-2">E-mail us</h3>
               <p className="text-muted-foreground">
                 Please send an e-mail to{' '}
-                <a href="mailto:contact@10on10labs.com" className="text-primary hover:underline">
-                  contact@10on10labs.com
+                <a href="mailto:sales@10on10labs.com" className="text-primary hover:underline">
+                  sales@10on10labs.com
                 </a>
               </p>
             </CardContent>
