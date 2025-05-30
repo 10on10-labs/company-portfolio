@@ -1,6 +1,6 @@
 'use client';
 
-import { useActionState, useState } from 'react';
+import { useActionState, useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 
 import { Icons } from '@/components/icons';
@@ -11,26 +11,17 @@ import { Textarea } from '@/components/shadcn/textarea';
 import { submitContactForm } from '@/app/actions/contact';
 
 export function ContactForm() {
-  const [state, formAction, isPending] = useActionState(submitContactForm, null);
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: '',
-  });
+  const [state, formAction, isPending] = useActionState(async (_: any, formData: FormData) => {
+    return await submitContactForm(formData);
+  }, null);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  // Clear form on successful submission
-  if (state?.success && !isPending) {
-    setTimeout(() => {
-      setFormData({ name: '', email: '', message: '' });
-    }, 100);
-  }
+  // Reset form after successful submission
+  useEffect(() => {
+    if (state?.success && !isPending && !isSubmitted) {
+      setIsSubmitted(true);
+    }
+  }, [state?.success, isPending, isSubmitted]);
 
   return (
     <motion.div
@@ -90,15 +81,13 @@ export function ContactForm() {
         </div>
       )}
 
-      <form action={formAction} className="space-y-6">
+      <form action={formAction} className="space-y-6" key={isSubmitted ? 'reset' : 'form'}>
         <div>
           <Label className="block text-sm font-medium mb-2">Name</Label>
           <Input
             type="text"
             name="name"
             required
-            value={formData.name}
-            onChange={handleChange}
             className="w-full px-4 py-2 rounded-md border border-border bg-background"
           />
         </div>
@@ -108,8 +97,6 @@ export function ContactForm() {
             type="email"
             name="email"
             required
-            value={formData.email}
-            onChange={handleChange}
             className="w-full px-4 py-2 rounded-md border border-border bg-background"
           />
         </div>
@@ -119,8 +106,6 @@ export function ContactForm() {
             name="message"
             required
             rows={4}
-            value={formData.message}
-            onChange={handleChange}
             className="w-full px-4 py-2 rounded-md border border-border bg-background"
           />
         </div>
