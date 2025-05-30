@@ -59,6 +59,9 @@ importers:
       '@tailwindcss/typography':
         specifier: 0.5.16
         version: 0.5.16(tailwindcss@4.1.4)
+      '@types/nodemailer':
+        specifier: ^6.4.17
+        version: 6.4.17
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -89,6 +92,9 @@ importers:
       next-sanity:
         specifier: 9.10.1
         version: 9.10.1(@emotion/is-prop-valid@1.2.2)(@sanity/client@6.29.0)(@sanity/icons@3.7.0(react@19.1.0))(@sanity/types@3.84.0(@types/react@19.1.0))(@sanity/ui@2.15.13(@emotion/is-prop-valid@1.2.2)(react-dom@19.1.0(react@19.1.0))(react-is@18.3.1)(react@19.1.0)(styled-components@6.1.17(react-dom@19.1.0(react@19.1.0))(react@19.1.0)))(next@15.3.0(@babel/core@7.26.10)(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@19.0.0-beta-ebf51a3-20250411)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react-is@18.3.1)(react@19.1.0)(sanity@3.84.0(@emotion/is-prop-valid@1.2.2)(@types/node@22.14.1)(@types/react@19.1.0)(jiti@2.4.2)(lightningcss@1.29.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(styled-components@6.1.17(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(terser@5.39.0)(yaml@2.8.0))(styled-components@6.1.17(react-dom@19.1.0(react@19.1.0))(react@19.1.0))
+      nodemailer:
+        specifier: ^7.0.3
+        version: 7.0.3
       react:
         specifier: 19.1.0
         version: 19.1.0
@@ -3168,6 +3174,9 @@ packages:
   '@types/node@22.14.1':
     resolution: {integrity: sha512-u0HuPQwe/dHrItgHHpmw3N2fYCR6x4ivMNbPHRkBVP4CvN+kiRrKHWk3i8tXiO/joPwXLMYvF9TTF0eqgHIuOw==}
 
+  '@types/nodemailer@6.4.17':
+    resolution: {integrity: sha512-I9CCaIp6DTldEg7vyUTZi8+9Vo0hi1/T8gv3C89yk1rSAAzoKQ8H8ki/jBYJSFoH/BisgLP8tkZMlQ91CIquww==}
+
   '@types/normalize-package-data@2.4.4':
     resolution: {integrity: sha512-37i+OaWTh9qeK4LSHPsyRC7NahnGotNuZvjLSgcPzblpHB3rrCJxAOgI5gCdKm7coonsaX1Of0ILiTcnZjbfxA==}
 
@@ -5908,6 +5917,10 @@ packages:
 
   node-releases@2.0.19:
     resolution: {integrity: sha512-xxOWJsBKtzAq7DY0J+DTzuz58K8e7sJbdgwkbMWQe8UYB6ekmsQ45q0M/tJDsGaZmbC+l7n57UV8Hl5tHxO9uw==}
+
+  nodemailer@7.0.3:
+    resolution: {integrity: sha512-Ajq6Sz1x7cIK3pN6KesGTah+1gnwMnx5gKl3piQlQQE/PwyJ4Mbc8is2psWYxK3RJTVeqsDaCv8ZzXLCDHMTZw==}
+    engines: {node: '>=6.0.0'}
 
   normalize-package-data@2.5.0:
     resolution: {integrity: sha512-/5CMN3T0R4XTj4DcGaexo+roZSdSFW/0AOOTROrjxzCG1wrWXEsGbRKevjlIL+ZDE4sZlJr5ED4YW0yqmkK+eA==}
@@ -10489,11 +10502,11 @@ snapshots:
     transitivePeerDependencies:
       - '@sanity/types'
 
-  '@sanity/presentation-comlink@1.0.19(@sanity/client@6.29.0(debug@4.4.0))(@sanity/types@3.84.0(@types/react@19.1.0)(debug@4.4.0))':
+  '@sanity/presentation-comlink@1.0.19(@sanity/client@6.29.0)(@sanity/types@3.84.0(@types/react@19.1.0)(debug@4.4.0))':
     dependencies:
       '@sanity/client': 6.29.0(debug@4.4.0)
       '@sanity/comlink': 3.0.3
-      '@sanity/visual-editing-types': 1.0.18(@sanity/client@6.29.0(debug@4.4.0))(@sanity/types@3.84.0(@types/react@19.1.0)(debug@4.4.0))
+      '@sanity/visual-editing-types': 1.0.18(@sanity/client@6.29.0)(@sanity/types@3.84.0(@types/react@19.1.0)(debug@4.4.0))
     transitivePeerDependencies:
       - '@sanity/types'
 
@@ -10513,7 +10526,7 @@ snapshots:
     transitivePeerDependencies:
       - '@sanity/types'
 
-  '@sanity/preview-url-secret@2.1.11(@sanity/client@6.29.0(debug@4.4.0))':
+  '@sanity/preview-url-secret@2.1.11(@sanity/client@6.29.0)':
     dependencies:
       '@sanity/client': 6.29.0(debug@4.4.0)
       '@sanity/uuid': 3.0.2
@@ -10700,7 +10713,7 @@ snapshots:
     optionalDependencies:
       '@sanity/types': 3.84.0(@types/react@19.1.0)(debug@4.4.0)
 
-  '@sanity/visual-editing-types@1.0.18(@sanity/client@6.29.0(debug@4.4.0))(@sanity/types@3.84.0(@types/react@19.1.0)(debug@4.4.0))':
+  '@sanity/visual-editing-types@1.0.18(@sanity/client@6.29.0)(@sanity/types@3.84.0(@types/react@19.1.0)(debug@4.4.0))':
     dependencies:
       '@sanity/client': 6.29.0(debug@4.4.0)
     optionalDependencies:
@@ -11122,6 +11135,10 @@ snapshots:
   '@types/node@22.14.1':
     dependencies:
       undici-types: 6.21.0
+
+  '@types/nodemailer@6.4.17':
+    dependencies:
+      '@types/node': 22.14.1
 
   '@types/normalize-package-data@2.4.4': {}
 
@@ -14214,6 +14231,8 @@ snapshots:
 
   node-releases@2.0.19: {}
 
+  nodemailer@7.0.3: {}
+
   normalize-package-data@2.5.0:
     dependencies:
       hosted-git-info: 2.8.9
@@ -15066,8 +15085,8 @@ snapshots:
       '@sanity/logos': 2.2.0(@sanity/color@3.0.6)(react@19.1.0)
       '@sanity/migrate': 3.84.0(@types/react@19.1.0)
       '@sanity/mutator': 3.84.0(@types/react@19.1.0)
-      '@sanity/presentation-comlink': 1.0.19(@sanity/client@6.29.0(debug@4.4.0))(@sanity/types@3.84.0(@types/react@19.1.0)(debug@4.4.0))
-      '@sanity/preview-url-secret': 2.1.11(@sanity/client@6.29.0(debug@4.4.0))
+      '@sanity/presentation-comlink': 1.0.19(@sanity/client@6.29.0)(@sanity/types@3.84.0(@types/react@19.1.0)(debug@4.4.0))
+      '@sanity/preview-url-secret': 2.1.11(@sanity/client@6.29.0)
       '@sanity/schema': 3.84.0(@types/react@19.1.0)(debug@4.4.0)
       '@sanity/telemetry': 0.8.1(react@19.1.0)
       '@sanity/types': 3.84.0(@types/react@19.1.0)(debug@4.4.0)

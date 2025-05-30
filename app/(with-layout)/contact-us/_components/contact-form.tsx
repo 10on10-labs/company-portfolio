@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useActionState, useState } from 'react';
 import { motion } from 'motion/react';
 
 import { Icons } from '@/components/icons';
@@ -8,40 +8,15 @@ import { Button } from '@/components/shadcn/button';
 import { Input } from '@/components/shadcn/input';
 import { Label } from '@/components/shadcn/label';
 import { Textarea } from '@/components/shadcn/textarea';
+import { submitContactForm } from '@/app/actions/contact';
 
 export function ContactForm() {
-  const [sending, setSending] = useState(false);
+  const [state, formAction, isPending] = useActionState(submitContactForm, null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     message: '',
   });
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setSending(true);
-
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to send message');
-      }
-
-      // Clear form
-      setFormData({ name: '', email: '', message: '' });
-    } catch (error) {
-      console.error('Error sending message:', error);
-    } finally {
-      setSending(false);
-    }
-  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -49,6 +24,13 @@ export function ContactForm() {
       [e.target.name]: e.target.value,
     });
   };
+
+  // Clear form on successful submission
+  if (state?.success && !isPending) {
+    setTimeout(() => {
+      setFormData({ name: '', email: '', message: '' });
+    }, 100);
+  }
 
   return (
     <motion.div
@@ -95,7 +77,20 @@ export function ContactForm() {
         </div>
       </div>
       <h2 className="text-2xl font-bold mb-6">Send us a message</h2>
-      <form onSubmit={handleSubmit} className="space-y-6">
+
+      {state?.success && (
+        <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-md text-green-800">
+          Thank you! Your message has been sent successfully.
+        </div>
+      )}
+
+      {state?.error && (
+        <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-md text-red-800">
+          Error: {state.error}
+        </div>
+      )}
+
+      <form action={formAction} className="space-y-6">
         <div>
           <Label className="block text-sm font-medium mb-2">Name</Label>
           <Input
@@ -129,8 +124,8 @@ export function ContactForm() {
             className="w-full px-4 py-2 rounded-md border border-border bg-background"
           />
         </div>
-        <Button type="submit" disabled={sending} className="w-full">
-          {sending ? 'Sending...' : 'Send Message'}
+        <Button type="submit" disabled={isPending} className="w-full">
+          {isPending ? 'Sending...' : 'Send Message'}
         </Button>
       </form>
     </motion.div>
