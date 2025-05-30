@@ -99,7 +99,7 @@ export const TopNavbar = () => {
           </div>
           <nav className="flex items-center h-full w-full justify-center ">
             <div className="bg-primary rounded-2xl opacity-90 h-full shadow-md  shadow-primary px-2 py-1 border-4 border-white">
-              <ul className="flex items-center h-full px-4 py-4 text-white">
+              <ul className="flex items-center h-full px-4 py-3 text-white">
                 {menuItems.map(({ title, href }, index) => (
                   <li key={index} className="">
                     <Link
@@ -111,10 +111,10 @@ export const TopNavbar = () => {
                     </Link>
                   </li>
                 ))}
-                <li>
+                <li className="pl-4">
                   <Link
                     href="/contact-us"
-                    className="bg-black text-white px-6 py-2 rounded-[10px] font-medium text-sm hover:bg-red-600 transition-colors duration-300 shadow-sm"
+                    className="bg-black text-white  px-6 py-2 rounded-[10px] font-medium text-sm hover:bg-white hover:text-black transition-colors duration-300 shadow-sm"
                   >
                     Contact Us
                   </Link>
