@@ -11,11 +11,13 @@ const getAllProjects = async () => {
 export default async function ProjectsPage() {
   const allProjects = await getAllProjects();
   return (
-    <div className="flex flex-col w-full  items-center justify-center pl-15 pr-15 gap-8 h-full">
+    <div className="pl-15 pr-15 flex flex-col gap-10 w-full h-auto items-center justify-center">
       <h1 className="text-3xl md:text-4xl w-auto h-full bg-red">Projects Highlight</h1>
-      {allProjects.map(project => {
-        return <ProjectCard key={project._id} {...project} />;
-      })}
+      <div className="w-full flex flex-col gap-10">
+        {allProjects.map(project => {
+          return <ProjectCard key={project._id} project={project} />;
+        })}
+      </div>
     </div>
   );
 }
