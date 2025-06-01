@@ -197,12 +197,14 @@ export const ProcessSection = () => {
         </Carousel>
       </div>
 
-      <div className="h-2 mt-20 w-full bg-white">
-        <motion.div
-          className="h-full  bg-gradient-to-r from-primary via-black to-primary"
-          animate={{ width: `${progress}%` }}
-          transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-        />
+      <div className="fixed bottom-5  h-2 w-full pl-10 pr-10">
+        <div className="bg-white w-full h-full">
+          <motion.div
+            className="h-full bg-gradient-to-r from-primary via-black to-primary"
+            animate={{ width: `${progress}%` }}
+            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+          />
+        </div>
       </div>
     </div>
   );
