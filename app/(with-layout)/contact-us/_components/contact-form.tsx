@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useActionState, useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 
 import { Icons } from '@/components/icons';
@@ -8,47 +8,20 @@ import { Button } from '@/components/shadcn/button';
 import { Input } from '@/components/shadcn/input';
 import { Label } from '@/components/shadcn/label';
 import { Textarea } from '@/components/shadcn/textarea';
+import { submitContactForm } from '@/app/actions/contact';
 
 export function ContactForm() {
-  const [sending, setSending] = useState(false);
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: '',
-  });
+  const [state, formAction, isPending] = useActionState(async (_: any, formData: FormData) => {
+    return await submitContactForm(formData);
+  }, null);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setSending(true);
-
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to send message');
-      }
-
-      // Clear form
-      setFormData({ name: '', email: '', message: '' });
-    } catch (error) {
-      console.error('Error sending message:', error);
-    } finally {
-      setSending(false);
+  // Reset form after successful submission
+  useEffect(() => {
+    if (state?.success && !isPending && !isSubmitted) {
+      setIsSubmitted(true);
     }
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+  }, [state?.success, isPending, isSubmitted]);
 
   return (
     <motion.div
@@ -95,15 +68,26 @@ export function ContactForm() {
         </div>
       </div>
       <h2 className="text-2xl font-bold mb-6">Send us a message</h2>
-      <form onSubmit={handleSubmit} className="space-y-6">
+
+      {state?.success && (
+        <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-md text-green-800">
+          Thank you! Your message has been sent successfully.
+        </div>
+      )}
+
+      {state?.error && (
+        <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-md text-red-800">
+          Error: {state.error}
+        </div>
+      )}
+
+      <form action={formAction} className="space-y-6" key={isSubmitted ? 'reset' : 'form'}>
         <div>
           <Label className="block text-sm font-medium mb-2">Name</Label>
           <Input
             type="text"
             name="name"
             required
-            value={formData.name}
-            onChange={handleChange}
             className="w-full px-4 py-2 rounded-md border border-border bg-background"
           />
         </div>
@@ -113,8 +97,6 @@ export function ContactForm() {
             type="email"
             name="email"
             required
-            value={formData.email}
-            onChange={handleChange}
             className="w-full px-4 py-2 rounded-md border border-border bg-background"
           />
         </div>
@@ -124,13 +106,11 @@ export function ContactForm() {
             name="message"
             required
             rows={4}
-            value={formData.message}
-            onChange={handleChange}
             className="w-full px-4 py-2 rounded-md border border-border bg-background"
           />
         </div>
-        <Button type="submit" disabled={sending} className="w-full">
-          {sending ? 'Sending...' : 'Send Message'}
+        <Button type="submit" disabled={isPending} className="w-full">
+          {isPending ? 'Sending...' : 'Send Message'}
         </Button>
       </form>
     </motion.div>
