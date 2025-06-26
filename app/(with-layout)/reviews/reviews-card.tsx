@@ -1,6 +1,10 @@
-import { Star } from 'lucide-react';
+'use client';
+
+import { useState } from 'react';
+import { ChevronDown, ChevronUp, Star } from 'lucide-react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/shadcn/avatar';
+import { Button } from '@/components/shadcn/button';
 import { Card, CardContent } from '@/components/shadcn/card';
 
 export type Review = {
@@ -13,6 +17,9 @@ export type Review = {
 };
 
 export const ReviewsCard: React.FC<{ review: Review }> = ({ review }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const isLongContent = review.content.length > 150;
+
   const renderStars = (rating: number) => {
     return Array(5)
       .fill(0)
@@ -24,29 +31,60 @@ export const ReviewsCard: React.FC<{ review: Review }> = ({ review }) => {
         />
       ));
   };
-  return (
-    <Card className="rounded-3xl flex flex-col h-full pt-2 pb-2 md:pb-4 md:pt-4 border border-secondary shadow-sm w-full">
-      <CardContent className="p-2 flex-1 flex items-center justify-center">
-        <div className="flex items-center flex-col justify-center gap-2 md:gap-6 w-full">
-          <p className="text-lg mb-6 text-black text-center max-w-5xl">{review.content}</p>
-          <div className="flex items-center mb-0 md:mb-3">{renderStars(review.rating)}</div>
-          <div className="flex items-center flex-col gap-2">
-            <Avatar className="size-20 border-2 border-orange-400">
-              <AvatarImage src={review.image || ''} alt="author_image" />
-              <AvatarFallback className="uppercase bg-gray-200">
-                {review.name
-                  ?.split(' ')
-                  .slice(0, 2)
-                  .map(namePart => namePart[0])
-                  .join('')}
-              </AvatarFallback>
-            </Avatar>
 
-            <h4 className="text-lg font-bold text-black">{review.name}</h4>
-            <p className="text-orange-600">{review.role}</p>
-          </div>
+  return (
+    <Card
+      className={`rounded-xl md:rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300 w-full flex flex-col relative ${isExpanded ? 'h-auto min-h-[300px] md:min-h-[320px]' : 'h-[300px] md:h-[320px]'}`}
+    >
+      <CardContent className="p-4 md:p-6 pb-[80px] md:pb-[90px] h-full">
+        <div className="flex items-center mb-2 md:mb-3">{renderStars(review.rating)}</div>
+
+        <div>
+          <p
+            className={`text-sm md:text-base text-gray-700 leading-relaxed transition-all duration-300 ${!isExpanded && isLongContent ? 'line-clamp-5 md:line-clamp-4' : ''}`}
+          >
+            {review.content}
+          </p>
+
+          {isLongContent && !isExpanded && <span className="text-gray-400 text-sm">...</span>}
         </div>
+
+        {isLongContent && (
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="mt-2 px-0 h-auto text-orange-600 hover:text-orange-700 hover:bg-transparent font-medium flex items-center gap-1"
+          >
+            {isExpanded ? (
+              <>
+                Show less <ChevronUp className="h-4 w-4" />
+              </>
+            ) : (
+              <>
+                Read more <ChevronDown className="h-4 w-4" />
+              </>
+            )}
+          </Button>
+        )}
       </CardContent>
+
+      <div className="absolute bottom-0 left-0 right-0 flex items-center gap-3 p-4 md:p-6 pt-3 md:pt-4 border-t border-gray-100 bg-white rounded-b-xl md:rounded-b-2xl">
+        <Avatar className="size-9 md:size-10 border border-gray-200">
+          <AvatarImage src={review.image || ''} alt="author_image" />
+          <AvatarFallback className="uppercase bg-gray-100 text-xs">
+            {review.name
+              ?.split(' ')
+              .slice(0, 2)
+              .map(namePart => namePart[0])
+              .join('')}
+          </AvatarFallback>
+        </Avatar>
+        <div className="flex-1">
+          <h4 className="text-sm font-semibold text-gray-900 line-clamp-1">{review.name}</h4>
+          <p className="text-xs text-gray-500 line-clamp-1">{review.role}</p>
+        </div>
+      </div>
     </Card>
   );
 };

@@ -1,4 +1,4 @@
-//@TODO we might replace the name with testimonials or something better
+'use client';
 
 import { FC } from 'react';
 import { TestimonialsQueryResult } from '@/sanity.types';
@@ -22,17 +22,17 @@ export const ReviewsCarousel: FC<Props> = ({ testimonials }) => {
     <Carousel
       opts={{
         loop: true,
-        align: 'start',
+        align: 'center',
         dragFree: false,
       }}
       orientation="horizontal"
-      className="h-full w-full"
+      className="h-full w-full relative"
     >
       <CarouselContent className="-ml-4">
         {testimonials.map(({ _id, clientImage, clientName, role, testimonial, rating }) => (
           <CarouselItem
             key={_id}
-            className="basis-full min-[768px]:basis-[100%] lg:basis-[80%] xl:basis-[80%] flex-shrink-0"
+            className="basis-[90%] sm:basis-[85%] md:basis-1/2 lg:basis-1/3 flex-shrink-0 pl-4"
           >
             <ReviewsCard
               review={{
@@ -47,8 +47,15 @@ export const ReviewsCarousel: FC<Props> = ({ testimonials }) => {
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselNext className="md:size-12 right-1 opacity-80 hover:opacity-100" />
-      <CarouselPrevious className="md:size-12 left-1 opacity-80 hover:opacity-100" />
+      {/* Mobile arrows - centered */}
+      <CarouselPrevious className="md:hidden size-10 -left-2 top-[45%] -translate-y-1/2 bg-primary border-0 text-white opacity-60 hover:opacity-100 transition-opacity" />
+      <CarouselNext className="md:hidden size-10 -right-2 top-[45%] -translate-y-1/2 bg-primary border-0 text-white opacity-60 hover:opacity-100 transition-opacity" />
+
+      {/* Desktop arrows - bottom right */}
+      <div className="hidden md:flex absolute bottom-4 right-4 gap-2">
+        <CarouselPrevious className="static size-12 bg-primary border-0 text-white opacity-60 hover:opacity-100 transition-opacity translate-x-0 translate-y-0" />
+        <CarouselNext className="static size-12 bg-primary border-0 text-white opacity-60 hover:opacity-100 transition-opacity translate-x-0 translate-y-0" />
+      </div>
     </Carousel>
   );
 };
