@@ -4,18 +4,11 @@ import { Suspense } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import AutoScroll from 'embla-carousel-auto-scroll';
-import Autoplay from 'embla-carousel-autoplay';
 import { Sparkles } from 'lucide-react';
 import { motion } from 'motion/react';
 
-
-
 import { Button } from '@/components/shadcn/button';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/shadcn/carousel';
-
-
-
-
 
 interface Brand {
   _id: string;
