@@ -1,11 +1,21 @@
 'use client';
 
+import { Suspense } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import AutoScroll from 'embla-carousel-auto-scroll';
+import Autoplay from 'embla-carousel-autoplay';
 import { Sparkles } from 'lucide-react';
 import { motion } from 'motion/react';
 
+
+
 import { Button } from '@/components/shadcn/button';
+import { Carousel, CarouselContent, CarouselItem } from '@/components/shadcn/carousel';
+
+
+
+
 
 interface Brand {
   _id: string;
@@ -79,60 +89,80 @@ export default function HeroClient({ brands }: HeroClientProps) {
         </motion.div>
 
         {brands && brands.length > 0 && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.2, duration: 0.8 }}
-            className="mt-10 w-full max-w-6xl"
-          >
-            <h3 className="text-black text-lg md:text-xl font-medium mb-5 opacity-70 text-center">
-              Trusted by forward-thinking brands:
-            </h3>
-            <div className="relative w-full overflow-hidden max-w-3xl mx-auto py-4">
-              <div className="flex">
-                {[0, 1, 2].map((stripIndex: number) => (
-                  <motion.div
-                    key={`strip-${stripIndex}`}
-                    className="flex shrink-0"
-                    animate={{ x: ['0%', '-100%'] }}
-                    transition={{
-                      x: {
-                        repeat: Infinity,
-                        duration: 20,
-                        ease: 'linear',
-                      },
-                    }}
-                  >
-                    {brands.map(brand => (
-                      <motion.div
-                        key={`${stripIndex}-${brand._id}`}
-                        className="flex flex-shrink-0 p-1 items-center mx-6"
-                        whileHover={{ scale: 1.1 }}
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.2, duration: 0.8 }}
+              className="mt-10 w-full max-w-6xl"
+            >
+              <h3 className="text-black text-lg md:text-xl font-medium mb-5 opacity-70 text-center">
+                Trusted by forward-thinking brands:
+              </h3>
+            </motion.div>
+            <div className="relative w-full max-w-5xl mx-auto py-4 overflow-hidden">
+              <Suspense>
+                <Carousel
+                  opts={{
+                    loop: true,
+                    align: 'start',
+                    skipSnaps: true,
+                  }}
+                  plugins={[
+                    AutoScroll({
+                      speed: 3,
+                      stopOnInteraction: false,
+                      stopOnMouseEnter: true,
+                      stopOnFocusIn: false,
+                      playOnInit: true,
+                    }),
+                  ]}
+                  orientation="horizontal"
+                  className="w-full"
+                >
+                  <CarouselContent className="flex items-center">
+                    {[...brands, ...brands, ...brands].map((brand, index) => (
+                      <CarouselItem
+                        key={`${brand._id}-${index}`}
+                        className="min-w-20 basis-auto pl-0"
                       >
-                        {brand.link ? (
-                          <a href={brand.link} target="_blank" rel="noopener noreferrer">
+                        <div className="flex items-center justify-center px-8 h-[60px]">
+                          {brand.link ? (
+                            <Link
+                              href={brand.link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              // className="flex items-center justify-center"
+                            >
+                              <Image
+                                title={brand.name}
+                                src={brand.logoUrl}
+                                width={120}
+                                height={60}
+                                alt={brand.logoAlt || brand.name}
+                                className="h-auto w-auto object-contain grayscale"
+                                style={{ maxWidth: '120px' }}
+                              />
+                            </Link>
+                          ) : (
                             <Image
                               src={brand.logoUrl}
-                              width={150}
-                              height={150}
+                              width={120}
+                              height={60}
                               alt={brand.logoAlt || brand.name}
+                              className="max-h-12 w-auto object-contain grayscale"
+                              style={{ maxWidth: '120px' }}
                             />
-                          </a>
-                        ) : (
-                          <Image
-                            src={brand.logoUrl}
-                            width={50}
-                            height={50}
-                            alt={brand.logoAlt || brand.name}
-                          />
-                        )}
-                      </motion.div>
+                          )}
+                          {/* </motion.div> */}
+                        </div>
+                      </CarouselItem>
                     ))}
-                  </motion.div>
-                ))}
-              </div>
+                  </CarouselContent>
+                </Carousel>
+              </Suspense>
             </div>
-          </motion.div>
+          </>
         )}
       </div>
     </section>
