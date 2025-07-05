@@ -1,19 +1,13 @@
 'use client';
 
+import { ServicesQueryResult } from '@/sanity.types';
 import { motion } from 'motion/react';
 
 import { ServiceCard } from '../services/_components/service-card';
 import { ServicesCarousel } from '../services/_components/service-carousel';
 
-interface Service {
-  name: string;
-  id: string;
-  description?: string;
-  categories?: string[];
-}
-
 interface ServicesSectionProps {
-  services: Service[];
+  services: ServicesQueryResult;
 }
 
 export default function ServicesSection({ services }: ServicesSectionProps) {

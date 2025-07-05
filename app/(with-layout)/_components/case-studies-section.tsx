@@ -2,32 +2,21 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, ExternalLink } from 'lucide-react';
+import { AllProjectsQueryResult } from '@/sanity.types';
+import { urlFor } from '@/sanity/lib/image';
+import { ArrowRight } from 'lucide-react';
 import { motion } from 'motion/react';
 
-import { Badge } from '@/components/shadcn/badge';
-import { Card, CardContent } from '@/components/shadcn/card';
-
-interface Project {
-  _id: string;
-  name: string;
-  slug: { current: string };
-  description?: string;
-  category?: string;
-  logoUrl?: string;
-  coverImages?: Array<{ url: string; alt?: string }>;
+interface Projects {
+  projects: AllProjectsQueryResult;
 }
 
-interface CaseStudiesSectionProps {
-  projects: Project[];
-}
-
-export default function CaseStudiesSection({ projects }: CaseStudiesSectionProps) {
+export default function CaseStudiesSection({ projects }: Projects) {
   // Take only first 3 projects for homepage
   const featuredProjects = projects?.slice(0, 3) || [];
 
   return (
-    <section className="py-16 md:py-24 bg-white">
+    <section className="py-16 md:py-24 bg-gray-50">
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <motion.div
@@ -44,67 +33,166 @@ export default function CaseStudiesSection({ projects }: CaseStudiesSectionProps
           </p>
         </motion.div>
 
-        {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
-          {featuredProjects?.map((project, index) => (
-            <motion.div
-              key={project._id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-            >
-              <Link href={`/projects/${project.slug.current}`}>
-                <Card className="group h-full overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer">
-                  {/* Project Image */}
-                  <div className="relative h-64 overflow-hidden bg-gray-100">
-                    {project.coverImages && project.coverImages?.[0]?.url ? (
-                      <Image
-                        src={project.coverImages[0].url || ''}
-                        alt={project.coverImages[0].alt || project.name}
-                        fill
-                        className="object-cover group-hover:scale-110 transition-transform duration-500"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center bg-gray-200">
-                        <span className="text-gray-400">No image available</span>
-                      </div>
-                    )}
+        {/* Projects List - Vertical Layout */}
+        <div className="max-w-7xl mx-auto space-y-8">
+          {featuredProjects?.map((project, index) => {
+            // Get all available images
+            const images =
+              project?.coverImages?.slice(0, 4).map((img, idx) => ({
+                url: urlFor(img || '')
+                  ?.width(600)
+                  ?.url(),
+                alt: img?.alt || `${project.name} screenshot ${idx + 1}`,
+              })) || [];
 
-                    {/* Overlay on hover */}
-                    <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                      <ExternalLink className="w-8 h-8 text-white" />
+            return (
+              <motion.div
+                key={project._id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+              >
+                <div className="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
+                    {/* Left Content */}
+                    <div className="p-8 lg:p-12 flex flex-col justify-center">
+                      <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-4 leading-tight">
+                        {project.name}
+                      </h3>
+
+                      {project.description && (
+                        <p className="text-gray-600 mb-6 text-lg leading-relaxed">
+                          {project.description}
+                        </p>
+                      )}
+
+                      {/* @TODO will decide on these fields */}
+                      <div className="space-y-3 mb-8">
+                        {/* {project?.location && (
+                          <div className="flex">
+                            <span className="text-gray-500 font-medium w-32">Location:</span>
+                            <span className="text-gray-700">{project?.location}</span>
+                          </div>
+                        )}
+                         {project.industries && project.industries.length > 0 && (
+                          <div className="flex">
+                            <span className="text-gray-500 font-medium w-32">Industries:</span>
+                            <span className="text-gray-700">{project.industries.join(', ')}</span>
+                          </div>
+                        )}
+                         {project.services && project.services.length > 0 && (
+                          <div className="flex">
+                            <span className="text-gray-500 font-medium w-32">Services:</span>
+                            <span className="text-gray-700 underline">
+                              {project.services.join(', ')}
+                            </span>
+                          </div>
+                        )} 
+                         {project.technologies && project.technologies.length > 0 && (
+                          <div className="flex">
+                            <span className="text-gray-500 font-medium w-32">Technologies:</span>
+                            <span className="text-gray-700">{project.technologies.join(', ')}</span>
+                          </div>
+                        )} */}
+                      </div>
+
+                      {/* View Case Study Link */}
+                      <Link
+                        href={`/projects/${project?.slug}`}
+                        className="inline-flex items-center text-gray-900 font-semibold hover:gap-3 transition-all group"
+                      >
+                        VIEW CASE STUDY
+                        <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                      </Link>
+                    </div>
+
+                    {/* Right Images Section */}
+                    <div className="relative h-[500px] lg:h-full min-h-[500px] bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-8 lg:p-12">
+                      {images.length > 0 ? (
+                        images.length === 1 ? (
+                          // Single large image
+                          <div className="relative w-full h-full max-w-[400px] mx-auto">
+                            <div className="relative w-full h-full drop-shadow-2xl rounded-lg overflow-hidden">
+                              <Image
+                                src={images[0].url}
+                                alt={images[0].alt}
+                                fill
+                                className="object-cover"
+                              />
+                            </div>
+                          </div>
+                        ) : images.length === 2 ? (
+                          // Two images staggered
+                          <div className="relative w-full h-full flex items-center justify-center">
+                            <div className="relative w-[45%] h-[85%] -rotate-6 z-10">
+                              <div className="relative w-full h-full drop-shadow-2xl rounded-lg overflow-hidden bg-white">
+                                <Image
+                                  src={images[0].url}
+                                  alt={images[0].alt}
+                                  fill
+                                  className="object-cover"
+                                />
+                              </div>
+                            </div>
+                            <div className="relative w-[45%] h-[85%] rotate-6 z-20 -ml-8">
+                              <div className="relative w-full h-full drop-shadow-2xl rounded-lg overflow-hidden bg-white">
+                                <Image
+                                  src={images[1].url}
+                                  alt={images[1].alt}
+                                  fill
+                                  className="object-cover"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        ) : (
+                          // Three images in triangular arrangement
+                          <div className="relative w-full h-full flex items-center justify-center">
+                            <div className="absolute top-[10%] left-[15%] w-[35%] h-[45%] -rotate-12 z-10">
+                              <div className="relative w-full h-full drop-shadow-2xl rounded-lg overflow-hidden bg-white">
+                                <Image
+                                  src={images[0].url}
+                                  alt={images[0].alt}
+                                  fill
+                                  className="object-cover"
+                                />
+                              </div>
+                            </div>
+                            <div className="absolute top-[5%] right-[15%] w-[35%] h-[45%] rotate-12 z-20">
+                              <div className="relative w-full h-full drop-shadow-2xl rounded-lg overflow-hidden bg-white">
+                                <Image
+                                  src={images[1].url}
+                                  alt={images[1].alt}
+                                  fill
+                                  className="object-cover"
+                                />
+                              </div>
+                            </div>
+                            <div className="absolute bottom-[10%] left-1/2 transform -translate-x-1/2 w-[40%] h-[50%] z-30">
+                              <div className="relative w-full h-full drop-shadow-2xl rounded-lg overflow-hidden bg-white">
+                                <Image
+                                  src={images[2].url}
+                                  alt={images[2].alt}
+                                  fill
+                                  className="object-cover"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        )
+                      ) : (
+                        // No images placeholder
+                        <div className="w-full h-full flex items-center justify-center">
+                          <span className="text-gray-400">No image available</span>
+                        </div>
+                      )}
                     </div>
                   </div>
-
-                  <CardContent className="p-6">
-                    {/* Category Badge */}
-                    {project.category && (
-                      <Badge variant="secondary" className="mb-3">
-                        {project.category}
-                      </Badge>
-                    )}
-
-                    {/* Project Name */}
-                    <h3 className="text-xl font-semibold text-black mb-2 group-hover:text-primary transition-colors">
-                      {project.name}
-                    </h3>
-
-                    {/* Description */}
-                    {project.description && (
-                      <p className="text-gray-600 line-clamp-2 mb-4">{project.description}</p>
-                    )}
-
-                    {/* View Project Link */}
-                    <div className="flex items-center text-primary font-medium group-hover:gap-3 transition-all">
-                      View Project
-                      <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                    </div>
-                  </CardContent>
-                </Card>
-              </Link>
-            </motion.div>
-          ))}
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
 
         {/* View All Button */}
@@ -113,11 +201,11 @@ export default function CaseStudiesSection({ projects }: CaseStudiesSectionProps
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="text-center mt-10"
+          className="text-center mt-12"
         >
           <Link
             href="/projects"
-            className="inline-flex items-center px-6 py-3 bg-primary text-white rounded-full hover:bg-primary/90 transition-colors duration-300"
+            className="inline-flex items-center px-8 py-4 bg-black text-white rounded-full hover:bg-gray-800 transition-colors duration-300 font-medium"
           >
             View All Projects
             <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
