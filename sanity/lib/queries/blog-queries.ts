@@ -52,3 +52,23 @@ export const blogsByCategoryQuery = defineQuery(`
     publishedAt
   }
 `);
+
+export const blogsQuery = defineQuery(`
+  *[_type == "blog"] | order(publishedAt desc) [0...10] {
+    _id,
+    title,
+    "excerpt": subTitle,
+    "estimatedReadingTime": round(length(pt::text(body)) / 5 / 180 ),
+    "slug": slug.current,
+    "image": thumbnail,
+    publishedAt,
+    author->{
+      name,
+      "picture": image
+    },
+    "category": blogCategories[0]->{
+      title,
+      "color": chipColor
+    }
+  }
+`);
