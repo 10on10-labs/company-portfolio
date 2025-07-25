@@ -107,80 +107,32 @@ export default function CaseStudiesSection({ projects }: Projects) {
                       </Link>
                     </div>
 
-                    {/* Right Images Section */}
+                    {/* Right Images Section - MacBook Display */}
                     <div className="relative h-[500px] lg:h-full min-h-[500px] bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-8 lg:p-12">
                       {images.length > 0 ? (
-                        images.length === 1 ? (
-                          // Single large image
-                          <div className="relative w-full h-full max-w-[400px] mx-auto">
-                            <div className="relative w-full h-full drop-shadow-2xl rounded-lg overflow-hidden">
-                              <Image
-                                src={images[0].url}
-                                alt={images[0].alt}
-                                fill
-                                className="object-cover"
-                              />
-                            </div>
-                          </div>
-                        ) : images.length === 2 ? (
-                          // Two images staggered
-                          <div className="relative w-full h-full flex items-center justify-center">
-                            <div className="relative w-[45%] h-[85%] -rotate-6 z-10">
-                              <div className="relative w-full h-full drop-shadow-2xl rounded-lg overflow-hidden bg-white">
+                        <div className="relative w-full h-full max-w-[500px] mx-auto flex items-center justify-center">
+                          {/* MacBook Frame */}
+                          <div className="relative w-full">
+                            <Image
+                              src="/macbook_new-min.webp"
+                              alt="MacBook Frame"
+                              width={500}
+                              height={312}
+                              className="w-full h-auto relative z-10"
+                            />
+                            {/* Project Screenshot Inside MacBook Screen */}
+                            <div className="absolute top-[8%] left-[13%] right-[13%] bottom-[22%] overflow-hidden">
+                              <div className="relative w-full h-full">
                                 <Image
                                   src={images[0].url}
                                   alt={images[0].alt}
                                   fill
-                                  className="object-cover"
-                                />
-                              </div>
-                            </div>
-                            <div className="relative w-[45%] h-[85%] rotate-6 z-20 -ml-8">
-                              <div className="relative w-full h-full drop-shadow-2xl rounded-lg overflow-hidden bg-white">
-                                <Image
-                                  src={images[1].url}
-                                  alt={images[1].alt}
-                                  fill
-                                  className="object-cover"
+                                  className="object-cover object-top"
                                 />
                               </div>
                             </div>
                           </div>
-                        ) : (
-                          // Three images in triangular arrangement
-                          <div className="relative w-full h-full flex items-center justify-center">
-                            <div className="absolute top-[10%] left-[15%] w-[35%] h-[45%] -rotate-12 z-10">
-                              <div className="relative w-full h-full drop-shadow-2xl rounded-lg overflow-hidden bg-white">
-                                <Image
-                                  src={images[0].url}
-                                  alt={images[0].alt}
-                                  fill
-                                  className="object-cover"
-                                />
-                              </div>
-                            </div>
-                            <div className="absolute top-[5%] right-[15%] w-[35%] h-[45%] rotate-12 z-20">
-                              <div className="relative w-full h-full drop-shadow-2xl rounded-lg overflow-hidden bg-white">
-                                <Image
-                                  src={images[1].url}
-                                  alt={images[1].alt}
-                                  fill
-                                  className="object-cover"
-                                />
-                              </div>
-                            </div>
-                            <div className="absolute bottom-[10%] left-1/2 transform -translate-x-1/2 w-[40%] h-[50%] z-30">
-                              <div className="relative w-full h-full drop-shadow-2xl rounded-lg overflow-hidden bg-white">
-                                <Image
-                                  src={images[2].url}
-                                  alt={images[2].alt}
-                                  fill
-                                  className="object-cover"
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        )
+                        </div>
                       ) : (
                         // No images placeholder
                         <div className="w-full h-full flex items-center justify-center">

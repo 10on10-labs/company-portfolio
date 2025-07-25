@@ -24,7 +24,7 @@ interface HeroClientProps {
 
 export default function HeroClient({ brands }: HeroClientProps) {
   return (
-    <section className="relative w-full  text-black overflow-hidden">
+    <section className="relative w-full text-black overflow-hidden py-16 md:py-24">
       <div className="relative z-10 flex flex-col justify-center items-center text-center max-w-6xl mx-auto px-4">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}

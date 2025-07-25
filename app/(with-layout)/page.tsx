@@ -34,6 +34,14 @@ const ReviewsSection = dynamic(() => import('./_components/reviews-section'), {
   loading: () => <Skeleton className="h-96 w-full" />,
 });
 
+const AccelerateSection = dynamic(
+  () =>
+    import('./_components/accelerate-section').then(mod => ({ default: mod.AccelerateSection })),
+  {
+    loading: () => <Skeleton className="h-64 w-full" />,
+  },
+);
+
 export default async function HomePage() {
   // Fetch all data in parallel
   const [brandsResult, servicesResult, testimonialsResult, projectsResult, blogsResult] =
@@ -53,10 +61,8 @@ export default async function HomePage() {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
       <HeroClient brands={brands} />
 
-      {/* Case Studies Section - Moved to top */}
       <Suspense fallback={<Skeleton className="h-96 w-full" />}>
         <CaseStudiesSection projects={projects} />
       </Suspense>
@@ -69,11 +75,13 @@ export default async function HomePage() {
         <ProcessSection />
       </Suspense>
 
-      {/* Insights Section - New */}
       <Suspense fallback={<Skeleton className="h-96 w-full" />}>
         <InsightsSection blogs={blogs} />
       </Suspense>
 
+      <Suspense fallback={<Skeleton className="h-64 w-full" />}>
+        <AccelerateSection />
+      </Suspense>
       <Suspense fallback={<Skeleton className="h-96 w-full" />}>
         <ReviewsSection testimonials={testimonials} />
       </Suspense>
