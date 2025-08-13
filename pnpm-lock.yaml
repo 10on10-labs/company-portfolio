@@ -80,6 +80,9 @@ importers:
       embla-carousel-auto-scroll:
         specifier: ^8.6.0
         version: 8.6.0(embla-carousel@8.6.0)
+      embla-carousel-autoplay:
+        specifier: ^8.6.0
+        version: 8.6.0(embla-carousel@8.6.0)
       embla-carousel-react:
         specifier: ^8.6.0
         version: 8.6.0(react@19.1.0)
@@ -4191,6 +4194,11 @@ packages:
 
   embla-carousel-auto-scroll@8.6.0:
     resolution: {integrity: sha512-WT9fWhNXFpbQ6kP+aS07oF5IHYLZ1Dx4DkwgCY8Hv2ZyYd2KMCPfMV1q/cA3wFGuLO7GMgKiySLX90/pQkcOdQ==}
+    peerDependencies:
+      embla-carousel: 8.6.0
+
+  embla-carousel-autoplay@8.6.0:
+    resolution: {integrity: sha512-OBu5G3nwaSXkZCo1A6LTaFMZ8EpkYbwIaH+bPqdBnDGQ2fh4+NbzjXjs2SktoPNKCtflfVMc75njaDHOYXcrsA==}
     peerDependencies:
       embla-carousel: 8.6.0
 
@@ -10512,7 +10520,7 @@ snapshots:
     dependencies:
       '@sanity/client': 7.6.0(debug@4.4.1)
       '@sanity/comlink': 3.0.5
-      '@sanity/visual-editing-types': 1.1.0(@sanity/client@7.6.0)(@sanity/types@3.97.1(@types/react@19.1.0))
+      '@sanity/visual-editing-types': 1.1.0(@sanity/client@7.6.0(debug@4.4.1))(@sanity/types@3.97.1(@types/react@19.1.0)(debug@4.4.1))
     transitivePeerDependencies:
       - '@sanity/types'
 
@@ -10779,12 +10787,6 @@ snapshots:
       '@sanity/types': 3.97.1(@types/react@19.1.0)(debug@4.4.1)
 
   '@sanity/visual-editing-types@1.1.0(@sanity/client@7.6.0(debug@4.4.1))(@sanity/types@3.97.1(@types/react@19.1.0)(debug@4.4.1))':
-    dependencies:
-      '@sanity/client': 7.6.0(debug@4.4.1)
-    optionalDependencies:
-      '@sanity/types': 3.97.1(@types/react@19.1.0)(debug@4.4.1)
-
-  '@sanity/visual-editing-types@1.1.0(@sanity/client@7.6.0)(@sanity/types@3.97.1(@types/react@19.1.0))':
     dependencies:
       '@sanity/client': 7.6.0(debug@4.4.1)
     optionalDependencies:
@@ -12394,6 +12396,10 @@ snapshots:
   electron-to-chromium@1.5.179: {}
 
   embla-carousel-auto-scroll@8.6.0(embla-carousel@8.6.0):
+    dependencies:
+      embla-carousel: 8.6.0
+
+  embla-carousel-autoplay@8.6.0(embla-carousel@8.6.0):
     dependencies:
       embla-carousel: 8.6.0
 

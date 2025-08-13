@@ -12,13 +12,11 @@ interface Projects {
 }
 
 export default function CaseStudiesSection({ projects }: Projects) {
-  // Take only first 3 projects for homepage
   const featuredProjects = projects?.slice(0, 3) || [];
 
   return (
-    <section className="py-16 md:py-24 bg-gray-50">
+    <section className="py-16 md:py-24 bg-secondary">
       <div className="container mx-auto px-4">
-        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -27,16 +25,19 @@ export default function CaseStudiesSection({ projects }: Projects) {
           className="text-center mb-12"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">Case Studies</h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto mb-2">
             Explore our portfolio of successful projects and see how {`we've`} helped businesses
             transform their digital presence
           </p>
+          <p className="text-base text-gray-500 max-w-2xl mx-auto">
+            From innovative startups to established enterprises, {`we've`} delivered custom
+            solutions that drive growth, enhance user experience, and create lasting impact in the
+            digital landscape
+          </p>
         </motion.div>
 
-        {/* Projects List - Vertical Layout */}
         <div className="max-w-7xl mx-auto space-y-8">
           {featuredProjects?.map((project, index) => {
-            // Get all available images
             const images =
               project?.coverImages?.slice(0, 4).map((img, idx) => ({
                 url: urlFor(img || '')
@@ -56,48 +57,56 @@ export default function CaseStudiesSection({ projects }: Projects) {
                 <div className="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden">
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
                     {/* Left Content */}
-                    <div className="p-8 lg:p-12 flex flex-col justify-center">
-                      <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-4 leading-tight">
-                        {project.name}
-                      </h3>
+                    <div className="p-6 lg:p-10 flex flex-col justify-center">
+                      {/* Project Logo and Title */}
+                      <div className="flex items-center gap-4 mb-4">
+                        {project.logo ? (
+                          <div className="w-16 h-16 rounded-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center overflow-hidden">
+                            <Image
+                              src={urlFor(project.logo)?.width(128)?.height(128)?.url() || ''}
+                              alt={`${project.name} logo`}
+                              width={64}
+                              height={64}
+                              className="w-12 h-12 object-contain"
+                            />
+                          </div>
+                        ) : (
+                          <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary/10 to-primary/20 flex items-center justify-center">
+                            <span className="text-2xl font-bold text-primary">
+                              {project.name?.charAt(0) || 'P'}
+                            </span>
+                          </div>
+                        )}
+                        <div>
+                          <h3 className="text-xl lg:text-2xl font-bold text-gray-900 leading-tight">
+                            {project.name}
+                          </h3>
+                          {project.category && (
+                            <span className="text-sm text-gray-500 uppercase tracking-wider">
+                              {project.category}
+                            </span>
+                          )}
+                        </div>
+                      </div>
 
                       {project.description && (
-                        <p className="text-gray-600 mb-6 text-lg leading-relaxed">
+                        <p className="text-gray-600 mb-6 text-base leading-relaxed line-clamp-3">
                           {project.description}
                         </p>
                       )}
 
-                      {/* @TODO will decide on these fields */}
-                      <div className="space-y-3 mb-8">
-                        {/* {project?.location && (
-                          <div className="flex">
-                            <span className="text-gray-500 font-medium w-32">Location:</span>
-                            <span className="text-gray-700">{project?.location}</span>
-                          </div>
-                        )}
-                         {project.industries && project.industries.length > 0 && (
-                          <div className="flex">
-                            <span className="text-gray-500 font-medium w-32">Industries:</span>
-                            <span className="text-gray-700">{project.industries.join(', ')}</span>
-                          </div>
-                        )}
-                         {project.services && project.services.length > 0 && (
-                          <div className="flex">
-                            <span className="text-gray-500 font-medium w-32">Services:</span>
-                            <span className="text-gray-700 underline">
-                              {project.services.join(', ')}
-                            </span>
-                          </div>
-                        )} 
-                         {project.technologies && project.technologies.length > 0 && (
-                          <div className="flex">
-                            <span className="text-gray-500 font-medium w-32">Technologies:</span>
-                            <span className="text-gray-700">{project.technologies.join(', ')}</span>
-                          </div>
-                        )} */}
+                      {/* Project Details */}
+                      <div className="mb-6 space-y-2">
+                        <div className="flex items-center gap-2 text-sm text-gray-500">
+                          <span className="font-medium">Industry:</span>
+                          <span>{project.category || 'Technology'}</span>
+                        </div>
+                        <div className="flex items-center gap-2 text-sm text-gray-500">
+                          <span className="font-medium">Services:</span>
+                          <span>UI/UX Design, Development, Strategy</span>
+                        </div>
                       </div>
 
-                      {/* View Case Study Link */}
                       <Link
                         href={`/projects/${project?.slug}`}
                         className="inline-flex items-center text-gray-900 font-semibold hover:gap-3 transition-all group"
@@ -107,17 +116,16 @@ export default function CaseStudiesSection({ projects }: Projects) {
                       </Link>
                     </div>
 
-                    {/* Right Images Section - MacBook Display */}
-                    <div className="relative h-[500px] lg:h-full min-h-[500px] bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-8 lg:p-12">
+                    <div className="relative h-[350px] lg:h-[400px] bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-6 lg:p-10">
                       {images.length > 0 ? (
-                        <div className="relative w-full h-full max-w-[500px] mx-auto flex items-center justify-center">
+                        <div className="relative w-full h-full max-w-[450px] mx-auto flex items-center justify-center">
                           {/* MacBook Frame */}
                           <div className="relative w-full">
                             <Image
                               src="/macbook_new-min.webp"
                               alt="MacBook Frame"
-                              width={500}
-                              height={312}
+                              width={450}
+                              height={281}
                               className="w-full h-auto relative z-10"
                             />
                             {/* Project Screenshot Inside MacBook Screen */}
