@@ -10,7 +10,7 @@ import { AnimatePresence, motion, Variants } from 'motion/react';
 const menuItems = [
   { title: 'Home', href: '/' },
   { title: 'Services', href: '/services' },
-  { title: 'Projects', href: '/projects' },
+  { title: 'Case Studies', href: '/case-studies' },
   { title: 'Process', href: '/process' },
   { title: 'About', href: '/about' },
   { title: 'Reviews', href: '/reviews' },

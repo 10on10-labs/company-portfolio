@@ -108,7 +108,7 @@ export default function CaseStudiesSection({ projects }: Projects) {
                       </div>
 
                       <Link
-                        href={`/projects/${project?.slug}`}
+                        href={`/case-studies/${project?.slug}`}
                         className="inline-flex items-center text-gray-900 font-semibold hover:gap-3 transition-all group"
                       >
                         VIEW CASE STUDY
@@ -164,10 +164,10 @@ export default function CaseStudiesSection({ projects }: Projects) {
           className="text-center mt-12"
         >
           <Link
-            href="/projects"
+            href="/case-studies"
             className="inline-flex items-center px-8 py-4 bg-black text-white rounded-full hover:bg-gray-800 transition-colors duration-300 font-medium"
           >
-            View All Projects
+            View All Case Studies
             <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
