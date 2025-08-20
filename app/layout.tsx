@@ -3,6 +3,7 @@ import './globals.css';
 import { Poppins } from 'next/font/google';
 import { draftMode } from 'next/headers';
 import { SanityLive } from '@/sanity/lib/live';
+import { GoogleAnalytics } from '@next/third-parties/google';
 import { VisualEditing } from 'next-sanity';
 
 import { handleError } from './client-functions';
@@ -70,6 +71,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           </>
         )}
       </body>
+      <GoogleAnalytics gaId="G-CRJ3QT48MZ" />
     </html>
   );
 }
