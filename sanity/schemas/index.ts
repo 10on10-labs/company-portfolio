@@ -1,7 +1,7 @@
 import { type SchemaTypeDefinition } from 'sanity';
 
 import { blockContent } from './block-content';
-import { author, blog, blogCategory, page, project, brand } from './documents';
+import { author, blog, blogCategory, brand, page, project } from './documents';
 import { service } from './documents/service';
 import { testimonial } from './documents/testimonial';
 import { duration, milestone, timeline } from './objects';

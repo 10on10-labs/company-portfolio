@@ -24,7 +24,7 @@ interface HeroClientProps {
 
 export default function HeroClient({ brands }: HeroClientProps) {
   return (
-    <section className="relative w-full  text-black overflow-hidden">
+    <section className="relative w-full text-black overflow-hidden py-16 md:py-24">
       <div className="relative z-10 flex flex-col justify-center items-center text-center max-w-6xl mx-auto px-4">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
@@ -62,23 +62,75 @@ export default function HeroClient({ brands }: HeroClientProps) {
           </Link>
         </motion.div>
 
+        {/* Our Expertise Section */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1, duration: 0.8 }}
-          className="mt-16 grid  max-[1024px]:grid-cols-1 lg:grid-cols-4 gap-6"
+          className="mt-20 w-full"
         >
-          {['UI/UX Design', 'Web Development', 'Mobile-Ready Interfaces', 'SEO Optimization'].map(
-            (item, index) => (
-              <div
+          {/* Section Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.1, duration: 0.6 }}
+            className="text-center mb-10"
+          >
+            <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary via-black to-primary bg-clip-text text-transparent pb-2">
+              Our Expertise
+            </h2>
+            <p className="text-gray-600 mt-2">Building digital excellence with proven expertise</p>
+          </motion.div>
+
+          {/* Expertise Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+            {[
+              {
+                title: 'UI/UX Design',
+                description: 'Beautiful, intuitive interfaces',
+              },
+              {
+                title: 'Web Development',
+                description: 'Fast, scalable applications',
+              },
+              {
+                title: 'Mobile-Ready Interfaces',
+                description: 'Responsive on every device',
+              },
+              {
+                title: 'SEO Optimization',
+                description: 'Boost your visibility',
+              },
+            ].map((item, index) => (
+              <motion.div
                 key={index}
-                className="bg-white rounded-xl p-4  shadow shadow-secondary hover:scale-105 transition-transform"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.2 + index * 0.1, duration: 0.6 }}
+                whileHover={{ y: -8, scale: 1.02 }}
+                className="group relative bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 min-h-[180px] cursor-pointer overflow-hidden"
               >
-                <Sparkles className="text-primary mb-2" />
-                <p className=" text-black font-semibold">{item}</p>
-              </div>
-            ),
-          )}
+                {/* Subtle gradient overlay on hover */}
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                {/* Content */}
+                <div className="relative z-10">
+                  <div className="bg-gray-50 rounded-xl p-3 inline-block mb-4 group-hover:bg-primary/10 transition-colors">
+                    <Sparkles className="text-primary w-7 h-7" />
+                  </div>
+
+                  <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-primary transition-colors">
+                    {item.title}
+                  </h3>
+
+                  <p className="text-sm text-gray-600 leading-relaxed">{item.description}</p>
+                </div>
+
+                {/* Bottom accent line */}
+                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary via-primary/50 to-transparent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
 
         {brands && brands.length > 0 && (
@@ -103,7 +155,7 @@ export default function HeroClient({ brands }: HeroClientProps) {
                   }}
                   plugins={[
                     AutoScroll({
-                      speed: 3,
+                      speed: 2,
                       stopOnInteraction: false,
                       stopOnMouseEnter: true,
                       stopOnFocusIn: false,

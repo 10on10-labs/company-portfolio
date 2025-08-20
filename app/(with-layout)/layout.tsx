@@ -1,13 +1,14 @@
 import '../globals.css';
 
+import Footer from '@/components/footer';
 import { TopNavbar } from '@/components/top-navbar';
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex flex-col items-center h-full w-full z-1">
+    <div className="flex flex-col min-h-screen relative">
       <TopNavbar />
-      <div className="w-full  h-full hide-scrollbar  mt-20 sm:mt-30 mb-20">{children}</div>
-      {/* <footer>coming soon</footer> */}
+      <main className="flex-grow mt-20 sm:mt-30 relative z-0">{children}</main>
+      <Footer />
     </div>
   );
 }

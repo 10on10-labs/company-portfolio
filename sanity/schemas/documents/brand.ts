@@ -1,6 +1,6 @@
-import { defineType, defineField } from 'sanity';
+import { defineField, defineType } from 'sanity';
 
-export default defineType({
+export const brand = defineType({
   name: 'brand',
   title: 'Brand',
   type: 'document',
@@ -9,7 +9,7 @@ export default defineType({
       name: 'name',
       title: 'Brand Name',
       type: 'string',
-      validation: (Rule) => Rule.required(),
+      validation: Rule => Rule.required(),
     }),
     defineField({
       name: 'logo',
@@ -23,16 +23,16 @@ export default defineType({
           name: 'alt',
           type: 'string',
           title: 'Alternative Text',
-          validation: (Rule) => Rule.required(),
+          validation: Rule => Rule.required(),
         },
       ],
-      validation: (Rule) => Rule.required(),
+      validation: Rule => Rule.required(),
     }),
     defineField({
       name: 'link',
       title: 'Website Link',
       type: 'url',
-      validation: (Rule) =>
+      validation: Rule =>
         Rule.uri({
           scheme: ['http', 'https'],
         }),

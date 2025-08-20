@@ -172,3 +172,23 @@ html {
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 }
+
+/* Smooth page transitions - prevent layout shift */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Ensure consistent height during transitions */
+main {
+  position: relative;
+}
+
+/* Prevent content jumping during route changes */
+body {
+  overflow-x: hidden;
+}
+
+/* Optional: Add will-change for better performance */
+[data-framer-motion] {
+  will-change: opacity;
+}

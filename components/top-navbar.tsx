@@ -4,13 +4,13 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { AnimatePresence, motion } from 'motion/react';
+import { AnimatePresence, motion, Variants } from 'motion/react';
 
 // Define menu items outside component
 const menuItems = [
   { title: 'Home', href: '/' },
   { title: 'Services', href: '/services' },
-  { title: 'Projects', href: '/projects' },
+  { title: 'Case Studies', href: '/case-studies' },
   { title: 'Process', href: '/process' },
   { title: 'About', href: '/about' },
   { title: 'Reviews', href: '/reviews' },
@@ -25,7 +25,7 @@ export const TopNavbar = () => {
   const closeMenu = () => setIsMenuOpen(false);
 
   // Animation variants
-  const sidebarVariants = {
+  const sidebarVariants: Variants = {
     open: {
       x: 0,
       transition: {
@@ -49,7 +49,7 @@ export const TopNavbar = () => {
     },
   };
 
-  const menuItemVariants = {
+  const menuItemVariants: Variants = {
     open: {
       y: 0,
       opacity: 1,
@@ -71,7 +71,7 @@ export const TopNavbar = () => {
   };
 
   // Button variants
-  const buttonVariants = {
+  const buttonVariants: Variants = {
     open: {
       rotate: 90,
       scale: 1,

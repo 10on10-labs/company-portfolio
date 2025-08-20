@@ -16,61 +16,6 @@ import '@sanity/client';
  */
 
 // Source: schema.json
-export type SanityImagePaletteSwatch = {
-  _type: 'sanity.imagePaletteSwatch';
-  background?: string;
-  foreground?: string;
-  population?: number;
-  title?: string;
-};
-
-export type SanityImagePalette = {
-  _type: 'sanity.imagePalette';
-  darkMuted?: SanityImagePaletteSwatch;
-  lightVibrant?: SanityImagePaletteSwatch;
-  darkVibrant?: SanityImagePaletteSwatch;
-  vibrant?: SanityImagePaletteSwatch;
-  dominant?: SanityImagePaletteSwatch;
-  lightMuted?: SanityImagePaletteSwatch;
-  muted?: SanityImagePaletteSwatch;
-};
-
-export type SanityImageDimensions = {
-  _type: 'sanity.imageDimensions';
-  height?: number;
-  width?: number;
-  aspectRatio?: number;
-};
-
-export type SanityFileAsset = {
-  _id: string;
-  _type: 'sanity.fileAsset';
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  originalFilename?: string;
-  label?: string;
-  title?: string;
-  description?: string;
-  altText?: string;
-  sha1hash?: string;
-  extension?: string;
-  mimeType?: string;
-  size?: number;
-  assetId?: string;
-  uploadId?: string;
-  path?: string;
-  url?: string;
-  source?: SanityAssetSourceData;
-};
-
-export type Geopoint = {
-  _type: 'geopoint';
-  lat?: number;
-  lng?: number;
-  alt?: number;
-};
-
 export type Settings = {
   _id: string;
   _type: 'settings';
@@ -237,6 +182,30 @@ export type Service = {
   id?: Slug;
   description?: string;
   categories?: Array<string>;
+};
+
+export type Brand = {
+  _id: string;
+  _type: 'brand';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  logo?: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: 'image';
+  };
+  link?: string;
+  order?: number;
 };
 
 export type Project = {
@@ -486,12 +455,6 @@ export type Author = {
   }>;
 };
 
-export type Slug = {
-  _type: 'slug';
-  current?: string;
-  source?: string;
-};
-
 export type BlockContent = Array<
   | {
       children?: Array<{
@@ -529,63 +492,6 @@ export type BlockContent = Array<
       _key: string;
     } & Code)
 >;
-
-export type SanityImageCrop = {
-  _type: 'sanity.imageCrop';
-  top?: number;
-  bottom?: number;
-  left?: number;
-  right?: number;
-};
-
-export type SanityImageHotspot = {
-  _type: 'sanity.imageHotspot';
-  x?: number;
-  y?: number;
-  height?: number;
-  width?: number;
-};
-
-export type SanityImageAsset = {
-  _id: string;
-  _type: 'sanity.imageAsset';
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  originalFilename?: string;
-  label?: string;
-  title?: string;
-  description?: string;
-  altText?: string;
-  sha1hash?: string;
-  extension?: string;
-  mimeType?: string;
-  size?: number;
-  assetId?: string;
-  uploadId?: string;
-  path?: string;
-  url?: string;
-  metadata?: SanityImageMetadata;
-  source?: SanityAssetSourceData;
-};
-
-export type SanityAssetSourceData = {
-  _type: 'sanity.assetSourceData';
-  name?: string;
-  id?: string;
-  url?: string;
-};
-
-export type SanityImageMetadata = {
-  _type: 'sanity.imageMetadata';
-  location?: Geopoint;
-  dimensions?: SanityImageDimensions;
-  palette?: SanityImagePalette;
-  lqip?: string;
-  blurHash?: string;
-  hasAlpha?: boolean;
-  isOpaque?: boolean;
-};
 
 export type Code = {
   _type: 'code';
@@ -628,12 +534,125 @@ export type HslaColor = {
   a?: number;
 };
 
+export type SanityImagePaletteSwatch = {
+  _type: 'sanity.imagePaletteSwatch';
+  background?: string;
+  foreground?: string;
+  population?: number;
+  title?: string;
+};
+
+export type SanityImagePalette = {
+  _type: 'sanity.imagePalette';
+  darkMuted?: SanityImagePaletteSwatch;
+  lightVibrant?: SanityImagePaletteSwatch;
+  darkVibrant?: SanityImagePaletteSwatch;
+  vibrant?: SanityImagePaletteSwatch;
+  dominant?: SanityImagePaletteSwatch;
+  lightMuted?: SanityImagePaletteSwatch;
+  muted?: SanityImagePaletteSwatch;
+};
+
+export type SanityImageDimensions = {
+  _type: 'sanity.imageDimensions';
+  height?: number;
+  width?: number;
+  aspectRatio?: number;
+};
+
+export type SanityImageHotspot = {
+  _type: 'sanity.imageHotspot';
+  x?: number;
+  y?: number;
+  height?: number;
+  width?: number;
+};
+
+export type SanityImageCrop = {
+  _type: 'sanity.imageCrop';
+  top?: number;
+  bottom?: number;
+  left?: number;
+  right?: number;
+};
+
+export type SanityFileAsset = {
+  _id: string;
+  _type: 'sanity.fileAsset';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  originalFilename?: string;
+  label?: string;
+  title?: string;
+  description?: string;
+  altText?: string;
+  sha1hash?: string;
+  extension?: string;
+  mimeType?: string;
+  size?: number;
+  assetId?: string;
+  uploadId?: string;
+  path?: string;
+  url?: string;
+  source?: SanityAssetSourceData;
+};
+
+export type SanityImageAsset = {
+  _id: string;
+  _type: 'sanity.imageAsset';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  originalFilename?: string;
+  label?: string;
+  title?: string;
+  description?: string;
+  altText?: string;
+  sha1hash?: string;
+  extension?: string;
+  mimeType?: string;
+  size?: number;
+  assetId?: string;
+  uploadId?: string;
+  path?: string;
+  url?: string;
+  metadata?: SanityImageMetadata;
+  source?: SanityAssetSourceData;
+};
+
+export type SanityImageMetadata = {
+  _type: 'sanity.imageMetadata';
+  location?: Geopoint;
+  dimensions?: SanityImageDimensions;
+  palette?: SanityImagePalette;
+  lqip?: string;
+  blurHash?: string;
+  hasAlpha?: boolean;
+  isOpaque?: boolean;
+};
+
+export type Geopoint = {
+  _type: 'geopoint';
+  lat?: number;
+  lng?: number;
+  alt?: number;
+};
+
+export type Slug = {
+  _type: 'slug';
+  current?: string;
+  source?: string;
+};
+
+export type SanityAssetSourceData = {
+  _type: 'sanity.assetSourceData';
+  name?: string;
+  id?: string;
+  url?: string;
+};
+
 export type AllSanitySchemaTypes =
-  | SanityImagePaletteSwatch
-  | SanityImagePalette
-  | SanityImageDimensions
-  | SanityFileAsset
-  | Geopoint
   | Settings
   | Home
   | Timeline
@@ -641,23 +660,29 @@ export type AllSanitySchemaTypes =
   | Duration
   | Testimonial
   | Service
+  | Brand
   | Project
   | Page
   | BlogCategory
   | Blog
   | Author
-  | Slug
   | BlockContent
-  | SanityImageCrop
-  | SanityImageHotspot
-  | SanityImageAsset
-  | SanityAssetSourceData
-  | SanityImageMetadata
   | Code
   | Color
   | RgbaColor
   | HsvaColor
-  | HslaColor;
+  | HslaColor
+  | SanityImagePaletteSwatch
+  | SanityImagePalette
+  | SanityImageDimensions
+  | SanityImageHotspot
+  | SanityImageCrop
+  | SanityFileAsset
+  | SanityImageAsset
+  | SanityImageMetadata
+  | Geopoint
+  | Slug
+  | SanityAssetSourceData;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/queries/blog-queries.ts
 // Variable: blogBySlugQuery
@@ -813,6 +838,59 @@ export type BlogsByCategoryQueryResult = Array<{
     _type: 'image';
   } | null;
   publishedAt: string | null;
+}>;
+// Variable: blogsQuery
+// Query: *[_type == "blog"] | order(publishedAt desc) [0...10] {    _id,    title,    "excerpt": subTitle,    "estimatedReadingTime": round(length(pt::text(body)) / 5 / 180 ),    "slug": slug.current,    "image": thumbnail,    publishedAt,    author->{      name,      "picture": image    },    "category": blogCategories[0]->{      title,      "color": chipColor    }  }
+export type BlogsQueryResult = Array<{
+  _id: string;
+  title: string | null;
+  excerpt: string | null;
+  estimatedReadingTime: number;
+  slug: string | null;
+  image: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: 'image';
+  } | null;
+  publishedAt: string | null;
+  author: {
+    name: string | null;
+    picture: {
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: 'image';
+    } | null;
+  } | null;
+  category: {
+    title: string | null;
+    color: Color | null;
+  } | null;
+}>;
+
+// Source: ./sanity/lib/queries/brand-queries.ts
+// Variable: brandsQuery
+// Query: *[_type == "brand"] | order(order asc, _createdAt desc) {    _id,    name,    "logoUrl": logo.asset->url,    "logoAlt": logo.alt,    link  }
+export type BrandsQueryResult = Array<{
+  _id: string;
+  name: string | null;
+  logoUrl: string | null;
+  logoAlt: string | null;
+  link: string | null;
 }>;
 
 // Source: ./sanity/lib/queries/queries.ts
@@ -1114,6 +1192,8 @@ declare module '@sanity/client' {
     '\n    *[_type == "blog"] {\n        "slug": slug.current\n    }\n': BlogsSlugQueryResult;
     '\n  *[_type == "blogCategory"] {\n  title,\n  "slug": slug.current\n}\n': BlogCategoriesQueryResult;
     '\n   *[_type == "blog" && \n    ($categorySlugs == null || references(*[_type == "blogCategory" && slug.current in $categorySlugs]._id))\n  ] {\n    _id,\n    title,\n    subTitle,\n    // assumes 5 characters as mean word length\n    // https://ux.stackexchange.com/questions/22520/how-long-does-it-take-to-read-x-number-of-characters\n    "readingTimeInMins": round(length(pt::text(body)) / 5 / 180 ),\n    author->{\n     name,\n     image\n    },\n    blogCategories[]->{\n      title,\n      "chipColor": chipColor.hex\n    },\n    "slug": slug.current,\n    thumbnail,\n    publishedAt\n  }\n': BlogsByCategoryQueryResult;
+    '\n  *[_type == "blog"] | order(publishedAt desc) [0...10] {\n    _id,\n    title,\n    "excerpt": subTitle,\n    "estimatedReadingTime": round(length(pt::text(body)) / 5 / 180 ),\n    "slug": slug.current,\n    "image": thumbnail,\n    publishedAt,\n    author->{\n      name,\n      "picture": image\n    },\n    "category": blogCategories[0]->{\n      title,\n      "color": chipColor\n    }\n  }\n': BlogsQueryResult;
+    '\n  *[_type == "brand"] | order(order asc, _createdAt desc) {\n    _id,\n    name,\n    "logoUrl": logo.asset->url,\n    "logoAlt": logo.alt,\n    link\n  }\n': BrandsQueryResult;
     '\n  *[_type == "home"][0]{\n    _id,\n    _type,\n    overview,\n    showcaseProjects[]{\n      _key,\n      ...@->{\n        _id,\n        _type,\n        coverImage,\n        overview,\n        "slug": slug.current,\n        tags,\n        title,\n      }\n    },\n    title,\n  }\n': HomePageQueryResult;
     '\n  *[_type == "page" && slug.current == $slug][0] {\n    _id,\n    _type,\n    body,\n    overview,\n    title,\n    "slug": slug.current,\n  }\n': PagesBySlugQueryResult;
     '\n  *[_type == "project" && slug.current == $slug][0] {\n    _id,\n    "slug": slug.current,\n    name,\n    category,\n    description,\n    logo,\n    coverImages,\n    projectSections,\n  }\n': ProjectBySlugQueryResult;
