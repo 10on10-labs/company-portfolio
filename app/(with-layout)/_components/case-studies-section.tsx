@@ -15,7 +15,7 @@ export default function CaseStudiesSection({ projects }: Projects) {
   const featuredProjects = projects?.slice(0, 3) || [];
 
   return (
-    <section className="py-16 md:py-24 bg-secondary">
+    <section id="case-studies" className="py-16 md:py-24 bg-secondary">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
