@@ -129,7 +129,7 @@ export default function CaseStudiesSection({ projects }: Projects) {
                               className="w-full h-auto relative z-10"
                             />
                             {/* Project Screenshot Inside MacBook Screen */}
-                            <div className="absolute top-[8%] left-[13%] right-[13%] bottom-[22%] overflow-hidden">
+                            <div className="absolute  top-[7.2%] left-[10%] right-[10%] bottom-[21%]  overflow-hidden">
                               <div className="relative w-full h-full">
                                 <Image
                                   src={images[0].url}

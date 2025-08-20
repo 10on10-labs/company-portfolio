@@ -87,13 +87,7 @@ export default function AboutPage() {
               {
                 fullName: 'Kaleem Ullah',
                 role: 'Co Founder',
-                image: 'https://source.unsplash.com/300x300/?portrait,woman,1',
-                redirectUrl: 'youtube.com',
-              },
-              {
-                fullName: 'Moiz Ahmad',
-                role: 'Co Founder',
-                image: 'https://source.unsplash.com/300x300/?portrait,man,2',
+                image: '/kaleem.jpg',
                 redirectUrl: 'youtube.com',
               },
               {
