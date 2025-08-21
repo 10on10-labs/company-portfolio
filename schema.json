@@ -1739,15 +1739,15 @@
                       "of": [
                         {
                           "type": "string",
-                          "value": "weeks"
+                          "value": "Week(s)"
                         },
                         {
                           "type": "string",
-                          "value": "months"
+                          "value": "Month(s)"
                         },
                         {
                           "type": "string",
-                          "value": "years"
+                          "value": "Year(s)"
                         }
                       ]
                     },

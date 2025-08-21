@@ -42,7 +42,7 @@ export const projectBySlugQuery = defineQuery(`
     logo,
     coverImages,
     projectSections,
-     url,
+    url,
     "technologies": projectDimensions.technologies,
     "iterations": projectDimensions.iterations,
     "teamSize": projectDimensions.teamSize,
@@ -59,6 +59,11 @@ export const allProjectsQuery = defineQuery(`
     logo,
     coverImages,
     projectSections,
+    url,
+    "technologies": projectDimensions.technologies,
+    "iterations": projectDimensions.iterations,
+    "teamSize": projectDimensions.teamSize,
+    "timeline": string(projectDimensions.timeline.value) + " " + coalesce(projectDimensions.timeline.unit, ""),
   }
 `);
 
