@@ -38,59 +38,74 @@ export const BlogCard: FC<Props> = ({
   const date = parseISO(publishedAt || '');
   const formattedPublishedDate = format(date, 'MMMM d, yyyy');
   return (
-    <Link href={redirectUrl} className="flex cursor-pointer">
+    <Link href={redirectUrl} className="block h-full">
       <Card
         className={cn(
-          'overflow-hidden gap-1 w-full md:w-96 pb-4 pt-0 border-0 flex flex-col h-full transition-all duration-300 hover:shadow-lg hover:border-primary/20 group',
+          'overflow-hidden w-full h-full flex flex-col transition-all duration-300 hover:shadow-xl hover:-translate-y-1 group bg-white border border-gray-200 hover:border-primary/30',
           className,
         )}
       >
-        <div className="relative h-48 overflow-hidden">
-          <Image
-            src={thumbnail || ''}
-            alt={title || ''}
-            fill
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-          />
+        <div className="relative h-40 overflow-hidden bg-gray-100">
+          {thumbnail && (
+            <Image
+              src={thumbnail}
+              alt={title || ''}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="object-cover transition-transform duration-500 group-hover:scale-110"
+              priority={false}
+            />
+          )}
         </div>
-        <CardHeader className="py-2 gap-0">
+        <CardHeader className="p-4 pb-2 space-y-2">
           {/* Categories row */}
-          <div className="mb-2 flex flex-wrap gap-1 capitalize">
-            {categories?.map(category => (
-              <Badge
-                key={category.title}
-                style={{ backgroundColor: category.chipColor ?? '#efefef' }}
-              >
-                {category.title}
-              </Badge>
-            ))}
-          </div>
-          <div className="flex items-center text-sm gap-x-2 text-muted-foreground mb-2">
-            <span>{formattedPublishedDate}</span>
-            <span>•</span>
-            <span className="flex items-center">
-              <Clock className="h-3.5 w-3.5 mr-1" />
-              {duration}
-            </span>
-          </div>
-          <CardTitle className="text-xl h-16 tracking-tight line-clamp-2 text-primary">
+          {categories && categories.length > 0 && (
+            <div className="flex flex-wrap gap-1.5">
+              {categories.map(category => (
+                <Badge
+                  key={category.title}
+                  className="text-xs font-medium px-2 py-0.5 capitalize"
+                  style={{ backgroundColor: category.chipColor ?? '#f3f4f6', color: '#374151' }}
+                >
+                  {category.title}
+                </Badge>
+              ))}
+            </div>
+          )}
+          <CardTitle className="text-base md:text-lg font-semibold text-gray-900 group-hover:text-primary transition-colors leading-snug">
             {title}
           </CardTitle>
-        </CardHeader>
-        <CardContent className="flex-grow">
-          <p className="text-primary/70 line-clamp-2 text-sm">{subTitle}</p>
-        </CardContent>
-        <CardFooter className="flex justify-between items-center border-t-accent [.border-t]:pt-3 mt-3 border-t">
-          <div className="flex items-center gap-x-2 capitalize text-neutral-500">
-            <Avatar className="bg-primary-blue-200">
-              <AvatarImage src={author?.image || ''} alt="author_image" />
-              <AvatarFallback className="uppercase">
-                {getAbbreviation(author?.name || '').slice(0, 2)}
-              </AvatarFallback>
-            </Avatar>
-            <span>{author?.name}</span>
+          <div className="flex items-center text-xs gap-x-2 text-gray-500">
+            <span>{formattedPublishedDate}</span>
+            {duration && (
+              <>
+                <span>•</span>
+                <span className="flex items-center gap-1">
+                  <Clock className="h-3 w-3" />
+                  {duration}
+                </span>
+              </>
+            )}
           </div>
-        </CardFooter>
+        </CardHeader>
+        <CardContent className="px-4 pb-2 flex-grow">
+          <p className="text-gray-600 line-clamp-2 text-sm leading-relaxed">{subTitle}</p>
+        </CardContent>
+        {author?.name && (
+          <CardFooter className="px-4 py-3 border-t border-gray-100">
+            <div className="flex items-center gap-2.5">
+              <Avatar className="h-7 w-7 border border-gray-200">
+                <AvatarImage src={author?.image || ''} alt={author?.name || ''} />
+                <AvatarFallback className="bg-gray-100 text-gray-600 text-xs font-medium">
+                  {getAbbreviation(author?.name || '')
+                    .slice(0, 2)
+                    .toUpperCase()}
+                </AvatarFallback>
+              </Avatar>
+              <span className="text-sm text-gray-700">{author?.name}</span>
+            </div>
+          </CardFooter>
+        )}
       </Card>
     </Link>
   );

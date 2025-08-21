@@ -1,14 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import dynamic from 'next/dynamic';
 import { ServicesQueryResult } from '@/sanity.types';
 import { Search } from 'lucide-react';
-import { motion } from 'motion/react';
 
-const ServiceCardEnhanced = dynamic(() => import('@/components/services/service-card-enhanced'), {
-  ssr: false,
-});
+import ServiceCardSimple from '@/components/services/service-card-simple';
 
 interface ServicesPageClientProps {
   services: ServicesQueryResult;
@@ -38,12 +34,7 @@ export default function ServicesPageClient({ services }: ServicesPageClientProps
       {/* Hero Section */}
       <section className="relative py-4 md:py-6 overflow-hidden">
         <div className="container mx-auto px-4 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center max-w-4xl mx-auto"
-          >
+          <div className="text-center max-w-4xl mx-auto">
             <span className="inline-block text-primary font-semibold text-xs uppercase tracking-wider mb-2 bg-primary/10 px-3 py-1.5 rounded-full">
               Our Expertise
             </span>
@@ -95,7 +86,7 @@ export default function ServicesPageClient({ services }: ServicesPageClientProps
                 </button>
               ))}
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -103,22 +94,13 @@ export default function ServicesPageClient({ services }: ServicesPageClientProps
       <section className="py-4 md:py-6">
         <div className="container mx-auto px-4">
           {filteredServices && filteredServices.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 max-w-7xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 max-w-7xl mx-auto">
               {filteredServices.map((service, index) => (
-                <ServiceCardEnhanced
-                  key={service.id}
-                  service={service}
-                  index={index}
-                  featured={false}
-                />
+                <ServiceCardSimple key={service.id} service={service} index={index} />
               ))}
             </div>
           ) : (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="text-center py-20"
-            >
+            <div className="text-center py-20">
               <p className="text-gray-500 text-lg">No services found matching your criteria.</p>
               <button
                 onClick={() => {
@@ -129,7 +111,7 @@ export default function ServicesPageClient({ services }: ServicesPageClientProps
               >
                 Clear filters
               </button>
-            </motion.div>
+            </div>
           )}
         </div>
       </section>
@@ -148,13 +130,7 @@ export default function ServicesPageClient({ services }: ServicesPageClientProps
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center max-w-3xl mx-auto"
-          >
+          <div className="text-center max-w-3xl mx-auto">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
               Ready to Get Started?
             </h2>
@@ -170,7 +146,7 @@ export default function ServicesPageClient({ services }: ServicesPageClientProps
                 View Our Portfolio
               </button>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
     </div>

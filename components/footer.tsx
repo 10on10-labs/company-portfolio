@@ -37,7 +37,7 @@ const Footer = () => {
   const socialLinks = [
     { name: 'Facebook', href: '#', icon: Facebook },
     { name: 'Twitter', href: '#', icon: Twitter },
-    { name: 'LinkedIn', href: '#', icon: Linkedin },
+    { name: 'LinkedIn', href: 'https://www.linkedin.com/company/10on10-labs/', icon: Linkedin },
     { name: 'Instagram', href: '#', icon: Instagram },
     { name: 'GitHub', href: '#', icon: Github },
   ];
@@ -88,18 +88,18 @@ const Footer = () => {
             {/* Contact Info */}
             <div className="space-y-2 mb-4 text-sm">
               <a
-                href="mailto:info@10on10labs.com"
+                href="mailto:sales@10on10labs.com"
                 className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
               >
                 <Mail className="w-4 h-4" />
-                info@10on10labs.com
+                sales@10on10labs.com
               </a>
               <a
-                href="tel:+1234567890"
+                href="tel:+923345600371"
                 className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
               >
                 <Phone className="w-4 h-4" />
-                +1 (234) 567-890
+                +92 334 5600371
               </a>
             </div>
 

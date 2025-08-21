@@ -1,8 +1,6 @@
 import { FC } from 'react';
+import Image from 'next/image';
 import { ExternalLink } from 'lucide-react';
-import { motion } from 'motion/react';
-
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/shadcn/avatar';
 
 type Props = {
   redirectUrl: string;
@@ -12,27 +10,38 @@ type Props = {
 };
 
 export const EmployeeCard: FC<Props> = ({ redirectUrl, fullName, role, image }) => (
-  <motion.a
+  <a
     href={redirectUrl}
     target="_blank"
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.6 }}
-    whileHover={{ y: -10 }}
-    className="p-4 rounded-4xl relative flex flex-col items-center cursor-pointer hover:shadow-xl bg-white hover:shadow-primary/20 group"
+    rel="noopener noreferrer"
+    className="block p-6 rounded-2xl bg-white border border-gray-100 hover:shadow-lg transition-shadow duration-200 group"
   >
-    <ExternalLink className="absolute top-4 right-4 text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity" />
-    <Avatar className="size-24">
-      <AvatarImage src={image || ''} alt="author_image" />
-      <AvatarFallback className="uppercase bg-gray-200">
-        {fullName
-          ?.split(' ')
-          .slice(0, 2)
-          .map(namePart => namePart[0])
-          .join('')}
-      </AvatarFallback>
-    </Avatar>
-    <h3 className="font-semibold mt-4">{fullName}</h3>
-    <p className="text-gray-600">{role}</p>
-  </motion.a>
+    <div className="relative">
+      <ExternalLink className="absolute top-0 right-0 w-4 h-4 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+
+      <div className="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden bg-gray-200">
+        {image ? (
+          <Image
+            src={image}
+            alt={fullName}
+            width={96}
+            height={96}
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center text-2xl font-bold text-gray-400">
+            {fullName
+              ?.split(' ')
+              .map(n => n[0])
+              .join('')}
+          </div>
+        )}
+      </div>
+
+      <div className="text-center">
+        <h3 className="font-semibold text-gray-900 mb-1">{fullName}</h3>
+        <p className="text-sm text-gray-600">{role}</p>
+      </div>
+    </div>
+  </a>
 );

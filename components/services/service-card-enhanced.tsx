@@ -41,7 +41,6 @@ import {
   Workflow,
   Wrench,
 } from 'lucide-react';
-import { AnimatePresence, motion } from 'motion/react';
 
 interface ServiceCardEnhancedProps {
   service: ServicesQueryResult[number];
@@ -133,14 +132,8 @@ export default function ServiceCardEnhanced({
   const hasMoreCategories = service?.categories && service.categories.length > 4;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.4, delay: index * 0.05 }}
-      className="group h-full"
-    >
-      <div className="relative h-full bg-white rounded-2xl overflow-hidden border border-gray-100 hover:border-primary/30 transition-all duration-300 hover:shadow-2xl shadow-md flex flex-col">
+    <div className="group h-full">
+      <div className="relative h-full bg-white rounded-2xl overflow-hidden border border-gray-100 hover:border-primary/30 transition-transform transition-shadow duration-300 hover:shadow-xl shadow-sm flex flex-col transform-gpu">
         {/* Premium Badge for Featured */}
         {featured && index === 0 && (
           <div className="absolute top-4 right-4 z-20">
@@ -157,7 +150,7 @@ export default function ServiceCardEnhanced({
           <div className="flex items-start justify-between mb-6">
             <div className="relative">
               {/* Icon Container with Gradient Background */}
-              <div className="w-14 h-14 bg-gradient-to-br from-primary to-primary/70 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transform group-hover:scale-110 transition-all duration-300">
+              <div className="w-14 h-14 bg-gradient-to-br from-primary to-primary/70 rounded-xl flex items-center justify-center shadow-md transition-transform duration-300 transform-gpu group-hover:scale-110">
                 <Icon className="w-7 h-7 text-white" />
               </div>
             </div>
@@ -184,22 +177,16 @@ export default function ServiceCardEnhanced({
           {service?.categories && service.categories.length > 0 && (
             <div className="space-y-2 flex-1">
               <div className="flex flex-wrap gap-2">
-                <AnimatePresence mode="popLayout">
-                  {service.categories
-                    .slice(0, isExpanded ? undefined : 4)
-                    .map((category, catIndex) => (
-                      <motion.span
-                        key={`${category}-${catIndex}`}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.8 }}
-                        transition={{ duration: 0.2, delay: catIndex * 0.05 }}
-                        className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-700 group-hover:bg-primary/10 group-hover:text-primary transition-colors duration-300"
-                      >
-                        {category}
-                      </motion.span>
-                    ))}
-                </AnimatePresence>
+                {service.categories
+                  .slice(0, isExpanded ? undefined : 4)
+                  .map((category, catIndex) => (
+                    <span
+                      key={`${category}-${catIndex}`}
+                      className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-700 group-hover:bg-primary/10 group-hover:text-primary transition-colors duration-300"
+                    >
+                      {category}
+                    </span>
+                  ))}
 
                 {/* Show More/Less Button */}
                 {hasMoreCategories && (
@@ -247,6 +234,6 @@ export default function ServiceCardEnhanced({
           </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }
