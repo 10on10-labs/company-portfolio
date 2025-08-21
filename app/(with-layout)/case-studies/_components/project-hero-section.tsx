@@ -56,7 +56,6 @@ export const ProjectHeroSection: React.FC<Props> = ({ project }) => {
       }
     });
   }
-  console.log('Projects', project);
 
   const projectStats = [
     { label: 'Timeline', value: project?.timeline || '3 Months', icon: Calendar },
