@@ -68,7 +68,7 @@ export default function ServiceCardSimple({ service, index }: ServiceCardSimpleP
   const Icon = getIcon(service);
   const categories = service?.categories || [];
   const visibleCategories = showAll ? categories : categories.slice(0, 4);
-  const serviceSlug = service?.id || service?.slug?.current || service?.slug || '';
+  const serviceSlug = service?.id || '';
 
   return (
     <Link href={`/services/${serviceSlug}`} className="block h-full">
@@ -88,12 +88,10 @@ export default function ServiceCardSimple({ service, index }: ServiceCardSimpleP
           {service?.name}
         </h3>
 
-        {/* Description - Use shortDescription if available, fallback to description */}
-        {(service?.shortDescription || service?.description) && (
-          <p className="text-sm text-gray-600 mb-4 line-clamp-2">
-            {service.shortDescription || service.description}
-          </p>
-        )}
+        {/* Description */}
+        {service?.description ? (
+          <p className="text-sm text-gray-600 mb-4 line-clamp-2">{service.description}</p>
+        ) : null}
 
         {/* Categories as Bullet Points */}
         {categories.length > 0 && (

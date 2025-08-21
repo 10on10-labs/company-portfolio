@@ -48,7 +48,8 @@ const teamMembers = [
   {
     fullName: 'Osama Ehsan',
     role: 'Co-Founder & COO',
-    image: 'https://source.unsplash.com/300x300/?portrait,man,2',
+    image:
+      'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&crop=face',
     redirectUrl: '#',
   },
 ];

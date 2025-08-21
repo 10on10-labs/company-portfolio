@@ -11,11 +11,11 @@ import { MacBookCarousel } from './macbook-carousel';
 interface ProjectHeroSectionProps {
   project: {
     logo?: any;
-    name?: string;
-    description?: string;
-    category?: string;
-    coverImages?: any[];
-    projectSections?: any[];
+    name?: string | null;
+    description?: string | null;
+    category?: string | null;
+    coverImages?: any[] | null;
+    projectSections?: any[] | null;
   };
 }
 
@@ -24,7 +24,7 @@ export const ProjectHeroSection: React.FC<ProjectHeroSectionProps> = ({ project 
   const logoUrl = logo ? urlFor(logo).width(128).height(128).url() : null;
 
   // Process all images
-  const allImages = [];
+  const allImages: { url: string; alt: string }[] = [];
 
   if (coverImages && coverImages.length > 0) {
     coverImages.forEach((img, idx) => {
@@ -46,7 +46,7 @@ export const ProjectHeroSection: React.FC<ProjectHeroSectionProps> = ({ project 
   if (allImages.length === 0 && projectSections) {
     projectSections.forEach(section => {
       if (section?.images && section.images.length > 0) {
-        section.images.forEach((img, idx) => {
+        section.images.forEach((img: any, idx: number) => {
           if (img) {
             const imageUrl = urlFor(img || '')
               ?.width(1200)

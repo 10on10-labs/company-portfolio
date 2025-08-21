@@ -111,8 +111,9 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const service = await sanityClient.fetch(serviceQuery, { slug: params.slug });
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const service = await sanityClient.fetch(serviceQuery, { slug });
 
   if (!service) {
     return {
@@ -126,8 +127,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default async function ServiceDetailPage({ params }: { params: { slug: string } }) {
-  const service = await sanityClient.fetch(serviceQuery, { slug: params.slug });
+export default async function ServiceDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const service = await sanityClient.fetch(serviceQuery, { slug });
   const projects = await sanityClient.fetch(allProjectsQuery);
 
   if (!service) {

@@ -8,7 +8,7 @@ import { ArrowRight } from 'lucide-react';
 import { motion } from 'motion/react';
 
 interface Props {
-  projects: AllProjectsQueryResult;
+  projects: AllProjectsQueryResult | null;
 }
 
 export default function CaseStudiesList({ projects }: Props) {
