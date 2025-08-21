@@ -1,7 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { AllProjectsQueryResult } from '@/sanity.types';
 import { sanityClient } from '@/sanity/lib/client';
 import { allProjectsQuery } from '@/sanity/lib/queries';
 import {
