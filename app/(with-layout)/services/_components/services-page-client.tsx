@@ -2,13 +2,56 @@
 
 import { useState } from 'react';
 import { ServicesQueryResult } from '@/sanity.types';
-import { Search } from 'lucide-react';
+import { Code2, Layers, Palette, Search, Shield, Sparkles, Zap } from 'lucide-react';
 
 import ServiceCardSimple from '@/components/services/service-card-simple';
 
 interface ServicesPageClientProps {
   services: ServicesQueryResult;
 }
+
+const expertiseData = {
+  'UI/UX Design': [
+    {
+      title: 'Strategic UI/UX Design',
+      description:
+        "We don't just make things look good; we design intuitive user experiences that are both beautiful and effective. We start with a deep dive into user research and strategy to create a journey that delights your audience and achieves your business goals.",
+      icon: Sparkles,
+    },
+    {
+      title: 'Seamless User Interface (UI)',
+      description:
+        'From wireframes to pixel-perfect mockups, we design clean, modern, and memorable interfaces. We focus on every detail—typography, color palettes, and interactive elements—to create a visual identity that is consistent and captivating across all devices.',
+      icon: Palette,
+    },
+    {
+      title: 'Interactive Prototyping',
+      description:
+        'Bring your ideas to life before a single line of code is written. We create interactive prototypes that allow you to test user flows, gather feedback, and validate your concepts. This ensures the final product is a perfect fit for your users and avoids costly changes down the line.',
+      icon: Layers,
+    },
+  ],
+  'Frontend Development': [
+    {
+      title: 'High-Performance Frontend Development',
+      description:
+        'We build fast, responsive, and secure websites that offer a flawless user experience. Our expertise in modern frameworks ensures your site loads quickly and runs smoothly, no matter the device or browser.',
+      icon: Zap,
+    },
+    {
+      title: 'Custom Web Applications',
+      description:
+        'We engineer robust and scalable frontend solutions tailored to your unique needs. Whether you need a complex dashboard, an e-commerce platform, or a single-page application, we build dynamic and interactive experiences that are as powerful as they are beautiful.',
+      icon: Code2,
+    },
+    {
+      title: 'Website Accessibility & Optimization',
+      description:
+        'Your website should be accessible to everyone. We follow best practices for web accessibility to ensure your site is usable by people of all abilities. We also optimize for search engines and performance, giving you a competitive edge.',
+      icon: Shield,
+    },
+  ],
+};
 
 export default function ServicesPageClient({ services }: ServicesPageClientProps) {
   const [searchTerm, setSearchTerm] = useState('');
@@ -39,11 +82,11 @@ export default function ServicesPageClient({ services }: ServicesPageClientProps
               Our Expertise
             </span>
             <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
-              Professional Services
+              Our Services & Expertise
             </h1>
             <p className="text-sm text-gray-600 mb-4 leading-relaxed">
-              Comprehensive digital solutions tailored to elevate your business and drive meaningful
-              results.
+              From strategic design to flawless development, we deliver comprehensive digital
+              solutions that achieve a perfect 10/10.
             </p>
 
             {/* Search Bar */}
@@ -87,6 +130,41 @@ export default function ServicesPageClient({ services }: ServicesPageClientProps
               ))}
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Expertise Categories Section */}
+      <section className="py-12 md:py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          {Object.entries(expertiseData).map(([category, items]) => (
+            <div key={category} className="mb-16 last:mb-0">
+              <div className="text-center mb-10">
+                <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">{category}</h2>
+                <div className="w-20 h-1 bg-primary mx-auto rounded-full" />
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                {items.map((item, index) => {
+                  const Icon = item.icon;
+                  return (
+                    <div
+                      key={index}
+                      className="bg-white rounded-xl p-6 hover:shadow-xl transition-all duration-300 border border-gray-100 group"
+                    >
+                      <div className="mb-4">
+                        <div className="w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                          <Icon className="w-7 h-7 text-primary" />
+                        </div>
+                      </div>
+                      <h3 className="text-lg font-semibold text-gray-900 mb-3 group-hover:text-primary transition-colors">
+                        {item.title}
+                      </h3>
+                      <p className="text-sm text-gray-600 leading-relaxed">{item.description}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
