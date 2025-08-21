@@ -33,7 +33,7 @@ export const CompanyTimeline = () => {
     <div className="max-w-4xl mx-auto">
       <div className="relative">
         {/* Timeline line */}
-        <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-gray-200 md:-translate-x-1/2" />
+        <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-gray-700 md:-translate-x-1/2" />
 
         {/* Timeline items */}
         {timelineData.map((item, index) => (
@@ -44,15 +44,15 @@ export const CompanyTimeline = () => {
             }`}
           >
             {/* Dot */}
-            <div className="absolute left-8 md:left-1/2 top-2 w-4 h-4 bg-primary rounded-full border-4 border-white shadow-sm md:-translate-x-1/2" />
+            <div className="absolute left-8 md:left-1/2 top-2 w-4 h-4 bg-primary rounded-full border-4 border-gray-900 shadow-sm md:-translate-x-1/2" />
 
             {/* Content */}
             <div className="ml-16 md:ml-0 md:px-8">
-              <span className="inline-block px-3 py-1 bg-primary/10 text-primary text-sm font-semibold rounded-full mb-2">
+              <span className="inline-block px-3 py-1 bg-primary/20 text-primary text-sm font-semibold rounded-full mb-2">
                 {item.year}
               </span>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">{item.title}</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">{item.description}</p>
+              <h3 className="text-xl font-semibold text-white mb-2">{item.title}</h3>
+              <p className="text-gray-400 text-sm leading-relaxed">{item.description}</p>
             </div>
           </div>
         ))}

@@ -61,13 +61,13 @@ export default function CaseStudiesSection({ projects }: Projects) {
                       {/* Project Logo and Title */}
                       <div className="flex items-center gap-4 mb-4">
                         {project.logo ? (
-                          <div className="w-16 h-16 rounded-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center overflow-hidden">
+                          <div className="relative w-16 h-16 rounded-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
                             <Image
                               src={urlFor(project.logo)?.width(128)?.height(128)?.url() || ''}
                               alt={`${project.name} logo`}
-                              width={64}
-                              height={64}
-                              className="w-12 h-12 object-contain"
+                              width={56}
+                              height={56}
+                              className="w-full h-full"
                             />
                           </div>
                         ) : (

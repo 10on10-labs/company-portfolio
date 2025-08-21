@@ -15,20 +15,28 @@ const stats = [
 
 const values = [
   {
-    title: 'Innovation',
+    title: 'Uncompromising Quality',
     description:
-      'Pushing boundaries and embracing new technologies to create exceptional solutions.',
-    icon: Rocket,
-  },
-  {
-    title: 'Excellence',
-    description: 'Delivering outstanding quality in every project we undertake.',
+      'We believe that anything worth doing is worth doing to a perfect standard. Our name is our promise: every project is a relentless pursuit of a flawless 10/10. From pixel-perfect designs to clean, robust code, our work is a testament to our commitment to excellence.',
     icon: Award,
   },
   {
-    title: 'Integrity',
-    description: 'Building trust through honest relationships and transparent communication.',
+    title: 'Empathetic Design',
+    description:
+      'At the heart of every great product is a deep understanding of its users. We are not just designers and developers; we are problem-solvers who put people first. We conduct thorough research to create intuitive, human-centered experiences that are a joy to use and truly connect with your audience.',
+    icon: Users,
+  },
+  {
+    title: 'Transparent Partnership',
+    description:
+      'Your vision is our mission. We believe in working as a true extension of your team, not just a service provider. We maintain open, honest communication throughout the entire process, ensuring you are informed and involved at every step. Your success is our shared goal.',
     icon: CheckCircle,
+  },
+  {
+    title: 'Driven by Innovation',
+    description:
+      'The digital world is always evolving, and so are we. We are passionate about staying ahead of the curve, constantly exploring new technologies and design trends. We apply this forward-thinking approach to every project, delivering modern, scalable, and cutting-edge solutions that will stand the test of time.',
+    icon: Rocket,
   },
 ];
 
@@ -48,8 +56,7 @@ const teamMembers = [
   {
     fullName: 'Osama Ehsan',
     role: 'Co-Founder & COO',
-    image:
-      'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&crop=face',
+    image: '/osama.jpg',
     redirectUrl: '#',
   },
 ];
@@ -58,18 +65,18 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative py-16 md:py-24 overflow-hidden">
+      <section className="relative py-8 md:py-12 overflow-hidden bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <span className="inline-block text-primary font-semibold text-sm uppercase tracking-wider mb-4 bg-primary/10 px-4 py-2 rounded-full">
               About Us
             </span>
             <h1 className="text-4xl md:text-6xl font-bold mb-6 text-gray-900">
-              Crafting Digital Excellence Since 2014
+              Elevating ideas. Engineering experiences.
             </h1>
             <p className="text-lg md:text-xl text-gray-600 leading-relaxed">
-              We transform ideas into exceptional digital experiences through innovation, expertise,
-              and a passion for excellence.
+              We create captivating user interfaces and robust frontend systems that look amazing
+              and work even better.
             </p>
           </div>
         </div>
@@ -104,20 +111,18 @@ export default function AboutPage() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16">
+      <section className="py-16 bg-gray-900">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
             {stats.map((stat, index) => {
               const Icon = stat.icon;
               return (
                 <div key={index} className="text-center">
-                  <div className="inline-flex items-center justify-center w-12 h-12 bg-primary/10 rounded-full mb-4">
+                  <div className="inline-flex items-center justify-center w-12 h-12 bg-primary/20 rounded-full mb-4">
                     <Icon className="w-6 h-6 text-primary" />
                   </div>
-                  <h3 className="text-3xl md:text-4xl font-bold text-primary mb-2">
-                    {stat.number}
-                  </h3>
-                  <p className="text-sm text-gray-600">{stat.label}</p>
+                  <h3 className="text-3xl md:text-4xl font-bold text-white mb-2">{stat.number}</h3>
+                  <p className="text-sm text-gray-400">{stat.label}</p>
                 </div>
               );
             })}
@@ -163,7 +168,7 @@ export default function AboutPage() {
       </section>
 
       {/* Team Section */}
-      <section className="py-16">
+      <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -182,11 +187,11 @@ export default function AboutPage() {
       </section>
 
       {/* Timeline Section */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-gray-900">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Journey</h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Our Journey</h2>
+            <p className="text-lg text-gray-400 max-w-3xl mx-auto">
               Key milestones that shaped who we are today
             </p>
           </div>
@@ -195,7 +200,7 @@ export default function AboutPage() {
       </section>
 
       {/* Values Section */}
-      <section className="py-16">
+      <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Core Values</h2>
@@ -203,7 +208,7 @@ export default function AboutPage() {
               The principles that guide everything we do
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
             {values.map((value, index) => {
               const Icon = value.icon;
               return (
