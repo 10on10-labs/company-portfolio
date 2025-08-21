@@ -180,8 +180,73 @@ export type Service = {
   _rev: string;
   name?: string;
   id?: Slug;
+  shortDescription?: string;
   description?: string;
   categories?: Array<string>;
+  icon?:
+    | 'monitor'
+    | 'code'
+    | 'smartphone'
+    | 'database'
+    | 'cloud'
+    | 'shield'
+    | 'chart'
+    | 'palette'
+    | 'rocket'
+    | 'settings';
+  heroSection?: {
+    tagline?: string;
+    headline?: string;
+    subheadline?: string;
+  };
+  features?: Array<{
+    title?: string;
+    description?: string;
+    icon?:
+      | 'code'
+      | 'zap'
+      | 'users'
+      | 'palette'
+      | 'shield'
+      | 'gauge'
+      | 'gitbranch'
+      | 'globe'
+      | 'smartphone'
+      | 'rocket';
+    _key: string;
+  }>;
+  technologies?: Array<{
+    name?: string;
+    icon?: string;
+    _key: string;
+  }>;
+  processSteps?: Array<{
+    number?: string;
+    title?: string;
+    description?: string;
+    _key: string;
+  }>;
+  benefits?: Array<string>;
+  whyChooseUs?: {
+    headline?: string;
+    description?: string;
+    reasons?: Array<{
+      title?: string;
+      description?: string;
+      icon?: 'users' | 'zap' | 'shield' | 'code' | 'rocket';
+      _key: string;
+    }>;
+  };
+  ctaSection?: {
+    headline?: string;
+    description?: string;
+    primaryButtonText?: string;
+    secondaryButtonText?: string;
+  };
+  seo?: {
+    metaTitle?: string;
+    metaDescription?: string;
+  };
 };
 
 export type Brand = {
@@ -229,6 +294,16 @@ export type Project = {
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
     _type: 'image';
+  };
+  url?: string;
+  projectDimensions?: {
+    timeline?: {
+      value?: number;
+      unit?: 'weeks' | 'months' | 'years';
+    };
+    teamSize?: number;
+    iterations?: number;
+    technologies?: number;
   };
   coverImages?: Array<{
     asset?: {
@@ -684,6 +759,85 @@ export type AllSanitySchemaTypes =
   | Slug
   | SanityAssetSourceData;
 export declare const internalGroqTypeReferenceTo: unique symbol;
+// Source: ./app/(with-layout)/services/[slug]/page.tsx
+// Variable: serviceQuery
+// Query: *[_type == "service" && id.current == $slug][0] {    _id,    name,    "slug": id.current,    shortDescription,    description,    categories,    icon,    heroSection {      tagline,      headline,      subheadline    },    features[] {      title,      description,      icon    },    technologies[] {      name,      icon    },    processSteps[] {      number,      title,      description    },    benefits,    whyChooseUs {      headline,      description,      reasons[] {        title,        description,        icon      }    },    ctaSection {      headline,      description,      primaryButtonText,      secondaryButtonText    },    seo {      metaTitle,      metaDescription    }  }
+export type ServiceQueryResult = {
+  _id: string;
+  name: string | null;
+  slug: string | null;
+  shortDescription: string | null;
+  description: string | null;
+  categories: Array<string> | null;
+  icon:
+    | 'chart'
+    | 'cloud'
+    | 'code'
+    | 'database'
+    | 'monitor'
+    | 'palette'
+    | 'rocket'
+    | 'settings'
+    | 'shield'
+    | 'smartphone'
+    | null;
+  heroSection: {
+    tagline: string | null;
+    headline: string | null;
+    subheadline: string | null;
+  } | null;
+  features: Array<{
+    title: string | null;
+    description: string | null;
+    icon:
+      | 'code'
+      | 'gauge'
+      | 'gitbranch'
+      | 'globe'
+      | 'palette'
+      | 'rocket'
+      | 'shield'
+      | 'smartphone'
+      | 'users'
+      | 'zap'
+      | null;
+  }> | null;
+  technologies: Array<{
+    name: string | null;
+    icon: string | null;
+  }> | null;
+  processSteps: Array<{
+    number: string | null;
+    title: string | null;
+    description: string | null;
+  }> | null;
+  benefits: Array<string> | null;
+  whyChooseUs: {
+    headline: string | null;
+    description: string | null;
+    reasons: Array<{
+      title: string | null;
+      description: string | null;
+      icon: 'code' | 'rocket' | 'shield' | 'users' | 'zap' | null;
+    }> | null;
+  } | null;
+  ctaSection: {
+    headline: string | null;
+    description: string | null;
+    primaryButtonText: string | null;
+    secondaryButtonText: string | null;
+  } | null;
+  seo: {
+    metaTitle: string | null;
+    metaDescription: string | null;
+  } | null;
+} | null;
+// Variable: servicesSlugQuery
+// Query: *[_type == "service"] {    "slug": id.current  }
+export type ServicesSlugQueryResult = Array<{
+  slug: string | null;
+}>;
+
 // Source: ./sanity/lib/queries/blog-queries.ts
 // Variable: blogBySlugQuery
 // Query: *[_type == "blog" && slug.current == $slug][0] {        title,        subTitle,        "modifiedAt": _updatedAt,        author->,        thumbnail,        body,        blogCategories[]->{            title,            "chipColor": chipColor.hex,            "slug": slug.current,         },    }
@@ -990,7 +1144,7 @@ export type PagesBySlugQueryResult = {
   slug: string | null;
 } | null;
 // Variable: projectBySlugQuery
-// Query: *[_type == "project" && slug.current == $slug][0] {    _id,    "slug": slug.current,    name,    category,    description,    logo,    coverImages,    projectSections,  }
+// Query: *[_type == "project" && slug.current == $slug][0] {    _id,    "slug": slug.current,    name,    category,    description,    logo,    coverImages,    projectSections,     url,    "technologies": projectDimensions.technologies,    "iterations": projectDimensions.iterations,    "teamSize": projectDimensions.teamSize,    "timeline": projectDimensions.timeline.value + " " + sanity.timeline.unit  }
 export type ProjectBySlugQueryResult = {
   _id: string;
   slug: string | null;
@@ -1043,6 +1197,11 @@ export type ProjectBySlugQueryResult = {
     }>;
     _key: string;
   }> | null;
+  url: string | null;
+  technologies: number | null;
+  iterations: number | null;
+  teamSize: number | null;
+  timeline: null;
 } | null;
 // Variable: allProjectsQuery
 // Query: *[_type == "project"] {    _id,    "slug": slug.current,    name,    category,    description,    logo,    coverImages,    projectSections,  }
@@ -1188,6 +1347,8 @@ export type TestimonialsQueryResult = Array<{
 
 declare module '@sanity/client' {
   interface SanityQueries {
+    '\n  *[_type == "service" && id.current == $slug][0] {\n    _id,\n    name,\n    "slug": id.current,\n    shortDescription,\n    description,\n    categories,\n    icon,\n    heroSection {\n      tagline,\n      headline,\n      subheadline\n    },\n    features[] {\n      title,\n      description,\n      icon\n    },\n    technologies[] {\n      name,\n      icon\n    },\n    processSteps[] {\n      number,\n      title,\n      description\n    },\n    benefits,\n    whyChooseUs {\n      headline,\n      description,\n      reasons[] {\n        title,\n        description,\n        icon\n      }\n    },\n    ctaSection {\n      headline,\n      description,\n      primaryButtonText,\n      secondaryButtonText\n    },\n    seo {\n      metaTitle,\n      metaDescription\n    }\n  }\n': ServiceQueryResult;
+    '\n  *[_type == "service"] {\n    "slug": id.current\n  }\n': ServicesSlugQueryResult;
     '\n    *[_type == "blog" && slug.current == $slug][0] {\n        title,\n        subTitle,\n        "modifiedAt": _updatedAt,\n        author->,\n        thumbnail,\n        body,\n        blogCategories[]->{\n            title,\n            "chipColor": chipColor.hex,\n            "slug": slug.current, \n        },\n    }\n': BlogBySlugQueryResult;
     '\n    *[_type == "blog"] {\n        "slug": slug.current\n    }\n': BlogsSlugQueryResult;
     '\n  *[_type == "blogCategory"] {\n  title,\n  "slug": slug.current\n}\n': BlogCategoriesQueryResult;
@@ -1196,7 +1357,7 @@ declare module '@sanity/client' {
     '\n  *[_type == "brand"] | order(order asc, _createdAt desc) {\n    _id,\n    name,\n    "logoUrl": logo.asset->url,\n    "logoAlt": logo.alt,\n    link\n  }\n': BrandsQueryResult;
     '\n  *[_type == "home"][0]{\n    _id,\n    _type,\n    overview,\n    showcaseProjects[]{\n      _key,\n      ...@->{\n        _id,\n        _type,\n        coverImage,\n        overview,\n        "slug": slug.current,\n        tags,\n        title,\n      }\n    },\n    title,\n  }\n': HomePageQueryResult;
     '\n  *[_type == "page" && slug.current == $slug][0] {\n    _id,\n    _type,\n    body,\n    overview,\n    title,\n    "slug": slug.current,\n  }\n': PagesBySlugQueryResult;
-    '\n  *[_type == "project" && slug.current == $slug][0] {\n    _id,\n    "slug": slug.current,\n    name,\n    category,\n    description,\n    logo,\n    coverImages,\n    projectSections,\n  }\n': ProjectBySlugQueryResult;
+    '\n  *[_type == "project" && slug.current == $slug][0] {\n    _id,\n    "slug": slug.current,\n    name,\n    category,\n    description,\n    logo,\n    coverImages,\n    projectSections,\n     url,\n    "technologies": projectDimensions.technologies,\n    "iterations": projectDimensions.iterations,\n    "teamSize": projectDimensions.teamSize,\n    "timeline": projectDimensions.timeline.value + " " + sanity.timeline.unit\n  }\n': ProjectBySlugQueryResult;
     '\n  *[_type == "project"] {\n    _id,\n    "slug": slug.current,\n    name,\n    category,\n    description,\n    logo,\n    coverImages,\n    projectSections,\n  }\n': AllProjectsQueryResult;
     '\n  *[_type == "settings"][0]{\n    _id,\n    _type,\n    footer,\n    menuItems[]{\n      _key,\n      ...@->{\n        _type,\n        "slug": slug.current,\n        title\n      }\n    },\n    ogImage,\n  }\n': SettingsQueryResult;
     '\n  *[_type == $type && defined(slug.current)]{"slug": slug.current}\n': SlugsByTypeQueryResult;

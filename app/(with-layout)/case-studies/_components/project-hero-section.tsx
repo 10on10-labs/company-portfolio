@@ -2,32 +2,25 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { ProjectBySlugQueryResult } from '@/sanity.types';
 import { urlFor } from '@/sanity/lib/image';
-import { ArrowLeft, Calendar, Layers, Target, Users } from 'lucide-react';
+import { ArrowLeft, Calendar, ExternalLinkIcon, Layers, Target, Users } from 'lucide-react';
 import { motion } from 'motion/react';
 
 import { MacBookCarousel } from './macbook-carousel';
 
-interface ProjectHeroSectionProps {
-  project: {
-    logo?: any;
-    name?: string | null;
-    description?: string | null;
-    category?: string | null;
-    coverImages?: any[] | null;
-    projectSections?: any[] | null;
-  };
-}
+type Props = {
+  project: ProjectBySlugQueryResult;
+};
 
-export const ProjectHeroSection: React.FC<ProjectHeroSectionProps> = ({ project }) => {
-  const { logo, name, description, category, coverImages, projectSections } = project;
-  const logoUrl = logo ? urlFor(logo).width(128).height(128).url() : null;
+export const ProjectHeroSection: React.FC<Props> = ({ project }) => {
+  const logoUrl = project?.logo ? urlFor(project.logo).width(128).height(128).url() : null;
 
   // Process all images
   const allImages: { url: string; alt: string }[] = [];
 
-  if (coverImages && coverImages.length > 0) {
-    coverImages.forEach((img, idx) => {
+  if (project?.coverImages && project.coverImages.length > 0) {
+    project.coverImages.forEach((img, idx) => {
       if (img) {
         const imageUrl = urlFor(img || '')
           ?.width(1200)
@@ -43,8 +36,8 @@ export const ProjectHeroSection: React.FC<ProjectHeroSectionProps> = ({ project 
     });
   }
 
-  if (allImages.length === 0 && projectSections) {
-    projectSections.forEach(section => {
+  if (allImages.length === 0 && project?.projectSections) {
+    project.projectSections.forEach(section => {
       if (section?.images && section.images.length > 0) {
         section.images.forEach((img: any, idx: number) => {
           if (img) {
@@ -63,12 +56,13 @@ export const ProjectHeroSection: React.FC<ProjectHeroSectionProps> = ({ project 
       }
     });
   }
+  console.log('Projects', project);
 
   const projectStats = [
-    { label: 'Timeline', value: '3 Months', icon: Calendar },
-    { label: 'Team Size', value: '5 Members', icon: Users },
-    { label: 'Technologies', value: '8+ Tools', icon: Layers },
-    { label: 'Iterations', value: '12 Sprints', icon: Target },
+    { label: 'Timeline', value: project?.timeline || '3 Months', icon: Calendar },
+    { label: 'Team Size', value: `${project?.teamSize || 5} Members`, icon: Users },
+    { label: 'Technologies', value: `${project?.technologies || 8}+ Tools`, icon: Layers },
+    { label: 'Iterations', value: `${project?.iterations || 12} Sprints`, icon: Target },
   ];
 
   return (
@@ -111,7 +105,7 @@ export const ProjectHeroSection: React.FC<ProjectHeroSectionProps> = ({ project 
                 >
                   <Image
                     src={logoUrl}
-                    alt={`${name} logo`}
+                    alt={`${project?.name} logo`}
                     width={80}
                     height={80}
                     className="w-16 h-16 object-contain"
@@ -119,22 +113,40 @@ export const ProjectHeroSection: React.FC<ProjectHeroSectionProps> = ({ project 
                 </motion.div>
               ) : (
                 <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary/10 to-primary/20 flex items-center justify-center shadow-lg">
-                  <span className="text-3xl font-bold text-primary">{name?.charAt(0) || 'P'}</span>
+                  <span className="text-3xl font-bold text-primary">
+                    {project?.name?.charAt(0) || 'P'}
+                  </span>
                 </div>
               )}
 
               <div className="flex-1">
-                <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-2">{name}</h1>
-                {category && (
+                <div className="flex">
+                  <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-2">
+                    {project?.name}
+                  </h1>
+                  {project?.url && (
+                    <a
+                      href={project?.url}
+                      target="_blank"
+                      className="ml-4 text-gray-500 hover:text-gray-400 z-20"
+                      rel="noreferrer"
+                    >
+                      <ExternalLinkIcon />
+                    </a>
+                  )}
+                </div>
+                {project?.category && (
                   <span className="inline-block px-4 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium">
-                    {category}
+                    {project.category}
                   </span>
                 )}
               </div>
             </div>
 
             {/* Description */}
-            {description && <p className="text-lg text-gray-600 leading-relaxed">{description}</p>}
+            {project?.description && (
+              <p className="text-lg text-gray-600 leading-relaxed">{project.description}</p>
+            )}
 
             {/* Project Stats */}
             <div className="grid grid-cols-2 gap-4">
