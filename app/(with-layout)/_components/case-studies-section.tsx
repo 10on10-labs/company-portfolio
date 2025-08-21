@@ -15,7 +15,7 @@ export default function CaseStudiesSection({ projects }: Projects) {
   const featuredProjects = projects?.slice(0, 3) || [];
 
   return (
-    <section className="py-16 md:py-24 bg-secondary">
+    <section id="case-studies" className="py-16 md:py-24 bg-secondary">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -129,7 +129,7 @@ export default function CaseStudiesSection({ projects }: Projects) {
                               className="w-full h-auto relative z-10"
                             />
                             {/* Project Screenshot Inside MacBook Screen */}
-                            <div className="absolute top-[8%] left-[13%] right-[13%] bottom-[22%] overflow-hidden">
+                            <div className="absolute  top-[7.2%] left-[10%] right-[10%] bottom-[21%]  overflow-hidden">
                               <div className="relative w-full h-full">
                                 <Image
                                   src={images[0].url}
@@ -165,12 +165,10 @@ export default function CaseStudiesSection({ projects }: Projects) {
         >
           <Link
             href="/case-studies"
-            className="inline-flex items-center px-8 py-4 bg-black text-white rounded-full hover:bg-gray-800 transition-colors duration-300 font-medium"
+            className="inline-flex items-center gap-3 px-8 py-4 bg-primary text-white font-semibold rounded-full hover:bg-primary/90 transition-all duration-300 group shadow-xl shadow-primary/20 hover:shadow-2xl hover:shadow-primary/30"
           >
             View All Case Studies
-            <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </Link>
         </motion.div>
       </div>

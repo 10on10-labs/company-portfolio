@@ -24,7 +24,7 @@ interface HeroClientProps {
 
 export default function HeroClient({ brands }: HeroClientProps) {
   return (
-    <section className="relative w-full text-black overflow-hidden py-16 md:py-24">
+    <section className="relative w-full text-black overflow-hidden py-8 md:py-12">
       <div className="relative z-10 flex flex-col justify-center items-center text-center max-w-6xl mx-auto px-4">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
@@ -32,7 +32,7 @@ export default function HeroClient({ brands }: HeroClientProps) {
           transition={{ delay: 0.3, duration: 0.6 }}
           className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-primary via-black to-primary bg-clip-text text-transparent pb-2"
         >
-          Design. Develop. Deliver.
+          Engineering digital perfection.
         </motion.h1>
         <motion.p
           initial={{ opacity: 0 }}
@@ -40,8 +40,8 @@ export default function HeroClient({ brands }: HeroClientProps) {
           transition={{ delay: 0.6, duration: 0.6 }}
           className="mt-6 max-w-2xl text-lg md:text-xl text-black"
         >
-          We craft pixel-perfect websites with cutting-edge technology and world-class UI/UX — from
-          concept to code.
+          We specialize in crafting seamless user experiences and building powerful frontend
+          solutions that are a perfect 10/10.
         </motion.p>
 
         <motion.div

@@ -44,7 +44,7 @@ export default function InsightsSection({ blogs }: InsightsSectionProps) {
   const [featuredBlog, ...otherBlogs] = featuredBlogs;
 
   return (
-    <section className="py-16 md:py-24 bg-secondary">
+    <section id="insights" className="py-16 md:py-24 bg-secondary">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

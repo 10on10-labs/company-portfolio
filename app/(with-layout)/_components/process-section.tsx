@@ -4,7 +4,7 @@ import { ProcessSection } from '@/components/process';
 
 export default function Process() {
   return (
-    <section>
+    <section id="process">
       <ProcessSection />
     </section>
   );

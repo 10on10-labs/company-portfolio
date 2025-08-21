@@ -6,7 +6,7 @@ import { CheckCircle, Sparkles } from 'lucide-react';
 import { motion } from 'motion/react';
 
 interface ProjectShowcaseSectionProps {
-  projectSections?: any[];
+  projectSections?: any[] | null;
 }
 
 export const ProjectShowcaseSection: React.FC<ProjectShowcaseSectionProps> = ({
@@ -67,7 +67,7 @@ export const ProjectShowcaseSection: React.FC<ProjectShowcaseSectionProps> = ({
                   <div className="relative group">
                     <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-2xl blur-2xl opacity-30 group-hover:opacity-40 transition-opacity" />
                     <div className="relative bg-white rounded-2xl shadow-xl overflow-hidden">
-                      {section.images.map(image => {
+                      {section.images.map((image: any) => {
                         const imageUrl = urlFor(image).width(800).url();
                         return (
                           <Image

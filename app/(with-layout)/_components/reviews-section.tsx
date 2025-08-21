@@ -8,7 +8,7 @@ interface ReviewsSectionProps {
 
 export default function ReviewsSection({ testimonials }: ReviewsSectionProps) {
   return (
-    <section className="py-16 md:py-24">
+    <section id="reviews" className="py-16 md:py-24">
       <div className="flex items-center flex-col gap-6 md:gap-8 justify-center w-full p-4 md:p-10 overflow-y-auto">
         <h1 className="font-bold text-xl sm:text-2xl md:text-4xl text-center px-4">
           What Our Clients Say
