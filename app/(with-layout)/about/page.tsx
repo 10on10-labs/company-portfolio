@@ -7,9 +7,9 @@ import { CompanyTimeline } from './_components/company-timeline';
 import { EmployeeCard } from './_components/employee-card';
 
 const stats = [
-  { number: '10+', label: 'Years Experience', icon: Award },
-  { number: '200+', label: 'Projects Completed', icon: Target },
-  { number: '50+', label: 'Team Members', icon: Users },
+  { number: '1+', label: 'Years Experience', icon: Award },
+  { number: '60+', label: 'Projects Completed', icon: Target },
+  { number: '15+', label: 'Team Members', icon: Users },
   { number: '95%', label: 'Client Satisfaction', icon: Rocket },
 ];
 
@@ -143,12 +143,12 @@ export default function AboutPage() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
                 <p className="text-gray-600 mb-6 leading-relaxed">
-                  Founded in 2014, we started with a simple vision: to help businesses thrive in the
-                  digital age. What began as a small team of passionate developers has grown into a
-                  full-service digital agency.
+                  Founded in 2024, we started with a simple vision: to help businesses thrive in the
+                  digital age. What began as a small team of passionate developers is rapidly
+                  growing into a full-service digital agency.
                 </p>
                 <p className="text-gray-600 mb-6 leading-relaxed">
-                  Over the years, we&apos;ve had the privilege of working with hundreds of clients
+                  In our first year, we&apos;ve had the privilege of working with over 60 clients
                   across various industries, delivering solutions that not only meet but exceed
                   expectations.
                 </p>

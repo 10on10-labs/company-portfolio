@@ -55,8 +55,13 @@ export default function HeroClient({ brands }: HeroClientProps) {
               Explore Services
             </Button>
           </Link>
+          <Link href="/#pricing">
+            <Button className="border-primary border bg-white text-black rounded-full p-6 text-md hover:text-white hover:bg-primary duration-300 cursor-pointer">
+              See Available Packages
+            </Button>
+          </Link>
           <Link href="/contact-us">
-            <Button className="border-primary border bg-white text-black rounded-full p-6 text-md hover:text-white duration-300  cursor-pointer">
+            <Button className="border-primary border bg-white text-black rounded-full p-6 text-md hover:text-white hover:bg-primary duration-300 cursor-pointer">
               Contact Us
             </Button>
           </Link>
@@ -83,52 +88,47 @@ export default function HeroClient({ brands }: HeroClientProps) {
           </motion.div>
 
           {/* Expertise Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
             {[
               {
                 title: 'UI/UX Design',
                 description: 'Beautiful, intuitive interfaces',
+                link: '/services/ui-ux-services',
               },
               {
-                title: 'Web Development',
+                title: 'Frontend Development',
                 description: 'Fast, scalable applications',
-              },
-              {
-                title: 'Mobile-Ready Interfaces',
-                description: 'Responsive on every device',
-              },
-              {
-                title: 'SEO Optimization',
-                description: 'Boost your visibility',
+                link: '/services/frontend-development',
               },
             ].map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.2 + index * 0.1, duration: 0.6 }}
-                whileHover={{ y: -8, scale: 1.02 }}
-                className="group relative bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 min-h-[180px] cursor-pointer overflow-hidden"
-              >
-                {/* Subtle gradient overlay on hover */}
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <Link href={item.link} key={index}>
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 1.2 + index * 0.1, duration: 0.6 }}
+                  whileHover={{ y: -8, scale: 1.02 }}
+                  className="group relative bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 min-h-[180px] cursor-pointer overflow-hidden"
+                >
+                  {/* Subtle gradient overlay on hover */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-                {/* Content */}
-                <div className="relative z-10">
-                  <div className="bg-gray-50 rounded-xl p-3 inline-block mb-4 group-hover:bg-primary/10 transition-colors">
-                    <Sparkles className="text-primary w-7 h-7" />
+                  {/* Content */}
+                  <div className="relative z-10">
+                    <div className="bg-gray-50 rounded-xl p-3 inline-block mb-4 group-hover:bg-primary/10 transition-colors">
+                      <Sparkles className="text-primary w-7 h-7" />
+                    </div>
+
+                    <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-primary transition-colors">
+                      {item.title}
+                    </h3>
+
+                    <p className="text-sm text-gray-600 leading-relaxed">{item.description}</p>
                   </div>
 
-                  <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-primary transition-colors">
-                    {item.title}
-                  </h3>
-
-                  <p className="text-sm text-gray-600 leading-relaxed">{item.description}</p>
-                </div>
-
-                {/* Bottom accent line */}
-                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary via-primary/50 to-transparent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
-              </motion.div>
+                  {/* Bottom accent line */}
+                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary via-primary/50 to-transparent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+                </motion.div>
+              </Link>
             ))}
           </div>
         </motion.div>
