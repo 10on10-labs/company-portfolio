@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { Metadata } from 'next';
+import { ProjectBySlugQueryResult } from '@/sanity.types';
 import { sanityClient } from '@/sanity/lib/client';
 import { urlFor } from '@/sanity/lib/image';
 import { allProjectsQuery, projectBySlugQuery } from '@/sanity/lib/queries';
@@ -11,7 +12,7 @@ type Props = {
 };
 
 const fetchProjectBySlug = async (slug: string) => {
-  const project = await sanityClient.fetch(projectBySlugQuery, { slug });
+  const project = await sanityClient.fetch<ProjectBySlugQueryResult>(projectBySlugQuery, { slug });
   if (!project) return null;
   return project;
 };

@@ -41,6 +41,58 @@ export const project = defineType({
       validation: rule => rule.required(),
     }),
     defineField({
+      name: 'url',
+      title: 'URL (optional)',
+      type: 'url',
+    }),
+    defineField({
+      name: 'projectDimensions',
+      title: 'Project Dimensions',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'timeline',
+          title: 'Timeline',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'value',
+              title: 'Value',
+              type: 'number',
+            }),
+            defineField({
+              name: 'unit',
+              title: 'Unit',
+              type: 'string',
+              options: {
+                list: [
+                  { title: 'Week(s)', value: 'Week(s)' },
+                  { title: 'Month(s)', value: 'Month(s)' },
+                  { title: 'Year(s)', value: 'Year(s)' },
+                ],
+                layout: 'radio', // bullet/radio style
+              },
+            }),
+          ],
+        }),
+        defineField({
+          name: 'teamSize',
+          title: 'Team Size',
+          type: 'number',
+        }),
+        defineField({
+          name: 'iterations',
+          title: 'Iterations',
+          type: 'number',
+        }),
+        defineField({
+          name: 'technologies',
+          title: 'Technologies',
+          type: 'number',
+        }),
+      ],
+    }),
+    defineField({
       name: 'coverImages',
       title: 'Cover Images',
       type: 'array',

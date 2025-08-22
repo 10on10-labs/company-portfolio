@@ -42,6 +42,11 @@ export const projectBySlugQuery = defineQuery(`
     logo,
     coverImages,
     projectSections,
+    url,
+    "technologies": projectDimensions.technologies,
+    "iterations": projectDimensions.iterations,
+    "teamSize": projectDimensions.teamSize,
+    "timeline": string(projectDimensions.timeline.value) + " " + coalesce(projectDimensions.timeline.unit, ""),
   }
 `);
 export const allProjectsQuery = defineQuery(`
@@ -54,6 +59,11 @@ export const allProjectsQuery = defineQuery(`
     logo,
     coverImages,
     projectSections,
+    url,
+    "technologies": projectDimensions.technologies,
+    "iterations": projectDimensions.iterations,
+    "teamSize": projectDimensions.teamSize,
+    "timeline": string(projectDimensions.timeline.value) + " " + coalesce(projectDimensions.timeline.unit, ""),
   }
 `);
 

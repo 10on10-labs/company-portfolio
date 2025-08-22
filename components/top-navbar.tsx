@@ -16,7 +16,6 @@ const menuItems = [
   { title: 'About', href: '/about', isSection: false },
   { title: 'Reviews', href: '/#reviews', isSection: true },
   { title: 'Insights', href: '/#insights', isSection: true },
-  // { title: 'Contact Us', href: '/contact-us' },
 ];
 
 export const TopNavbar = () => {
