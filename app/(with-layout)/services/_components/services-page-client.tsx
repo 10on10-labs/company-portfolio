@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { ServicesQueryResult } from '@/sanity.types';
-import { Code2, Layers, Palette, Search, Shield, Sparkles, Zap } from 'lucide-react';
+import { Layers, Palette, Search, Shield, Sparkles, Zap } from 'lucide-react';
 
 import ServiceCardSimple from '@/components/services/service-card-simple';
 
@@ -11,7 +11,7 @@ interface ServicesPageClientProps {
 }
 
 const expertiseData = {
-  'UI/UX Design': [
+  'UI/UX Design - Our Core Expertise': [
     {
       title: 'Strategic UI/UX Design',
       description:
@@ -30,25 +30,23 @@ const expertiseData = {
         'Bring your ideas to life before a single line of code is written. We create interactive prototypes that allow you to test user flows, gather feedback, and validate your concepts. This ensures the final product is a perfect fit for your users and avoids costly changes down the line.',
       icon: Layers,
     },
-  ],
-  'Frontend Development': [
     {
-      title: 'High-Performance Frontend Development',
+      title: 'User Research & Testing',
       description:
-        'We build fast, responsive, and secure websites that offer a flawless user experience. Our expertise in modern frameworks ensures your site loads quickly and runs smoothly, no matter the device or browser.',
-      icon: Zap,
+        'We conduct thorough user research and usability testing to understand your audience deeply. This data-driven approach ensures our designs meet real user needs and deliver measurable business results.',
+      icon: Search,
     },
     {
-      title: 'Custom Web Applications',
+      title: 'Design Systems & Guidelines',
       description:
-        'We engineer robust and scalable frontend solutions tailored to your unique needs. Whether you need a complex dashboard, an e-commerce platform, or a single-page application, we build dynamic and interactive experiences that are as powerful as they are beautiful.',
-      icon: Code2,
-    },
-    {
-      title: 'Website Accessibility & Optimization',
-      description:
-        'Your website should be accessible to everyone. We follow best practices for web accessibility to ensure your site is usable by people of all abilities. We also optimize for search engines and performance, giving you a competitive edge.',
+        'We create comprehensive design systems that ensure consistency across all touchpoints. Our detailed guidelines help maintain brand integrity as your product scales and evolves.',
       icon: Shield,
+    },
+    {
+      title: 'Mobile-First Design',
+      description:
+        'With mobile users dominating the digital landscape, we prioritize mobile experiences. Our responsive designs ensure your product looks and works perfectly on every screen size.',
+      icon: Zap,
     },
   ],
 };
@@ -62,8 +60,16 @@ export default function ServicesPageClient({ services }: ServicesPageClientProps
     new Set(services?.flatMap(service => service.categories || []).filter(Boolean)),
   );
 
-  // Filter services based on search and category
+  // Filter services based on search and category, excluding Frontend Development
   const filteredServices = services?.filter(service => {
+    // Exclude Frontend Development service card
+    if (
+      service.name?.toLowerCase() === 'frontend development' ||
+      service.name?.toLowerCase().includes('frontend development')
+    ) {
+      return false;
+    }
+
     const matchesSearch =
       service.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       service.description?.toLowerCase().includes(searchTerm.toLowerCase());

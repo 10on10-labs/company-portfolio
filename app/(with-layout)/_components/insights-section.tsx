@@ -103,7 +103,7 @@ export default function InsightsSection({ blogs }: InsightsSectionProps) {
                     ) : (
                       <div className="w-full h-full bg-gradient-to-br from-primary/20 to-primary/10" />
                     )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                   </div>
 
                   {/* Content */}
@@ -130,7 +130,9 @@ export default function InsightsSection({ blogs }: InsightsSectionProps) {
 
                     {/* Excerpt */}
                     {featuredBlog.excerpt && (
-                      <p className="text-gray-600 line-clamp-3 mb-6">{featuredBlog.excerpt}</p>
+                      <p className="text-gray-600 line-clamp-3 mb-6 leading-relaxed">
+                        {featuredBlog.excerpt}
+                      </p>
                     )}
 
                     {/* Meta Info */}
@@ -186,7 +188,7 @@ export default function InsightsSection({ blogs }: InsightsSectionProps) {
                 className="group"
               >
                 <Link href={`/blogs/${blog.slug || ''}`} className="block">
-                  <div className="flex gap-6 p-6 bg-white rounded-2xl border border-gray-100 hover:shadow-lg hover:border-primary/20 transition-all duration-300">
+                  <div className="flex gap-6 p-6 bg-white rounded-2xl border border-gray-100 hover:shadow-xl hover:border-primary/20 transition-all duration-300">
                     {/* Thumbnail */}
                     <div className="relative w-32 h-32 flex-shrink-0 rounded-xl overflow-hidden bg-gray-100">
                       {blog.image ? (
@@ -232,7 +234,7 @@ export default function InsightsSection({ blogs }: InsightsSectionProps) {
 
                       {/* Excerpt */}
                       {blog.excerpt && (
-                        <p className="text-sm text-gray-600 line-clamp-2">{blog.excerpt}</p>
+                        <p className="text-sm text-gray-600 line-clamp-2 mb-3">{blog.excerpt}</p>
                       )}
 
                       {/* Author & Reading Time */}

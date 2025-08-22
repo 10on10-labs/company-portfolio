@@ -30,6 +30,10 @@ const InsightsSection = dynamic(() => import('./_components/insights-section'), 
   loading: () => <Skeleton className="h-96 w-full" />,
 });
 
+const PricingSection = dynamic(() => import('./_components/pricing-section'), {
+  loading: () => <Skeleton className="h-96 w-full" />,
+});
+
 const ReviewsSection = dynamic(() => import('./_components/reviews-section'), {
   loading: () => <Skeleton className="h-96 w-full" />,
 });
@@ -69,6 +73,10 @@ export default async function HomePage() {
 
       <Suspense fallback={<Skeleton className="h-96 w-full" />}>
         <ServicesSection services={services} />
+      </Suspense>
+
+      <Suspense fallback={<Skeleton className="h-96 w-full" />}>
+        <PricingSection />
       </Suspense>
 
       <Suspense fallback={<Skeleton className="h-96 w-full" />}>

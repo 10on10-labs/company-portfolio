@@ -2,29 +2,33 @@
 
 const timelineData = [
   {
-    year: '2014',
+    year: 'Q1 2024',
     title: '10on10 Labs Founded',
-    description: 'Started with a vision to transform businesses through digital innovation.',
+    description:
+      'Started with a vision to transform businesses through digital innovation and perfect 10/10 solutions.',
   },
   {
-    year: '2016',
-    title: 'Expanded Team & Services',
-    description: 'Grew our team and added UI/UX design and mobile development services.',
+    year: 'Q2 2024',
+    title: 'First Major Clients',
+    description:
+      'Secured partnerships with key clients and delivered our first enterprise-level projects.',
   },
   {
-    year: '2019',
-    title: 'International Clients',
-    description: 'Began serving clients globally, expanding our reach beyond local markets.',
+    year: 'Q3 2024',
+    title: 'Team Expansion',
+    description:
+      'Grew our team to 15+ talented professionals specializing in UI/UX and frontend development.',
   },
   {
-    year: '2022',
-    title: 'Industry Recognition',
-    description: 'Received multiple awards for excellence in web development and design.',
+    year: 'Q4 2024',
+    title: '60+ Projects Milestone',
+    description:
+      'Successfully delivered over 60 projects across various industries in our first year.',
   },
   {
-    year: '2024',
-    title: '200+ Projects Delivered',
-    description: 'Celebrating a milestone of successfully delivering over 200 projects.',
+    year: '2025',
+    title: 'Global Expansion',
+    description: 'Expanding our services internationally and establishing partnerships worldwide.',
   },
 ];
 
