@@ -21,7 +21,7 @@ const compat = new FlatCompat({
 
 const config = [
   {
-    ignores: ['**/dist/', 'components/ui/'],
+    ignores: ['**/dist/', 'components/ui/', 'sanity.types.ts'],
   },
   ...compat.extends(
     'next/core-web-vitals',
