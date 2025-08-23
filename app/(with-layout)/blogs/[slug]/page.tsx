@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const blog = await fetchBlogBySlug(slug);
   return {
-    title: blog?.title,
+    title: { absolute: `Blog - ${blog?.title}` },
     description: blog?.subTitle,
     category: 'blog',
     applicationName: '10on10Labs',

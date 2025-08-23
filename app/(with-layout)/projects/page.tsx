@@ -1,7 +1,12 @@
+import { Metadata } from 'next';
 import { sanityClient } from '@/sanity/lib/client';
 import { allProjectsQuery } from '@/sanity/lib/queries';
 
 import { ProjectsList } from './_components/projects-list';
+
+export const metadata: Metadata = {
+  title: 'Projects',
+};
 
 const getAllProjects = async () => {
   const allProjects = await sanityClient.fetch(allProjectsQuery);

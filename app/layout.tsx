@@ -1,5 +1,6 @@
 import './globals.css';
 
+import { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 import { draftMode } from 'next/headers';
 import { SanityLive } from '@/sanity/lib/live';
@@ -14,6 +15,24 @@ const fontPoppins = Poppins({
   subsets: ['latin'],
   weight: ['500', '700'],
 });
+
+export const metadata: Metadata = {
+  title: { default: '10on10Labs', template: '%s - 10on10Labs' },
+  description:
+    'Engineering digital perfection.We specialize in crafting seamless user experiences and building powerful frontend solutions that are a perfect 10/10.',
+  keywords: [
+    '10on10labs',
+    '10 on 10 Labs',
+    'Engineering digital perfection',
+    'Web development company',
+    'App development company',
+    'UI/UX design agency',
+    'Frontend development services',
+    'Backend development company',
+    'Full-stack development company',
+    'Custom software development',
+  ],
+};
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   return (

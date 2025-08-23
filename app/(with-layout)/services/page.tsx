@@ -1,7 +1,12 @@
+import { Metadata } from 'next';
 import { sanityClient } from '@/sanity/lib/client';
 import { servicesQuery } from '@/sanity/lib/queries';
 
 import ServicesPageClient from './_components/services-page-client';
+
+export const metadata: Metadata = {
+  title: 'Services',
+};
 
 export const revalidate = 43200; // 12 hours
 

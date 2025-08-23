@@ -1,4 +1,10 @@
+import { Metadata } from 'next';
+
 import { ProcessSection } from './process-section';
+
+export const metadata: Metadata = {
+  title: 'Process',
+};
 
 export default function Process() {
   return (
