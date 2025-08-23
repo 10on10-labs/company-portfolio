@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import { BlogsByCategoryQueryResult } from '@/sanity.types';
 import { sanityClient } from '@/sanity/lib/client';
 import { urlFor } from '@/sanity/lib/image';
@@ -17,6 +18,10 @@ import { subscribeToNewsletter } from '@/app/actions/subscribeToNewsletter';
 import { BlogCard } from './_components/blog-card';
 import { DesktopBlogCategorySelector } from './_components/blog-category-selector/desktop-blog-category-selector';
 import { MobileBlogCategorySelector } from './_components/blog-category-selector/mobile-blog-category-selector';
+
+export const metadata: Metadata = {
+  title: 'Blogs',
+};
 
 export const revalidate = 43200; // 12 hours
 

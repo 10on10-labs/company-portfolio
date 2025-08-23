@@ -1,7 +1,12 @@
+import { Metadata } from 'next';
 import { sanityClient } from '@/sanity/lib/client';
 import { testimonialsQuery } from '@/sanity/lib/queries/queries';
 
 import { ReviewsCarousel } from './reviews-carousel';
+
+export const metadata: Metadata = {
+  title: 'Reviews',
+};
 
 async function getTestimonials() {
   const clientTestimonials = await sanityClient.fetch(testimonialsQuery);

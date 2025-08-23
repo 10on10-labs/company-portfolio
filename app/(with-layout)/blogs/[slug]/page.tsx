@@ -22,6 +22,10 @@ type Props = {
   params: Promise<{ slug: string }>;
 };
 
+export const metadata: Metadata = {
+  title: 'About',
+};
+
 const fetchBlogsSlug = async () => {
   const blogsSlugs = await sanityClient.fetch(blogsSlugQuery);
   return blogsSlugs;
@@ -37,7 +41,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const blog = await fetchBlogBySlug(slug);
   return {
-    title: blog?.title,
+    title: { absolute: `Blog - ${blog?.title}` },
     description: blog?.subTitle,
     category: 'blog',
     applicationName: '10on10Labs',
