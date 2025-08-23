@@ -12,6 +12,8 @@ import {
   Twitter,
 } from 'lucide-react';
 
+import { subscribeToNewsletter } from '@/app/actions/subscribeToNewsletter';
+
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
@@ -54,7 +56,10 @@ const Footer = () => {
             <p className="text-gray-400 mb-6 text-sm md:text-base">
               Subscribe to our newsletter for technology trends and case studies.
             </p>
-            <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto relative z-10">
+            <form
+              action={subscribeToNewsletter}
+              className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto relative z-10"
+            >
               <input
                 type="email"
                 placeholder="Enter your email"
