@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { urlFor } from '@/sanity/lib/image';
 import { format, parseISO } from 'date-fns';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Sparkles, TrendingUp } from 'lucide-react';
 import { motion } from 'motion/react';
 
 export interface Blog {
@@ -40,135 +40,148 @@ export default function InsightsSection({ blogs }: InsightsSectionProps) {
     return null;
   }
 
-  // Get the first blog as featured
-  const [featuredBlog, ...otherBlogs] = featuredBlogs;
+  // Split blogs for different layouts
+  const [mainBlog, ...sideBlogs] = featuredBlogs;
 
   return (
-    <section id="insights" className="py-16 md:py-24 bg-secondary">
-      <div className="container mx-auto px-4">
+    <section id="insights" className="relative py-20 md:py-28 overflow-hidden">
+      {/* Modern gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-orange-50/30" />
+
+      {/* Decorative elements */}
+      <div className="absolute top-20 right-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl" />
+      <div className="absolute bottom-20 left-10 w-96 h-96 bg-orange-300/10 rounded-full blur-3xl" />
+
+      <div className="container mx-auto px-4 relative z-10">
+        {/* Modern Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mb-12"
+          className="mb-16"
         >
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-black mb-2">Latest Insights</h2>
-              <p className="text-lg text-gray-600">
-                Stay updated with our thoughts on technology and innovation
+              <div className="flex items-center gap-2 mb-4">
+                <div className="h-px w-12 bg-primary" />
+                <span className="text-primary font-semibold text-sm uppercase tracking-wider">
+                  Fresh Perspectives
+                </span>
+              </div>
+              <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
+                Latest <span className="text-primary">Insights</span>
+              </h2>
+              <p className="text-lg text-gray-600 max-w-2xl">
+                Explore cutting-edge ideas in technology, design, and digital innovation
               </p>
             </div>
+
             <Link
               href="/blogs"
-              className="hidden md:inline-flex items-center text-primary font-medium hover:gap-3 transition-all group"
+              className="hidden lg:flex items-center gap-2 px-6 py-3 bg-black text-white rounded-full hover:bg-gray-800 transition-all duration-300 group"
             >
-              View All Articles
-              <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <span className="font-medium">All Articles</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl mx-auto">
-          {/* Featured Blog - Left Side */}
-          {featuredBlog && (
+        {/* Asymmetric Modern Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          {/* Main Featured Blog - Large Card */}
+          {mainBlog && (
             <motion.article
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="group"
+              transition={{ duration: 0.7 }}
+              className="lg:col-span-7 group"
             >
-              <Link href={`/blogs/${featuredBlog.slug || ''}`} className="block h-full">
-                <div className="relative h-full bg-gradient-to-br from-gray-50 to-white rounded-3xl overflow-hidden border border-gray-100 hover:shadow-2xl transition-all duration-300">
-                  {/* Featured Badge */}
-                  <div className="absolute top-6 left-6 z-10">
-                    <span className="bg-primary text-white text-xs font-semibold px-3 py-1 rounded-full">
-                      Featured
-                    </span>
-                  </div>
-
-                  {/* Image */}
-                  <div className="relative h-64 md:h-80 overflow-hidden">
-                    {featuredBlog.image ? (
+              <Link href={`/blogs/${mainBlog.slug || ''}`} className="block h-full">
+                <div className="relative h-full bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500">
+                  {/* Large Image */}
+                  <div className="relative h-72 lg:h-96 overflow-hidden">
+                    {mainBlog.image ? (
                       <Image
-                        src={urlFor(featuredBlog.image)?.width(800)?.height(400)?.url() || ''}
-                        alt={
-                          (featuredBlog.image as any)?.alt || featuredBlog.title || 'Featured blog'
-                        }
+                        src={urlFor(mainBlog.image)?.width(800)?.height(500)?.url() || ''}
+                        alt={(mainBlog.image as any)?.alt || mainBlog.title || 'Featured blog'}
                         fill
                         className="object-cover group-hover:scale-105 transition-transform duration-700"
                       />
                     ) : (
-                      <div className="w-full h-full bg-gradient-to-br from-primary/20 to-primary/10" />
+                      <div className="w-full h-full bg-gradient-to-br from-primary/30 to-orange-200/50" />
                     )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-                  </div>
 
-                  {/* Content */}
-                  <div className="p-8">
+                    {/* Gradient Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+
+                    {/* Featured Badge */}
+                    <div className="absolute top-6 left-6 flex items-center gap-2 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full">
+                      <TrendingUp className="w-4 h-4 text-primary" />
+                      <span className="text-sm font-semibold text-gray-900">Featured</span>
+                    </div>
+
                     {/* Category */}
-                    {featuredBlog.category && (
-                      <span
-                        className="inline-block text-xs font-medium px-3 py-1 rounded-full mb-4"
-                        style={{
-                          backgroundColor: featuredBlog.category.color?.hex
-                            ? `${featuredBlog.category.color.hex}20`
-                            : '#f3f4f6',
-                          color: featuredBlog.category.color?.hex || '#6b7280',
-                        }}
-                      >
-                        {featuredBlog.category.title}
-                      </span>
+                    {mainBlog.category && (
+                      <div className="absolute top-6 right-6">
+                        <span
+                          className="inline-block text-xs font-bold px-3 py-1.5 rounded-full"
+                          style={{
+                            backgroundColor: mainBlog.category.color?.hex || '#FB923C',
+                            color: '#ffffff',
+                          }}
+                        >
+                          {mainBlog.category.title}
+                        </span>
+                      </div>
                     )}
 
-                    {/* Title */}
-                    <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-primary transition-colors">
-                      {featuredBlog.title}
-                    </h3>
+                    {/* Content Overlay */}
+                    <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
+                      <h3 className="text-2xl lg:text-3xl font-bold mb-3 leading-tight">
+                        {mainBlog.title}
+                      </h3>
+                      {mainBlog.excerpt && (
+                        <p className="text-white/90 line-clamp-2 mb-4 max-w-2xl">
+                          {mainBlog.excerpt}
+                        </p>
+                      )}
 
-                    {/* Excerpt */}
-                    {featuredBlog.excerpt && (
-                      <p className="text-gray-600 line-clamp-3 mb-6 leading-relaxed">
-                        {featuredBlog.excerpt}
-                      </p>
-                    )}
-
-                    {/* Meta Info */}
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-4 text-sm text-gray-500">
-                        {featuredBlog.publishedAt && (
-                          <time dateTime={featuredBlog.publishedAt}>
-                            {format(parseISO(featuredBlog.publishedAt), 'MMM d, yyyy')}
-                          </time>
+                      {/* Meta Info */}
+                      <div className="flex items-center gap-4 text-sm text-white/80">
+                        {mainBlog.author && (
+                          <div className="flex items-center gap-2">
+                            {mainBlog.author.picture && (
+                              <Image
+                                src={
+                                  urlFor(mainBlog.author.picture)?.width(32)?.height(32)?.url() ||
+                                  ''
+                                }
+                                alt={mainBlog.author.name || 'Author'}
+                                width={28}
+                                height={28}
+                                className="rounded-full border-2 border-white/50"
+                              />
+                            )}
+                            <span className="font-medium">{mainBlog.author.name}</span>
+                          </div>
                         )}
-                        {featuredBlog.publishedAt && featuredBlog.estimatedReadingTime && (
-                          <span>•</span>
+                        {mainBlog.publishedAt && (
+                          <>
+                            <span>•</span>
+                            <time dateTime={mainBlog.publishedAt}>
+                              {format(parseISO(mainBlog.publishedAt), 'MMMM d, yyyy')}
+                            </time>
+                          </>
                         )}
-                        {featuredBlog.estimatedReadingTime && (
-                          <span>{featuredBlog.estimatedReadingTime} min read</span>
+                        {mainBlog.estimatedReadingTime && (
+                          <>
+                            <span>•</span>
+                            <span>{mainBlog.estimatedReadingTime} min read</span>
+                          </>
                         )}
                       </div>
-                      {featuredBlog.author && (
-                        <div className="flex items-center gap-2">
-                          {featuredBlog.author.picture && (
-                            <Image
-                              src={
-                                urlFor(featuredBlog.author.picture)?.width(40)?.height(40)?.url() ||
-                                ''
-                              }
-                              alt={featuredBlog.author.name || 'Author'}
-                              width={32}
-                              height={32}
-                              className="rounded-full"
-                            />
-                          )}
-                          <span className="text-sm font-medium text-gray-700">
-                            {featuredBlog.author.name}
-                          </span>
-                        </div>
-                      )}
                     </div>
                   </div>
                 </div>
@@ -176,101 +189,117 @@ export default function InsightsSection({ blogs }: InsightsSectionProps) {
             </motion.article>
           )}
 
-          {/* Other Blogs - Right Side */}
-          <div className="space-y-6">
-            {otherBlogs.map((blog, index) => (
+          {/* Side Blogs - Vertical Stack */}
+          <div className="lg:col-span-5 space-y-6">
+            {sideBlogs.map((blog, index) => (
               <motion.article
                 key={blog._id}
                 initial={{ opacity: 0, x: 30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
+                transition={{ duration: 0.6, delay: index * 0.15 }}
                 className="group"
               >
                 <Link href={`/blogs/${blog.slug || ''}`} className="block">
-                  <div className="flex gap-6 p-6 bg-white rounded-2xl border border-gray-100 hover:shadow-xl hover:border-primary/20 transition-all duration-300">
-                    {/* Thumbnail */}
-                    <div className="relative w-32 h-32 flex-shrink-0 rounded-xl overflow-hidden bg-gray-100">
-                      {blog.image ? (
-                        <Image
-                          src={urlFor(blog.image)?.width(300)?.height(300)?.url() || ''}
-                          alt={(blog.image as any)?.alt || blog.title || 'Blog thumbnail'}
-                          fill
-                          className="object-cover group-hover:scale-110 transition-transform duration-500"
-                        />
-                      ) : (
-                        <div className="w-full h-full bg-gradient-to-br from-gray-200 to-gray-100 flex items-center justify-center">
-                          <span className="text-2xl font-bold text-gray-400">
-                            {blog.title?.charAt(0) || 'B'}
-                          </span>
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Content */}
-                    <div className="flex-1 min-w-0">
-                      {/* Category & Date */}
-                      <div className="flex items-center gap-3 text-xs text-gray-500 mb-2">
-                        {blog.category && (
-                          <span
-                            className="font-medium"
-                            style={{ color: blog.category.color?.hex || '#6b7280' }}
-                          >
-                            {blog.category.title}
-                          </span>
-                        )}
-                        {blog.category && blog.publishedAt && <span>•</span>}
-                        {blog.publishedAt && (
-                          <time dateTime={blog.publishedAt}>
-                            {format(parseISO(blog.publishedAt), 'MMM d, yyyy')}
-                          </time>
+                  <div className="relative bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-primary/30">
+                    <div className="flex gap-5">
+                      {/* Thumbnail */}
+                      <div className="relative w-24 h-24 flex-shrink-0 rounded-xl overflow-hidden">
+                        {blog.image ? (
+                          <Image
+                            src={urlFor(blog.image)?.width(200)?.height(200)?.url() || ''}
+                            alt={(blog.image as any)?.alt || blog.title || 'Blog thumbnail'}
+                            fill
+                            className="object-cover group-hover:scale-110 transition-transform duration-500"
+                          />
+                        ) : (
+                          <div className="w-full h-full bg-gradient-to-br from-primary/20 to-orange-200/30 flex items-center justify-center">
+                            <Sparkles className="w-8 h-8 text-primary/50" />
+                          </div>
                         )}
                       </div>
 
-                      {/* Title */}
-                      <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2 group-hover:text-primary transition-colors">
-                        {blog.title}
-                      </h3>
+                      {/* Content */}
+                      <div className="flex-1 min-w-0">
+                        {/* Category & Date */}
+                        <div className="flex items-center gap-2 mb-2">
+                          {blog.category && (
+                            <span
+                              className="text-xs font-bold"
+                              style={{ color: blog.category.color?.hex || '#FB923C' }}
+                            >
+                              {blog.category.title}
+                            </span>
+                          )}
+                          {blog.category && blog.publishedAt && (
+                            <span className="text-gray-400">•</span>
+                          )}
+                          {blog.publishedAt && (
+                            <time className="text-xs text-gray-500" dateTime={blog.publishedAt}>
+                              {format(parseISO(blog.publishedAt), 'MMM d')}
+                            </time>
+                          )}
+                        </div>
 
-                      {/* Excerpt */}
-                      {blog.excerpt && (
-                        <p className="text-sm text-gray-600 line-clamp-2 mb-3">{blog.excerpt}</p>
-                      )}
+                        {/* Title */}
+                        <h3 className="font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-primary transition-colors">
+                          {blog.title}
+                        </h3>
 
-                      {/* Author & Reading Time */}
-                      <div className="flex items-center justify-between mt-3">
-                        {blog.author && (
-                          <span className="text-xs text-gray-500">By {blog.author.name}</span>
-                        )}
-                        {blog.estimatedReadingTime && (
+                        {/* Read More */}
+                        <div className="flex items-center justify-between">
                           <span className="text-xs text-gray-500">
-                            {blog.estimatedReadingTime} min read
+                            {blog.estimatedReadingTime || '5'} min read
                           </span>
-                        )}
+                          <span className="inline-flex items-center gap-1 text-sm font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+                            Read
+                            <ArrowUpRight className="w-3 h-3" />
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </Link>
               </motion.article>
             ))}
+
+            {/* View All Mobile/Tablet */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="lg:hidden"
+            >
+              <Link
+                href="/blogs"
+                className="flex items-center justify-center gap-2 w-full px-6 py-3 bg-primary text-white rounded-full hover:bg-primary/90 transition-colors"
+              >
+                <span className="font-medium">View All Articles</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </motion.div>
           </div>
         </div>
 
-        {/* Mobile View All Button */}
+        {/* Bottom CTA - Desktop Only */}
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="text-center mt-10 md:hidden"
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="hidden lg:flex items-center justify-center mt-16"
         >
-          <Link
-            href="/blogs"
-            className="inline-flex items-center px-6 py-3 bg-primary text-white rounded-full hover:bg-primary/90 transition-colors duration-300"
-          >
-            View All Articles
-            <ArrowRight className="ml-2 w-4 h-4" />
-          </Link>
+          <div className="text-center">
+            <p className="text-gray-600 mb-4">Want to dive deeper into our insights?</p>
+            <Link
+              href="/blogs"
+              className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-primary to-orange-600 text-white font-semibold rounded-full hover:shadow-2xl hover:scale-105 transition-all duration-300 group"
+            >
+              Explore All Articles
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
         </motion.div>
       </div>
     </section>
