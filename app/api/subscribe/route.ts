@@ -5,7 +5,7 @@ export const POST = async (req: Request) => {
   const { email } = await req.json();
   if (!email) {
     console.error('Email not attached in the body!');
-    return null;
+    return NextResponse.json({ success: false, message: 'Email not found!' }, { status: 500 });
   }
   try {
     const response = await addSubscriberToGoogleSheets(email);
