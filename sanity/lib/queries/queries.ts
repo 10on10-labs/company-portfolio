@@ -43,6 +43,7 @@ export const projectBySlugQuery = defineQuery(`
     coverImages,
     projectSections,
     url,
+    priority,
     "technologies": projectDimensions.technologies,
     "iterations": projectDimensions.iterations,
     "teamSize": projectDimensions.teamSize,
@@ -50,7 +51,7 @@ export const projectBySlugQuery = defineQuery(`
   }
 `);
 export const allProjectsQuery = defineQuery(`
-  *[_type == "project"] {
+  *[_type == "project"] | order(priority asc, _createdAt desc) {
     _id,
     "slug": slug.current,
     name,
@@ -60,6 +61,7 @@ export const allProjectsQuery = defineQuery(`
     coverImages,
     projectSections,
     url,
+    priority,
     "technologies": projectDimensions.technologies,
     "iterations": projectDimensions.iterations,
     "teamSize": projectDimensions.teamSize,
