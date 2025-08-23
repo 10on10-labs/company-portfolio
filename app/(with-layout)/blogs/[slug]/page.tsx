@@ -22,10 +22,6 @@ type Props = {
   params: Promise<{ slug: string }>;
 };
 
-export const metadata: Metadata = {
-  title: 'About',
-};
-
 const fetchBlogsSlug = async () => {
   const blogsSlugs = await sanityClient.fetch(blogsSlugQuery);
   return blogsSlugs;
