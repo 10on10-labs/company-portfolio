@@ -26,22 +26,35 @@ export default function HeroClient({ brands }: HeroClientProps) {
   return (
     <section className="relative w-full text-black overflow-hidden py-8 md:py-12">
       <div className="relative z-10 flex flex-col justify-center items-center text-center max-w-6xl mx-auto px-4">
+        {/* Tagline */}
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.6 }}
-          className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-primary via-black to-primary bg-clip-text text-transparent pb-2"
+          className="text-3xl md:text-4xl lg:text-5xl font-extrabold bg-gradient-to-r from-primary via-black to-primary bg-clip-text text-transparent pb-2"
         >
-          Engineering digital perfection.
+          UI/UX & Frontend Development as a Service
         </motion.h1>
+
+        {/* Subtagline */}
+        <motion.h2
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5, duration: 0.6 }}
+          className="mt-4 text-2xl md:text-3xl lg:text-4xl font-bold text-primary"
+        >
+          The <span className="text-gray-900">10/10</span> Digital Product.
+        </motion.h2>
+
+        {/* Caption */}
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.6, duration: 0.6 }}
-          className="mt-6 max-w-2xl text-lg md:text-xl text-black"
+          transition={{ delay: 0.7, duration: 0.6 }}
+          className="mt-6 max-w-3xl text-base md:text-lg lg:text-xl text-gray-600 leading-relaxed"
         >
-          We specialize in crafting seamless user experiences and building powerful frontend
-          solutions that are a perfect 10/10.
+          Stop the endless custom cycles. Get a world-class user experience and a pixel-perfect
+          frontend with our predictable, productized service.
         </motion.p>
 
         <motion.div
@@ -173,12 +186,7 @@ export default function HeroClient({ brands }: HeroClientProps) {
                       >
                         <div className="flex items-center justify-center px-8 h-[60px]">
                           {brand.link ? (
-                            <Link
-                              href={brand.link}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              // className="flex items-center justify-center"
-                            >
+                            <Link href={brand.link} target="_blank" rel="noopener noreferrer">
                               <Image
                                 title={brand.name}
                                 src={brand.logoUrl}

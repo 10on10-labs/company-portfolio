@@ -7,7 +7,7 @@ import { CompanyTimeline } from './_components/company-timeline';
 import { EmployeeCard } from './_components/employee-card';
 
 const stats = [
-  { number: '1+', label: 'Years Experience', icon: Award },
+  { number: '10+', label: 'Years Experience', icon: Award },
   { number: '60+', label: 'Projects Completed', icon: Target },
   { number: '15+', label: 'Team Members', icon: Users },
   { number: '95%', label: 'Client Satisfaction', icon: Rocket },

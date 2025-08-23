@@ -160,9 +160,9 @@ export const ProcessSection = () => {
   const progress = ((current + 1) / slides.length) * 100;
 
   return (
-    <div className="w-full @container flex flex-col  items-center relative bg-secondary pb-10 pt-10">
+    <div className="w-full @container flex flex-col  items-center relative bg-secondary pt-20 pb-20 md:pt-28 md:pb-24">
       <motion.div
-        className="mb-20"
+        className="mb-20 px-4"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
@@ -173,7 +173,23 @@ export const ProcessSection = () => {
         </h1>
       </motion.div>
 
-      <div ref={carouselContainerRef} className="relative w-full overflow-hidden">
+      {/* IMPROVEMENT #2: Step indicators showing current step */}
+      <div className="flex items-center justify-center gap-2 mb-8 px-4">
+        {slides.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => api?.scrollTo(index)}
+            className={`transition-all duration-300 ${
+              current === index
+                ? 'w-8 h-2 bg-primary rounded-full'
+                : 'w-2 h-2 bg-gray-400 rounded-full hover:bg-gray-600'
+            }`}
+            aria-label={`Go to step ${index + 1}`}
+          />
+        ))}
+      </div>
+
+      <div ref={carouselContainerRef} className="relative w-full overflow-hidden px-4 md:px-8">
         <Carousel
           opts={{
             // loop: true,
@@ -197,13 +213,63 @@ export const ProcessSection = () => {
         </Carousel>
       </div>
 
-      <div className="absolute bottom-0  h-2 w-full pl-10 pr-10">
-        <div className="bg-white w-full h-full">
-          <motion.div
-            className="h-full bg-gradient-to-r from-primary via-black to-primary"
-            animate={{ width: `${progress}%` }}
-            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-          />
+      {/* IMPROVEMENT #4: Enhanced progress bar with labels and better design */}
+      <div className="absolute bottom-10 left-0 right-0 px-10">
+        <div className="max-w-4xl mx-auto">
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-xs font-semibold text-gray-700">
+              Step {current + 1} of {slides.length}
+            </span>
+          </div>
+          <div className="relative">
+            <div className="bg-white/50 backdrop-blur-sm w-full h-3 rounded-full overflow-hidden shadow-inner">
+              <motion.div
+                className="h-full bg-gradient-to-r from-primary to-orange-600 rounded-full"
+                animate={{ width: `${progress}%` }}
+                transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+              />
+            </div>
+            {/* Step markers on progress bar with titles */}
+            <div className="absolute top-0 w-full h-full flex items-center">
+              {slides.map((slide, index) => (
+                <button
+                  key={index}
+                  onClick={() => api?.scrollTo(index)}
+                  className="absolute group"
+                  style={{
+                    left: `${(index / (slides.length - 1)) * 100}%`,
+                    top: '50%',
+                    transform: 'translate(-50%, -50%)',
+                  }}
+                >
+                  <div
+                    className={`rounded-full transition-all duration-300 cursor-pointer hover:scale-110 ${
+                      index <= current
+                        ? 'w-2.5 h-2.5 bg-white shadow-sm'
+                        : 'w-2 h-2 bg-gray-400 hover:bg-gray-300'
+                    }`}
+                  />
+                  {/* Pulsing dot overlay for current step with glow effect */}
+                  {index === current && (
+                    <>
+                      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-white/40 rounded-full animate-pulse pointer-events-none" />
+                      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full shadow-lg animate-pulse pointer-events-none" />
+                    </>
+                  )}
+                  {/* Title tooltip on hover or active */}
+                  <div
+                    className={`absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap text-xs font-semibold px-2 py-1 rounded transition-opacity duration-200 ${
+                      index === current
+                        ? 'opacity-100 text-primary'
+                        : 'opacity-0 group-hover:opacity-100 text-gray-600 bg-white/90 shadow-sm'
+                    }`}
+                  >
+                    {slide.title}
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>
