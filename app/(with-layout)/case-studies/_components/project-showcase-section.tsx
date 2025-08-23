@@ -1,17 +1,19 @@
 'use client';
 
 import Image from 'next/image';
+import { ProjectBySlugQueryResult } from '@/sanity.types';
 import { urlFor } from '@/sanity/lib/image';
 import { Sparkles } from 'lucide-react';
 import { motion } from 'motion/react';
 
-interface ProjectShowcaseSectionProps {
-  projectSections?: any[] | null;
-}
+import { CustomPortableText } from '@/components/custom-portable-text';
 
-export const ProjectShowcaseSection: React.FC<ProjectShowcaseSectionProps> = ({
-  projectSections,
-}) => {
+type NonNullProject = NonNullable<ProjectBySlugQueryResult>;
+
+// now you can safely Pick
+type ProjectSections = Pick<NonNullProject, 'projectSections'>;
+
+export const ProjectShowcaseSection: React.FC<ProjectSections> = ({ projectSections }) => {
   if (!projectSections || projectSections.length === 0) return null;
 
   return (
@@ -56,51 +58,11 @@ export const ProjectShowcaseSection: React.FC<ProjectShowcaseSectionProps> = ({
               >
                 <div className="flex items-center gap-3 mb-4">
                   <Sparkles className="w-6 h-6 text-primary" />
-                  <h3 className="text-2xl lg:text-3xl font-bold text-gray-900">
+                  <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 capitalize">
                     {section.name || `Section ${index + 1}`}
                   </h3>
                 </div>
-                {section.content && (
-                  <div className="prose prose-gray max-w-none">
-                    {section.content.split('\n\n').map((paragraph: string, pIndex: number) => {
-                      // Check if it's a heading (starts with **)
-                      if (paragraph.startsWith('**') && paragraph.includes('**:')) {
-                        const [heading, ...rest] = paragraph.split(':');
-                        const cleanHeading = heading.replace(/\*\*/g, '');
-                        const content = rest.join(':').replace(/\*\*/g, '');
-                        return (
-                          <div key={pIndex} className="mb-4">
-                            <h4 className="font-semibold text-gray-900 mb-2">{cleanHeading}:</h4>
-                            <p className="text-gray-600 leading-relaxed">{content}</p>
-                          </div>
-                        );
-                      }
-                      // Check if it's a bullet point
-                      else if (paragraph.startsWith('- ')) {
-                        const items = paragraph
-                          .split('\n')
-                          .filter((item: string) => item.startsWith('- '));
-                        return (
-                          <ul key={pIndex} className="list-disc list-inside space-y-2 mb-4">
-                            {items.map((item: string, iIndex: number) => (
-                              <li key={iIndex} className="text-gray-600">
-                                {item.replace('- ', '').replace(/\*\*/g, '')}
-                              </li>
-                            ))}
-                          </ul>
-                        );
-                      }
-                      // Regular paragraph
-                      else {
-                        return (
-                          <p key={pIndex} className="text-gray-600 leading-relaxed mb-4">
-                            {paragraph.replace(/\*\*/g, '')}
-                          </p>
-                        );
-                      }
-                    })}
-                  </div>
-                )}
+                <CustomPortableText value={section.description || []} />
               </div>
 
               {/* Section Images - Only show if images exist */}

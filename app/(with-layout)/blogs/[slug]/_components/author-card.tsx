@@ -3,10 +3,9 @@ import { Author } from '@/sanity.types';
 import { urlFor } from '@/sanity/lib/image';
 
 import { getAbbreviation } from '@/lib/utils';
+import { CustomPortableText } from '@/components/custom-portable-text';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/shadcn/avatar';
 import { Card, CardContent, CardTitle } from '@/components/shadcn/card';
-
-import { CustomPortableText } from './custom-portable-text';
 
 export const AuthorCard: FC<Partial<Author>> = ({ name, image, bio }) => {
   const imageUrl = image ? urlFor(image).width(50).url() : null;

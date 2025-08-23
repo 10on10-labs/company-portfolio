@@ -135,7 +135,7 @@ export const project = defineType({
             },
             {
               name: 'description',
-              type: 'text',
+              type: 'blockContent',
               title: 'Description',
               validation: rule => rule.required(),
             },
