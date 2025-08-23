@@ -279,6 +279,7 @@ export type Project = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
+  priority?: number;
   name?: string;
   slug?: Slug;
   description?: string;
@@ -1144,7 +1145,7 @@ export type PagesBySlugQueryResult = {
   slug: string | null;
 } | null;
 // Variable: projectBySlugQuery
-// Query: *[_type == "project" && slug.current == $slug][0] {    _id,    "slug": slug.current,    name,    category,    description,    logo,    coverImages,    projectSections,    url,    "technologies": projectDimensions.technologies,    "iterations": projectDimensions.iterations,    "teamSize": projectDimensions.teamSize,    "timeline": string(projectDimensions.timeline.value) + " " + coalesce(projectDimensions.timeline.unit, ""),  }
+// Query: *[_type == "project" && slug.current == $slug][0] {    _id,    "slug": slug.current,    name,    category,    description,    logo,    coverImages,    projectSections,    url,    priority,    "technologies": projectDimensions.technologies,    "iterations": projectDimensions.iterations,    "teamSize": projectDimensions.teamSize,    "timeline": string(projectDimensions.timeline.value) + " " + coalesce(projectDimensions.timeline.unit, ""),  }
 export type ProjectBySlugQueryResult = {
   _id: string;
   slug: string | null;
@@ -1198,13 +1199,14 @@ export type ProjectBySlugQueryResult = {
     _key: string;
   }> | null;
   url: string | null;
+  priority: number | null;
   technologies: number | null;
   iterations: number | null;
   teamSize: number | null;
   timeline: string | null;
 } | null;
 // Variable: allProjectsQuery
-// Query: *[_type == "project"] {    _id,    "slug": slug.current,    name,    category,    description,    logo,    coverImages,    projectSections,    url,    "technologies": projectDimensions.technologies,    "iterations": projectDimensions.iterations,    "teamSize": projectDimensions.teamSize,    "timeline": string(projectDimensions.timeline.value) + " " + coalesce(projectDimensions.timeline.unit, ""),  }
+// Query: *[_type == "project"] | order(priority asc, _createdAt desc) {    _id,    "slug": slug.current,    name,    category,    description,    logo,    coverImages,    projectSections,    url,    priority,    "technologies": projectDimensions.technologies,    "iterations": projectDimensions.iterations,    "teamSize": projectDimensions.teamSize,    "timeline": string(projectDimensions.timeline.value) + " " + coalesce(projectDimensions.timeline.unit, ""),  }
 export type AllProjectsQueryResult = Array<{
   _id: string;
   slug: string | null;
@@ -1258,6 +1260,7 @@ export type AllProjectsQueryResult = Array<{
     _key: string;
   }> | null;
   url: string | null;
+  priority: number | null;
   technologies: number | null;
   iterations: number | null;
   teamSize: number | null;
@@ -1362,8 +1365,8 @@ declare module '@sanity/client' {
     '\n  *[_type == "brand"] | order(order asc, _createdAt desc) {\n    _id,\n    name,\n    "logoUrl": logo.asset->url,\n    "logoAlt": logo.alt,\n    link\n  }\n': BrandsQueryResult;
     '\n  *[_type == "home"][0]{\n    _id,\n    _type,\n    overview,\n    showcaseProjects[]{\n      _key,\n      ...@->{\n        _id,\n        _type,\n        coverImage,\n        overview,\n        "slug": slug.current,\n        tags,\n        title,\n      }\n    },\n    title,\n  }\n': HomePageQueryResult;
     '\n  *[_type == "page" && slug.current == $slug][0] {\n    _id,\n    _type,\n    body,\n    overview,\n    title,\n    "slug": slug.current,\n  }\n': PagesBySlugQueryResult;
-    '\n  *[_type == "project" && slug.current == $slug][0] {\n    _id,\n    "slug": slug.current,\n    name,\n    category,\n    description,\n    logo,\n    coverImages,\n    projectSections,\n    url,\n    "technologies": projectDimensions.technologies,\n    "iterations": projectDimensions.iterations,\n    "teamSize": projectDimensions.teamSize,\n    "timeline": string(projectDimensions.timeline.value) + " " + coalesce(projectDimensions.timeline.unit, ""),\n  }\n': ProjectBySlugQueryResult;
-    '\n  *[_type == "project"] {\n    _id,\n    "slug": slug.current,\n    name,\n    category,\n    description,\n    logo,\n    coverImages,\n    projectSections,\n    url,\n    "technologies": projectDimensions.technologies,\n    "iterations": projectDimensions.iterations,\n    "teamSize": projectDimensions.teamSize,\n    "timeline": string(projectDimensions.timeline.value) + " " + coalesce(projectDimensions.timeline.unit, ""),\n  }\n': AllProjectsQueryResult;
+    '\n  *[_type == "project" && slug.current == $slug][0] {\n    _id,\n    "slug": slug.current,\n    name,\n    category,\n    description,\n    logo,\n    coverImages,\n    projectSections,\n    url,\n    priority,\n    "technologies": projectDimensions.technologies,\n    "iterations": projectDimensions.iterations,\n    "teamSize": projectDimensions.teamSize,\n    "timeline": string(projectDimensions.timeline.value) + " " + coalesce(projectDimensions.timeline.unit, ""),\n  }\n': ProjectBySlugQueryResult;
+    '\n  *[_type == "project"] | order(priority asc, _createdAt desc) {\n    _id,\n    "slug": slug.current,\n    name,\n    category,\n    description,\n    logo,\n    coverImages,\n    projectSections,\n    url,\n    priority,\n    "technologies": projectDimensions.technologies,\n    "iterations": projectDimensions.iterations,\n    "teamSize": projectDimensions.teamSize,\n    "timeline": string(projectDimensions.timeline.value) + " " + coalesce(projectDimensions.timeline.unit, ""),\n  }\n': AllProjectsQueryResult;
     '\n  *[_type == "settings"][0]{\n    _id,\n    _type,\n    footer,\n    menuItems[]{\n      _key,\n      ...@->{\n        _type,\n        "slug": slug.current,\n        title\n      }\n    },\n    ogImage,\n  }\n': SettingsQueryResult;
     '\n  *[_type == $type && defined(slug.current)]{"slug": slug.current}\n': SlugsByTypeQueryResult;
     '\n  *[_type == "service"] {\n    name,\n    "id": id.current,\n    description,\n    categories\n  }\n': ServicesQueryResult;

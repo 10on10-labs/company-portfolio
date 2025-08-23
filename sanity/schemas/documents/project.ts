@@ -8,6 +8,14 @@ export const project = defineType({
   icon: DocumentIcon,
   fields: [
     defineField({
+      name: 'priority',
+      title: 'Priority',
+      type: 'number',
+      description: 'Lower numbers appear first (e.g., 1 = highest priority)',
+      validation: rule => rule.required().min(1),
+      initialValue: 10,
+    }),
+    defineField({
       name: 'name',
       title: 'Name',
       type: 'string',
@@ -165,4 +173,20 @@ export const project = defineType({
       ],
     }),
   ],
+  preview: {
+    select: {
+      title: 'name',
+      subtitle: 'category',
+      priority: 'priority',
+      media: 'logo',
+    },
+    prepare(selection) {
+      const { title, subtitle, priority, media } = selection;
+      return {
+        title: `${priority ? `[${priority}] ` : ''}${title}`,
+        subtitle,
+        media,
+      };
+    },
+  },
 });
