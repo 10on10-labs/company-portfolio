@@ -12,6 +12,7 @@ import {
   BreadcrumbSeparator,
 } from '@/components/shadcn/breadcrumb';
 import { Button } from '@/components/shadcn/button';
+import { subscribeToNewsletter } from '@/app/actions/subscribeToNewsletter';
 
 import { BlogCard } from './_components/blog-card';
 import { DesktopBlogCategorySelector } from './_components/blog-category-selector/desktop-blog-category-selector';
@@ -114,7 +115,10 @@ export default async function BlogsPage({
           <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
             Get the latest articles, tutorials, and updates delivered straight to your inbox.
           </p>
-          <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+          <form
+            action={subscribeToNewsletter}
+            className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
+          >
             <input
               type="email"
               placeholder="Enter your email"
@@ -123,7 +127,7 @@ export default async function BlogsPage({
             <Button className="px-6 py-2.5 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors duration-300">
               Subscribe
             </Button>
-          </div>
+          </form>
         </section>
       </div>
     </div>
