@@ -3,6 +3,7 @@ import { sanityClient } from '@/sanity/lib/client';
 import { urlFor } from '@/sanity/lib/image';
 import { blogBySlugQuery, blogsSlugQuery } from '@/sanity/lib/queries';
 
+import { CustomPortableText } from '@/components/custom-portable-text';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -16,7 +17,6 @@ import { BlogCard } from '../_components/blog-card';
 import { fetchBlogsByCategorySlugs } from '../page';
 import { AuthorCard } from './_components/author-card';
 import { BlogBannerCard } from './_components/blog-banner-card';
-import { CustomPortableText } from './_components/custom-portable-text';
 
 type Props = {
   params: Promise<{ slug: string }>;
