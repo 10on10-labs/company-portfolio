@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { ServiceQueryResult } from '@/sanity.types';
 import { sanityClient } from '@/sanity/lib/client';
 import { allProjectsQuery } from '@/sanity/lib/queries';
 import {
@@ -113,23 +114,17 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const service = await sanityClient.fetch(serviceQuery, { slug });
-
-  if (!service) {
-    return {
-      title: 'Service Not Found',
-    };
-  }
+  const service = await sanityClient.fetch<ServiceQueryResult>(serviceQuery, { slug });
 
   return {
-    title: service.seo?.metaTitle || `${service.name} | 10on10 Labs`,
-    description: service.seo?.metaDescription || service.shortDescription,
+    title: { absolute: `Service - ${service?.heroSection?.tagline}` },
+    description: service?.seo?.metaDescription || service?.shortDescription,
   };
 }
 
 export default async function ServiceDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const service = await sanityClient.fetch(serviceQuery, { slug });
+  const service = await sanityClient.fetch<ServiceQueryResult>(serviceQuery, { slug });
   const projects = await sanityClient.fetch(allProjectsQuery);
 
   if (!service) {
@@ -181,7 +176,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
             <div className="relative h-[400px] lg:h-[500px]">
               <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-primary/10 rounded-3xl flex items-center justify-center">
                 <div className="text-center">
-                  {React.createElement(getIcon(service.icon), {
+                  {React.createElement(getIcon(service.icon || ''), {
                     className: 'w-24 h-24 text-primary/50 mx-auto mb-4',
                   })}
                   <p className="text-gray-500">{service.name}</p>
@@ -276,7 +271,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
                     <h3 className="text-lg font-semibold text-gray-900 mb-2">{step.title}</h3>
                     <p className="text-sm text-gray-600">{step.description}</p>
                   </div>
-                  {index < service.processSteps.length - 1 && (
+                  {index < (service.processSteps ?? []).length - 1 && (
                     <div className="hidden lg:block absolute top-1/2 -right-4 transform -translate-y-1/2">
                       <ArrowRight className="w-8 h-8 text-gray-300" />
                     </div>

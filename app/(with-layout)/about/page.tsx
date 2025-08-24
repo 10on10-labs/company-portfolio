@@ -1,10 +1,13 @@
-'use client';
-
 import React from 'react';
+import { Metadata } from 'next';
 import { ArrowRight, Award, CheckCircle, Rocket, Target, Users } from 'lucide-react';
 
 import { CompanyTimeline } from './_components/company-timeline';
 import { EmployeeCard } from './_components/employee-card';
+
+export const metadata: Metadata = {
+  title: 'About',
+};
 
 const stats = [
   { number: '10+', label: 'Years Experience', icon: Award },

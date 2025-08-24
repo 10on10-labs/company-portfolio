@@ -5,7 +5,7 @@ import { allProjectsQuery } from '@/sanity/lib/queries';
 import CaseStudiesList from './_components/case-studies-list';
 
 export const metadata: Metadata = {
-  title: 'Case Studies | Our Work',
+  title: { absolute: 'Case Studies | Our Work' },
   description: 'Explore our portfolio of successful projects and digital transformations',
 };
 

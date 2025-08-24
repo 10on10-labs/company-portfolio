@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const project = await fetchProjectBySlug(slug);
   return {
-    title: project?.name,
+    title: { absolute: `Case Study - ${project?.name}` },
     category: 'project',
     applicationName: '10on10Labs',
     openGraph: {
