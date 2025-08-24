@@ -50,7 +50,7 @@ const teamMembers = [
   {
     fullName: 'Kaleem Ullah',
     role: 'Co-Founder & CTO',
-    image: '/kaleem.jpg',
+    image: '/kaleem.png',
     redirectUrl: '#',
   },
   {
