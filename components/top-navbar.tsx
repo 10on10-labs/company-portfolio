@@ -10,7 +10,7 @@ import { AnimatePresence, motion, Variants } from 'motion/react';
 const menuItems = [
   { title: 'Home', href: '/', isSection: false },
   { title: 'Services', href: '/#services', isSection: true },
-  { title: 'Pricing', href: '/#pricing', isSection: true },
+  { title: 'Pricing', href: '/pricing', isSection: false },
   { title: 'Case Studies', href: '/#case-studies', isSection: true },
   { title: 'Process', href: '/#process', isSection: true },
   { title: 'About', href: '/about', isSection: false },
