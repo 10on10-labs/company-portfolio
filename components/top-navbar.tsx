@@ -150,12 +150,12 @@ export const TopNavbar = () => {
           <nav className="flex items-center h-full w-full justify-center">
             {/* Enhanced navbar with footer's dark color and backdrop blur */}
             <div className="relative bg-primary/50 backdrop-blur-sm rounded-full h-full shadow-2xl shadow-black/20 px-1 border border-white/20">
-              <ul className="relative flex items-center h-full lg:px-2 xl:px-3 lg:py-1.5 xl:py-2 text-white lg:gap-0.5 xl:gap-0">
+              <ul className="relative flex items-center h-full lg:px-2 xl:px-3 lg:py-1.5 xl:py-2 text-black lg:gap-0.5 xl:gap-0">
                 {/* Logo as first item inside navbar */}
                 <li className="mr-1">
                   <Link
                     href="/"
-                    className="flex items-center lg:px-2 xl:px-3 py-1 hover:bg-white/5 rounded-full transition-all duration-200 group"
+                    className="flex items-center lg:px-2 xl:px-3 py-1 hover:bg-white/30 rounded-full transition-all duration-200 group"
                   >
                     <div className="lg:w-7 xl:w-9 lg:h-7 xl:h-9 relative flex items-center justify-center">
                       {/* White background circle precisely for the 10/10 part */}
@@ -169,14 +169,14 @@ export const TopNavbar = () => {
                         priority
                       />
                     </div>
-                    <span className="lg:ml-2 xl:ml-2.5 font-semibold text-white lg:text-xs xl:text-sm lg:tracking-tight xl:tracking-wide">
+                    <span className="lg:ml-2 xl:ml-2.5 font-semibold text-black lg:text-xs xl:text-sm lg:tracking-tight xl:tracking-wide">
                       10on10labs
                     </span>
                   </Link>
                 </li>
 
                 {/* Vertical separator with gradient */}
-                <li className="lg:h-5 xl:h-6 w-px bg-gradient-to-b from-transparent via-white/30 to-transparent lg:mx-2 xl:mx-3"></li>
+                <li className="lg:h-5 xl:h-6 w-px bg-gradient-to-b from-transparent via-black/30 to-transparent lg:mx-2 xl:mx-3"></li>
 
                 {/* Menu Items */}
                 {menuItems.map(({ title, href, isSection }, index) => {
@@ -210,7 +210,7 @@ export const TopNavbar = () => {
                           className={`relative flex items-center lg:py-1.5 xl:py-2 lg:px-3 xl:px-4 rounded-full font-medium lg:text-xs xl:text-[13px] transition-all duration-300 ${
                             isActive
                               ? 'bg-white text-black shadow-lg shadow-black/20 border border-white/50'
-                              : 'text-white/90 hover:text-white hover:bg-white/10'
+                              : 'text-black/90 hover:text-black hover:bg-white/50'
                           }`}
                         >
                           {/* Active indicator dot */}
