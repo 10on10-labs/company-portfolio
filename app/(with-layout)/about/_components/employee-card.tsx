@@ -1,17 +1,17 @@
 import { FC } from 'react';
 import Image from 'next/image';
+import { CompanyLeadershipQueryResult } from '@/sanity.types';
+import { urlFor } from '@/sanity/lib/image';
 import { ExternalLink } from 'lucide-react';
 
-type Props = {
-  redirectUrl: string;
-  image?: string;
-  fullName: string;
-  role: string;
-};
+type NonNullTimelineItems = NonNullable<CompanyLeadershipQueryResult>;
+type NonNullTimelineMember = NonNullable<NonNullTimelineItems['members']>;
+// Extract the type of a single member from the members array
+type Props = NonNullTimelineMember[number];
 
-export const EmployeeCard: FC<Props> = ({ redirectUrl, fullName, role, image }) => (
+export const EmployeeCard: FC<Props> = ({ portfolioUrl, name, designation, image }) => (
   <a
-    href={redirectUrl}
+    href={portfolioUrl || ''}
     target="_blank"
     rel="noopener noreferrer"
     className="block p-6 rounded-2xl bg-white border border-gray-100 hover:shadow-lg transition-shadow duration-200 group"
@@ -22,15 +22,17 @@ export const EmployeeCard: FC<Props> = ({ redirectUrl, fullName, role, image }) 
       <div className="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden bg-gray-200">
         {image ? (
           <Image
-            src={image}
-            alt={fullName}
+            src={urlFor(image || '')
+              ?.width(96)
+              ?.url()}
+            alt={name || 'employee'}
             width={96}
             height={96}
             className="w-full h-full object-cover"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center text-2xl font-bold text-gray-400">
-            {fullName
+            {name
               ?.split(' ')
               .map(n => n[0])
               .join('')}
@@ -39,8 +41,8 @@ export const EmployeeCard: FC<Props> = ({ redirectUrl, fullName, role, image }) 
       </div>
 
       <div className="text-center">
-        <h3 className="font-semibold text-gray-900 mb-1">{fullName}</h3>
-        <p className="text-sm text-gray-600">{role}</p>
+        <h3 className="font-semibold text-gray-900 mb-1">{name}</h3>
+        <p className="text-sm text-gray-600">{designation}</p>
       </div>
     </div>
   </a>

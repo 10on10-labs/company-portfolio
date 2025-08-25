@@ -386,7 +386,7 @@ export type Leadership = {
   _updatedAt: string;
   _rev: string;
   title?: string;
-  subtitle?: string;
+  subTitle?: string;
   members?: Array<{
     image?: {
       asset?: {
@@ -402,6 +402,7 @@ export type Leadership = {
     };
     name?: string;
     designation?: string;
+    portfolioUrl?: string;
     _type: 'leader';
     _key: string;
   }>;
@@ -739,6 +740,29 @@ export type CompanyTimelineQueryResult = {
     year: string | null;
     title: string | null;
     description: string | null;
+  }> | null;
+} | null;
+// Variable: companyLeadershipQuery
+// Query: *[_type == "leadership"][0] {   title,   subTitle,   members[] {    name,    designation,    portfolioUrl,    image  } }
+export type CompanyLeadershipQueryResult = {
+  title: string | null;
+  subTitle: string | null;
+  members: Array<{
+    name: string | null;
+    designation: string | null;
+    portfolioUrl: string | null;
+    image: {
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: 'image';
+    } | null;
   }> | null;
 } | null;
 
@@ -1191,6 +1215,7 @@ declare module '@sanity/client' {
     '\n  *[_type == "service" && id.current == $slug][0] {\n    _id,\n    name,\n    "slug": id.current,\n    shortDescription,\n    description,\n    categories,\n    icon,\n    heroSection {\n      tagline,\n      headline,\n      subheadline\n    },\n    features[] {\n      title,\n      description,\n      icon\n    },\n    technologies[] {\n      name,\n      icon\n    },\n    processSteps[] {\n      number,\n      title,\n      description\n    },\n    benefits,\n    whyChooseUs {\n      headline,\n      description,\n      reasons[] {\n        title,\n        description,\n        icon\n      }\n    },\n    ctaSection {\n      headline,\n      description,\n      primaryButtonText,\n      secondaryButtonText\n    },\n    seo {\n      metaTitle,\n      metaDescription\n    }\n  }\n': ServiceQueryResult;
     '\n  *[_type == "service"] {\n    "slug": id.current\n  }\n': ServicesSlugQueryResult;
     '\n *[_type == "companyTimeline"][0] {\n   title,\n   subTitle,\n   items[] {\n     year,\n     title,\n     description\n   }\n }\n': CompanyTimelineQueryResult;
+    '\n *[_type == "leadership"][0] {\n   title,\n   subTitle,\n   members[] {\n    name,\n    designation,\n    portfolioUrl,\n    image\n  }\n }\n ': CompanyLeadershipQueryResult;
     '\n    *[_type == "blog" && slug.current == $slug][0] {\n        title,\n        subTitle,\n        "modifiedAt": _updatedAt,\n        author->,\n        thumbnail,\n        body,\n        blogCategories[]->{\n            title,\n            "chipColor": chipColor.hex,\n            "slug": slug.current, \n        },\n    }\n': BlogBySlugQueryResult;
     '\n    *[_type == "blog"] {\n        "slug": slug.current\n    }\n': BlogsSlugQueryResult;
     '\n  *[_type == "blogCategory"] {\n  title,\n  "slug": slug.current\n}\n': BlogCategoriesQueryResult;

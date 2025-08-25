@@ -2363,7 +2363,7 @@
         },
         "optional": true
       },
-      "subtitle": {
+      "subTitle": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
@@ -2454,6 +2454,13 @@
                 "optional": true
               },
               "designation": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "string"
+                },
+                "optional": true
+              },
+              "portfolioUrl": {
                 "type": "objectAttribute",
                 "value": {
                   "type": "string"

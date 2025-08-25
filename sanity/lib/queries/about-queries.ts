@@ -11,3 +11,16 @@ export const companyTimelineQuery = defineQuery(`
    }
  }
 `);
+
+export const companyLeadershipQuery = defineQuery(`
+ *[_type == "leadership"][0] {
+   title,
+   subTitle,
+   members[] {
+    name,
+    designation,
+    portfolioUrl,
+    image
+  }
+ }
+ `);

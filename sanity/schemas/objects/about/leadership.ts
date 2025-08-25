@@ -14,8 +14,8 @@ export const leadership = defineType({
       validation: Rule => Rule.required(),
     }),
     defineField({
-      name: 'subtitle',
-      title: 'Subtitle',
+      name: 'subTitle',
+      title: 'Sub Title',
       type: 'string',
     }),
     defineField({
@@ -44,6 +44,11 @@ export const leadership = defineType({
               name: 'designation',
               title: 'Designation',
               type: 'string',
+            }),
+            defineField({
+              name: 'portfolioUrl',
+              title: 'Portfolio (optional)',
+              type: 'url',
             }),
           ],
           preview: {
