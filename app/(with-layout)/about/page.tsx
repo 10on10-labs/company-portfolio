@@ -1,5 +1,8 @@
 import React from 'react';
 import { Metadata } from 'next';
+import { CompanyLeadershipQueryResult, CompanyTimelineQueryResult } from '@/sanity.types';
+import { sanityClient } from '@/sanity/lib/client';
+import { companyLeadershipQuery, companyTimelineQuery } from '@/sanity/lib/queries/about-queries';
 import { ArrowRight, Award, CheckCircle, Rocket, Target, Users } from 'lucide-react';
 
 import { CompanyTimeline } from './_components/company-timeline';
@@ -43,28 +46,23 @@ const values = [
   },
 ];
 
-const teamMembers = [
-  {
-    fullName: 'Danish Mehmood',
-    role: 'CEO & Founder',
-    image: '/danish-mehmood.jpeg',
-    redirectUrl: '#',
-  },
-  {
-    fullName: 'Kaleem Ullah',
-    role: 'Co-Founder & CTO',
-    image: '/kaleem.png',
-    redirectUrl: '#',
-  },
-  {
-    fullName: 'Osama Ehsan',
-    role: 'Co-Founder & COO',
-    image: '/osama.jpg',
-    redirectUrl: '#',
-  },
-];
+const fetchCompanyTimeline = async () => {
+  const companyTimeline =
+    await sanityClient.fetch<CompanyTimelineQueryResult>(companyTimelineQuery);
+  return companyTimeline;
+};
 
-export default function AboutPage() {
+const fetchCompanyLeadership = async () => {
+  const companyLeadership =
+    await sanityClient.fetch<CompanyLeadershipQueryResult>(companyLeadershipQuery);
+  return companyLeadership;
+};
+
+export default async function AboutPage() {
+  const [companyTimeline, companyLeadership] = await Promise.all([
+    fetchCompanyTimeline(),
+    fetchCompanyLeadership(),
+  ]);
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -175,16 +173,20 @@ export default function AboutPage() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Meet Our Leadership
+              {companyLeadership?.title || 'Meet Our Leadership'}
             </h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Passionate individuals dedicated to your success
+              {companyLeadership?.subTitle || 'Passionate individuals dedicated to your success'}
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            {teamMembers.map((member, index) => (
-              <EmployeeCard key={index} {...member} />
-            ))}
+            {companyLeadership?.members?.length ? (
+              companyLeadership.members.map((member, index) => (
+                <EmployeeCard key={index} {...member} />
+              ))
+            ) : (
+              <div>No employees data found!</div>
+            )}
           </div>
         </div>
       </section>
@@ -193,12 +195,18 @@ export default function AboutPage() {
       <section className="py-16 bg-gray-900">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Our Journey</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              {companyTimeline?.title || 'Our Journey'}
+            </h2>
             <p className="text-lg text-gray-400 max-w-3xl mx-auto">
-              Key milestones that shaped who we are today
+              {companyTimeline?.subTitle || 'Key milestones that shaped who we are today'}
             </p>
           </div>
-          <CompanyTimeline />
+          {companyTimeline?.items?.length ? (
+            <CompanyTimeline items={companyTimeline.items} />
+          ) : (
+            <div>No company timeline found!</div>
+          )}
         </div>
       </section>
 
