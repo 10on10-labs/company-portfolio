@@ -5,11 +5,14 @@ import { blockContent } from './block-content';
 import { author, blog, blogCategory, brand, project } from './documents';
 import { service } from './documents/service';
 import { testimonial } from './documents/testimonial';
-import { duration, milestone, timeline } from './objects';
+import { duration } from './objects';
+import { companyTimeline, leadership } from './objects/about';
 
 export const sanitySchema: { types: SchemaTypeDefinition[] } = {
   types: [
     blockContent,
+    companyTimeline,
+    leadership,
     blog,
     blogCategory,
     author,
@@ -18,8 +21,6 @@ export const sanitySchema: { types: SchemaTypeDefinition[] } = {
     service,
     testimonial,
     duration,
-    milestone,
-    timeline,
   ],
 };
 
@@ -50,11 +51,30 @@ export const structure: StructureResolver = S =>
                 .child(S.documentTypeList('author').title('Authors')),
             ]),
         ),
-
       S.divider(),
+      S.listItem()
+        .title('About')
+        .child(
+          S.list()
+            .title('About Section')
+            .items([
+              S.listItem().title('Company Timeline').child(
+                S.editor()
+                  .id('companyTimeline')
+                  .schemaType('companyTimeline')
+                  .documentId('companyTimeline'), // singleton ID
+              ),
+              S.listItem().title('Founding Members').child(
+                S.editor().id('leadership').schemaType('leadership').documentId('leadership'), // singleton ID
+              ),
+            ]),
+        ),
 
       // Include the rest of the document types automatically
       ...S.documentTypeListItems().filter(
-        listItem => !['blog', 'blogCategory', 'author'].includes(listItem.getId() ?? ''),
+        listItem =>
+          !['blog', 'blogCategory', 'author', 'companyTimeline', 'leadership'].includes(
+            listItem.getId() ?? '',
+          ),
       ),
     ]);

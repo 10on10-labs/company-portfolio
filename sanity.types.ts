@@ -16,132 +16,6 @@ import '@sanity/client';
  */
 
 // Source: schema.json
-export type Settings = {
-  _id: string;
-  _type: 'settings';
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  menuItems?: Array<
-    | {
-        _ref: string;
-        _type: 'reference';
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: 'home';
-      }
-    | {
-        _ref: string;
-        _type: 'reference';
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: 'page';
-      }
-    | {
-        _ref: string;
-        _type: 'reference';
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: 'project';
-      }
-  >;
-  footer?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: 'span';
-      _key: string;
-    }>;
-    style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote';
-    listItem?: 'bullet' | 'number';
-    markDefs?: Array<{
-      href?: string;
-      _type: 'link';
-      _key: string;
-    }>;
-    level?: number;
-    _type: 'block';
-    _key: string;
-  }>;
-  ogImage?: {
-    asset?: {
-      _ref: string;
-      _type: 'reference';
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: 'image';
-  };
-};
-
-export type Home = {
-  _id: string;
-  _type: 'home';
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
-  overview?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: 'span';
-      _key: string;
-    }>;
-    style?: 'normal';
-    listItem?: never;
-    markDefs?: Array<{
-      href?: string;
-      _type: 'link';
-      _key: string;
-    }>;
-    level?: number;
-    _type: 'block';
-    _key: string;
-  }>;
-  showcaseProjects?: Array<{
-    _ref: string;
-    _type: 'reference';
-    _weak?: boolean;
-    _key: string;
-    [internalGroqTypeReferenceTo]?: 'project';
-  }>;
-};
-
-export type Timeline = {
-  _type: 'timeline';
-  items?: Array<{
-    title?: string;
-    milestones?: Array<
-      {
-        _key: string;
-      } & Milestone
-    >;
-    _type: 'item';
-    _key: string;
-  }>;
-};
-
-export type Milestone = {
-  _type: 'milestone';
-  title?: string;
-  description?: string;
-  image?: {
-    asset?: {
-      _ref: string;
-      _type: 'reference';
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: 'image';
-  };
-  tags?: Array<string>;
-  duration?: Duration;
-};
-
 export type Duration = {
   _type: 'duration';
   start?: string;
@@ -378,68 +252,6 @@ export type Project = {
   }>;
 };
 
-export type Page = {
-  _id: string;
-  _type: 'page';
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
-  slug?: Slug;
-  overview?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: 'span';
-      _key: string;
-    }>;
-    style?: 'normal';
-    listItem?: never;
-    markDefs?: null;
-    level?: number;
-    _type: 'block';
-    _key: string;
-  }>;
-  body?: Array<
-    | {
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: 'span';
-          _key: string;
-        }>;
-        style?: 'normal';
-        listItem?: 'bullet' | 'number';
-        markDefs?: Array<{
-          href?: string;
-          _type: 'link';
-          _key: string;
-        }>;
-        level?: number;
-        _type: 'block';
-        _key: string;
-      }
-    | ({
-        _key: string;
-      } & Timeline)
-    | {
-        asset?: {
-          _ref: string;
-          _type: 'reference';
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-        };
-        media?: unknown;
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        caption?: string;
-        alt?: string;
-        _type: 'image';
-        _key: string;
-      }
-  >;
-};
-
 export type BlogCategory = {
   _id: string;
   _type: 'blogCategory';
@@ -563,6 +375,51 @@ export type Author = {
     }>;
     level?: number;
     _type: 'block';
+    _key: string;
+  }>;
+};
+
+export type Leadership = {
+  _id: string;
+  _type: 'leadership';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  subtitle?: string;
+  members?: Array<{
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: 'image';
+    };
+    name?: string;
+    designation?: string;
+    _type: 'leader';
+    _key: string;
+  }>;
+};
+
+export type CompanyTimeline = {
+  _id: string;
+  _type: 'companyTimeline';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  subTitle?: string;
+  items?: Array<{
+    year?: string;
+    title?: string;
+    description?: string;
+    _type: 'timelineItem';
     _key: string;
   }>;
 };
@@ -765,19 +622,16 @@ export type SanityAssetSourceData = {
 };
 
 export type AllSanitySchemaTypes =
-  | Settings
-  | Home
-  | Timeline
-  | Milestone
   | Duration
   | Testimonial
   | Service
   | Brand
   | Project
-  | Page
   | BlogCategory
   | Blog
   | Author
+  | Leadership
+  | CompanyTimeline
   | BlockContent
   | Code
   | Color
@@ -874,6 +728,19 @@ export type ServiceQueryResult = {
 export type ServicesSlugQueryResult = Array<{
   slug: string | null;
 }>;
+
+// Source: ./sanity/lib/queries/about-queries.ts
+// Variable: companyTimelineQuery
+// Query: *[_type == "companyTimeline"][0] {   title,   subTitle,   items[] {     year,     title,     description   } }
+export type CompanyTimelineQueryResult = {
+  title: string | null;
+  subTitle: string | null;
+  items: Array<{
+    year: string | null;
+    title: string | null;
+    description: string | null;
+  }> | null;
+} | null;
 
 // Source: ./sanity/lib/queries/blog-queries.ts
 // Variable: blogBySlugQuery
@@ -1087,99 +954,10 @@ export type BrandsQueryResult = Array<{
 // Source: ./sanity/lib/queries/queries.ts
 // Variable: homePageQuery
 // Query: *[_type == "home"][0]{    _id,    _type,    overview,    showcaseProjects[]{      _key,      ...@->{        _id,        _type,        coverImage,        overview,        "slug": slug.current,        tags,        title,      }    },    title,  }
-export type HomePageQueryResult = {
-  _id: string;
-  _type: 'home';
-  overview: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: 'span';
-      _key: string;
-    }>;
-    style?: 'normal';
-    listItem?: never;
-    markDefs?: Array<{
-      href?: string;
-      _type: 'link';
-      _key: string;
-    }>;
-    level?: number;
-    _type: 'block';
-    _key: string;
-  }> | null;
-  showcaseProjects: Array<{
-    _key: string;
-    _id: string;
-    _type: 'project';
-    coverImage: null;
-    overview: null;
-    slug: string | null;
-    tags: null;
-    title: null;
-  }> | null;
-  title: string | null;
-} | null;
+export type HomePageQueryResult = null;
 // Variable: pagesBySlugQuery
 // Query: *[_type == "page" && slug.current == $slug][0] {    _id,    _type,    body,    overview,    title,    "slug": slug.current,  }
-export type PagesBySlugQueryResult = {
-  _id: string;
-  _type: 'page';
-  body: Array<
-    | ({
-        _key: string;
-      } & Timeline)
-    | {
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: 'span';
-          _key: string;
-        }>;
-        style?: 'normal';
-        listItem?: 'bullet' | 'number';
-        markDefs?: Array<{
-          href?: string;
-          _type: 'link';
-          _key: string;
-        }>;
-        level?: number;
-        _type: 'block';
-        _key: string;
-      }
-    | {
-        asset?: {
-          _ref: string;
-          _type: 'reference';
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-        };
-        media?: unknown;
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        caption?: string;
-        alt?: string;
-        _type: 'image';
-        _key: string;
-      }
-  > | null;
-  overview: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: 'span';
-      _key: string;
-    }>;
-    style?: 'normal';
-    listItem?: never;
-    markDefs?: null;
-    level?: number;
-    _type: 'block';
-    _key: string;
-  }> | null;
-  title: string | null;
-  slug: string | null;
-} | null;
+export type PagesBySlugQueryResult = null;
 // Variable: projectBySlugQuery
 // Query: *[_type == "project" && slug.current == $slug][0] {    _id,    "slug": slug.current,    name,    category,    description,    logo,    coverImages,    projectSections,    url,    priority,    "technologies": projectDimensions.technologies,    "iterations": projectDimensions.iterations,    "teamSize": projectDimensions.teamSize,    "timeline": string(projectDimensions.timeline.value) + " " + coalesce(projectDimensions.timeline.unit, ""),  }
 export type ProjectBySlugQueryResult = {
@@ -1376,60 +1154,7 @@ export type AllProjectsQueryResult = Array<{
 }>;
 // Variable: settingsQuery
 // Query: *[_type == "settings"][0]{    _id,    _type,    footer,    menuItems[]{      _key,      ...@->{        _type,        "slug": slug.current,        title      }    },    ogImage,  }
-export type SettingsQueryResult = {
-  _id: string;
-  _type: 'settings';
-  footer: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: 'span';
-      _key: string;
-    }>;
-    style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
-    listItem?: 'bullet' | 'number';
-    markDefs?: Array<{
-      href?: string;
-      _type: 'link';
-      _key: string;
-    }>;
-    level?: number;
-    _type: 'block';
-    _key: string;
-  }> | null;
-  menuItems: Array<
-    | {
-        _key: null;
-        _type: 'home';
-        slug: null;
-        title: string | null;
-      }
-    | {
-        _key: null;
-        _type: 'page';
-        slug: string | null;
-        title: string | null;
-      }
-    | {
-        _key: null;
-        _type: 'project';
-        slug: string | null;
-        title: null;
-      }
-  > | null;
-  ogImage: {
-    asset?: {
-      _ref: string;
-      _type: 'reference';
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: 'image';
-  } | null;
-} | null;
+export type SettingsQueryResult = null;
 // Variable: slugsByTypeQuery
 // Query: *[_type == $type && defined(slug.current)]{"slug": slug.current}
 export type SlugsByTypeQueryResult = Array<{
@@ -1465,6 +1190,7 @@ declare module '@sanity/client' {
   interface SanityQueries {
     '\n  *[_type == "service" && id.current == $slug][0] {\n    _id,\n    name,\n    "slug": id.current,\n    shortDescription,\n    description,\n    categories,\n    icon,\n    heroSection {\n      tagline,\n      headline,\n      subheadline\n    },\n    features[] {\n      title,\n      description,\n      icon\n    },\n    technologies[] {\n      name,\n      icon\n    },\n    processSteps[] {\n      number,\n      title,\n      description\n    },\n    benefits,\n    whyChooseUs {\n      headline,\n      description,\n      reasons[] {\n        title,\n        description,\n        icon\n      }\n    },\n    ctaSection {\n      headline,\n      description,\n      primaryButtonText,\n      secondaryButtonText\n    },\n    seo {\n      metaTitle,\n      metaDescription\n    }\n  }\n': ServiceQueryResult;
     '\n  *[_type == "service"] {\n    "slug": id.current\n  }\n': ServicesSlugQueryResult;
+    '\n *[_type == "companyTimeline"][0] {\n   title,\n   subTitle,\n   items[] {\n     year,\n     title,\n     description\n   }\n }\n': CompanyTimelineQueryResult;
     '\n    *[_type == "blog" && slug.current == $slug][0] {\n        title,\n        subTitle,\n        "modifiedAt": _updatedAt,\n        author->,\n        thumbnail,\n        body,\n        blogCategories[]->{\n            title,\n            "chipColor": chipColor.hex,\n            "slug": slug.current, \n        },\n    }\n': BlogBySlugQueryResult;
     '\n    *[_type == "blog"] {\n        "slug": slug.current\n    }\n': BlogsSlugQueryResult;
     '\n  *[_type == "blogCategory"] {\n  title,\n  "slug": slug.current\n}\n': BlogCategoriesQueryResult;

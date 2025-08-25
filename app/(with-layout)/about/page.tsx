@@ -1,5 +1,8 @@
 import React from 'react';
 import { Metadata } from 'next';
+import { CompanyTimelineQueryResult } from '@/sanity.types';
+import { sanityClient } from '@/sanity/lib/client';
+import { companyTimelineQuery } from '@/sanity/lib/queries/about-queries';
 import { ArrowRight, Award, CheckCircle, Rocket, Target, Users } from 'lucide-react';
 
 import { CompanyTimeline } from './_components/company-timeline';
@@ -64,7 +67,14 @@ const teamMembers = [
   },
 ];
 
-export default function AboutPage() {
+const fetchCompanyTimeline = async () => {
+  const companyTimeline =
+    await sanityClient.fetch<CompanyTimelineQueryResult>(companyTimelineQuery);
+  return companyTimeline;
+};
+
+export default async function AboutPage() {
+  const companyTimeline = await fetchCompanyTimeline();
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -193,12 +203,18 @@ export default function AboutPage() {
       <section className="py-16 bg-gray-900">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Our Journey</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              {companyTimeline?.title || 'Our Journey'}
+            </h2>
             <p className="text-lg text-gray-400 max-w-3xl mx-auto">
-              Key milestones that shaped who we are today
+              {companyTimeline?.subTitle || 'Key milestones that shaped who we are today'}
             </p>
           </div>
-          <CompanyTimeline />
+          {companyTimeline?.items?.length ? (
+            <CompanyTimeline items={companyTimeline.items} />
+          ) : (
+            <div>No company timeline found!</div>
+          )}
         </div>
       </section>
 
