@@ -26,17 +26,22 @@ export const TopNavbar = () => {
   const closeMenu = () => setIsMenuOpen(false);
 
   const handleNavClick = (href: string, isSection: boolean) => {
-    if (isSection && href.startsWith('/#')) {
+    if (href === '/') {
+      // Clear active section when Home is clicked
+      setActiveSection('');
+    } else if (isSection && href.startsWith('/#')) {
       const sectionId = href.substring(2);
       setActiveSection(sectionId);
     }
   };
 
-  // Handle scroll to section on page load
+  // Handle scroll to section on page load and set active section from URL hash
   useEffect(() => {
     const scrollToSection = () => {
       if (typeof window !== 'undefined' && window.location.hash) {
         const sectionId = window.location.hash.substring(1);
+        // Set the active section immediately based on URL hash
+        setActiveSection(sectionId);
         setTimeout(() => {
           const element = document.getElementById(sectionId);
           if (element) {
@@ -137,40 +142,41 @@ export const TopNavbar = () => {
       transition: { type: 'spring', stiffness: 500, damping: 10 },
     },
   };
-  const activeTabClass = 'bg-secondary text-black';
+
   return (
     <header className="fixed top-2 left-0 right-0  z-50">
       <div className="container mx-auto px-4">
         <div className="hidden lg:flex items-center justify-center">
           <nav className="flex items-center h-full w-full justify-center">
             {/* Enhanced navbar with footer's dark color and backdrop blur */}
-            <div className="relative bg-primary/60 backdrop-blur-md rounded-2xl h-full shadow-lg shadow-black/20 px-2 py-0.5 border border-white">
-              {/* Subtle gradient overlay for depth */}
-              <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent rounded-2xl pointer-events-none"></div>
-
-              <ul className="relative flex items-center h-full px-2 py-1.5 text-white">
+            <div className="relative bg-primary/50 backdrop-blur-sm rounded-full h-full shadow-2xl shadow-black/20 px-1 border border-white/20">
+              <ul className="relative flex items-center h-full lg:px-2 xl:px-3 lg:py-1.5 xl:py-2 text-white lg:gap-0.5 xl:gap-0">
                 {/* Logo as first item inside navbar */}
                 <li className="mr-1">
                   <Link
                     href="/"
-                    className="flex items-center px-2 py-1 hover:bg-white/10 rounded-[10px] transition-all"
+                    className="flex items-center lg:px-2 xl:px-3 py-1 hover:bg-white/5 rounded-full transition-all duration-200 group"
                   >
-                    <div className="w-9 h-9 bg-white rounded-sm flex items-center justify-center">
+                    <div className="lg:w-7 xl:w-9 lg:h-7 xl:h-9 relative flex items-center justify-center">
+                      {/* White background circle precisely for the 10/10 part */}
+                      <div className="absolute lg:w-[28px] xl:w-[35px] lg:h-[28px] xl:h-[35px] bg-white rounded-md"></div>
                       <Image
                         src="/logo.png"
                         width={36}
                         height={36}
                         alt="10on10labs logo"
-                        className="w-9 h-9"
+                        className="lg:w-7 xl:w-9 lg:h-7 xl:h-9 relative z-10"
                         priority
                       />
                     </div>
-                    <span className="ml-2 font-bold text-white text-sm">10on10labs</span>
+                    <span className="lg:ml-2 xl:ml-2.5 font-semibold text-white lg:text-xs xl:text-sm lg:tracking-tight xl:tracking-wide">
+                      10on10labs
+                    </span>
                   </Link>
                 </li>
 
-                {/* Vertical separator */}
-                <li className="h-8 w-px bg-white/25 mx-2"></li>
+                {/* Vertical separator with gradient */}
+                <li className="lg:h-5 xl:h-6 w-px bg-gradient-to-b from-transparent via-white/30 to-transparent lg:mx-2 xl:mx-3"></li>
 
                 {/* Menu Items */}
                 {menuItems.map(({ title, href, isSection }, index) => {
@@ -192,23 +198,43 @@ export const TopNavbar = () => {
                       <Link
                         href={href}
                         onClick={() => handleNavClick(href, isSection)}
-                        className={`relative py-1.5 px-3 rounded-[10px] font-medium text-sm transition-all duration-300 hover:bg-white/10 ${
-                          isActive ? activeTabClass : ''
-                        }`}
+                        className="relative group"
                       >
-                        {title}
+                        {/* Glow effect for active item */}
+                        {isActive && (
+                          <span className="absolute inset-0 rounded-full bg-primary/30 blur-xl animate-pulse"></span>
+                        )}
+
+                        {/* Main button */}
+                        <span
+                          className={`relative flex items-center lg:py-1.5 xl:py-2 lg:px-3 xl:px-4 rounded-full font-medium lg:text-xs xl:text-[13px] transition-all duration-300 ${
+                            isActive
+                              ? 'bg-white text-black shadow-lg shadow-black/20 border border-white/50'
+                              : 'text-white/90 hover:text-white hover:bg-white/10'
+                          }`}
+                        >
+                          {/* Active indicator dot */}
+                          {isActive && (
+                            <span className="absolute -top-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-primary rounded-full shadow-lg shadow-primary/50"></span>
+                          )}
+                          {title}
+                        </span>
                       </Link>
                     </li>
                   );
                 })}
 
-                {/* Contact Button */}
-                <li className="pl-3">
+                {/* Contact Button with gradient */}
+                <li className="lg:pl-1 xl:pl-2">
                   <Link
                     href="/contact-us"
-                    className="bg-white/20 backdrop-blur-sm text-white px-5 py-1.5 rounded-[10px] font-medium text-sm hover:bg-white hover:text-black transition-all duration-300 shadow-sm border border-white/30"
+                    className="relative lg:px-4 xl:px-5 lg:py-1.5 xl:py-2 rounded-full font-medium lg:text-xs xl:text-[13px] bg-gradient-to-r from-primary to-primary/80 text-white hover:from-white hover:to-gray-100 hover:text-black transition-all duration-300 shadow-lg hover:shadow-xl group overflow-hidden"
                   >
-                    Contact Us
+                    <span className="relative z-10 lg:inline xl:inline">
+                      <span className="lg:hidden xl:inline">Contact Us</span>
+                      <span className="lg:inline xl:hidden">Contact</span>
+                    </span>
+                    <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full"></div>
                   </Link>
                 </li>
               </ul>
