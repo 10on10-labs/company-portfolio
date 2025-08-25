@@ -20,15 +20,13 @@ const Footer = () => {
   const navigation = {
     company: [
       { name: 'About', href: '/about' },
-      { name: 'Process', href: '/process' },
-      { name: 'Projects', href: '/projects' },
-      { name: 'Reviews', href: '/reviews' },
+      { name: 'Process', href: '#process' },
+      { name: 'Projects', href: '#case-studies' },
+      { name: 'Reviews', href: '#reviews' },
     ],
     services: [
-      { name: 'Web Development', href: '/services' },
-      { name: 'Mobile Apps', href: '/services' },
-      { name: 'UI/UX Design', href: '/services' },
-      { name: 'Digital Marketing', href: '/services' },
+      { name: 'Web Development', href: '/services/frontend-development' },
+      { name: 'UI/UX Design', href: '/services/ui-ux-services' },
     ],
     resources: [
       { name: 'Blog', href: '/blogs' },
