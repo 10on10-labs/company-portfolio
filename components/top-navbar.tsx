@@ -1,28 +1,78 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { AnimatePresence, motion, Variants } from 'motion/react';
 
-// Define menu items outside component
+// Define menu items matching homepage section order
 const menuItems = [
   { title: 'Home', href: '/', isSection: false },
+  { title: 'Case Studies', href: '/#case-studies', isSection: true },
   { title: 'Services', href: '/#services', isSection: true },
   { title: 'Pricing', href: '/#pricing', isSection: true },
-  { title: 'Case Studies', href: '/#case-studies', isSection: true },
   { title: 'Process', href: '/#process', isSection: true },
-  { title: 'About', href: '/about', isSection: false },
-  { title: 'Reviews', href: '/#reviews', isSection: true },
   { title: 'Insights', href: '/#insights', isSection: true },
+  { title: 'Reviews', href: '/#reviews', isSection: true },
+  { title: 'About', href: '/about', isSection: false },
 ];
 
 export const TopNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
   const pathname = usePathname();
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const closeMenu = () => setIsMenuOpen(false);
+
+  const handleNavClick = (href: string, isSection: boolean) => {
+    if (isSection && href.startsWith('/#')) {
+      const sectionId = href.substring(2);
+      setActiveSection(sectionId);
+    }
+  };
+
+  // Handle scroll to section on page load
+  useEffect(() => {
+    const scrollToSection = () => {
+      if (typeof window !== 'undefined' && window.location.hash) {
+        const sectionId = window.location.hash.substring(1);
+        setTimeout(() => {
+          const element = document.getElementById(sectionId);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 100);
+      }
+    };
+
+    scrollToSection();
+  }, [pathname]);
+
+  // Track active section based on scroll position
+  useEffect(() => {
+    const handleScroll = () => {
+      if (pathname !== '/') return;
+
+      const sections = menuItems.filter(item => item.isSection).map(item => item.href.substring(2)); // Remove '/#' prefix
+
+      for (const sectionId of sections.reverse()) {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          if (rect.top <= 100) {
+            setActiveSection(sectionId);
+            return;
+          }
+        }
+      }
+      setActiveSection('');
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Check initial position
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [pathname]);
 
   // Animation variants
   const sidebarVariants: Variants = {
@@ -91,30 +141,72 @@ export const TopNavbar = () => {
   return (
     <header className="fixed top-2 left-0 right-0  z-50">
       <div className="container mx-auto px-4">
-        <div className="hidden  lg:flex items-center justify-center">
-          <div>
-            <Link href="/">
-              <Image src="/logo.png" width={50} height={50} alt="logo" />
-            </Link>
-          </div>
-          <nav className="flex items-center h-full w-full justify-center ">
-            <div className="bg-primary rounded-2xl opacity-90 h-full shadow-md  shadow-primary px-2 py-1 border-4 border-white">
-              <ul className="flex items-center h-full px-4 py-3 text-white">
-                {menuItems.map(({ title, href }, index) => (
-                  <li key={index} className="">
-                    <Link
-                      href={href}
-                      // onClick={() => setActiveTab(href)}
-                      className={`relative py-2 px-4 rounded-[10px] font-medium text-sm transition-all duration-300 ${pathname == href ? activeTabClass : ''}`}
-                    >
-                      {title}
-                    </Link>
-                  </li>
-                ))}
-                <li className="pl-4">
+        <div className="hidden lg:flex items-center justify-center">
+          <nav className="flex items-center h-full w-full justify-center">
+            {/* Enhanced navbar with footer's dark color and backdrop blur */}
+            <div className="relative bg-primary/60 backdrop-blur-md rounded-2xl h-full shadow-lg shadow-black/20 px-2 py-0.5 border border-white">
+              {/* Subtle gradient overlay for depth */}
+              <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent rounded-2xl pointer-events-none"></div>
+
+              <ul className="relative flex items-center h-full px-2 py-1.5 text-white">
+                {/* Logo as first item inside navbar */}
+                <li className="mr-1">
+                  <Link
+                    href="/"
+                    className="flex items-center px-2 py-1 hover:bg-white/10 rounded-[10px] transition-all"
+                  >
+                    <div className="w-9 h-9 bg-white rounded-sm flex items-center justify-center">
+                      <Image
+                        src="/logo.png"
+                        width={36}
+                        height={36}
+                        alt="10on10labs logo"
+                        className="w-9 h-9"
+                        priority
+                      />
+                    </div>
+                    <span className="ml-2 font-bold text-white text-sm">10on10labs</span>
+                  </Link>
+                </li>
+
+                {/* Vertical separator */}
+                <li className="h-8 w-px bg-white/25 mx-2"></li>
+
+                {/* Menu Items */}
+                {menuItems.map(({ title, href, isSection }, index) => {
+                  let isActive = false;
+
+                  if (href === '/') {
+                    // Home is only active if we're on homepage with no section selected
+                    isActive = pathname === '/' && !activeSection;
+                  } else if (isSection) {
+                    // Section items are active when their section is selected
+                    isActive = pathname === '/' && `/#${activeSection}` === href;
+                  } else {
+                    // Other pages (like About) are active based on pathname
+                    isActive = pathname === href;
+                  }
+
+                  return (
+                    <li key={index}>
+                      <Link
+                        href={href}
+                        onClick={() => handleNavClick(href, isSection)}
+                        className={`relative py-1.5 px-3 rounded-[10px] font-medium text-sm transition-all duration-300 hover:bg-white/10 ${
+                          isActive ? activeTabClass : ''
+                        }`}
+                      >
+                        {title}
+                      </Link>
+                    </li>
+                  );
+                })}
+
+                {/* Contact Button */}
+                <li className="pl-3">
                   <Link
                     href="/contact-us"
-                    className="bg-black text-white  px-6 py-2 rounded-[10px] font-medium text-sm hover:bg-white hover:text-black transition-colors duration-300 shadow-sm"
+                    className="bg-white/20 backdrop-blur-sm text-white px-5 py-1.5 rounded-[10px] font-medium text-sm hover:bg-white hover:text-black transition-all duration-300 shadow-sm border border-white/30"
                   >
                     Contact Us
                   </Link>
