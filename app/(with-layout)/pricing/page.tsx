@@ -81,8 +81,8 @@ export default function PricingPage() {
       {/* Hero Section */}
       <section className="relative min-h-[60vh] flex items-center overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
         <div className="absolute inset-0">
-          <div className="absolute top-0 left-0 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-orange-600/10 rounded-full blur-3xl" />
+          <div className="absolute top-0 left-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
         </div>
 
         <div className="container relative z-10 mx-auto px-4">
@@ -93,8 +93,8 @@ export default function PricingPage() {
             className="text-center max-w-4xl mx-auto"
           >
             <div className="flex items-center justify-center gap-2 mb-4">
-              <Sparkles className="w-5 h-5 text-orange-500" />
-              <span className="text-orange-500 font-semibold uppercase tracking-wider text-sm">
+              <Sparkles className="w-5 h-5 text-primary" />
+              <span className="text-primary font-semibold uppercase tracking-wider text-sm">
                 Transparent Pricing
               </span>
             </div>
@@ -107,15 +107,14 @@ export default function PricingPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="#plans">
-                <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white">
+                <Button size="lg" className="bg-primary hover:bg-primary/90 text-white">
                   View Plans <ArrowRight className="ml-2 w-4 h-4" />
                 </Button>
               </Link>
               <Link href="/contact-us">
                 <Button
                   size="lg"
-                  variant="outline"
-                  className="border-white text-white hover:bg-white hover:text-gray-900"
+                  className="bg-black text-white hover:bg-white hover:text-black transition-all duration-300"
                 >
                   Book a Call
                 </Button>
@@ -136,8 +135,8 @@ export default function PricingPage() {
               transition={{ duration: 0.6 }}
               className="text-center"
             >
-              <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Zap className="w-8 h-8 text-orange-500" />
+              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Zap className="w-8 h-8 text-primary" />
               </div>
               <h3 className="font-semibold text-gray-900 mb-2">Fast Delivery</h3>
               <p className="text-sm text-gray-600">48-hour average turnaround on all requests</p>
@@ -150,8 +149,8 @@ export default function PricingPage() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="text-center"
             >
-              <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Shield className="w-8 h-8 text-orange-500" />
+              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Shield className="w-8 h-8 text-primary" />
               </div>
               <h3 className="font-semibold text-gray-900 mb-2">Risk-Free</h3>
               <p className="text-sm text-gray-600">
@@ -166,8 +165,8 @@ export default function PricingPage() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-center"
             >
-              <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Users className="w-8 h-8 text-orange-500" />
+              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Users className="w-8 h-8 text-primary" />
               </div>
               <h3 className="font-semibold text-gray-900 mb-2">Dedicated Team</h3>
               <p className="text-sm text-gray-600">
@@ -182,8 +181,8 @@ export default function PricingPage() {
               transition={{ duration: 0.6, delay: 0.3 }}
               className="text-center"
             >
-              <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <HeartHandshake className="w-8 h-8 text-orange-500" />
+              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <HeartHandshake className="w-8 h-8 text-primary" />
               </div>
               <h3 className="font-semibold text-gray-900 mb-2">Flexible Terms</h3>
               <p className="text-sm text-gray-600">
@@ -289,7 +288,7 @@ export default function PricingPage() {
                 className="bg-white rounded-lg p-6 shadow-sm"
               >
                 <h3 className="font-semibold text-gray-900 mb-2 flex items-start gap-2">
-                  <ChevronRight className="w-5 h-5 text-orange-500 mt-0.5" />
+                  <ChevronRight className="w-5 h-5 text-primary mt-0.5" />
                   {faq.question}
                 </h3>
                 <p className="text-gray-600 ml-7">{faq.answer}</p>
@@ -300,7 +299,7 @@ export default function PricingPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-orange-500 to-orange-600">
+      <section className="py-20 bg-gradient-to-r from-primary to-primary/90">
         <div className="container mx-auto px-4 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -315,15 +314,17 @@ export default function PricingPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/contact-us">
-                <Button size="lg" className="bg-white text-orange-600 hover:bg-gray-100">
+                <Button
+                  size="lg"
+                  className="bg-white text-black hover:bg-black hover:text-white transition-all duration-300"
+                >
                   Start Your 7-Day Trial
                 </Button>
               </Link>
               <Link href="/case-studies">
                 <Button
                   size="lg"
-                  variant="outline"
-                  className="border-white text-white hover:bg-white hover:text-orange-600"
+                  className="bg-black text-white hover:bg-white hover:text-black transition-all duration-300"
                 >
                   View Case Studies
                 </Button>
