@@ -35,8 +35,7 @@ export const BlogCard: FC<Props> = ({
   redirectUrl,
   author,
 }) => {
-  const date = parseISO(publishedAt || '');
-  const formattedPublishedDate = format(date, 'MMMM d, yyyy');
+  const formattedPublishedDate = publishedAt ? format(parseISO(publishedAt), 'MMMM d, yyyy') : null;
   return (
     <Link href={redirectUrl} className="block h-full">
       <Card
@@ -76,15 +75,13 @@ export const BlogCard: FC<Props> = ({
             {title}
           </CardTitle>
           <div className="flex items-center text-xs gap-x-2 text-gray-500">
-            <span>{formattedPublishedDate}</span>
+            {formattedPublishedDate && <span>{formattedPublishedDate}</span>}
+            {formattedPublishedDate && duration && <span>•</span>}
             {duration && (
-              <>
-                <span>•</span>
-                <span className="flex items-center gap-1">
-                  <Clock className="h-3 w-3" />
-                  {duration}
-                </span>
-              </>
+              <span className="flex items-center gap-1">
+                <Clock className="h-3 w-3" />
+                {duration}
+              </span>
             )}
           </div>
         </CardHeader>
