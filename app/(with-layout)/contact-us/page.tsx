@@ -1,23 +1,23 @@
 import { Metadata } from 'next';
 
-import { CalendlyEmbed } from './_components/calendly-embed';
-import { ContactForm } from './_components/contact-form';
 import { ContactHero } from './_components/contact-hero';
 import { ContactInfo } from './_components/contact-info';
+import { ContactSection } from './_components/contact-section';
+import { FAQ } from './_components/faq';
 
 export const metadata: Metadata = {
-  title: 'Contact Us',
+  title: 'Contact Us - Start Your Project | 10on10Labs',
+  description:
+    'Get in touch with our expert team to discuss your project. Quick response guaranteed within 24 hours.',
 };
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen w-full">
+    <div className="min-h-screen w-full overflow-x-hidden">
       <ContactHero />
+      <ContactSection />
       <ContactInfo />
-      <div className="container mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-2 gap-12">
-        <ContactForm />
-        <CalendlyEmbed />
-      </div>
+      <FAQ />
     </div>
   );
 }
