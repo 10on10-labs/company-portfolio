@@ -79,9 +79,11 @@ export const BlogBannerCard: FC<Props> = ({
               </a>
             </div>
           </div>
-          <span className="capitalize">
-            last modified: {format(new Date(modifiedAt || Date.now()), 'MMMM d, yyyy')}
-          </span>
+          {modifiedAt && (
+            <span className="capitalize">
+              last modified: {format(new Date(modifiedAt), 'MMMM d, yyyy')}
+            </span>
+          )}
         </div>
       </CardFooter>
     </Card>

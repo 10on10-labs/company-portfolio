@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import { sanityClient } from '@/sanity/lib/client';
 import { urlFor } from '@/sanity/lib/image';
 import { blogBySlugQuery, blogsSlugQuery } from '@/sanity/lib/queries';
@@ -36,18 +37,26 @@ const fetchBlogBySlug = async (slug: string) => {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const blog = await fetchBlogBySlug(slug);
+
+  if (!blog) {
+    return {
+      title: 'Blog Not Found',
+      description: 'The blog post you are looking for does not exist.',
+    };
+  }
+
   return {
-    title: { absolute: `Blog - ${blog?.title}` },
-    description: blog?.subTitle,
+    title: { absolute: `Blog - ${blog.title}` },
+    description: blog.subTitle,
     category: 'blog',
     applicationName: '10on10Labs',
-    authors: { name: blog?.author?.name || '' },
+    authors: { name: blog.author?.name || '' },
     openGraph: {
       // url: new URL(`/blogs/${slug}`, process.env.NEXT_PUBLIC_DEPLOYED_URL).href,
-      title: blog?.title || '',
-      description: blog?.subTitle || '',
+      title: blog.title || '',
+      description: blog.subTitle || '',
       siteName: '10on10Labs',
-      ...(blog?.thumbnail && {
+      ...(blog.thumbnail && {
         images: [
           {
             url: urlFor(blog.thumbnail).width(225).url(),
@@ -70,6 +79,11 @@ export const revalidate = 43200; // 12 hours
 export default async function BlogDetailsPage({ params }: Props) {
   const { slug } = await params;
   const blog = await fetchBlogBySlug(slug);
+
+  if (!blog) {
+    notFound();
+  }
+
   const blogsWithSameCategory = await fetchBlogsByCategorySlugs(
     blog?.blogCategories?.map(category => category.slug).filter(slug => slug !== null),
   );
