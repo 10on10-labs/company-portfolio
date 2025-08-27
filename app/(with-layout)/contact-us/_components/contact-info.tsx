@@ -15,9 +15,9 @@ export function ContactInfo() {
     {
       icon: Phone,
       title: 'Phone',
-      primary: '+92 300 1234567',
+      primary: '+92 334 5600371',
       secondary: 'Mon-Fri from 9am to 6pm',
-      action: 'tel:+923001234567',
+      action: 'tel:+923345600371',
     },
     {
       icon: MapPin,
