@@ -15,6 +15,15 @@ const config: NextConfig = {
     viewTransition: true,
     optimizePackageImports: ['@/components'],
   },
+  async redirects() {
+    return [
+      {
+        source: '/studio',
+        destination: 'https://company-portfolio.sanity.studio/',
+        permanent: false,
+      },
+    ];
+  },
   images: {
     remotePatterns: [
       { hostname: 'cdn.sanity.io' },

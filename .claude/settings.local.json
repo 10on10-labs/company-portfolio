@@ -10,7 +10,8 @@
       "Bash(node:*)",
       "Bash(pnpm typecheck:*)",
       "Bash(pnpm add:*)",
-      "Bash(pnpm turbo run dev:*)"
+      "Bash(pnpm turbo run dev:*)",
+      "Bash(pnpm install:*)"
     ],
     "deny": [],
     "ask": []
