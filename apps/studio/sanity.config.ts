@@ -7,7 +7,6 @@ import {
   apiVersion,
   dataset,
   projectId,
-  studioUrl,
 } from "@company/sanity-shared/api";
 import * as resolve from "./sanity/plugins/resolve";
 import { codeInput } from "@sanity/code-input";
@@ -17,17 +16,18 @@ import { defineConfig } from "sanity";
 import { unsplashImageAsset } from "sanity-plugin-asset-source-unsplash";
 import { presentationTool } from "sanity/presentation";
 import { structureTool } from "sanity/structure";
-
+import LogoIcon from "./logo-icon";
 import { sanitySchema, structure } from "./sanity/schemas";
 
 const title =
   process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE ||
-  "Next.js Personal Website with Sanity.io";
+  "10on10 Labs";
 
 export default defineConfig({
   basePath: "/", // Studio is standalone now, not under /studio
   projectId: projectId || "",
   dataset: dataset || "",
+  icon: LogoIcon,
   title,
   schema: sanitySchema,
   plugins: [

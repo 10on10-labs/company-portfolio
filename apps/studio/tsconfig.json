@@ -22,7 +22,9 @@
     "sourceMap": true,
     "noEmit": true,
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "@company/sanity-shared/*": ["../../packages/sanity-shared/src/*"],
+      "@company/sanity-shared": ["../../packages/sanity-shared/src"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx"],

@@ -18,6 +18,7 @@
     "start": "turbo run start",
     "start:web": "turbo run start --filter=@company/web",
     "start:studio": "turbo run start --filter=@company/studio",
+    "deploy:studio": "cd apps/studio && pnpm sanity deploy",
     "typecheck": "turbo run typecheck",
     "typegen": "turbo run typegen",
     "prepare": "husky"

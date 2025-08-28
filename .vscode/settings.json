@@ -51,16 +51,14 @@
     "**/node_modules": true,
     "**/.next": true,
     "**/.turbo": true,
-    "**/dist": true,
     "**/.sanity": true
   },
   "search.exclude": {
     "**/node_modules": true,
     "**/.next": true,
     "**/.turbo": true,
-    "**/dist": true,
     "**/.sanity": true,
-    "**/pnpm-lock.yaml": true
+    "***/pnpm-lock.yaml": true
   },
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true
