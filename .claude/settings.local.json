@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:www.sanity.io)",
+      "WebFetch(domain:turbo.build)",
+      "WebFetch(domain:turborepo.com)",
+      "Bash(pnpm turbo run build:*)",
+      "Bash(npx turbo:*)",
+      "Bash(powershell:*)",
+      "Bash(node:*)",
+      "Bash(pnpm typecheck:*)",
+      "Bash(pnpm add:*)",
+      "Bash(pnpm turbo run dev:*)",
+      "Bash(pnpm install:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
