@@ -1,0 +1,29 @@
+{
+  "HomePage": {
+    "title": "Hello world!"
+  },
+  "Services": {
+    "title": "Our Services & Expertise",
+    "description": "From strategic design to flawless development, we deliver comprehensive digital solutions that achieve a perfect 10/10.",
+    "ourExpertise": "Our Expertise",
+    "searchPlaceholder": "Search services...",
+    "allServices": "All Services",
+    "noServicesFound": "No services found matching your criteria.",
+    "clearFilters": "Clear filters",
+    "cta": {
+      "title": "Ready to Get Started?",
+      "description": "Let's discuss how our services can help transform your business and achieve your goals.",
+      "scheduleButton": "Schedule a Consultation",
+      "portfolioButton": "View Our Portfolio"
+    },
+    "projectShowcase": {
+      "title": "Our Portfolio & Case Studies",
+      "description": "Discover how we've helped businesses create exceptional digital experiences through innovative frontend solutions",
+      "viewProject": "View Project",
+      "viewAllCaseStudies": "View All Case Studies"
+    }
+  },
+  "LocaleSwitcher": {
+    "locale": "{locale, select, en {en} ar {ar} other {Unknown}}"
+  }
+}

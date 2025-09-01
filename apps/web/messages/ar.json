@@ -1,0 +1,29 @@
+{
+  "HomePage": {
+    "title": "أهلا بالعالم!"
+  },
+  "Services": {
+    "title": "خدماتنا وخبراتنا",
+    "description": "من التصميم الاستراتيجي إلى التطوير المثالي، نقدم حلولاً رقمية شاملة تحقق النتيجة المثالية 10/10.",
+    "ourExpertise": "خبراتنا",
+    "searchPlaceholder": "البحث في الخدمات...",
+    "allServices": "جميع الخدمات",
+    "noServicesFound": "لم يتم العثور على خدمات تطابق معاييرك.",
+    "clearFilters": "مسح المرشحات",
+    "cta": {
+      "title": "جاهز للبدء؟",
+      "description": "دعنا نناقش كيف يمكن لخدماتنا أن تساعد في تحويل عملك وتحقيق أهدافك.",
+      "scheduleButton": "جدولة استشارة",
+      "portfolioButton": "اعرض أعمالنا"
+    },
+    "projectShowcase": {
+      "title": "أعمالنا ودراسات الحالة",
+      "description": "اكتشف كيف ساعدنا الشركات على إنشاء تجارب رقمية استثنائية من خلال حلول الواجهات الأمامية المبتكرة",
+      "viewProject": "عرض المشروع",
+      "viewAllCaseStudies": "عرض جميع دراسات الحالة"
+    }
+  },
+  "LocaleSwitcher": {
+    "locale": "{locale, select, en {en} ar {ar} other {Unknown}}"
+  }
+}

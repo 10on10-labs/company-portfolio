@@ -5,7 +5,7 @@ import { defineCliConfig } from "sanity/cli";
 const projectId = process.env.SANITY_STUDIO_PROJECT_ID || "yxvq3m09";
 const dataset = process.env.SANITY_STUDIO_DATASET || "production";
 
-export default defineCliConfig({ 
-  api: { projectId, dataset }
+export default defineCliConfig({
+  api: { projectId, dataset },
   // studioHost is only needed for custom domains
 });

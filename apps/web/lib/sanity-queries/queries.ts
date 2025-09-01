@@ -90,11 +90,12 @@ export const slugsByTypeQuery = defineQuery(`
   *[_type == $type && defined(slug.current)]{"slug": slug.current}
 `);
 export const servicesQuery = defineQuery(`
-  *[_type == "service"] {
+  *[_type == "service" && language == $language] {
     name,
     "id": id.current,
     description,
-    categories
+    categories,
+    language
   }
 `);
 

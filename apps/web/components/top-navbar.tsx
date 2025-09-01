@@ -2,9 +2,10 @@
 
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { Link, usePathname } from '@/src/i18n/navigation';
 import { AnimatePresence, motion, Variants } from 'motion/react';
+
+import LocaleSwitcher from './locale-switcher';
 
 // Define menu items matching homepage section order
 const menuItems = [
@@ -236,6 +237,11 @@ export const TopNavbar = () => {
                     </span>
                     <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full"></div>
                   </Link>
+                </li>
+
+                {/* Language Switcher */}
+                <li className="lg:pl-1 xl:pl-2">
+                  <LocaleSwitcher />
                 </li>
               </ul>
             </div>

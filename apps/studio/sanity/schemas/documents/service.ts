@@ -6,6 +6,12 @@ export const service = defineType({
   type: "document",
   fields: [
     defineField({
+      name: "language",
+      type: "string",
+      readOnly: true,
+      hidden: true,
+    }),
+    defineField({
       name: "name",
       title: "Service Name",
       type: "string",
@@ -18,6 +24,23 @@ export const service = defineType({
       options: {
         source: "name",
         maxLength: 96,
+        isUnique: async (value, context) => {
+          const { getClient, document } = context;
+          if (!document?.language) {
+            return true;
+          }
+          const client = getClient({ apiVersion: "2023-04-24" });
+          const id = document._id.replace("drafts.", "");
+          const params = {
+            draft: `drafts.${id}`,
+            published: id,
+            language: document.language,
+            slug: value,
+          };
+          const query = `!defined(*[_type == "service" && language == $language && id.current == $slug && !(_id in [$draft, $published])][0]._id)`;
+          const isUnique = await client.fetch(query, params);
+          return isUnique;
+        },
       },
       validation: (rule) => rule.required(),
     }),
@@ -90,6 +113,87 @@ export const service = defineType({
           title: "Subheadline",
           type: "text",
           rows: 2,
+        }),
+        defineField({
+          name: "primaryButtonText",
+          title: "Primary Button Text",
+          type: "string",
+          initialValue: "Start Your Project",
+        }),
+        defineField({
+          name: "secondaryButtonText",
+          title: "Secondary Button Text",
+          type: "string",
+          initialValue: "View Our Work",
+        }),
+      ],
+    }),
+
+    // Features Section Content
+    defineField({
+      name: "featuresSection",
+      title: "Features Section",
+      type: "object",
+      fields: [
+        defineField({
+          name: "title",
+          title: "Section Title",
+          type: "string",
+          initialValue: "Why Choose Our Service",
+        }),
+        defineField({
+          name: "description",
+          title: "Section Description",
+          type: "text",
+          rows: 2,
+          initialValue:
+            "We combine technical expertise with creative vision to deliver outstanding solutions",
+        }),
+      ],
+    }),
+
+    // Technologies Section Content
+    defineField({
+      name: "technologiesSection",
+      title: "Technologies Section",
+      type: "object",
+      fields: [
+        defineField({
+          name: "title",
+          title: "Section Title",
+          type: "string",
+          initialValue: "Technologies We Master",
+        }),
+        defineField({
+          name: "description",
+          title: "Section Description",
+          type: "text",
+          rows: 2,
+          initialValue:
+            "Leveraging cutting-edge technologies to build modern applications",
+        }),
+      ],
+    }),
+
+    // Process Section Content
+    defineField({
+      name: "processSection",
+      title: "Process Section",
+      type: "object",
+      fields: [
+        defineField({
+          name: "title",
+          title: "Section Title",
+          type: "string",
+          initialValue: "Our Development Process",
+        }),
+        defineField({
+          name: "description",
+          title: "Section Description",
+          type: "text",
+          rows: 2,
+          initialValue:
+            "A proven methodology that ensures project success from concept to deployment",
         }),
       ],
     }),

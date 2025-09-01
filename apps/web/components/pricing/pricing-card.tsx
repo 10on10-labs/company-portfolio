@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import { Link } from '@/src/i18n/navigation';
 import { Check, Star } from 'lucide-react';
 import { motion } from 'motion/react';
 
