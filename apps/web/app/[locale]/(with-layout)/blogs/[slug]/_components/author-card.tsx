@@ -1,6 +1,6 @@
 import { FC } from 'react';
+import { Author } from '@company/sanity-shared';
 
-import { Author } from '@/types/sanity.types';
 import { urlFor } from '@/lib/image';
 import { getAbbreviation } from '@/lib/utils';
 import { CustomPortableText } from '@/components/custom-portable-text';

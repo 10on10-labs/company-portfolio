@@ -1,4 +1,4 @@
-import { CompanyTimelineQueryResult } from '@/types/sanity.types';
+import { CompanyTimelineQueryResult } from '@company/sanity-shared';
 
 type NonNullTimelineItems = NonNullable<CompanyTimelineQueryResult>;
 

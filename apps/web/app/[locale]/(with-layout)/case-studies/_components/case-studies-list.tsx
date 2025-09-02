@@ -2,10 +2,10 @@
 
 import Image from 'next/image';
 import { Link } from '@/src/i18n/navigation';
+import { AllProjectsQueryResult } from '@company/sanity-shared';
 import { ArrowRight } from 'lucide-react';
 import { motion } from 'motion/react';
 
-import { AllProjectsQueryResult } from '@/types/sanity.types';
 import { urlFor } from '@/lib/image';
 
 interface Props {

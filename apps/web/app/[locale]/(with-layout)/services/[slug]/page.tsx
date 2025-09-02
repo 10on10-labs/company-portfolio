@@ -1,6 +1,7 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
 import { Link } from '@/src/i18n/navigation';
+import { ServiceQueryResult } from '@company/sanity-shared';
 import { sanityClient } from '@company/sanity-shared/client';
 import {
   ArrowRight,
@@ -21,10 +22,8 @@ import {
   Users,
   Zap,
 } from 'lucide-react';
-import { groq } from 'next-sanity';
 
-import { ServiceQueryResult } from '@/types/sanity.types';
-import { allProjectsQuery } from '@/lib/sanity-queries';
+import { allProjectsQuery, serviceQuery, servicesSlugQuery } from '@/lib/sanity-queries';
 
 import ProjectShowcase from './_components/project-showcase';
 
@@ -47,83 +46,16 @@ const iconMap: Record<string, any> = {
   settings: Settings,
 };
 
-// Query for single service with localization
-const serviceQuery = groq`
-  *[_type == "service" && id.current == $slug && language == $language][0] {
-    _id,
-    name,
-    "slug": id.current,
-    shortDescription,
-    description,
-    categories,
-    icon,
-    heroSection {
-      tagline,
-      headline,
-      subheadline,
-      primaryButtonText,
-      secondaryButtonText
-    },
-    featuresSection {
-      title,
-      description
-    },
-    technologiesSection {
-      title,
-      description
-    },
-    processSection {
-      title,
-      description
-    },
-    features[] {
-      title,
-      description,
-      icon
-    },
-    technologies[] {
-      name,
-      icon
-    },
-    processSteps[] {
-      number,
-      title,
-      description
-    },
-    benefits,
-    whyChooseUs {
-      headline,
-      description,
-      reasons[] {
-        title,
-        description,
-        icon
-      }
-    },
-    ctaSection {
-      headline,
-      description,
-      primaryButtonText,
-      secondaryButtonText
-    },
-    seo {
-      metaTitle,
-      metaDescription
-    }
-  }
-`;
-
-// Query for all unique service slugs (for generateStaticParams)
-const servicesSlugQuery = groq`
-  *[_type == "service"] {
-    "slug": id.current
-  } | order(slug)
-`;
-
 export async function generateStaticParams() {
   const services = await sanityClient.fetch(servicesSlugQuery);
   // Get unique slugs - Next.js will generate paths for each locale automatically
-  const uniqueSlugs = [...new Set(services.map((service: { slug: string }) => service.slug))];
+  const uniqueSlugs = [
+    ...new Set(
+      services
+        .map((service: { slug: string | null }) => service.slug)
+        .filter((slug): slug is string => slug !== null),
+    ),
+  ];
   return uniqueSlugs.map(slug => ({
     slug: slug,
   }));
@@ -217,7 +149,6 @@ export default async function ServiceDetailPage({
           </div>
         </div>
       </section>
-
       {/* Features Grid */}
       {service.features && service.features.length > 0 && (
         <section className="py-16 md:py-20 bg-gray-50">
@@ -250,7 +181,6 @@ export default async function ServiceDetailPage({
           </div>
         </section>
       )}
-
       {/* Technology Stack */}
       {service.technologies && service.technologies.length > 0 && (
         <section className="py-16 md:py-20 bg-gray-900">
@@ -279,7 +209,6 @@ export default async function ServiceDetailPage({
           </div>
         </section>
       )}
-
       {/* Process Section */}
       {service.processSteps && service.processSteps.length > 0 && (
         <section className="py-16 md:py-20 bg-gray-50">
@@ -313,7 +242,6 @@ export default async function ServiceDetailPage({
           </div>
         </section>
       )}
-
       {/* Why Choose Us Section */}
       {service.whyChooseUs && (
         <section className="py-16 md:py-20 bg-gray-900">
@@ -356,10 +284,8 @@ export default async function ServiceDetailPage({
           </div>
         </section>
       )}
-
       {/* Projects Showcase */}
       <ProjectShowcase projects={projects} />
-
       {/* CTA Section */}
       {service.ctaSection && (
         <section className="py-20 bg-primary">

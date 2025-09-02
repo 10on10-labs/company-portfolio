@@ -1,4 +1,5 @@
-import { ServicesQueryResult } from '@/types/sanity.types';
+import { ServicesQueryResult } from '@company/sanity-shared';
+
 import {
   Card,
   CardContent,

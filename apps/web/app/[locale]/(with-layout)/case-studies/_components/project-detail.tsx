@@ -1,6 +1,6 @@
 'use client';
 
-import type { ProjectBySlugQueryResult } from '@/types/sanity.types';
+import type { ProjectBySlugQueryResult } from '@company/sanity-shared';
 
 import { ProjectCTASection } from './project-cta-section';
 import { ProjectFeaturesSection } from './project-features-section';

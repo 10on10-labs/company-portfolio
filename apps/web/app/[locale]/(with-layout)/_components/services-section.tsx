@@ -1,10 +1,10 @@
 'use client';
 
 import { Link } from '@/src/i18n/navigation';
+import { ServicesQueryResult } from '@company/sanity-shared';
 import { ArrowRight, Palette, Sparkles } from 'lucide-react';
 import { motion } from 'motion/react';
 
-import { ServicesQueryResult } from '@/types/sanity.types';
 import ServiceCardSimple from '@/components/services/service-card-simple';
 
 interface ServicesSectionProps {

@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
+import { BlogsByCategoryQueryResult } from '@company/sanity-shared';
 import { sanityClient } from '@company/sanity-shared/client';
 
-import { BlogsByCategoryQueryResult } from '@/types/sanity.types';
 import { urlFor } from '@/lib/image';
 import { blogCategoriesQuery, blogsByCategoryQuery } from '@/lib/sanity-queries';
 import {

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Link } from '@/src/i18n/navigation';
+import { ServicesQueryResult } from '@company/sanity-shared';
 import {
   ArrowRight,
   BarChart3,
@@ -19,8 +20,6 @@ import {
   Smartphone,
   Zap,
 } from 'lucide-react';
-
-import { ServicesQueryResult } from '@/types/sanity.types';
 
 interface ServiceCardSimpleProps {
   service: ServicesQueryResult[number];

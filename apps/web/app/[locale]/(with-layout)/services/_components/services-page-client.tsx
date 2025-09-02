@@ -1,10 +1,10 @@
 'use client';
 
 import { useState } from 'react';
+import { ServicesQueryResult } from '@company/sanity-shared';
 import { Layers, Palette, Search, Shield, Sparkles, Zap } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
-import { ServicesQueryResult } from '@/types/sanity.types';
 import ServiceCardSimple from '@/components/services/service-card-simple';
 
 interface ServicesPageClientProps {

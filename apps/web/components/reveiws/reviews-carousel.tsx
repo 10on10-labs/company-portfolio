@@ -1,8 +1,8 @@
 'use client';
 
 import { FC } from 'react';
+import { TestimonialsQueryResult } from '@company/sanity-shared';
 
-import { TestimonialsQueryResult } from '@/types/sanity.types';
 import { urlFor } from '@/lib/image';
 import {
   Carousel,

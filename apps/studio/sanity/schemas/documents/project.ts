@@ -46,6 +46,41 @@ export const project = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: "technologies",
+      title: "Technology Stack",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          fields: [
+            defineField({
+              name: "name",
+              title: "Technology Name",
+              type: "string",
+            }),
+            defineField({
+              name: "icon",
+              title: "Icon/Emoji",
+              type: "string",
+              description: "Emoji or icon identifier (e.g., ⚛️ for React)",
+            }),
+          ],
+        },
+      ],
+    }),
+    defineField({
+      name: "services",
+      title: "Related Services",
+      type: "array",
+      of: [
+        {
+          type: "reference",
+          to: [{ type: "service" }],
+        },
+      ],
+      description: "Services this project is related to",
+    }),
+    defineField({
       name: "logo",
       title: "Logo",
       type: "image",

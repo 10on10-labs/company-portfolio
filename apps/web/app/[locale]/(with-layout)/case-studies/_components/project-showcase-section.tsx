@@ -1,10 +1,10 @@
 'use client';
 
 import Image from 'next/image';
+import { ProjectBySlugQueryResult } from '@company/sanity-shared';
 import { Sparkles } from 'lucide-react';
 import { motion } from 'motion/react';
 
-import { ProjectBySlugQueryResult } from '@/types/sanity.types';
 import { urlFor } from '@/lib/image';
 import { CustomPortableText } from '@/components/custom-portable-text';
 

@@ -1,4 +1,5 @@
-import { TestimonialsQueryResult } from '@/types/sanity.types';
+import { TestimonialsQueryResult } from '@company/sanity-shared';
+
 import { ReviewsCarousel } from '@/components/reveiws/reviews-carousel';
 
 interface ReviewsSectionProps {

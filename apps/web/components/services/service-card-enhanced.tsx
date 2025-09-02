@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { ServicesQueryResult } from '@company/sanity-shared';
 import {
   Binary,
   Blocks,
@@ -40,8 +41,6 @@ import {
   Workflow,
   Wrench,
 } from 'lucide-react';
-
-import { ServicesQueryResult } from '@/types/sanity.types';
 
 interface ServiceCardEnhancedProps {
   service: ServicesQueryResult[number];

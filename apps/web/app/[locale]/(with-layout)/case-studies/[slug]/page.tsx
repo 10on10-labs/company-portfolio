@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { Metadata } from 'next';
+import { ProjectBySlugQueryResult } from '@company/sanity-shared';
 import { sanityClient } from '@company/sanity-shared/client';
 
-import { ProjectBySlugQueryResult } from '@/types/sanity.types';
 import { urlFor } from '@/lib/image';
 import { allProjectsQuery, projectBySlugQuery } from '@/lib/sanity-queries';
 

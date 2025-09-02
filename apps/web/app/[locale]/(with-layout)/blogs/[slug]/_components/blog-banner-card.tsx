@@ -1,8 +1,8 @@
 import { FC } from 'react';
+import { Author } from '@company/sanity-shared';
 import { format } from 'date-fns';
 import { Facebook, Linkedin } from 'lucide-react';
 
-import { Author } from '@/types/sanity.types';
 import { urlFor } from '@/lib/image';
 import { Icons } from '@/components/icons';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/shadcn/avatar';

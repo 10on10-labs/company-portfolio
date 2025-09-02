@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next';
+import { AllProjectsQueryResult, BlogsByCategoryQueryResult } from '@company/sanity-shared';
 import { sanityClient } from '@company/sanity-shared/client';
 
-import { AllProjectsQueryResult, BlogsByCategoryQueryResult } from '@/types/sanity.types';
 import { allProjectsQuery, blogsByCategoryQuery } from '@/lib/sanity-queries';
 
 const baseUrl = process.env.NEXT_PUBLIC_DEPLOYED_URL || 'https://www.10on10labs.com';

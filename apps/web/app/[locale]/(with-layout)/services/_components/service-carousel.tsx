@@ -1,6 +1,6 @@
 import React from 'react';
+import { ServicesQueryResult } from '@company/sanity-shared';
 
-import { ServicesQueryResult } from '@/types/sanity.types';
 import {
   Carousel,
   CarouselContent,

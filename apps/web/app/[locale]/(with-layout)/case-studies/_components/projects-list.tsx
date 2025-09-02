@@ -1,8 +1,7 @@
 'use client';
 
+import { AllProjectsQueryResult } from '@company/sanity-shared';
 import { motion, Variants } from 'motion/react';
-
-import { AllProjectsQueryResult } from '@/types/sanity.types';
 
 import { ProjectCard } from './project-card';
 

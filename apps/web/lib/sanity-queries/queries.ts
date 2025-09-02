@@ -50,6 +50,7 @@ export const projectBySlugQuery = defineQuery(`
     "timeline": string(projectDimensions.timeline.value) + " " + coalesce(projectDimensions.timeline.unit, ""),
   }
 `);
+
 export const allProjectsQuery = defineQuery(`
   *[_type == "project"] | order(priority asc, _createdAt desc) {
     _id,

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Metadata } from 'next';
+import { CompanyLeadershipQueryResult, CompanyTimelineQueryResult } from '@company/sanity-shared';
 import { sanityClient } from '@company/sanity-shared/client';
 import { ArrowRight, Award, CheckCircle, Rocket, Target, Users } from 'lucide-react';
 
-import { CompanyLeadershipQueryResult, CompanyTimelineQueryResult } from '@/types/sanity.types';
 import { companyLeadershipQuery, companyTimelineQuery } from '@/lib/sanity-queries/about-queries';
 
 import { CompanyTimeline } from './_components/company-timeline';

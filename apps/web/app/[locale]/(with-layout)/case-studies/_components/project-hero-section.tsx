@@ -2,10 +2,10 @@
 
 import Image from 'next/image';
 import { Link } from '@/src/i18n/navigation';
+import { ProjectBySlugQueryResult } from '@company/sanity-shared';
 import { ArrowLeft, Calendar, ExternalLinkIcon, Layers, Target, Users } from 'lucide-react';
 import { motion } from 'motion/react';
 
-import { ProjectBySlugQueryResult } from '@/types/sanity.types';
 import { urlFor } from '@/lib/image';
 
 import { MacBookCarousel } from './macbook-carousel';

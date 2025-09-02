@@ -2,10 +2,10 @@
 
 import { FC, useState } from 'react';
 import Image from 'next/image';
+import { AllProjectsQueryResult } from '@company/sanity-shared';
 import { CloseIcon } from '@sanity/icons';
 import { motion } from 'motion/react';
 
-import { AllProjectsQueryResult } from '@/types/sanity.types';
 import { urlFor } from '@/lib/image';
 
 import { ProjectDetail } from './project-detail';

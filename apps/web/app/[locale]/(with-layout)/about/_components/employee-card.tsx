@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import Image from 'next/image';
+import { CompanyLeadershipQueryResult } from '@company/sanity-shared';
 import { ExternalLink } from 'lucide-react';
 
-import { CompanyLeadershipQueryResult } from '@/types/sanity.types';
 import { urlFor } from '@/lib/image';
 
 type NonNullTimelineItems = NonNullable<CompanyLeadershipQueryResult>;
