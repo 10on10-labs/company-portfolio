@@ -17,7 +17,7 @@ export default function LocaleSwitcher() {
   // Language display config
   const languageConfig = {
     en: { label: 'EN', flag: '🇺🇸', name: 'English' },
-    ar: { label: 'العربية', flag: '🇸🇦', name: 'Arabic' },
+    ar: { label: 'AR', flag: '🇸🇦', name: 'Arabic' },
   };
 
   function onSelectChange(nextLocale: string) {

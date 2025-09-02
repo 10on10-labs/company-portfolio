@@ -193,14 +193,14 @@ export default async function ServiceDetailPage({
                   href="/contact-us"
                   className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-white font-semibold rounded-full hover:bg-primary/90 transition-colors"
                 >
-                  {service.heroSection?.primaryButtonText || 'Start Your Project'}
+                  {service.ctaSection?.primaryButtonText || 'Start Your Project'}
                   <ArrowRight className="w-5 h-5" />
                 </Link>
                 <Link
                   href="/case-studies"
                   className="inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-gray-300 text-gray-700 font-semibold rounded-full hover:border-primary hover:text-primary transition-colors"
                 >
-                  {service.heroSection?.secondaryButtonText || 'View Our Work'}
+                  {service.ctaSection?.secondaryButtonText || 'View Our Work'}
                 </Link>
               </div>
             </div>
@@ -224,11 +224,10 @@ export default async function ServiceDetailPage({
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                {service.featuresSection?.title || `Why Choose Our ${service.name}`}
+                {`Why Choose Our ${service.name}`}
               </h2>
               <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                {service.featuresSection?.description ||
-                  'We combine technical expertise with creative vision to deliver outstanding solutions'}
+                We combine technical expertise with creative vision to deliver outstanding solutions
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -258,11 +257,10 @@ export default async function ServiceDetailPage({
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                {service.technologiesSection?.title || 'Technologies We Master'}
+                Technologies We Master
               </h2>
               <p className="text-lg text-gray-300 max-w-3xl mx-auto">
-                {service.technologiesSection?.description ||
-                  'Leveraging cutting-edge technologies to build modern applications'}
+                Leveraging cutting-edge technologies to build modern applications
               </p>
             </div>
             <div className="flex flex-wrap justify-center gap-6 mb-12">
@@ -288,11 +286,10 @@ export default async function ServiceDetailPage({
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                {service.processSection?.title || 'Our Development Process'}
+                Our Development Process
               </h2>
               <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                {service.processSection?.description ||
-                  'A proven methodology that ensures project success from concept to deployment'}
+                A proven methodology that ensures project success from concept to deployment
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">

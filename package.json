@@ -20,7 +20,7 @@
     "start:studio": "turbo run start --filter=@company/studio",
     "deploy:studio": "cd apps/studio && pnpm sanity deploy",
     "typecheck": "turbo run typecheck",
-    "typegen": "turbo run typegen",
+    "typegen": "cd apps/studio  && pnpm run typegen",
     "prepare": "husky"
   },
   "devDependencies": {
