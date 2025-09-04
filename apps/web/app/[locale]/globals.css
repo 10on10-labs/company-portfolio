@@ -201,24 +201,3 @@ main {
 [dir='rtl'] {
   text-align: right;
 }
-
-/* Ensure proper RTL behavior for flex layouts */
-[dir='rtl'] .flex {
-  direction: rtl;
-}
-
-/* Fix button and input padding for RTL */
-[dir='rtl'] button,
-[dir='rtl'] input {
-  text-align: right;
-}
-
-/* Navigation adjustments for RTL */
-[dir='rtl'] nav ul {
-  direction: rtl;
-}
-
-/* Icon adjustments for RTL - flip horizontally when needed */
-[dir='rtl'] .rtl-flip {
-  transform: scaleX(-1);
-}

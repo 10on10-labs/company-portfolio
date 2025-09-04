@@ -16,7 +16,7 @@ export const ServiceCard = ({
   step: string | number;
 }) => {
   return (
-    <Card className="rounded-3xl w-full  pl-5 pr-5 pt-10 pb-10 border border-secondary shadow-sm">
+    <Card className="rounded-3xl w-full pl-5 rtl:pl-5 rtl:pr-5 pr-5 pt-10 pb-10 border border-secondary shadow-sm">
       <CardHeader>
         <CardTitle className="flex justify-between items-center mb-4 capitalize">
           <h2 className="text-2xl font-bold tracking-tight">{service?.name}</h2>

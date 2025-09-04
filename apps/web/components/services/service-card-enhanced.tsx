@@ -136,7 +136,7 @@ export default function ServiceCardEnhanced({
       <div className="relative h-full bg-white rounded-2xl overflow-hidden border border-gray-100 hover:border-primary/30 transition-transform transition-shadow duration-300 hover:shadow-xl shadow-sm flex flex-col transform-gpu">
         {/* Premium Badge for Featured */}
         {featured && index === 0 && (
-          <div className="absolute top-4 right-4 z-20">
+          <div className="absolute top-4 right-4 rtl:right-auto rtl:left-4 z-20">
             <div className="flex items-center gap-1 bg-gradient-to-r from-primary to-primary/80 text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-lg">
               <Sparkles className="w-3 h-3" />
               Popular

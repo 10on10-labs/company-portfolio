@@ -162,6 +162,7 @@ export function ContactForm() {
                   onBlur={() => setFocusedField(null)}
                   className="h-12 pl-4 pr-4 bg-background/50 border-border/50 focus:border-primary focus:bg-background rounded-xl transition-all"
                   placeholder="john@example.com"
+                  dir="ltr"
                 />
                 {focusedField === 'email' && (
                   <motion.div

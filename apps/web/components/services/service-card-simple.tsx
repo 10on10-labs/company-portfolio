@@ -20,6 +20,7 @@ import {
   Smartphone,
   Zap,
 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 interface ServiceCardSimpleProps {
   service: ServicesQueryResult[number];
@@ -50,6 +51,7 @@ const iconMap: Record<string, any> = {
 };
 
 export default function ServiceCardSimple({ service, index }: ServiceCardSimpleProps) {
+  const t = useTranslations('Services');
   const [showAll, setShowAll] = useState(false);
 
   const getIcon = (service: any) => {
@@ -110,7 +112,9 @@ export default function ServiceCardSimple({ service, index }: ServiceCardSimpleP
                 }}
                 className="flex items-center gap-1 text-xs text-primary hover:text-primary/80 font-medium mt-2"
               >
-                {showAll ? 'Show less' : `View ${categories.length - 4} more`}
+                {showAll
+                  ? t('card.show_less')
+                  : t('card.view_more', { count: categories.length - 4 })}
                 <ChevronDown
                   className={`w-3 h-3 transition-transform ${showAll ? 'rotate-180' : ''}`}
                 />
@@ -121,8 +125,8 @@ export default function ServiceCardSimple({ service, index }: ServiceCardSimpleP
 
         {/* View Service Link */}
         <div className="flex items-center gap-2 text-primary font-medium mt-4 opacity-0 group-hover:opacity-100 transition-opacity">
-          <span className="text-sm">View Service</span>
-          <ArrowRight className="w-4 h-4" />
+          <span className="text-sm">{t('card.view_service')}</span>
+          <ArrowRight className="w-4 h-4 rtl:rotate-180" />
         </div>
       </div>
     </Link>

@@ -29,8 +29,8 @@ export const ServicesCarousel: React.FC<Props> = ({ services }) => {
             );
           })}
         </CarouselContent>
-        <CarouselPrevious className="-left-3" />
-        <CarouselNext className="-right-3" />
+        <CarouselPrevious className="-left-3 rtl:-left-auto rtl:-right-3" />
+        <CarouselNext className="-right-3 rtl:-right-auto rtl:-left-3" />
       </Carousel>
     </>
   );

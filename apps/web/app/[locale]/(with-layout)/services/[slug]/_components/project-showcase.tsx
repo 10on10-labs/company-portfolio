@@ -15,21 +15,13 @@ interface ProjectShowcaseProps {
 export default function ProjectShowcase({ projects }: ProjectShowcaseProps) {
   const t = useTranslations('Services.projectShowcase');
 
-  // Filter projects that might be frontend-related based on category
-  const frontendProjects =
-    projects
-      ?.filter(project => {
-        const category = project?.category?.toLowerCase() || '';
-        return (
-          category.includes('frontend') ||
-          category.includes('web') ||
-          category.includes('react') ||
-          category.includes('ui')
-        );
-      })
-      .slice(0, 6) ||
-    projects?.slice(0, 6) ||
-    [];
+  // Show up to 6 related projects (or all if less than 6)
+  const displayProjects = projects?.slice(0, 6) || [];
+
+  // Don't render the section if there are no projects
+  if (!displayProjects.length) {
+    return null;
+  }
 
   return (
     <section className="py-16 md:py-20 bg-gray-50">
@@ -40,7 +32,7 @@ export default function ProjectShowcase({ projects }: ProjectShowcaseProps) {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {frontendProjects.map((project, index) => {
+          {displayProjects.map((project, index) => {
             const mainImage = project?.coverImages?.[0];
             const imageUrl = mainImage ? urlFor(mainImage)?.width(600)?.height(400)?.url() : null;
 
@@ -92,7 +84,7 @@ export default function ProjectShowcase({ projects }: ProjectShowcaseProps) {
                     {/* View Project Link */}
                     <div className="flex items-center gap-2 text-primary font-medium group-hover:gap-3 transition-all">
                       <span>{t('viewProject')}</span>
-                      <ArrowRight className="w-4 h-4" />
+                      <ArrowRight className="w-4 h-4 rtl:rotate-180" />
                     </div>
                   </div>
                 </div>
@@ -108,7 +100,7 @@ export default function ProjectShowcase({ projects }: ProjectShowcaseProps) {
             className="inline-flex items-center gap-3 px-8 py-4 bg-primary text-white font-semibold rounded-full hover:bg-primary/90 transition-all duration-300 group shadow-xl shadow-primary/20 hover:shadow-2xl hover:shadow-primary/30"
           >
             {t('viewAllCaseStudies')}
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform rtl:rotate-180" />
           </Link>
         </div>
       </div>

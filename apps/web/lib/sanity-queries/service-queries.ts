@@ -26,7 +26,12 @@ export const serviceQuery = defineQuery(`
     },
     processSection {
       title,
-      description
+      description,
+      processSteps[] {
+        number,
+        title,
+        description
+      }
     },
     features[] {
       title,
@@ -36,11 +41,6 @@ export const serviceQuery = defineQuery(`
     technologies[] {
       name,
       icon
-    },
-    processSteps[] {
-      number,
-      title,
-      description
     },
     benefits,
     whyChooseUs {
@@ -70,4 +70,24 @@ export const servicesSlugQuery = defineQuery(`
   *[_type == "service"] {
     "slug": id.current
   } | order(slug)
+`);
+
+// Query to get projects related to a specific service
+export const projectsByServiceQuery = defineQuery(`
+  *[_type == "project" && references(*[_type == "service" && id.current == $serviceSlug]._id)] | order(priority asc, _createdAt desc) {
+    _id,
+    "slug": slug.current,
+    name,
+    category,
+    description,
+    logo,
+    coverImages,
+    projectSections,
+    url,
+    priority,
+    "technologies": projectDimensions.technologies,
+    "iterations": projectDimensions.iterations,
+    "teamSize": projectDimensions.teamSize,
+    "timeline": string(projectDimensions.timeline.value) + " " + coalesce(projectDimensions.timeline.unit, ""),
+  }
 `);

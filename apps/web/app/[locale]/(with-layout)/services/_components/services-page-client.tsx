@@ -11,51 +11,45 @@ interface ServicesPageClientProps {
   services: ServicesQueryResult;
 }
 
-const expertiseData = {
-  'UI/UX Design - Our Core Expertise': [
-    {
-      title: 'Strategic UI/UX Design',
-      description:
-        "We don't just make things look good; we design intuitive user experiences that are both beautiful and effective. We start with a deep dive into user research and strategy to create a journey that delights your audience and achieves your business goals.",
-      icon: Sparkles,
-    },
-    {
-      title: 'Seamless User Interface (UI)',
-      description:
-        'From wireframes to pixel-perfect mockups, we design clean, modern, and memorable interfaces. We focus on every detail—typography, color palettes, and interactive elements—to create a visual identity that is consistent and captivating across all devices.',
-      icon: Palette,
-    },
-    {
-      title: 'Interactive Prototyping',
-      description:
-        'Bring your ideas to life before a single line of code is written. We create interactive prototypes that allow you to test user flows, gather feedback, and validate your concepts. This ensures the final product is a perfect fit for your users and avoids costly changes down the line.',
-      icon: Layers,
-    },
-    {
-      title: 'User Research & Testing',
-      description:
-        'We conduct thorough user research and usability testing to understand your audience deeply. This data-driven approach ensures our designs meet real user needs and deliver measurable business results.',
-      icon: Search,
-    },
-    {
-      title: 'Design Systems & Guidelines',
-      description:
-        'We create comprehensive design systems that ensure consistency across all touchpoints. Our detailed guidelines help maintain brand integrity as your product scales and evolves.',
-      icon: Shield,
-    },
-    {
-      title: 'Mobile-First Design',
-      description:
-        'With mobile users dominating the digital landscape, we prioritize mobile experiences. Our responsive designs ensure your product looks and works perfectly on every screen size.',
-      icon: Zap,
-    },
-  ],
-};
-
 export default function ServicesPageClient({ services }: ServicesPageClientProps) {
   const t = useTranslations('Services');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+
+  const expertiseData = {
+    [t('expertise.category_title')]: [
+      {
+        title: t('expertise.items.strategic_design.title'),
+        description: t('expertise.items.strategic_design.description'),
+        icon: Sparkles,
+      },
+      {
+        title: t('expertise.items.seamless_ui.title'),
+        description: t('expertise.items.seamless_ui.description'),
+        icon: Palette,
+      },
+      {
+        title: t('expertise.items.prototyping.title'),
+        description: t('expertise.items.prototyping.description'),
+        icon: Layers,
+      },
+      {
+        title: t('expertise.items.research_testing.title'),
+        description: t('expertise.items.research_testing.description'),
+        icon: Search,
+      },
+      {
+        title: t('expertise.items.design_systems.title'),
+        description: t('expertise.items.design_systems.description'),
+        icon: Shield,
+      },
+      {
+        title: t('expertise.items.mobile_first.title'),
+        description: t('expertise.items.mobile_first.description'),
+        icon: Zap,
+      },
+    ],
+  };
 
   // Get unique categories from all services
   const allCategories = Array.from(
@@ -95,13 +89,13 @@ export default function ServicesPageClient({ services }: ServicesPageClientProps
             {/* Search Bar */}
             <div className="max-w-2xl mx-auto mb-4">
               <div className="relative">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <Search className="absolute left-4 rtl:left-auto rtl:right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                 <input
                   type="text"
                   placeholder={t('searchPlaceholder')}
                   value={searchTerm}
                   onChange={e => setSearchTerm(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 rounded-full border border-gray-200 focus:border-primary focus:outline-none focus:ring-4 focus:ring-primary/10 transition-all bg-white"
+                  className="w-full pl-12 rtl:pl-4 rtl:pr-12 pr-4 py-3 rounded-full border border-gray-200 focus:border-primary focus:outline-none focus:ring-4 focus:ring-primary/10 transition-all bg-white"
                 />
               </div>
             </div>

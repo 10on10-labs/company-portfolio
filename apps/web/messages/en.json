@@ -1,29 +1,113 @@
 {
-  "HomePage": {
-    "title": "Hello world!"
-  },
-  "Services": {
-    "title": "Our Services & Expertise",
-    "description": "From strategic design to flawless development, we deliver comprehensive digital solutions that achieve a perfect 10/10.",
-    "ourExpertise": "Our Expertise",
-    "searchPlaceholder": "Search services...",
-    "allServices": "All Services",
-    "noServicesFound": "No services found matching your criteria.",
-    "clearFilters": "Clear filters",
-    "cta": {
-      "title": "Ready to Get Started?",
-      "description": "Let's discuss how our services can help transform your business and achieve your goals.",
-      "scheduleButton": "Schedule a Consultation",
-      "portfolioButton": "View Our Portfolio"
-    },
-    "projectShowcase": {
-      "title": "Our Portfolio & Case Studies",
-      "description": "Discover how we've helped businesses create exceptional digital experiences through innovative frontend solutions",
-      "viewProject": "View Project",
-      "viewAllCaseStudies": "View All Case Studies"
+  "home_page": {
+    "hero_section": {
+      "title": "10on10labs",
+      "heading": "Engineering digital perfection",
+      "paragraph": "We specialize in crafting seamless user experiences and building powerful frontend solutions that are a perfect 10/10.",
+      "cta_button": "See our work",
+      "trusted_by_text": "Trusted by the world’s best companies",
+      "stats": {
+        "projects_completed": "100+",
+        "years_of_experience": "5+",
+        "positive_reviews": "50+"
+      }
     }
   },
-  "LocaleSwitcher": {
-    "locale": "{locale, select, en {en} ar {ar} other {Unknown}}"
+  "navbar": {
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "pricing": "Pricing",
+    "case_studies": "Case Studies",
+    "process": "Process",
+    "insights": "Insights",
+    "reviews": "Reviews",
+    "contact_us": "Contact Us",
+    "contact_us_short": "Contact",
+    "open_menu": "Open main menu",
+    "close_menu": "Close main menu",
+    "logo_alt": "10on10labs logo"
+  },
+  "footer": {
+    "newsletter": {
+      "title": "Stay Updated with Our Latest Insights",
+      "subtitle": "Subscribe to our newsletter for technology trends and case studies.",
+      "placeholder": "Enter your email",
+      "button": "Subscribe"
+    },
+    "tagline": "Transforming ideas into exceptional digital experiences.",
+    "nav_headings": {
+      "company": "Company",
+      "services": "Services",
+      "resources": "Resources"
+    },
+    "nav_links": {
+      "about": "About",
+      "process": "Process",
+      "projects": "Projects",
+      "reviews": "Reviews",
+      "web_development": "Web Development",
+      "ui_ux_design": "UI/UX Design",
+      "blog": "Blog",
+      "contact": "Contact",
+      "privacy_policy": "Privacy Policy",
+      "terms_of_service": "Terms of Service"
+    },
+    "copyright": "© {year} 10on10 Labs. All rights reserved."
+  },
+  "Services": {
+    "ourExpertise": "Our Expertise",
+    "title": "Our Services",
+    "description": "We offer a wide range of services to help you build your next digital product.",
+    "searchPlaceholder": "Search for a service...",
+    "allServices": "All Services",
+    "noServicesFound": "No services found.",
+    "clearFilters": "Clear Filters",
+    "cta": {
+      "title": "Ready to start a project?",
+      "description": "Let's build something amazing together.",
+      "scheduleButton": "Schedule a Call",
+      "portfolioButton": "View Portfolio"
+    },
+    "expertise": {
+      "category_title": "UI/UX Design - Our Core Expertise",
+      "items": {
+        "strategic_design": {
+          "title": "Strategic UI/UX Design",
+          "description": "We don't just make things look good; we design intuitive user experiences that are both beautiful and effective. We start with a deep dive into user research and strategy to create a journey that delights your audience and achieves your business goals."
+        },
+        "seamless_ui": {
+          "title": "Seamless User Interface (UI)",
+          "description": "From wireframes to pixel-perfect mockups, we design clean, modern, and memorable interfaces. We focus on every detail—typography, color palettes, and interactive elements—to create a visual identity that is consistent and captivating across all devices."
+        },
+        "prototyping": {
+          "title": "Interactive Prototyping",
+          "description": "Bring your ideas to life before a single line of code is written. We create interactive prototypes that allow you to test user flows, gather feedback, and validate your concepts. This ensures the final product is a perfect fit for your users and avoids costly changes down the line."
+        },
+        "research_testing": {
+          "title": "User Research & Testing",
+          "description": "We conduct thorough user research and usability testing to understand your audience deeply. This data-driven approach ensures our designs meet real user needs and deliver measurable business results."
+        },
+        "design_systems": {
+          "title": "Design Systems & Guidelines",
+          "description": "We create comprehensive design systems that ensure consistency across all touchpoints. Our detailed guidelines help maintain brand integrity as your product scales and evolves."
+        },
+        "mobile_first": {
+          "title": "Mobile-First Design",
+          "description": "With mobile users dominating the digital landscape, we prioritize mobile experiences. Our responsive designs ensure your product looks and works perfectly on every screen size."
+        }
+      }
+    },
+    "card": {
+      "show_less": "Show less",
+      "view_more": "View {count} more",
+      "view_service": "View Service"
+    },
+    "projectShowcase": {
+      "title": "Our Work in Action",
+      "description": "See how we've helped businesses transform their digital presence with our expert frontend development and UI/UX design services.",
+      "viewProject": "View Case Study",
+      "viewAllCaseStudies": "View All Case Studies"
+    }
   }
 }

@@ -60,7 +60,12 @@ export function ContactInfo() {
                   </div>
 
                   <h3 className="text-sm font-medium text-muted-foreground mb-2">{method.title}</h3>
-                  <p className="font-semibold text-foreground mb-1">{method.primary}</p>
+                  <p
+                    className="font-semibold text-foreground mb-1"
+                    dir={method.title === 'Email' || method.title === 'Phone' ? 'ltr' : undefined}
+                  >
+                    {method.primary}
+                  </p>
                   <p className="text-sm text-muted-foreground">{method.secondary}</p>
 
                   {/* Hover gradient effect */}
@@ -83,7 +88,12 @@ export function ContactInfo() {
                   </div>
 
                   <h3 className="text-sm font-medium text-muted-foreground mb-2">{method.title}</h3>
-                  <p className="font-semibold text-foreground mb-1">{method.primary}</p>
+                  <p
+                    className="font-semibold text-foreground mb-1"
+                    dir={method.title === 'Email' || method.title === 'Phone' ? 'ltr' : undefined}
+                  >
+                    {method.primary}
+                  </p>
                   <p className="text-sm text-muted-foreground">{method.secondary}</p>
                 </motion.div>
               );

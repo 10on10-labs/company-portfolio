@@ -186,6 +186,7 @@ export const service = defineType({
           title: "Section Title",
           type: "string",
           initialValue: "Our Development Process",
+          description: "Main heading for the process section",
         }),
         defineField({
           name: "description",
@@ -194,6 +195,50 @@ export const service = defineType({
           rows: 2,
           initialValue:
             "A proven methodology that ensures project success from concept to deployment",
+          description: "Description text below the title",
+        }),
+        defineField({
+          name: "processSteps",
+          title: "Process Steps",
+          type: "array",
+          of: [
+            {
+              type: "object",
+              fields: [
+                defineField({
+                  name: "number",
+                  title: "Step Number",
+                  type: "string",
+                  description: 'e.g., "01", "02"',
+                }),
+                defineField({
+                  name: "title",
+                  title: "Step Title",
+                  type: "string",
+                  validation: (rule) => rule.required(),
+                }),
+                defineField({
+                  name: "description",
+                  title: "Step Description",
+                  type: "text",
+                  rows: 2,
+                  validation: (rule) => rule.required(),
+                }),
+              ],
+              preview: {
+                select: {
+                  title: "title",
+                  subtitle: "number",
+                },
+                prepare({ title, subtitle }) {
+                  return {
+                    title: `${subtitle}. ${title}`,
+                    subtitle: "Process Step",
+                  };
+                },
+              },
+            },
+          ],
         }),
       ],
     }),
@@ -264,37 +309,6 @@ export const service = defineType({
               title: "Icon/Emoji",
               type: "string",
               description: "Emoji or icon identifier (e.g., ⚛️ for React)",
-            }),
-          ],
-        },
-      ],
-    }),
-
-    // Process Steps
-    defineField({
-      name: "processSteps",
-      title: "Process Steps",
-      type: "array",
-      of: [
-        {
-          type: "object",
-          fields: [
-            defineField({
-              name: "number",
-              title: "Step Number",
-              type: "string",
-              description: 'e.g., "01", "02"',
-            }),
-            defineField({
-              name: "title",
-              title: "Step Title",
-              type: "string",
-            }),
-            defineField({
-              name: "description",
-              title: "Step Description",
-              type: "text",
-              rows: 2,
             }),
           ],
         },
