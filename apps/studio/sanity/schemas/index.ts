@@ -6,13 +6,28 @@ import { author, blog, blogCategory, brand, project } from "./documents";
 import { service } from "./documents/service";
 import { testimonial } from "./documents/testimonial";
 import { duration } from "./objects";
-import { companyTimeline, leadership } from "./objects/about";
+import {
+  companyTimeline,
+  leadership,
+  aboutHero,
+  aboutMissionVision,
+  aboutStats,
+  aboutStory,
+  aboutValues,
+  aboutCTA,
+} from "./objects/about";
 
 export const sanitySchema: { types: SchemaTypeDefinition[] } = {
   types: [
     blockContent,
     companyTimeline,
     leadership,
+    aboutHero,
+    aboutMissionVision,
+    aboutStats,
+    aboutStory,
+    aboutValues,
+    aboutCTA,
     blog,
     blogCategory,
     author,
@@ -60,18 +75,56 @@ export const structure: StructureResolver = (S) =>
           S.list()
             .title("About Section")
             .items([
-              S.listItem().title("Company Timeline").child(
-                S.editor()
-                  .id("companyTimeline")
-                  .schemaType("companyTimeline")
-                  .documentId("companyTimeline"), // singleton ID
-              ),
-              S.listItem().title("Founding Members").child(
-                S.editor()
-                  .id("leadership")
-                  .schemaType("leadership")
-                  .documentId("leadership"), // singleton ID
-              ),
+              S.listItem()
+                .title("Hero Section")
+                .schemaType("aboutHero")
+                .child(
+                  S.documentTypeList("aboutHero").title("About Hero Section"),
+                ),
+              S.listItem()
+                .title("Mission & Vision")
+                .schemaType("aboutMissionVision")
+                .child(
+                  S.documentTypeList("aboutMissionVision").title(
+                    "Mission & Vision",
+                  ),
+                ),
+              S.listItem()
+                .title("Statistics")
+                .schemaType("aboutStats")
+                .child(
+                  S.documentTypeList("aboutStats").title("Company Statistics"),
+                ),
+              S.listItem()
+                .title("Our Story")
+                .schemaType("aboutStory")
+                .child(S.documentTypeList("aboutStory").title("Company Story")),
+              S.listItem()
+                .title("Company Timeline")
+                .schemaType("companyTimeline")
+                .child(
+                  S.documentTypeList("companyTimeline").title(
+                    "Company Timeline",
+                  ),
+                ),
+              S.listItem()
+                .title("Leadership")
+                .schemaType("leadership")
+                .child(
+                  S.documentTypeList("leadership").title("Leadership Team"),
+                ),
+              S.listItem()
+                .title("Core Values")
+                .schemaType("aboutValues")
+                .child(
+                  S.documentTypeList("aboutValues").title("Company Values"),
+                ),
+              S.listItem()
+                .title("Call to Action")
+                .schemaType("aboutCTA")
+                .child(
+                  S.documentTypeList("aboutCTA").title("About CTA Section"),
+                ),
             ]),
         ),
 
@@ -84,6 +137,12 @@ export const structure: StructureResolver = (S) =>
             "author",
             "companyTimeline",
             "leadership",
+            "aboutHero",
+            "aboutMissionVision",
+            "aboutStats",
+            "aboutStory",
+            "aboutValues",
+            "aboutCTA",
           ].includes(listItem.getId() ?? ""),
       ),
     ]);

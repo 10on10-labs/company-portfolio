@@ -5,13 +5,40 @@ export const leadership = defineType({
   name: "leadership",
   title: "Leadership",
   type: "document",
-  // removes "create" & "delete" in Studio (singleton)
   fields: [
+    defineField({
+      name: "language",
+      type: "string",
+      readOnly: true,
+      hidden: true,
+      validation: (Rule) => Rule.required(),
+    }),
     defineField({
       name: "title",
       title: "Title",
       type: "string",
-      validation: (Rule) => Rule.required(),
+      validation: (Rule) =>
+        Rule.required().custom(async (title, context) => {
+          const { getClient, document } = context;
+          if (!document?.language || !title) return true;
+
+          const client = getClient({ apiVersion: "2023-04-24" });
+          const id = document._id.replace("drafts.", "");
+
+          const params = {
+            draft: `drafts.${id}`,
+            published: id,
+            language: document.language,
+          };
+
+          const query = `!defined(*[_type == "leadership" && language == $language && !(_id in [$draft, $published])][0]._id)`;
+          const isUnique = await client.fetch(query, params);
+
+          return (
+            isUnique ||
+            `A leadership document already exists for language: ${document.language}`
+          );
+        }),
     }),
     defineField({
       name: "subTitle",
@@ -63,10 +90,22 @@ export const leadership = defineType({
     }),
   ],
   preview: {
-    prepare() {
+    select: {
+      title: "title",
+      language: "language",
+    },
+    prepare({ title, language }) {
+      const flag = language === "en" ? "🇺🇸" : language === "ar" ? "🇸🇦" : "🌍";
+      const langLabel =
+        language === "en"
+          ? "EN"
+          : language === "ar"
+            ? "AR"
+            : language || "Unknown";
+
       return {
-        title: "Leadership",
-        subtitle: "Singleton",
+        title: `${flag} ${title || "Leadership"}`,
+        subtitle: `Singleton • ${langLabel}`,
       };
     },
   },

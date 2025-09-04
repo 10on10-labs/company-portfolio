@@ -81,7 +81,7 @@ export const TopNavbar = () => {
     window.addEventListener('scroll', handleScroll);
     handleScroll(); // Check initial position
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [pathname]);
+  }, [pathname, menuItems]);
 
   // Animation variants
   const sidebarVariants: Variants = {

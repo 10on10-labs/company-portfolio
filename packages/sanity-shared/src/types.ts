@@ -79,12 +79,100 @@ export type BlogCategory = {
   chipColor?: Color;
 };
 
+export type BlockContent = Array<
+  | {
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }
+  | {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: "image";
+      _key: string;
+    }
+  | ({
+      _key: string;
+    } & Code)
+>;
+
+export type TranslationMetadata = {
+  _id: string;
+  _type: "translation.metadata";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  translations?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayReferenceValue
+  >;
+  schemaTypes?: Array<string>;
+};
+
+export type InternationalizedArrayReferenceValue = {
+  _type: "internationalizedArrayReferenceValue";
+  value?:
+    | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "service";
+      }
+    | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "blog";
+      }
+    | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "project";
+      }
+    | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "companyTimeline";
+      }
+    | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "leadership";
+      };
+};
+
 export type Leadership = {
   _id: string;
   _type: "leadership";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
+  language?: string;
   title?: string;
   subTitle?: string;
   members?: Array<{
@@ -114,6 +202,7 @@ export type CompanyTimeline = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
+  language?: string;
   title?: string;
   subTitle?: string;
   items?: Array<{
@@ -123,72 +212,6 @@ export type CompanyTimeline = {
     _type: "timelineItem";
     _key: string;
   }>;
-};
-
-export type BlockContent = Array<{
-  children?: Array<{
-    marks?: Array<string>;
-    text?: string;
-    _type: "span";
-    _key: string;
-  }>;
-  style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
-  listItem?: "bullet" | "number";
-  markDefs?: Array<{
-    href?: string;
-    _type: "link";
-    _key: string;
-  }>;
-  level?: number;
-  _type: "block";
-  _key: string;
-} | {
-  asset?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-  };
-  media?: unknown;
-  hotspot?: SanityImageHotspot;
-  crop?: SanityImageCrop;
-  alt?: string;
-  _type: "image";
-  _key: string;
-} | {
-  _key: string;
-} & Code>;
-
-export type TranslationMetadata = {
-  _id: string;
-  _type: "translation.metadata";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  translations?: Array<{
-    _key: string;
-  } & InternationalizedArrayReferenceValue>;
-  schemaTypes?: Array<string>;
-};
-
-export type InternationalizedArrayReferenceValue = {
-  _type: "internationalizedArrayReferenceValue";
-  value?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "service";
-  } | {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "blog";
-  } | {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "project";
-  };
 };
 
 export type Project = {
@@ -365,7 +388,17 @@ export type Service = {
   shortDescription?: string;
   description?: string;
   categories?: Array<string>;
-  icon?: "monitor" | "code" | "smartphone" | "database" | "cloud" | "shield" | "chart" | "palette" | "rocket" | "settings";
+  icon?:
+    | "monitor"
+    | "code"
+    | "smartphone"
+    | "database"
+    | "cloud"
+    | "shield"
+    | "chart"
+    | "palette"
+    | "rocket"
+    | "settings";
   heroSection?: {
     tagline?: string;
     headline?: string;
@@ -394,7 +427,17 @@ export type Service = {
   features?: Array<{
     title?: string;
     description?: string;
-    icon?: "code" | "zap" | "users" | "palette" | "shield" | "gauge" | "gitbranch" | "globe" | "smartphone" | "rocket";
+    icon?:
+      | "code"
+      | "zap"
+      | "users"
+      | "palette"
+      | "shield"
+      | "gauge"
+      | "gitbranch"
+      | "globe"
+      | "smartphone"
+      | "rocket";
     _key: string;
   }>;
   technologies?: Array<{
@@ -425,9 +468,11 @@ export type Service = {
   };
 };
 
-export type InternationalizedArrayReference = Array<{
-  _key: string;
-} & InternationalizedArrayReferenceValue>;
+export type InternationalizedArrayReference = Array<
+  {
+    _key: string;
+  } & InternationalizedArrayReferenceValue
+>;
 
 export type Code = {
   _type: "code";
@@ -588,12 +633,44 @@ export type SanityAssetSourceData = {
   url?: string;
 };
 
-export type AllSanitySchemaTypes = Duration | Testimonial | Brand | BlogCategory | Leadership | CompanyTimeline | BlockContent | TranslationMetadata | InternationalizedArrayReferenceValue | Project | Blog | Author | Service | InternationalizedArrayReference | Code | Color | RgbaColor | HsvaColor | HslaColor | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
+export type AllSanitySchemaTypes =
+  | Duration
+  | Testimonial
+  | Brand
+  | BlogCategory
+  | BlockContent
+  | TranslationMetadata
+  | InternationalizedArrayReferenceValue
+  | Leadership
+  | CompanyTimeline
+  | Project
+  | Blog
+  | Author
+  | Service
+  | InternationalizedArrayReference
+  | Code
+  | Color
+  | RgbaColor
+  | HsvaColor
+  | HslaColor
+  | SanityImagePaletteSwatch
+  | SanityImagePalette
+  | SanityImageDimensions
+  | SanityImageHotspot
+  | SanityImageCrop
+  | SanityFileAsset
+  | SanityImageAsset
+  | SanityImageMetadata
+  | Geopoint
+  | Slug
+  | SanityAssetSourceData;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ../web/lib/sanity-queries/about-queries.ts
 // Variable: companyTimelineQuery
-// Query: *[_type == "companyTimeline"][0] {   title,   subTitle,   items[] {     year,     title,     description   } }
+// Query: *[_type == "companyTimeline" && language == $language][0] {   _id,   language,   title,   subTitle,   items[] {     year,     title,     description   } }
 export type CompanyTimelineQueryResult = {
+  _id: string;
+  language: string | null;
   title: string | null;
   subTitle: string | null;
   items: Array<{
@@ -603,8 +680,10 @@ export type CompanyTimelineQueryResult = {
   }> | null;
 } | null;
 // Variable: companyLeadershipQuery
-// Query: *[_type == "leadership"][0] {   title,   subTitle,   members[] {    name,    designation,    portfolioUrl,    image  } }
+// Query: *[_type == "leadership" && language == $language][0] {   _id,   language,   title,   subTitle,   members[] {    name,    designation,    portfolioUrl,    image  } }
 export type CompanyLeadershipQueryResult = {
+  _id: string;
+  language: string | null;
   title: string | null;
   subTitle: string | null;
   members: Array<{
@@ -973,7 +1052,18 @@ export type ServiceQueryResult = {
   shortDescription: string | null;
   description: string | null;
   categories: Array<string> | null;
-  icon: "chart" | "cloud" | "code" | "database" | "monitor" | "palette" | "rocket" | "settings" | "shield" | "smartphone" | null;
+  icon:
+    | "chart"
+    | "cloud"
+    | "code"
+    | "database"
+    | "monitor"
+    | "palette"
+    | "rocket"
+    | "settings"
+    | "shield"
+    | "smartphone"
+    | null;
   heroSection: {
     tagline: string | null;
     headline: string | null;
@@ -1001,7 +1091,18 @@ export type ServiceQueryResult = {
   features: Array<{
     title: string | null;
     description: string | null;
-    icon: "code" | "gauge" | "gitbranch" | "globe" | "palette" | "rocket" | "shield" | "smartphone" | "users" | "zap" | null;
+    icon:
+      | "code"
+      | "gauge"
+      | "gitbranch"
+      | "globe"
+      | "palette"
+      | "rocket"
+      | "shield"
+      | "smartphone"
+      | "users"
+      | "zap"
+      | null;
   }> | null;
   technologies: Array<{
     name: string | null;
@@ -1099,24 +1200,24 @@ export type ProjectsByServiceQueryResult = Array<{
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "\n *[_type == \"companyTimeline\"][0] {\n   title,\n   subTitle,\n   items[] {\n     year,\n     title,\n     description\n   }\n }\n": CompanyTimelineQueryResult;
-    "\n *[_type == \"leadership\"][0] {\n   title,\n   subTitle,\n   members[] {\n    name,\n    designation,\n    portfolioUrl,\n    image\n  }\n }\n ": CompanyLeadershipQueryResult;
-    "\n    *[_type == \"blog\" && slug.current == $slug][0] {\n        title,\n        subTitle,\n        \"modifiedAt\": _updatedAt,\n        author->,\n        thumbnail,\n        body,\n        blogCategories[]->{\n            title,\n            \"chipColor\": chipColor.hex,\n            \"slug\": slug.current, \n        },\n    }\n": BlogBySlugQueryResult;
-    "\n    *[_type == \"blog\"] {\n        \"slug\": slug.current\n    }\n": BlogsSlugQueryResult;
-    "\n  *[_type == \"blogCategory\"] {\n  title,\n  \"slug\": slug.current\n}\n": BlogCategoriesQueryResult;
-    "\n   *[_type == \"blog\" && \n    ($categorySlugs == null || references(*[_type == \"blogCategory\" && slug.current in $categorySlugs]._id))\n  ] {\n    _id,\n    title,\n    subTitle,\n    // assumes 5 characters as mean word length\n    // https://ux.stackexchange.com/questions/22520/how-long-does-it-take-to-read-x-number-of-characters\n    \"readingTimeInMins\": round(length(pt::text(body)) / 5 / 180 ),\n    author->{\n     name,\n     image\n    },\n    blogCategories[]->{\n      title,\n      \"chipColor\": chipColor.hex\n    },\n    \"slug\": slug.current,\n    thumbnail,\n    publishedAt\n  }\n": BlogsByCategoryQueryResult;
-    "\n  *[_type == \"blog\"] | order(publishedAt desc) [0...10] {\n    _id,\n    title,\n    \"excerpt\": subTitle,\n    \"estimatedReadingTime\": round(length(pt::text(body)) / 5 / 180 ),\n    \"slug\": slug.current,\n    \"image\": thumbnail,\n    publishedAt,\n    author->{\n      name,\n      \"picture\": image\n    },\n    \"category\": blogCategories[0]->{\n      title,\n      \"color\": chipColor\n    }\n  }\n": BlogsQueryResult;
-    "\n  *[_type == \"brand\"] | order(order asc, _createdAt desc) {\n    _id,\n    name,\n    \"logoUrl\": logo.asset->url,\n    \"logoAlt\": logo.alt,\n    link\n  }\n": BrandsQueryResult;
-    "\n  *[_type == \"home\"][0]{\n    _id,\n    _type,\n    overview,\n    showcaseProjects[]{\n      _key,\n      ...@->{\n        _id,\n        _type,\n        coverImage,\n        overview,\n        \"slug\": slug.current,\n        tags,\n        title,\n      }\n    },\n    title,\n  }\n": HomePageQueryResult;
-    "\n  *[_type == \"page\" && slug.current == $slug][0] {\n    _id,\n    _type,\n    body,\n    overview,\n    title,\n    \"slug\": slug.current,\n  }\n": PagesBySlugQueryResult;
-    "\n  *[_type == \"project\" && slug.current == $slug][0] {\n    _id,\n    \"slug\": slug.current,\n    name,\n    category,\n    description,\n    logo,\n    coverImages,\n    projectSections,\n    url,\n    priority,\n    \"technologies\": projectDimensions.technologies,\n    \"iterations\": projectDimensions.iterations,\n    \"teamSize\": projectDimensions.teamSize,\n    \"timeline\": string(projectDimensions.timeline.value) + \" \" + coalesce(projectDimensions.timeline.unit, \"\"),\n  }\n": ProjectBySlugQueryResult;
-    "\n  *[_type == \"project\"] | order(priority asc, _createdAt desc) {\n    _id,\n    \"slug\": slug.current,\n    name,\n    category,\n    description,\n    logo,\n    coverImages,\n    projectSections,\n    url,\n    priority,\n    \"technologies\": projectDimensions.technologies,\n    \"iterations\": projectDimensions.iterations,\n    \"teamSize\": projectDimensions.teamSize,\n    \"timeline\": string(projectDimensions.timeline.value) + \" \" + coalesce(projectDimensions.timeline.unit, \"\"),\n  }\n": AllProjectsQueryResult;
-    "\n  *[_type == \"settings\"][0]{\n    _id,\n    _type,\n    footer,\n    menuItems[]{\n      _key,\n      ...@->{\n        _type,\n        \"slug\": slug.current,\n        title\n      }\n    },\n    ogImage,\n  }\n": SettingsQueryResult;
-    "\n  *[_type == $type && defined(slug.current)]{\"slug\": slug.current}\n": SlugsByTypeQueryResult;
-    "\n  *[_type == \"service\" && language == $language] {\n    name,\n    \"id\": id.current,\n    description,\n    categories,\n    language\n  }\n": ServicesQueryResult;
-    "\n  *[_type == \"testimonial\"] {\n    _id,\n    clientName,\n    role,\n    testimonial,\n    rating,\n    clientImage {\n      asset->{\n        url,\n        metadata {\n          dimensions\n        }\n      }\n    }\n  }\n": TestimonialsQueryResult;
-    "\n  *[_type == \"service\" && id.current == $slug && language == $language][0] {\n    _id,\n    name,\n    \"slug\": id.current,\n    shortDescription,\n    description,\n    categories,\n    icon,\n    heroSection {\n      tagline,\n      headline,\n      subheadline,\n      primaryButtonText,\n      secondaryButtonText\n    },\n    featuresSection {\n      title,\n      description\n    },\n    technologiesSection {\n      title,\n      description\n    },\n    processSection {\n      title,\n      description,\n      processSteps[] {\n        number,\n        title,\n        description\n      }\n    },\n    features[] {\n      title,\n      description,\n      icon\n    },\n    technologies[] {\n      name,\n      icon\n    },\n    benefits,\n    whyChooseUs {\n      headline,\n      description,\n      reasons[] {\n        title,\n        description,\n        icon\n      }\n    },\n    ctaSection {\n      headline,\n      description,\n      primaryButtonText,\n      secondaryButtonText\n    },\n    seo {\n      metaTitle,\n      metaDescription\n    }\n  }\n": ServiceQueryResult;
-    "\n  *[_type == \"service\"] {\n    \"slug\": id.current\n  } | order(slug)\n": ServicesSlugQueryResult;
-    "\n  *[_type == \"project\" && references(*[_type == \"service\" && id.current == $serviceSlug]._id)] | order(priority asc, _createdAt desc) {\n    _id,\n    \"slug\": slug.current,\n    name,\n    category,\n    description,\n    logo,\n    coverImages,\n    projectSections,\n    url,\n    priority,\n    \"technologies\": projectDimensions.technologies,\n    \"iterations\": projectDimensions.iterations,\n    \"teamSize\": projectDimensions.teamSize,\n    \"timeline\": string(projectDimensions.timeline.value) + \" \" + coalesce(projectDimensions.timeline.unit, \"\"),\n  }\n": ProjectsByServiceQueryResult;
+    '\n *[_type == "companyTimeline" && language == $language][0] {\n   _id,\n   language,\n   title,\n   subTitle,\n   items[] {\n     year,\n     title,\n     description\n   }\n }\n': CompanyTimelineQueryResult;
+    '\n *[_type == "leadership" && language == $language][0] {\n   _id,\n   language,\n   title,\n   subTitle,\n   members[] {\n    name,\n    designation,\n    portfolioUrl,\n    image\n  }\n }\n ': CompanyLeadershipQueryResult;
+    '\n    *[_type == "blog" && slug.current == $slug][0] {\n        title,\n        subTitle,\n        "modifiedAt": _updatedAt,\n        author->,\n        thumbnail,\n        body,\n        blogCategories[]->{\n            title,\n            "chipColor": chipColor.hex,\n            "slug": slug.current, \n        },\n    }\n': BlogBySlugQueryResult;
+    '\n    *[_type == "blog"] {\n        "slug": slug.current\n    }\n': BlogsSlugQueryResult;
+    '\n  *[_type == "blogCategory"] {\n  title,\n  "slug": slug.current\n}\n': BlogCategoriesQueryResult;
+    '\n   *[_type == "blog" && \n    ($categorySlugs == null || references(*[_type == "blogCategory" && slug.current in $categorySlugs]._id))\n  ] {\n    _id,\n    title,\n    subTitle,\n    // assumes 5 characters as mean word length\n    // https://ux.stackexchange.com/questions/22520/how-long-does-it-take-to-read-x-number-of-characters\n    "readingTimeInMins": round(length(pt::text(body)) / 5 / 180 ),\n    author->{\n     name,\n     image\n    },\n    blogCategories[]->{\n      title,\n      "chipColor": chipColor.hex\n    },\n    "slug": slug.current,\n    thumbnail,\n    publishedAt\n  }\n': BlogsByCategoryQueryResult;
+    '\n  *[_type == "blog"] | order(publishedAt desc) [0...10] {\n    _id,\n    title,\n    "excerpt": subTitle,\n    "estimatedReadingTime": round(length(pt::text(body)) / 5 / 180 ),\n    "slug": slug.current,\n    "image": thumbnail,\n    publishedAt,\n    author->{\n      name,\n      "picture": image\n    },\n    "category": blogCategories[0]->{\n      title,\n      "color": chipColor\n    }\n  }\n': BlogsQueryResult;
+    '\n  *[_type == "brand"] | order(order asc, _createdAt desc) {\n    _id,\n    name,\n    "logoUrl": logo.asset->url,\n    "logoAlt": logo.alt,\n    link\n  }\n': BrandsQueryResult;
+    '\n  *[_type == "home"][0]{\n    _id,\n    _type,\n    overview,\n    showcaseProjects[]{\n      _key,\n      ...@->{\n        _id,\n        _type,\n        coverImage,\n        overview,\n        "slug": slug.current,\n        tags,\n        title,\n      }\n    },\n    title,\n  }\n': HomePageQueryResult;
+    '\n  *[_type == "page" && slug.current == $slug][0] {\n    _id,\n    _type,\n    body,\n    overview,\n    title,\n    "slug": slug.current,\n  }\n': PagesBySlugQueryResult;
+    '\n  *[_type == "project" && slug.current == $slug][0] {\n    _id,\n    "slug": slug.current,\n    name,\n    category,\n    description,\n    logo,\n    coverImages,\n    projectSections,\n    url,\n    priority,\n    "technologies": projectDimensions.technologies,\n    "iterations": projectDimensions.iterations,\n    "teamSize": projectDimensions.teamSize,\n    "timeline": string(projectDimensions.timeline.value) + " " + coalesce(projectDimensions.timeline.unit, ""),\n  }\n': ProjectBySlugQueryResult;
+    '\n  *[_type == "project"] | order(priority asc, _createdAt desc) {\n    _id,\n    "slug": slug.current,\n    name,\n    category,\n    description,\n    logo,\n    coverImages,\n    projectSections,\n    url,\n    priority,\n    "technologies": projectDimensions.technologies,\n    "iterations": projectDimensions.iterations,\n    "teamSize": projectDimensions.teamSize,\n    "timeline": string(projectDimensions.timeline.value) + " " + coalesce(projectDimensions.timeline.unit, ""),\n  }\n': AllProjectsQueryResult;
+    '\n  *[_type == "settings"][0]{\n    _id,\n    _type,\n    footer,\n    menuItems[]{\n      _key,\n      ...@->{\n        _type,\n        "slug": slug.current,\n        title\n      }\n    },\n    ogImage,\n  }\n': SettingsQueryResult;
+    '\n  *[_type == $type && defined(slug.current)]{"slug": slug.current}\n': SlugsByTypeQueryResult;
+    '\n  *[_type == "service" && language == $language] {\n    name,\n    "id": id.current,\n    description,\n    categories,\n    language\n  }\n': ServicesQueryResult;
+    '\n  *[_type == "testimonial"] {\n    _id,\n    clientName,\n    role,\n    testimonial,\n    rating,\n    clientImage {\n      asset->{\n        url,\n        metadata {\n          dimensions\n        }\n      }\n    }\n  }\n': TestimonialsQueryResult;
+    '\n  *[_type == "service" && id.current == $slug && language == $language][0] {\n    _id,\n    name,\n    "slug": id.current,\n    shortDescription,\n    description,\n    categories,\n    icon,\n    heroSection {\n      tagline,\n      headline,\n      subheadline,\n      primaryButtonText,\n      secondaryButtonText\n    },\n    featuresSection {\n      title,\n      description\n    },\n    technologiesSection {\n      title,\n      description\n    },\n    processSection {\n      title,\n      description,\n      processSteps[] {\n        number,\n        title,\n        description\n      }\n    },\n    features[] {\n      title,\n      description,\n      icon\n    },\n    technologies[] {\n      name,\n      icon\n    },\n    benefits,\n    whyChooseUs {\n      headline,\n      description,\n      reasons[] {\n        title,\n        description,\n        icon\n      }\n    },\n    ctaSection {\n      headline,\n      description,\n      primaryButtonText,\n      secondaryButtonText\n    },\n    seo {\n      metaTitle,\n      metaDescription\n    }\n  }\n': ServiceQueryResult;
+    '\n  *[_type == "service"] {\n    "slug": id.current\n  } | order(slug)\n': ServicesSlugQueryResult;
+    '\n  *[_type == "project" && references(*[_type == "service" && id.current == $serviceSlug]._id)] | order(priority asc, _createdAt desc) {\n    _id,\n    "slug": slug.current,\n    name,\n    category,\n    description,\n    logo,\n    coverImages,\n    projectSections,\n    url,\n    priority,\n    "technologies": projectDimensions.technologies,\n    "iterations": projectDimensions.iterations,\n    "teamSize": projectDimensions.teamSize,\n    "timeline": string(projectDimensions.timeline.value) + " " + coalesce(projectDimensions.timeline.unit, ""),\n  }\n': ProjectsByServiceQueryResult;
   }
 }
