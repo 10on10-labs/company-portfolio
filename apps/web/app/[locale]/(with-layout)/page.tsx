@@ -2,13 +2,7 @@ import { Suspense } from 'react';
 import dynamic from 'next/dynamic';
 
 import { sanityFetch } from '@/lib/live';
-import {
-  allProjectsQuery,
-  blogsQuery,
-  brandsQuery,
-  servicesQuery,
-  testimonialsQuery,
-} from '@/lib/sanity-queries';
+import { allProjectsQuery, blogsQuery, brandsQuery, testimonialsQuery } from '@/lib/sanity-queries';
 import { Skeleton } from '@/components/shadcn/skeleton';
 
 import HeroClient from './hero-client';
@@ -47,20 +41,17 @@ const AccelerateSection = dynamic(
 );
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale } = await params;
+  await params;
 
   // Fetch all data in parallel
-  const [brandsResult, servicesResult, testimonialsResult, projectsResult, blogsResult] =
-    await Promise.all([
-      sanityFetch({ query: brandsQuery }),
-      sanityFetch({ query: servicesQuery, params: { language: locale } }),
-      sanityFetch({ query: testimonialsQuery }),
-      sanityFetch({ query: allProjectsQuery }),
-      sanityFetch({ query: blogsQuery }),
-    ]);
+  const [brandsResult, testimonialsResult, projectsResult, blogsResult] = await Promise.all([
+    sanityFetch({ query: brandsQuery }),
+    sanityFetch({ query: testimonialsQuery }),
+    sanityFetch({ query: allProjectsQuery }),
+    sanityFetch({ query: blogsQuery }),
+  ]);
 
   const { data: brands } = brandsResult;
-  const { data: services } = servicesResult;
   const { data: testimonials } = testimonialsResult;
   const { data: projects } = projectsResult;
   const { data: blogs } = blogsResult;
@@ -74,7 +65,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       </Suspense>
 
       <Suspense fallback={<Skeleton className="h-96 w-full" />}>
-        <ServicesSection services={services} />
+        <ServicesSection />
       </Suspense>
 
       <Suspense fallback={<Skeleton className="h-96 w-full" />}>

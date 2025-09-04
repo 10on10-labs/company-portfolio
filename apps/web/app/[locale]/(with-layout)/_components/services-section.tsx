@@ -1,15 +1,8 @@
 'use client';
 
 import { Link } from '@/src/i18n/navigation';
-import { ServicesQueryResult } from '@company/sanity-shared';
 import { ArrowRight, Palette, Sparkles } from 'lucide-react';
 import { motion } from 'motion/react';
-
-import ServiceCardSimple from '@/components/services/service-card-simple';
-
-interface ServicesSectionProps {
-  services: ServicesQueryResult;
-}
 
 const ourExpertise = [
   {
@@ -26,17 +19,7 @@ const ourExpertise = [
   },
 ];
 
-export default function ServicesSection({ services }: ServicesSectionProps) {
-  // Take only first 3 services for homepage, excluding Frontend Development
-  const featuredServices =
-    services
-      ?.filter(service => {
-        // Exclude Frontend Development service
-        const serviceName = service.name?.toLowerCase() || '';
-        return !serviceName.includes('frontend development');
-      })
-      .slice(0, 3) || [];
-
+export default function ServicesSection() {
   return (
     <section id="services" className="relative py-20 md:py-28 overflow-hidden">
       {/* Clean background without pattern */}
@@ -95,24 +78,6 @@ export default function ServicesSection({ services }: ServicesSectionProps) {
             })}
           </div>
         </div>
-
-        {/* Other Services Grid */}
-        {featuredServices.length > 0 && (
-          <>
-            <div className="text-center mb-10">
-              <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
-                Additional Services
-              </h3>
-              <div className="w-20 h-1 bg-primary mx-auto rounded-full" />
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto mb-12">
-              {featuredServices.map((service, index) => (
-                <ServiceCardSimple key={service.id} service={service} index={index} />
-              ))}
-            </div>
-          </>
-        )}
 
         {/* CTA Section */}
         <div className="text-center">

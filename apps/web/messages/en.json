@@ -55,6 +55,12 @@
     },
     "copyright": "© {year} 10on10 Labs. All rights reserved."
   },
+  "about": {
+    "meta": {
+      "title": "About Us - 10on10labs | Digital Innovation & Frontend Experts",
+      "description": "Learn about 10on10labs, a leading digital agency specializing in frontend development and UI/UX design. Discover our mission, values, and the passionate team behind exceptional digital experiences."
+    }
+  },
   "Services": {
     "ourExpertise": "Our Expertise",
     "title": "Our Services",
