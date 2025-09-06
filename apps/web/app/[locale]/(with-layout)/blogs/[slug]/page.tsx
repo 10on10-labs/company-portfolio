@@ -148,7 +148,7 @@ export default async function BlogDetailsPage({ params }: Props) {
         linkedInShareUrl={linkedInShareUrl}
         twitterShareUrl={twitterShareUrl}
       />
-      <DownloadPdfCta variant="compact" />
+      <DownloadPdfCta variant="compact" slug={slug} locale={locale} />
       <section className="mt-8">
         {body.length > 0 && (
           <div className="mt-8">
@@ -156,7 +156,7 @@ export default async function BlogDetailsPage({ params }: Props) {
               <>
                 <CustomPortableText value={body.slice(0, ctaIndex)} />
                 <div className="my-10">
-                  <DownloadPdfCta variant="detailed" />
+                  <DownloadPdfCta variant="detailed" slug={slug} locale={locale} />
                 </div>
                 <CustomPortableText value={body.slice(ctaIndex)} />
               </>

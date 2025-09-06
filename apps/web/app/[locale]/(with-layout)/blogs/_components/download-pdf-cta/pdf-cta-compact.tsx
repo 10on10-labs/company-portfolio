@@ -8,19 +8,22 @@ import { Button } from '@/components/shadcn/button';
 import { Card, CardContent } from '@/components/shadcn/card';
 import { Input } from '@/components/shadcn/input';
 
-export function PdfCtaCompact() {
+import { DownloadPdfProps } from '.';
+
+type Props = Omit<DownloadPdfProps, 'variant'>;
+
+export function PdfCtaCompact({ slug, locale = 'en', className }: Props) {
   const [showEmailForm, setShowEmailForm] = useState(false);
   const [email, setEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [message, setMessage] = useState('');
 
-  const handleDownload = () => {
-    setShowEmailForm(true);
-  };
+  const handleDownload = () => setShowEmailForm(true);
 
   const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     if (!email || !email.includes('@')) {
       setStatus('error');
       setMessage('Please enter a valid email address');
@@ -29,34 +32,37 @@ export function PdfCtaCompact() {
 
     setIsLoading(true);
     setStatus('idle');
+    setMessage('');
 
     try {
-      // Simulate API call for PDF generation/email collection
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      const res = await fetch('/api/blogs/pdf', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ slug, to: email, locale }),
+      });
 
-      // Add your actual PDF download/email logic here
-      console.log('Sending PDF to:', email);
+      const data = await res.json().catch(() => ({}) as any);
+
+      if (!res.ok) {
+        throw new Error(data?.error || 'Failed to send PDF');
+      }
 
       setStatus('success');
       setMessage('PDF sent to your email! Check your inbox.');
       setEmail('');
-      setTimeout(() => {
-        setShowEmailForm(false);
-        setStatus('idle');
-        setMessage('');
-      }, 3000);
-    } catch (error) {
-      console.error('Error', error);
+    } catch (err: any) {
+      console.error('PDF email error:', err);
       setStatus('error');
-      setMessage('Failed to send PDF. Please try again.');
+      setMessage(err?.message || 'Failed to send PDF. Please try again.');
     } finally {
       setIsLoading(false);
     }
   };
-  // </CHANGE>
 
   return (
-    <Card className="mb-8 border-orange-200 bg-gradient-to-r from-orange-50 to-red-50">
+    <Card
+      className={`mb-8 border-orange-200 bg-gradient-to-r from-orange-50 to-red-50 ${className ?? ''}`}
+    >
       <CardContent className="p-4 sm:p-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-6">
           <div className="flex items-start gap-3 sm:gap-4 flex-1">
@@ -75,21 +81,22 @@ export function PdfCtaCompact() {
               </p>
             </div>
           </div>
+
           <div className="flex-shrink-0 w-full sm:w-auto">
             {!showEmailForm ? (
               <Button
                 onClick={handleDownload}
-                className="bg-orange-500 animate-bounce hover:bg-orange-700 text-white w-full sm:w-auto px-4 sm:px-6 py-2.5 gap-2 text-sm sm:text-base"
+                className="bg-orange-500 hover:bg-orange-700 text-white w-full sm:w-auto px-4 sm:px-6 py-2.5 gap-2 text-sm sm:text-base"
               >
                 <Download className="h-4 w-4" />
-                Download PDF
+                Email me the PDF
               </Button>
             ) : (
               <div className="w-full sm:w-80">
                 <form onSubmit={handleEmailSubmit} className="space-y-3">
                   <div className="flex gap-2">
                     <div className="relative flex-1">
-                      <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                       <Input
                         type="email"
                         placeholder="Enter your email"
@@ -97,16 +104,19 @@ export function PdfCtaCompact() {
                         onChange={e => setEmail(e.target.value)}
                         className="pl-10"
                         disabled={isLoading}
+                        autoComplete="email"
+                        required
                       />
                     </div>
                     <Button
                       type="submit"
                       disabled={isLoading}
-                      className="bg-primary hover:bg-orange-700 text-white px-4"
+                      className="bg-primary text-white px-4"
                     >
-                      {isLoading ? 'Sending...' : 'Send'}
+                      {isLoading ? 'Sending…' : 'Send'}
                     </Button>
                   </div>
+
                   {status !== 'idle' && (
                     <div
                       className={`flex items-center gap-2 text-sm ${
@@ -124,7 +134,6 @@ export function PdfCtaCompact() {
                 </form>
               </div>
             )}
-            {/* </CHANGE> */}
           </div>
         </div>
       </CardContent>
