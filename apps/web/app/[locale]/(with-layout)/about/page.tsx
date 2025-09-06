@@ -152,7 +152,10 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
             {(aboutData.stats?.stats || []).map(
-              (stat: { number: string; label: string; icon?: string }, index: number) => {
+              (
+                stat: { number: string | null; label: string | null; icon?: string | null },
+                index: number,
+              ) => {
                 const Icon = getIcon(stat.icon || 'award');
                 return (
                   <div key={index} className="text-center">
@@ -160,9 +163,9 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                       <Icon className="w-6 h-6 text-primary" />
                     </div>
                     <h3 className="text-3xl md:text-4xl font-bold text-white mb-2">
-                      {stat.number}
+                      {stat.number || ''}
                     </h3>
-                    <p className="text-sm text-gray-400">{stat.label}</p>
+                    <p className="text-sm text-gray-400">{stat.label || ''}</p>
                   </div>
                 );
               },
@@ -276,7 +279,10 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
             {(aboutData.values?.values || []).map(
-              (value: { title: string; description: string; icon?: string }, index: number) => {
+              (
+                value: { title: string | null; description: string | null; icon?: string | null },
+                index: number,
+              ) => {
                 const Icon = getIcon(value.icon || 'award');
                 return (
                   <div
@@ -286,8 +292,10 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                     <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6">
                       <Icon className="w-6 h-6 text-primary" />
                     </div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-3">{value.title}</h3>
-                    <p className="text-gray-600">{value.description}</p>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                      {value.title || ''}
+                    </h3>
+                    <p className="text-gray-600">{value.description || ''}</p>
                   </div>
                 );
               },

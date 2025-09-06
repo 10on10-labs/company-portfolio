@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'motion/react';
+import { useLocale } from 'next-intl';
 
 import {
   Carousel,
@@ -55,7 +56,32 @@ const slides = [
   },
 ];
 
-export type Slide = (typeof slides)[0];
+export type Slide = {
+  id: number;
+  title: string;
+  description: string;
+  tag: string;
+  number: string;
+};
+
+interface ProcessData {
+  _id: string;
+  title: string;
+  language: string;
+  badge: string;
+  heading: string;
+  steps: Array<{
+    number: string;
+    title: string;
+    description: string;
+    tag: string;
+  }>;
+  progressLabel: string;
+}
+
+interface ProcessSectionProps {
+  processData?: ProcessData | null;
+}
 
 interface WheelState {
   timeout: NodeJS.Timeout | null;
@@ -64,10 +90,23 @@ interface WheelState {
   isScrolling: boolean;
 }
 
-export const ProcessSection = () => {
+export const ProcessSection = ({ processData }: ProcessSectionProps) => {
+  const locale = useLocale();
+  const isRTL = locale === 'ar';
   const [api, setApi] = useState<CarouselApi | null>(null);
   const [current, setCurrent] = useState(0);
   const carouselContainerRef = useRef(null);
+
+  // Transform Sanity data to component format, fallback to hardcoded data
+  const processSteps: Slide[] = processData?.steps
+    ? processData.steps.map((step, index) => ({
+        id: index + 1,
+        title: step.title,
+        description: step.description,
+        tag: step.tag,
+        number: step.number,
+      }))
+    : slides;
 
   // Define a properly typed wheel state ref
 
@@ -107,6 +146,8 @@ export const ProcessSection = () => {
 
       // Only process significant movements (threshold of 20)
       if (Math.abs(delta) >= 20) {
+        // Both English and Arabic should have same wheel behavior:
+        // Scroll down = next slide, Scroll up = prev slide
         const direction = delta > 0 ? 'next' : 'prev';
 
         if (direction !== wheel.lastDirection || !wheel.isScrolling) {
@@ -157,7 +198,7 @@ export const ProcessSection = () => {
     };
   }, [api]);
 
-  const progress = ((current + 1) / slides.length) * 100;
+  const progress = ((current + 1) / processSteps.length) * 100;
 
   return (
     <div className="w-full @container flex flex-col  items-center relative bg-secondary pt-20 pb-20 md:pt-28 md:pb-24">
@@ -167,15 +208,17 @@ export const ProcessSection = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <div className="text-sm mb-2 text-center">Setting your comfort</div>
+        <div className="text-sm mb-2 text-center">
+          {processData?.badge || 'Setting your comfort'}
+        </div>
         <h1 className="text-3xl text-center sm:text-3xl md:text-4xl font-black leading-tight tracking-tighter">
-          Step-by-step process to bring your project to life
+          {processData?.heading || 'Step-by-step process to bring your project to life'}
         </h1>
       </motion.div>
 
       {/* IMPROVEMENT #2: Step indicators showing current step */}
       <div className="flex items-center justify-center gap-2 mb-8 px-4">
-        {slides.map((_, index) => (
+        {processSteps.map((_, index) => (
           <button
             key={index}
             onClick={() => api?.scrollTo(index)}
@@ -195,16 +238,17 @@ export const ProcessSection = () => {
             // loop: true,
             align: 'start',
             dragFree: false,
+            direction: isRTL ? 'rtl' : 'ltr',
           }}
           orientation="horizontal"
           className="w-full  md:max-w-max min-[768px]:max-w-xl"
           setApi={setApi}
         >
-          <CarouselContent className="-ml-4">
-            {slides.map(slide => (
+          <CarouselContent className={isRTL ? '-mr-4' : '-ml-4'}>
+            {processSteps.map(slide => (
               <CarouselItem
                 key={slide.id}
-                className="basis-full min-[768px]:basis-[100%] lg:basis-[70%] xl:basis-[60%] flex-shrink-0"
+                className={`basis-full min-[768px]:basis-[100%] lg:basis-[70%] xl:basis-[60%] flex-shrink-0 ${isRTL ? 'pr-4' : 'pl-4'}`}
               >
                 <ProcessCard slide={slide} />
               </CarouselItem>
@@ -218,7 +262,11 @@ export const ProcessSection = () => {
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center justify-between mb-2">
             <span className="text-xs font-semibold text-gray-700">
-              Step {current + 1} of {slides.length}
+              {processData?.progressLabel
+                ? processData.progressLabel
+                    .replace('{current}', (current + 1).toString())
+                    .replace('{total}', processSteps.length.toString())
+                : `Step ${current + 1} of ${processSteps.length}`}
             </span>
           </div>
           <div className="relative">
@@ -231,13 +279,13 @@ export const ProcessSection = () => {
             </div>
             {/* Step markers on progress bar with titles */}
             <div className="absolute top-0 w-full h-full flex items-center">
-              {slides.map((slide, index) => (
+              {processSteps.map((slide, index) => (
                 <button
                   key={index}
                   onClick={() => api?.scrollTo(index)}
                   className="absolute group"
                   style={{
-                    left: `${(index / (slides.length - 1)) * 100}%`,
+                    left: `${(index / (processSteps.length - 1)) * 100}%`,
                     top: '50%',
                     transform: 'translate(-50%, -50%)',
                   }}

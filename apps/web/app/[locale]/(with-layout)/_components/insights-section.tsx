@@ -3,8 +3,9 @@
 import Image from 'next/image';
 import { Link } from '@/src/i18n/navigation';
 import { format, parseISO } from 'date-fns';
-import { ArrowRight, ArrowUpRight, Sparkles, TrendingUp } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ArrowUpRight, TrendingUp } from 'lucide-react';
 import { motion } from 'motion/react';
+import { useLocale, useTranslations } from 'next-intl';
 
 import { urlFor } from '@/lib/image';
 
@@ -33,6 +34,11 @@ interface InsightsSectionProps {
 }
 
 export default function InsightsSection({ blogs }: InsightsSectionProps) {
+  const t = useTranslations('insights_section');
+  const locale = useLocale();
+  const isRTL = locale === 'ar';
+  const ArrowIcon = isRTL ? ArrowLeft : ArrowRight;
+
   // Take only the latest 4 blogs
   const featuredBlogs = (blogs?.slice(0, 4) || []).filter(blog => blog !== null);
 
@@ -67,23 +73,23 @@ export default function InsightsSection({ blogs }: InsightsSectionProps) {
               <div className="flex items-center gap-2 mb-4">
                 <div className="h-px w-12 bg-primary" />
                 <span className="text-primary font-semibold text-sm uppercase tracking-wider">
-                  Fresh Perspectives
+                  {t('badge')}
                 </span>
               </div>
-              <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
-                Latest <span className="text-primary">Insights</span>
-              </h2>
-              <p className="text-lg text-gray-600 max-w-2xl">
-                Explore cutting-edge ideas in technology, design, and digital innovation
-              </p>
+              <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-3">{t('title')}</h2>
+              <p className="text-lg text-gray-600 max-w-2xl">{t('description')}</p>
             </div>
 
             <Link
               href="/blogs"
               className="hidden lg:flex items-center gap-2 px-6 py-3 bg-black text-white rounded-full hover:bg-gray-800 transition-all duration-300 group"
             >
-              <span className="font-medium">All Articles</span>
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <span className="font-medium">{t('all_articles')}</span>
+              <ArrowIcon
+                className={`w-4 h-4 transition-transform ${
+                  isRTL ? 'group-hover:-translate-x-1' : 'group-hover:translate-x-1'
+                }`}
+              />
             </Link>
           </div>
         </motion.div>
@@ -120,7 +126,7 @@ export default function InsightsSection({ blogs }: InsightsSectionProps) {
                     {/* Featured Badge */}
                     <div className="absolute top-6 left-6 flex items-center gap-2 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full">
                       <TrendingUp className="w-4 h-4 text-primary" />
-                      <span className="text-sm font-semibold text-gray-900">Featured</span>
+                      <span className="text-sm font-semibold text-gray-900">{t('featured')}</span>
                     </div>
 
                     {/* Category */}
@@ -179,7 +185,9 @@ export default function InsightsSection({ blogs }: InsightsSectionProps) {
                         {mainBlog.estimatedReadingTime && (
                           <>
                             <span>•</span>
-                            <span>{mainBlog.estimatedReadingTime} min read</span>
+                            <span>
+                              {mainBlog.estimatedReadingTime} {t('min_read')}
+                            </span>
                           </>
                         )}
                       </div>
@@ -203,60 +211,42 @@ export default function InsightsSection({ blogs }: InsightsSectionProps) {
               >
                 <Link href={`/blogs/${blog.slug || ''}`} className="block">
                   <div className="relative bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-primary/30">
-                    <div className="flex gap-5">
-                      {/* Thumbnail */}
-                      <div className="relative w-24 h-24 flex-shrink-0 rounded-xl overflow-hidden">
-                        {blog.image ? (
-                          <Image
-                            src={urlFor(blog.image)?.width(200)?.height(200)?.url() || ''}
-                            alt={(blog.image as any)?.alt || blog.title || 'Blog thumbnail'}
-                            fill
-                            className="object-cover group-hover:scale-110 transition-transform duration-500"
-                          />
-                        ) : (
-                          <div className="w-full h-full bg-gradient-to-br from-primary/20 to-orange-200/30 flex items-center justify-center">
-                            <Sparkles className="w-8 h-8 text-primary/50" />
-                          </div>
+                    {/* Content */}
+                    <div className="w-full">
+                      {/* Category & Date */}
+                      <div className="flex items-center gap-2 mb-2">
+                        {blog.category && (
+                          <span
+                            className="text-xs font-bold"
+                            style={{ color: blog.category.color?.hex || '#FB923C' }}
+                          >
+                            {blog.category.title}
+                          </span>
+                        )}
+                        {blog.category && blog.publishedAt && (
+                          <span className="text-gray-400">•</span>
+                        )}
+                        {blog.publishedAt && (
+                          <time className="text-xs text-gray-500" dateTime={blog.publishedAt}>
+                            {format(parseISO(blog.publishedAt), 'MMM d')}
+                          </time>
                         )}
                       </div>
 
-                      {/* Content */}
-                      <div className="flex-1 min-w-0">
-                        {/* Category & Date */}
-                        <div className="flex items-center gap-2 mb-2">
-                          {blog.category && (
-                            <span
-                              className="text-xs font-bold"
-                              style={{ color: blog.category.color?.hex || '#FB923C' }}
-                            >
-                              {blog.category.title}
-                            </span>
-                          )}
-                          {blog.category && blog.publishedAt && (
-                            <span className="text-gray-400">•</span>
-                          )}
-                          {blog.publishedAt && (
-                            <time className="text-xs text-gray-500" dateTime={blog.publishedAt}>
-                              {format(parseISO(blog.publishedAt), 'MMM d')}
-                            </time>
-                          )}
-                        </div>
+                      {/* Title */}
+                      <h3 className="font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-primary transition-colors">
+                        {blog.title}
+                      </h3>
 
-                        {/* Title */}
-                        <h3 className="font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-primary transition-colors">
-                          {blog.title}
-                        </h3>
-
-                        {/* Read More */}
-                        <div className="flex items-center justify-between">
-                          <span className="text-xs text-gray-500">
-                            {blog.estimatedReadingTime || '5'} min read
-                          </span>
-                          <span className="inline-flex items-center gap-1 text-sm font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity">
-                            Read
-                            <ArrowUpRight className="w-3 h-3" />
-                          </span>
-                        </div>
+                      {/* Read More */}
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs text-gray-500">
+                          {blog.estimatedReadingTime || '5'} {t('min_read')}
+                        </span>
+                        <span className="inline-flex items-center gap-1 text-sm font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+                          {t('read')}
+                          <ArrowUpRight className="w-3 h-3" />
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -276,8 +266,8 @@ export default function InsightsSection({ blogs }: InsightsSectionProps) {
                 href="/blogs"
                 className="flex items-center justify-center gap-2 w-full px-6 py-3 bg-primary text-white rounded-full hover:bg-primary/90 transition-colors"
               >
-                <span className="font-medium">View All Articles</span>
-                <ArrowRight className="w-4 h-4" />
+                <span className="font-medium">{t('view_all_articles')}</span>
+                <ArrowIcon className="w-4 h-4" />
               </Link>
             </motion.div>
           </div>
@@ -292,13 +282,17 @@ export default function InsightsSection({ blogs }: InsightsSectionProps) {
           className="hidden lg:flex items-center justify-center mt-16"
         >
           <div className="text-center">
-            <p className="text-gray-600 mb-4">Want to dive deeper into our insights?</p>
+            <p className="text-gray-600 mb-4">{t('bottom_cta_text')}</p>
             <Link
               href="/blogs"
               className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-primary to-orange-600 text-white font-semibold rounded-full hover:shadow-2xl hover:scale-105 transition-all duration-300 group"
             >
-              Explore All Articles
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              {t('explore_all')}
+              <ArrowIcon
+                className={`w-5 h-5 transition-transform ${
+                  isRTL ? 'group-hover:-translate-x-1' : 'group-hover:translate-x-1'
+                }`}
+              />
             </Link>
           </div>
         </motion.div>

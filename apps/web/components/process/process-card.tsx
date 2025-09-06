@@ -1,4 +1,5 @@
 import { Clock, Code, FileText, Palette, Rocket } from 'lucide-react';
+import { useLocale } from 'next-intl';
 
 import { Card, CardContent } from '@/components/shadcn/card';
 
@@ -26,13 +27,17 @@ const emojiMap: Record<string, string> = {
 };
 
 export const ProcessCard: React.FC<Props> = ({ slide }) => {
+  const locale = useLocale();
+  const isRTL = locale === 'ar';
   const Icon = iconMap[slide.number] || Clock;
   const emoji = emojiMap[slide.number] || '⚡';
 
   return (
     <Card className="rounded-3xl pt-4 pb-4 border border-secondary shadow-sm hover:shadow-lg transition-all duration-300 group">
       <CardContent className="p-2">
-        <div className="flex flex-col gap-4 lg:flex-row bg-white rounded-2xl min-h-[250px] md:min-h-[300px] overflow-hidden">
+        <div
+          className={`flex flex-col gap-4 ${isRTL ? 'lg:flex-row-reverse' : 'lg:flex-row'} bg-white rounded-2xl min-h-[250px] md:min-h-[300px] overflow-hidden`}
+        >
           {/* Step Number Section - Simple original style */}
           <div className="bg-secondary p-6 rounded-lg flex flex-col justify-center items-center lg:min-w-[120px]">
             <p className="text-xs uppercase">Step</p>
@@ -62,7 +67,9 @@ export const ProcessCard: React.FC<Props> = ({ slide }) => {
 
             {/* Title and Description with better typography */}
             <div className="space-y-3">
-              <div className="flex items-start gap-3">
+              <div
+                className={`flex items-start gap-3 ${isRTL ? 'flex-row-reverse text-right' : ''}`}
+              >
                 <div className="w-10 h-10 bg-gradient-to-br from-primary to-orange-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-md group-hover:scale-110 transition-transform">
                   <Icon className="w-5 h-5 text-white" />
                 </div>
@@ -70,7 +77,9 @@ export const ProcessCard: React.FC<Props> = ({ slide }) => {
                   {slide.title}
                 </h2>
               </div>
-              <p className="text-sm md:text-base text-gray-600 leading-relaxed line-clamp-3 md:line-clamp-none">
+              <p
+                className={`text-sm md:text-base text-gray-600 leading-relaxed line-clamp-3 md:line-clamp-none ${isRTL ? 'text-right' : ''}`}
+              >
                 {slide.description}
               </p>
             </div>

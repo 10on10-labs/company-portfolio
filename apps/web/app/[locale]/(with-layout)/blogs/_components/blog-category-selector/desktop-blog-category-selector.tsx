@@ -19,14 +19,15 @@ export const DesktopBlogCategorySelector: FC<Props> = ({ blogCategories }) => {
   const { currentCategory, handleCategoryChange } = useBlogCategorySelector();
   return (
     <div className="inline-flex items-center gap-2 p-1 rounded-lg bg-gray-100 border border-gray-200">
-      {blogCategories.map(category => {
-        const isActive =
-          currentCategory === category.slug || (currentCategory === null && category.slug === null);
+      {blogCategories.map((category, index) => {
+        const isViewAll = category.slug === '__view_all__';
+        const actualSlug = isViewAll ? null : category.slug;
+        const isActive = currentCategory === actualSlug || (currentCategory === null && isViewAll);
 
         return (
           <button
-            key={category.slug || 'all'}
-            onClick={() => handleCategoryChange(category.slug)}
+            key={category.slug || `category-${index}`}
+            onClick={() => handleCategoryChange(actualSlug)}
             className={cn(
               'px-4 py-1.5 text-sm font-medium rounded-md transition-all duration-200',
               isActive

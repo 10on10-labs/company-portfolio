@@ -2,9 +2,19 @@ import { type SchemaTypeDefinition } from "sanity";
 import { StructureResolver } from "sanity/structure";
 
 import { blockContent } from "./block-content";
-import { author, blog, blogCategory, brand, project } from "./documents";
+import {
+  author,
+  blog,
+  blogCategory,
+  brand,
+  project,
+  process,
+  accelerate,
+  homepageHero,
+} from "./documents";
 import { service } from "./documents/service";
 import { testimonial } from "./documents/testimonial";
+import { pricing } from "./documents/pricing";
 import { duration } from "./objects";
 import {
   companyTimeline,
@@ -35,6 +45,10 @@ export const sanitySchema: { types: SchemaTypeDefinition[] } = {
     brand,
     service,
     testimonial,
+    pricing,
+    process,
+    accelerate,
+    homepageHero,
     duration,
   ],
 };
@@ -128,6 +142,30 @@ export const structure: StructureResolver = (S) =>
             ]),
         ),
 
+      S.divider(),
+      S.listItem()
+        .title("Pricing")
+        .schemaType("pricing")
+        .child(S.documentTypeList("pricing").title("Pricing Page")),
+
+      S.divider(),
+      S.listItem()
+        .title("Process")
+        .schemaType("process")
+        .child(S.documentTypeList("process").title("Process Section")),
+
+      S.divider(),
+      S.listItem()
+        .title("Accelerate Section")
+        .schemaType("accelerate")
+        .child(S.documentTypeList("accelerate").title("Accelerate Section")),
+
+      S.divider(),
+      S.listItem()
+        .title("Homepage Hero")
+        .schemaType("homepageHero")
+        .child(S.documentTypeList("homepageHero").title("Homepage Hero Content")),
+
       // Include the rest of the document types automatically
       ...S.documentTypeListItems().filter(
         (listItem) =>
@@ -143,6 +181,10 @@ export const structure: StructureResolver = (S) =>
             "aboutStory",
             "aboutValues",
             "aboutCTA",
+            "pricing",
+            "process",
+            "accelerate",
+            "homepageHero",
           ].includes(listItem.getId() ?? ""),
       ),
     ]);

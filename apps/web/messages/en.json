@@ -1,16 +1,7 @@
 {
   "home_page": {
     "hero_section": {
-      "title": "10on10labs",
-      "heading": "Engineering digital perfection",
-      "paragraph": "We specialize in crafting seamless user experiences and building powerful frontend solutions that are a perfect 10/10.",
-      "cta_button": "See our work",
-      "trusted_by_text": "Trusted by the world’s best companies",
-      "stats": {
-        "projects_completed": "100+",
-        "years_of_experience": "5+",
-        "positive_reviews": "50+"
-      }
+      "trusted_by_brands": "Trusted by forward-thinking brands:"
     }
   },
   "navbar": {
@@ -115,5 +106,77 @@
       "viewProject": "View Case Study",
       "viewAllCaseStudies": "View All Case Studies"
     }
+  },
+  "projects_page": {
+    "title": "Projects Highlight",
+    "meta_title": "Our Projects"
+  },
+  "case_studies_section": {
+    "title": "Case Studies",
+    "description": "Explore our portfolio of successful projects and see how we've helped businesses transform their digital presence",
+    "sub_description": "From innovative startups to established enterprises, we've delivered custom solutions that drive growth, enhance user experience, and create lasting impact in the digital landscape",
+    "industry": "Industry:",
+    "services": "Services:",
+    "default_services": "UI/UX Design, Development, Strategy",
+    "view_case_study": "VIEW CASE STUDY",
+    "view_all": "View All Case Studies"
+  },
+  "services_section": {
+    "what_we_do": "What We Do",
+    "title": "Services That Drive Results",
+    "description": "From concept to launch, we deliver comprehensive web solutions that transform your ideas into powerful digital experiences",
+    "explore_all_services": "Explore All Services"
+  },
+  "pricing_section": {
+    "badge": "Simple Pricing",
+    "bottom_note": "All plans include unlimited revisions and priority support"
+  },
+  "pricing": {
+    "most_popular": "MOST POPULAR",
+    "custom_pricing": "Custom Pricing",
+    "choose_plan": "Choose Plan",
+    "get_custom_plan": "Get Custom Plan"
+  },
+  "insights_section": {
+    "badge": "Fresh Perspectives",
+    "title": "Latest Insights",
+    "description": "Explore cutting-edge ideas in technology, design, and digital innovation",
+    "featured": "Featured",
+    "all_articles": "All Articles",
+    "view_all_articles": "View All Articles",
+    "read": "Read",
+    "min_read": "min read",
+    "bottom_cta_text": "Want to dive deeper into our insights?",
+    "explore_all": "Explore All Articles"
+  },
+  "blogs_page": {
+    "meta_title": "Blogs",
+    "breadcrumb_home": "Home",
+    "breadcrumb_blogs": "Blogs",
+    "no_blogs_found": "No blogs found!",
+    "page_title": "Our Blogs",
+    "page_description": "Discover the latest insights, tutorials, and updates from our team of experts.",
+    "latest_articles": "Latest Articles",
+    "view_all": "View All",
+    "select_category": "Select category...",
+    "search_category": "Search category...",
+    "no_category_found": "No category found.",
+    "mins_read": "mins read",
+    "newsletter": {
+      "title": "Subscribe to our newsletter",
+      "description": "Get the latest articles, tutorials, and updates delivered straight to your inbox.",
+      "email_placeholder": "Enter your email",
+      "subscribe_button": "Subscribe"
+    }
+  },
+  "blog_detail": {
+    "about_author": "About the Author",
+    "related_blogs": "Related Blogs",
+    "breadcrumb_home": "Home",
+    "breadcrumb_blogs": "Blogs"
+  },
+  "accelerate_section": {
+    "heading": "Let us accelerate your",
+    "button_text": "Let's Talk"
   }
 }

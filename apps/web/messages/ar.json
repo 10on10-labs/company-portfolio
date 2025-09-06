@@ -1,16 +1,7 @@
 {
   "home_page": {
     "hero_section": {
-      "title": "10on10labs",
-      "heading": "هندسة الكمال الرقمي",
-      "paragraph": "نحن متخصصون في صياغة تجارب مستخدم سلسة وبناء حلول أمامية قوية تمثل 10/10.",
-      "cta_button": "انظر عملنا",
-      "trusted_by_text": "موثوق به من قبل أفضل الشركات في العالم",
-      "stats": {
-        "projects_completed": "100+",
-        "years_of_experience": "5+",
-        "positive_reviews": "50+"
-      }
+      "trusted_by_brands": "موثوق به من العلامات التجارية ذات التفكير المستقبلي:"
     }
   },
   "navbar": {
@@ -115,5 +106,77 @@
       "viewProject": "عرض دراسة الحالة",
       "viewAllCaseStudies": "عرض جميع دراسات الحالة"
     }
+  },
+  "projects_page": {
+    "title": "أبرز المشاريع",
+    "meta_title": "مشاريعنا"
+  },
+  "case_studies_section": {
+    "title": "دراسات الحالة",
+    "description": "استكشف محفظة مشاريعنا الناجحة وشاهد كيف ساعدنا الشركات في تحويل حضورها الرقمي",
+    "sub_description": "من الشركات الناشئة المبتكرة إلى المؤسسات الراسخة، قدمنا حلول مخصصة تحفز النمو وتعزز تجربة المستخدم وتخلق تأثيرًا دائمًا في المشهد الرقمي",
+    "industry": "الصناعة:",
+    "services": "الخدمات:",
+    "default_services": "تصميم واجهة المستخدم/تجربة المستخدم، التطوير، الاستراتيجية",
+    "view_case_study": "عرض دراسة الحالة",
+    "view_all": "عرض جميع دراسات الحالة"
+  },
+  "services_section": {
+    "what_we_do": "ماذا نفعل",
+    "title": "خدمات تحقق النتائج",
+    "description": "من المفهوم إلى الإطلاق، نقدم حلول ويب شاملة تحول أفكارك إلى تجارب رقمية قوية",
+    "explore_all_services": "استكشف جميع الخدمات"
+  },
+  "pricing_section": {
+    "badge": "الأسعار البسيطة",
+    "bottom_note": "جميع الخطط تشمل مراجعات غير محدودة ودعم مع الأولوية"
+  },
+  "pricing": {
+    "most_popular": "الأكثر شعبية",
+    "custom_pricing": "أسعار مخصصة",
+    "choose_plan": "اختر الخطة",
+    "get_custom_plan": "احصل على خطة مخصصة"
+  },
+  "insights_section": {
+    "badge": "وجهات نظر جديدة",
+    "title": "أحدث الرؤى",
+    "description": "استكشف الأفكار المتطورة في التكنولوجيا والتصميم والابتكار الرقمي",
+    "featured": "مميز",
+    "all_articles": "جميع المقالات",
+    "view_all_articles": "عرض جميع المقالات",
+    "read": "اقرأ",
+    "min_read": "دقائق للقراءة",
+    "bottom_cta_text": "تريد الغوص أعمق في رؤانا؟",
+    "explore_all": "استكشف جميع المقالات"
+  },
+  "blogs_page": {
+    "meta_title": "المدونة",
+    "breadcrumb_home": "الرئيسية",
+    "breadcrumb_blogs": "المدونة",
+    "no_blogs_found": "لم يتم العثور على مقالات!",
+    "page_title": "مدونتنا",
+    "page_description": "اكتشف أحدث الرؤى والدروس والتحديثات من فريق الخبراء لدينا.",
+    "latest_articles": "أحدث المقالات",
+    "view_all": "عرض الكل",
+    "select_category": "اختر فئة...",
+    "search_category": "البحث عن فئة...",
+    "no_category_found": "لم يتم العثور على فئة.",
+    "mins_read": "دقائق للقراءة",
+    "newsletter": {
+      "title": "اشترك في نشرتنا الإخبارية",
+      "description": "احصل على أحدث المقالات والدروس والتحديثات مباشرة في صندوق الوارد الخاص بك.",
+      "email_placeholder": "أدخل بريدك الإلكتروني",
+      "subscribe_button": "اشترك"
+    }
+  },
+  "blog_detail": {
+    "about_author": "حول المؤلف",
+    "related_blogs": "مقالات ذات صلة",
+    "breadcrumb_home": "الرئيسية",
+    "breadcrumb_blogs": "المدونة"
+  },
+  "accelerate_section": {
+    "heading": "دعنا نسرع",
+    "button_text": "دعنا نتحدث"
   }
 }

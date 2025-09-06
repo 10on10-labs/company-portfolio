@@ -1,9 +1,8 @@
 import { Metadata } from 'next';
-import { BlogsByCategoryQueryResult } from '@company/sanity-shared';
 import { sanityClient } from '@company/sanity-shared/client';
 
-import { urlFor } from '@/lib/image';
-import { blogCategoriesQuery, blogsByCategoryQuery } from '@/lib/sanity-queries';
+import { fetchBlogsByCategorySlugs } from '@/lib/blog-utils';
+import { blogCategoriesQuery } from '@/lib/sanity-queries';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -30,31 +29,18 @@ const fetchBlogCategories = async () => {
   return blogCategories;
 };
 
-export const fetchBlogsByCategorySlugs = async (categories: string | string[] | undefined) => {
-  const categorySlugs = categories ? (Array.isArray(categories) ? categories : [categories]) : null;
-  const blogs: BlogsByCategoryQueryResult = await sanityClient.fetch(blogsByCategoryQuery, {
-    categorySlugs,
-  });
-
-  return blogs.map(blog => ({
-    ...blog,
-    thumbnail: blog.thumbnail ? urlFor(blog.thumbnail).width(400).url() : null,
-    author: {
-      ...blog.author,
-      image: blog.author?.image ? urlFor(blog.author.image).width(400).url() : null,
-    },
-  }));
-};
-
 export default async function BlogsPage({
   searchParams,
+  params,
 }: {
   searchParams: Promise<{ category: string | string[] | undefined }>;
+  params: Promise<{ locale: string }>;
 }) {
   const { category } = await searchParams;
-  const blogs = await fetchBlogsByCategorySlugs(category);
+  const { locale } = await params;
+  const blogs = await fetchBlogsByCategorySlugs(category, locale);
   const blogCategories = await fetchBlogCategories();
-  const allBlogCategories = [{ title: 'View All', slug: null }, ...blogCategories];
+  const allBlogCategories = [{ title: 'View All', slug: '__view_all__' }, ...blogCategories];
   if (!blogs) return <p>No blogs found!</p>;
   return (
     <div className="min-h-screen">

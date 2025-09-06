@@ -1,7 +1,9 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { sanityClient } from '@company/sanity-shared/client';
+import { getTranslations } from 'next-intl/server';
 
+import { BlogWithProcessedImages, fetchBlogsByCategorySlugs } from '@/lib/blog-utils';
 import { urlFor } from '@/lib/image';
 import { blogBySlugQuery, blogsSlugQuery } from '@/lib/sanity-queries';
 import { CustomPortableText } from '@/components/custom-portable-text';
@@ -15,28 +17,27 @@ import {
 } from '@/components/shadcn/breadcrumb';
 
 import { BlogCard } from '../_components/blog-card';
-import { fetchBlogsByCategorySlugs } from '../page';
 import { AuthorCard } from './_components/author-card';
 import { BlogBannerCard } from './_components/blog-banner-card';
 
 type Props = {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string; locale: string }>;
 };
 
-const fetchBlogsSlug = async () => {
-  const blogsSlugs = await sanityClient.fetch(blogsSlugQuery);
+const fetchBlogsSlug = async (language: string) => {
+  const blogsSlugs = await sanityClient.fetch(blogsSlugQuery, { language });
   return blogsSlugs;
 };
 
-const fetchBlogBySlug = async (slug: string) => {
-  const blog = await sanityClient.fetch(blogBySlugQuery, { slug });
+const fetchBlogBySlug = async (slug: string, language: string) => {
+  const blog = await sanityClient.fetch(blogBySlugQuery, { slug, language });
   if (!blog) return null;
   return blog;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
-  const blog = await fetchBlogBySlug(slug);
+  const { slug, locale } = await params;
+  const blog = await fetchBlogBySlug(slug, locale);
 
   if (!blog) {
     return {
@@ -68,17 +69,28 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export async function generateStaticParams() {
-  const blogsSlug = await fetchBlogsSlug();
-  return blogsSlug.map(blog => ({
-    slug: blog.slug,
-  }));
+  // Generate for both languages
+  const locales = ['en', 'ar'];
+  const allSlugs = [];
+
+  for (const locale of locales) {
+    const blogsSlug = await fetchBlogsSlug(locale);
+    const slugsForLocale = blogsSlug.map(blog => ({
+      slug: blog.slug,
+      locale: locale,
+    }));
+    allSlugs.push(...slugsForLocale);
+  }
+
+  return allSlugs;
 }
 
 export const revalidate = 43200; // 12 hours
 
 export default async function BlogDetailsPage({ params }: Props) {
-  const { slug } = await params;
-  const blog = await fetchBlogBySlug(slug);
+  const { slug, locale } = await params;
+  const blog = await fetchBlogBySlug(slug, locale);
+  const t = await getTranslations('blog_detail');
 
   if (!blog) {
     notFound();
@@ -86,10 +98,13 @@ export default async function BlogDetailsPage({ params }: Props) {
 
   const blogsWithSameCategory = await fetchBlogsByCategorySlugs(
     blog?.blogCategories?.map(category => category.slug).filter(slug => slug !== null),
+    locale,
   );
 
   // exclude the current blog as it also has the same category and will be part of the query result
-  const relatedBlogs = blogsWithSameCategory.filter(blog => blog.slug !== slug);
+  const relatedBlogs: BlogWithProcessedImages[] = blogsWithSameCategory.filter(
+    (blog: BlogWithProcessedImages) => blog.slug !== slug,
+  );
 
   const currentUrl = process.env.NEXT_PUBLIC_DEPLOYED_URL + '/blogs/' + slug;
   const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`;
@@ -101,11 +116,11 @@ export default async function BlogDetailsPage({ params }: Props) {
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
-            <BreadcrumbLink href="/">Home</BreadcrumbLink>
+            <BreadcrumbLink href="/">{t('breadcrumb_home')}</BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbLink href="/blogs">Blogs</BreadcrumbLink>
+            <BreadcrumbLink href="/blogs">{t('breadcrumb_blogs')}</BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
@@ -134,7 +149,7 @@ export default async function BlogDetailsPage({ params }: Props) {
       <section className="mt-8">
         <h2 className="text-xl font-semibold mb-4 flex text-primary items-center">
           <span className="bg-primary h-6 w-1 mr-3 rounded-sm"></span>
-          About the Author
+          {t('about_author')}
         </h2>
         <AuthorCard {...blog?.author} />
       </section>
@@ -143,10 +158,10 @@ export default async function BlogDetailsPage({ params }: Props) {
         <section className="mt-16">
           <h2 className="text-xl font-semibold mb-4 flex text-primary items-center">
             <span className="bg-primary h-6 w-1 mr-3 rounded-sm"></span>
-            Related Blogs
+            {t('related_blogs')}
           </h2>
           <div className="flex flex-wrap gap-4 mt-4">
-            {relatedBlogs.map(blog => (
+            {relatedBlogs.map((blog: BlogWithProcessedImages) => (
               <BlogCard
                 key={blog._id}
                 redirectUrl={`blogs/${blog.slug}`}

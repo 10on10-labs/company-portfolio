@@ -1,45 +1,16 @@
 import { defineField, defineType } from "sanity";
+import {
+  createLanguageField,
+  createUniquePerLanguageField,
+} from "../../../lib/validation";
 
 export const aboutHero = defineType({
   name: "aboutHero",
   title: "About Hero Section",
   type: "document",
   fields: [
-    defineField({
-      name: "language",
-      type: "string",
-      readOnly: true,
-      hidden: true,
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: "tagline",
-      title: "Tagline",
-      type: "string",
-      description: "e.g., 'About Us'",
-      validation: (Rule) =>
-        Rule.required().custom(async (tagline, context) => {
-          const { getClient, document } = context;
-          if (!document?.language || !tagline) return true;
-
-          const client = getClient({ apiVersion: "2023-04-24" });
-          const id = document._id.replace("drafts.", "");
-
-          const params = {
-            draft: `drafts.${id}`,
-            published: id,
-            language: document.language,
-          };
-
-          const query = `!defined(*[_type == "aboutHero" && language == $language && !(_id in [$draft, $published])][0]._id)`;
-          const isUnique = await client.fetch(query, params);
-
-          return (
-            isUnique ||
-            `An about hero section already exists for language: ${document.language}`
-          );
-        }),
-    }),
+    createLanguageField(),
+    createUniquePerLanguageField("tagline", "Tagline", "string", "aboutHero"),
     defineField({
       name: "title",
       title: "Main Title",

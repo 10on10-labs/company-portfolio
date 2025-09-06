@@ -59,32 +59,55 @@ const mainRoutesSitemaps: MetadataRoute.Sitemap = [
 ];
 
 const getBlogPagesSitemaps = async (): Promise<MetadataRoute.Sitemap> => {
-  const blogs = await sanityClient.fetch<BlogsByCategoryQueryResult>(blogsByCategoryQuery, {
-    categorySlugs: null,
-  });
-  return blogs.map(blog => ({
-    url: new URL(`blogs/${blog.slug}`, baseUrl).href,
-    lastModified: now,
-    changeFrequency: 'hourly',
-    priority: 1,
-  }));
+  const locales = ['en', 'ar'];
+  const allBlogPages = [];
+
+  for (const locale of locales) {
+    const blogs = await sanityClient.fetch<BlogsByCategoryQueryResult>(blogsByCategoryQuery, {
+      categorySlugs: null,
+      language: locale,
+    });
+
+    const blogPages = blogs.map(blog => ({
+      url: new URL(`${locale}/blogs/${blog.slug}`, baseUrl).href,
+      lastModified: now,
+      changeFrequency: 'hourly' as const,
+      priority: 1,
+    }));
+
+    allBlogPages.push(...blogPages);
+  }
+
+  return allBlogPages;
 };
 
 const getCaseStudyPagesSitemaps = async (): Promise<MetadataRoute.Sitemap> => {
-  const allProjects = await sanityClient.fetch<AllProjectsQueryResult>(allProjectsQuery);
+  const [enProjects, arProjects] = await Promise.all([
+    sanityClient.fetch<AllProjectsQueryResult>(allProjectsQuery, { language: 'en' }),
+    sanityClient.fetch<AllProjectsQueryResult>(allProjectsQuery, { language: 'ar' }),
+  ]);
+
+  const allProjects = [...(enProjects || []), ...(arProjects || [])];
+
   return allProjects.map(project => ({
     url: new URL(`case-studies/${project.slug}`, baseUrl).href,
     lastModified: now,
-    changeFrequency: 'hourly',
+    changeFrequency: 'hourly' as const,
     priority: 1,
   }));
 };
 const getProjectPagesSitemaps = async (): Promise<MetadataRoute.Sitemap> => {
-  const allProjects = await sanityClient.fetch<AllProjectsQueryResult>(allProjectsQuery);
+  const [enProjects, arProjects] = await Promise.all([
+    sanityClient.fetch<AllProjectsQueryResult>(allProjectsQuery, { language: 'en' }),
+    sanityClient.fetch<AllProjectsQueryResult>(allProjectsQuery, { language: 'ar' }),
+  ]);
+
+  const allProjects = [...(enProjects || []), ...(arProjects || [])];
+
   return allProjects.map(project => ({
     url: new URL(`projects/${project.slug}`, baseUrl).href,
     lastModified: now,
-    changeFrequency: 'hourly',
+    changeFrequency: 'hourly' as const,
     priority: 1,
   }));
 };

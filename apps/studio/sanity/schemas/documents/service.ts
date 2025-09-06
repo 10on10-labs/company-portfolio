@@ -1,49 +1,19 @@
 import { defineField, defineType } from "sanity";
+import { createLanguageField, createUniqueIdField } from "../../lib/validation";
 
 export const service = defineType({
   name: "service",
   title: "Service",
   type: "document",
   fields: [
-    defineField({
-      name: "language",
-      type: "string",
-      readOnly: true,
-      hidden: true,
-    }),
+    createLanguageField(),
     defineField({
       name: "name",
       title: "Service Name",
       type: "string",
       validation: (rule) => rule.required(),
     }),
-    defineField({
-      name: "id",
-      title: "URL Slug",
-      type: "slug",
-      options: {
-        source: "name",
-        maxLength: 96,
-        isUnique: async (value, context) => {
-          const { getClient, document } = context;
-          if (!document?.language) {
-            return true;
-          }
-          const client = getClient({ apiVersion: "2023-04-24" });
-          const id = document._id.replace("drafts.", "");
-          const params = {
-            draft: `drafts.${id}`,
-            published: id,
-            language: document.language,
-            slug: value,
-          };
-          const query = `!defined(*[_type == "service" && language == $language && id.current == $slug && !(_id in [$draft, $published])][0]._id)`;
-          const isUnique = await client.fetch(query, params);
-          return isUnique;
-        },
-      },
-      validation: (rule) => rule.required(),
-    }),
+    createUniqueIdField("name", "service"),
     defineField({
       name: "shortDescription",
       title: "Short Description (for cards)",

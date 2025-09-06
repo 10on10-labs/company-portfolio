@@ -1,5 +1,6 @@
 import { DocumentTextIcon } from "@sanity/icons";
 import { defineArrayMember, defineField, defineType } from "sanity";
+import { createLanguageField } from "../../../lib/validation";
 
 export const blog = defineType({
   name: "blog",
@@ -7,12 +8,7 @@ export const blog = defineType({
   type: "document",
   icon: DocumentTextIcon,
   fields: [
-    defineField({
-      name: "language",
-      type: "string",
-      readOnly: true,
-      hidden: true,
-    }),
+    createLanguageField(),
     defineField({
       name: "title",
       type: "string",
@@ -68,11 +64,15 @@ export const blog = defineType({
     select: {
       title: "title",
       author: "author.name",
-      media: "mainImage",
+      language: "language",
+      media: "thumbnail",
     },
     prepare(selection) {
-      const { author } = selection;
-      return { ...selection, subtitle: author && `by ${author}` };
+      const { author, language } = selection;
+      return {
+        ...selection,
+        subtitle: `${language?.toUpperCase() || "EN"} - ${author ? `by ${author}` : "No author"}`,
+      };
     },
   },
 });
