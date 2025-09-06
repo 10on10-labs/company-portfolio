@@ -1,0 +1,187 @@
+{
+  "home_page": {
+    "hero_section": {
+      "trusted_by_brands": "Trusted by forward-thinking brands:"
+    }
+  },
+  "navbar": {
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "pricing": "Pricing",
+    "case_studies": "Case Studies",
+    "process": "Process",
+    "insights": "Insights",
+    "reviews": "Reviews",
+    "contact_us": "Contact Us",
+    "contact_us_short": "Contact",
+    "open_menu": "Open main menu",
+    "close_menu": "Close main menu",
+    "logo_alt": "10on10labs logo"
+  },
+  "footer": {
+    "newsletter": {
+      "title": "Stay Updated with Our Latest Insights",
+      "subtitle": "Subscribe to our newsletter for technology trends and case studies.",
+      "placeholder": "Enter your email",
+      "button": "Subscribe"
+    },
+    "tagline": "Transforming ideas into exceptional digital experiences.",
+    "nav_headings": {
+      "company": "Company",
+      "services": "Services",
+      "resources": "Resources"
+    },
+    "nav_links": {
+      "about": "About",
+      "process": "Process",
+      "projects": "Projects",
+      "reviews": "Reviews",
+      "web_development": "Web Development",
+      "ui_ux_design": "UI/UX Design",
+      "blog": "Blog",
+      "contact": "Contact",
+      "privacy_policy": "Privacy Policy",
+      "terms_of_service": "Terms of Service"
+    },
+    "copyright": "© {year} 10on10 Labs. All rights reserved."
+  },
+  "about": {
+    "meta": {
+      "title": "About Us - 10on10labs | Digital Innovation & Frontend Experts",
+      "description": "Learn about 10on10labs, a leading digital agency specializing in frontend development and UI/UX design. Discover our mission, values, and the passionate team behind exceptional digital experiences."
+    }
+  },
+  "Services": {
+    "ourExpertise": "Our Expertise",
+    "title": "Our Services",
+    "description": "We offer a wide range of services to help you build your next digital product.",
+    "searchPlaceholder": "Search for a service...",
+    "allServices": "All Services",
+    "noServicesFound": "No services found.",
+    "clearFilters": "Clear Filters",
+    "cta": {
+      "title": "Ready to start a project?",
+      "description": "Let's build something amazing together.",
+      "scheduleButton": "Schedule a Call",
+      "portfolioButton": "View Portfolio"
+    },
+    "expertise": {
+      "category_title": "UI/UX Design - Our Core Expertise",
+      "items": {
+        "strategic_design": {
+          "title": "Strategic UI/UX Design",
+          "description": "We don't just make things look good; we design intuitive user experiences that are both beautiful and effective. We start with a deep dive into user research and strategy to create a journey that delights your audience and achieves your business goals."
+        },
+        "seamless_ui": {
+          "title": "Seamless User Interface (UI)",
+          "description": "From wireframes to pixel-perfect mockups, we design clean, modern, and memorable interfaces. We focus on every detail—typography, color palettes, and interactive elements—to create a visual identity that is consistent and captivating across all devices."
+        },
+        "prototyping": {
+          "title": "Interactive Prototyping",
+          "description": "Bring your ideas to life before a single line of code is written. We create interactive prototypes that allow you to test user flows, gather feedback, and validate your concepts. This ensures the final product is a perfect fit for your users and avoids costly changes down the line."
+        },
+        "research_testing": {
+          "title": "User Research & Testing",
+          "description": "We conduct thorough user research and usability testing to understand your audience deeply. This data-driven approach ensures our designs meet real user needs and deliver measurable business results."
+        },
+        "design_systems": {
+          "title": "Design Systems & Guidelines",
+          "description": "We create comprehensive design systems that ensure consistency across all touchpoints. Our detailed guidelines help maintain brand integrity as your product scales and evolves."
+        },
+        "mobile_first": {
+          "title": "Mobile-First Design",
+          "description": "With mobile users dominating the digital landscape, we prioritize mobile experiences. Our responsive designs ensure your product looks and works perfectly on every screen size."
+        }
+      }
+    },
+    "card": {
+      "show_less": "Show less",
+      "view_more": "View {count} more",
+      "view_service": "View Service"
+    },
+    "projectShowcase": {
+      "title": "Our Work in Action",
+      "description": "See how we've helped businesses transform their digital presence with our expert frontend development and UI/UX design services.",
+      "viewProject": "View Case Study",
+      "viewAllCaseStudies": "View All Case Studies"
+    }
+  },
+  "projects_page": {
+    "title": "Projects Highlight",
+    "meta_title": "Our Projects"
+  },
+  "case_studies_section": {
+    "title": "Case Studies",
+    "description": "Explore our portfolio of successful projects and see how we've helped businesses transform their digital presence",
+    "sub_description": "From innovative startups to established enterprises, we've delivered custom solutions that drive growth, enhance user experience, and create lasting impact in the digital landscape",
+    "industry": "Industry:",
+    "services": "Services:",
+    "default_services": "UI/UX Design, Development, Strategy",
+    "view_case_study": "VIEW CASE STUDY",
+    "view_all": "View All Case Studies"
+  },
+  "case_studies_page": {
+    "title": "Our Case Studies",
+    "description": "Explore our complete portfolio of successful projects and see how we've helped businesses transform their digital presence",
+    "sub_description": "From innovative startups to established enterprises, we've delivered custom solutions that drive growth, enhance user experience, and create lasting impact"
+  },
+  "services_section": {
+    "what_we_do": "What We Do",
+    "title": "Services That Drive Results",
+    "description": "From concept to launch, we deliver comprehensive web solutions that transform your ideas into powerful digital experiences",
+    "explore_all_services": "Explore All Services"
+  },
+  "pricing_section": {
+    "badge": "Simple Pricing",
+    "bottom_note": "All plans include unlimited revisions and priority support"
+  },
+  "pricing": {
+    "most_popular": "MOST POPULAR",
+    "custom_pricing": "Custom Pricing",
+    "choose_plan": "Choose Plan",
+    "get_custom_plan": "Get Custom Plan"
+  },
+  "insights_section": {
+    "badge": "Fresh Perspectives",
+    "title": "Latest Insights",
+    "description": "Explore cutting-edge ideas in technology, design, and digital innovation",
+    "featured": "Featured",
+    "all_articles": "All Articles",
+    "view_all_articles": "View All Articles",
+    "read": "Read",
+    "min_read": "min read",
+    "bottom_cta_text": "Want to dive deeper into our insights?",
+    "explore_all": "Explore All Articles"
+  },
+  "blogs_page": {
+    "meta_title": "Blogs",
+    "breadcrumb_home": "Home",
+    "breadcrumb_blogs": "Blogs",
+    "no_blogs_found": "No blogs found!",
+    "page_title": "Our Blogs",
+    "page_description": "Discover the latest insights, tutorials, and updates from our team of experts.",
+    "latest_articles": "Latest Articles",
+    "view_all": "View All",
+    "select_category": "Select category...",
+    "search_category": "Search category...",
+    "no_category_found": "No category found.",
+    "mins_read": "mins read",
+    "newsletter": {
+      "title": "Subscribe to our newsletter",
+      "description": "Get the latest articles, tutorials, and updates delivered straight to your inbox.",
+      "email_placeholder": "Enter your email",
+      "subscribe_button": "Subscribe"
+    }
+  },
+  "blog_detail": {
+    "about_author": "About the Author",
+    "related_blogs": "Related Blogs",
+    "breadcrumb_home": "Home",
+    "breadcrumb_blogs": "Blogs"
+  },
+  "accelerate_section": {
+    "heading": "Let us accelerate your",
+    "button_text": "Let's Talk"
+  }
+}

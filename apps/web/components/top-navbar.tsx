@@ -2,26 +2,30 @@
 
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { Link, usePathname } from '@/src/i18n/navigation';
 import { AnimatePresence, motion, Variants } from 'motion/react';
+import { useTranslations } from 'next-intl';
+
+import LocaleSwitcher from './locale-switcher';
 
 // Define menu items matching homepage section order
-const menuItems = [
-  { title: 'Home', href: '/', isSection: false },
-  { title: 'Services', href: '/#services', isSection: true },
-  { title: 'Pricing', href: '/pricing', isSection: false },
-  { title: 'Case Studies', href: '/#case-studies', isSection: true },
-  { title: 'Process', href: '/#process', isSection: true },
-  { title: 'Insights', href: '/#insights', isSection: true },
-  { title: 'Reviews', href: '/#reviews', isSection: true },
-  { title: 'About', href: '/about', isSection: false },
+const getMenuItems = (t: any) => [
+  { title: t('navbar.home'), href: '/', isSection: false },
+  { title: t('navbar.services'), href: '/#services', isSection: true },
+  { title: t('navbar.pricing'), href: '/pricing', isSection: false },
+  { title: t('navbar.case_studies'), href: '/#case-studies', isSection: true },
+  { title: t('navbar.process'), href: '/#process', isSection: true },
+  { title: t('navbar.insights'), href: '/#insights', isSection: true },
+  { title: t('navbar.reviews'), href: '/#reviews', isSection: true },
+  { title: t('navbar.about'), href: '/about', isSection: false },
 ];
 
 export const TopNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
   const pathname = usePathname();
+  const t = useTranslations();
+  const menuItems = getMenuItems(t);
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const closeMenu = () => setIsMenuOpen(false);
 
@@ -77,7 +81,7 @@ export const TopNavbar = () => {
     window.addEventListener('scroll', handleScroll);
     handleScroll(); // Check initial position
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [pathname]);
+  }, [pathname, menuItems]);
 
   // Animation variants
   const sidebarVariants: Variants = {
@@ -144,7 +148,7 @@ export const TopNavbar = () => {
   };
 
   return (
-    <header className="fixed top-2 left-0 right-0  z-50">
+    <header className="fixed top-2 left-0 right-0 z-50" dir="ltr">
       <div className="container mx-auto px-4">
         <div className="hidden lg:flex items-center justify-center">
           <nav className="flex items-center h-full w-full justify-center">
@@ -152,10 +156,11 @@ export const TopNavbar = () => {
             <div className="relative bg-primary/50 backdrop-blur-sm rounded-full h-full shadow-2xl shadow-black/20 px-1 border border-white/20">
               <ul className="relative flex items-center h-full lg:px-2 xl:px-3 lg:py-1.5 xl:py-2 text-black lg:gap-0.5 xl:gap-0">
                 {/* Logo as first item inside navbar */}
-                <li className="mr-1">
+                <li className="mr-1" dir="ltr">
                   <Link
                     href="/"
                     className="flex items-center lg:px-2 xl:px-3 py-1 hover:bg-white/30 rounded-full transition-all duration-200 group"
+                    dir="ltr"
                   >
                     <div className="lg:w-7 xl:w-9 lg:h-7 xl:h-9 relative flex items-center justify-center">
                       {/* White background circle precisely for the 10/10 part */}
@@ -164,12 +169,15 @@ export const TopNavbar = () => {
                         src="/logo.png"
                         width={36}
                         height={36}
-                        alt="10on10labs logo"
+                        alt={t('navbar.logo_alt')}
                         className="lg:w-7 xl:w-9 lg:h-7 xl:h-9 relative z-10"
                         priority
                       />
                     </div>
-                    <span className="lg:ml-2 xl:ml-2.5 font-semibold text-black lg:text-xs xl:text-sm lg:tracking-tight xl:tracking-wide">
+                    <span
+                      className="lg:ml-2 xl:ml-2.5 font-semibold text-black lg:text-xs xl:text-sm lg:tracking-tight xl:tracking-wide"
+                      dir="ltr"
+                    >
                       10on10labs
                     </span>
                   </Link>
@@ -231,34 +239,40 @@ export const TopNavbar = () => {
                     className="relative lg:px-4 xl:px-5 lg:py-1.5 xl:py-2 rounded-full font-medium lg:text-xs xl:text-[13px] bg-gradient-to-r from-primary to-primary/80 text-white hover:from-white hover:to-gray-100 hover:text-black transition-all duration-300 shadow-lg hover:shadow-xl group overflow-hidden"
                   >
                     <span className="relative z-10 lg:inline xl:inline">
-                      <span className="lg:hidden xl:inline">Contact Us</span>
-                      <span className="lg:inline xl:hidden">Contact</span>
+                      <span className="lg:hidden xl:inline">{t('navbar.contact_us')}</span>
+                      <span className="lg:inline xl:hidden">{t('navbar.contact_us_short')}</span>
                     </span>
                     <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full"></div>
                   </Link>
+                </li>
+
+                {/* Language Switcher */}
+                <li className="lg:pl-1 xl:pl-2">
+                  <LocaleSwitcher />
                 </li>
               </ul>
             </div>
           </nav>
         </div>
       </div>
-      <div className="fixed top-0 left-0 right-0 z-50 lg:hidden">
-        <div className="flex items-center justify-between px-4 py-4">
-          <Link href="/" className="flex-shrink-0">
+      <div className="fixed top-0 left-0 right-0 z-50 lg:hidden" dir="ltr">
+        <div className="flex items-center justify-between px-4 py-4" dir="ltr">
+          <Link href="/" className="flex-shrink-0" dir="ltr">
             <div className="bg-white rounded-lg">
-              <Image src="/logo.png" width={40} height={40} alt="logo" />
+              <Image src="/logo.png" width={40} height={40} alt={t('navbar.logo_alt')} />
             </div>
           </Link>
 
           <motion.button
             onClick={toggleMenu}
             className="flex-shrink-0 bg-primary p-2 text-secondary rounded-md hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-secondary"
-            aria-label={isMenuOpen ? 'Close main menu' : 'Open main menu'}
+            aria-label={isMenuOpen ? t('navbar.close_menu') : t('navbar.open_menu')}
             aria-expanded={isMenuOpen}
             initial="closed"
             animate={isMenuOpen ? 'open' : 'closed'}
             whileTap="tap"
             variants={buttonVariants}
+            dir="ltr"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -300,7 +314,7 @@ export const TopNavbar = () => {
         variants={sidebarVariants}
       >
         <div className="bg-primary h-screen w-full flex flex-col overflow-y-auto hide-scrollbar shadow-xl">
-          <nav className="p-20 pt-10 mt-10 pb-0 w-full">
+          <nav className="p-20 pt-10 mt-10 pb-0 w-full" dir="ltr">
             <ul className="text-secondary uppercase font-extrabold text-3xl">
               {menuItems.map(({ title, href }, index) => (
                 <motion.li

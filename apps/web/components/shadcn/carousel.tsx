@@ -3,6 +3,7 @@
 import * as React from 'react';
 import useEmblaCarousel, { type UseEmblaCarouselType } from 'embla-carousel-react';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { useLocale } from 'next-intl';
 
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/shadcn/button';
@@ -27,6 +28,7 @@ type CarouselContextProps = {
   scrollNext: () => void;
   canScrollPrev: boolean;
   canScrollNext: boolean;
+  isRTL: boolean;
 } & CarouselProps;
 
 const CarouselContext = React.createContext<CarouselContextProps | null>(null);
@@ -51,10 +53,13 @@ function Carousel({
   children,
   ...props
 }: React.ComponentProps<'div'> & CarouselProps) {
+  const locale = useLocale();
+  const isRTL = locale === 'ar';
   const [carouselRef, api] = useEmblaCarousel(
     {
       ...opts,
       axis: orientation === 'horizontal' ? 'x' : 'y',
+      direction: isRTL ? 'rtl' : 'ltr',
     },
     plugins,
   );
@@ -79,13 +84,13 @@ function Carousel({
     (event: React.KeyboardEvent<HTMLDivElement>) => {
       if (event.key === 'ArrowLeft') {
         event.preventDefault();
-        scrollPrev();
+        isRTL ? scrollNext() : scrollPrev();
       } else if (event.key === 'ArrowRight') {
         event.preventDefault();
-        scrollNext();
+        isRTL ? scrollPrev() : scrollNext();
       }
     },
-    [scrollPrev, scrollNext],
+    [scrollPrev, scrollNext, isRTL],
   );
 
   React.useEffect(() => {
@@ -115,6 +120,7 @@ function Carousel({
         scrollNext,
         canScrollPrev,
         canScrollNext,
+        isRTL,
       }}
     >
       <div
@@ -132,12 +138,16 @@ function Carousel({
 }
 
 function CarouselContent({ className, ...props }: React.ComponentProps<'div'>) {
-  const { carouselRef, orientation } = useCarousel();
+  const { carouselRef, orientation, isRTL } = useCarousel();
 
   return (
     <div ref={carouselRef} className="overflow-hidden" data-slot="carousel-content">
       <div
-        className={cn('flex', orientation === 'horizontal' ? '-ml-4' : '-mt-4 flex-col', className)}
+        className={cn(
+          'flex',
+          orientation === 'horizontal' ? (isRTL ? '-mr-4' : '-ml-4') : '-mt-4 flex-col',
+          className,
+        )}
         {...props}
       />
     </div>
@@ -145,7 +155,7 @@ function CarouselContent({ className, ...props }: React.ComponentProps<'div'>) {
 }
 
 function CarouselItem({ className, ...props }: React.ComponentProps<'div'>) {
-  const { orientation } = useCarousel();
+  const { orientation, isRTL } = useCarousel();
 
   return (
     <div
@@ -154,7 +164,7 @@ function CarouselItem({ className, ...props }: React.ComponentProps<'div'>) {
       data-slot="carousel-item"
       className={cn(
         'min-w-0 shrink-0 grow-0 basis-full',
-        orientation === 'horizontal' ? 'pl-4' : 'pt-4',
+        orientation === 'horizontal' ? (isRTL ? 'pr-4' : 'pl-4') : 'pt-4',
         className,
       )}
       {...props}
@@ -168,7 +178,7 @@ function CarouselPrevious({
   size = 'icon',
   ...props
 }: React.ComponentProps<typeof Button>) {
-  const { orientation, scrollPrev, canScrollPrev } = useCarousel();
+  const { orientation, scrollPrev, canScrollPrev, isRTL } = useCarousel();
 
   return (
     <Button
@@ -186,7 +196,7 @@ function CarouselPrevious({
       onClick={scrollPrev}
       {...props}
     >
-      <ArrowLeft />
+      {isRTL ? <ArrowRight /> : <ArrowLeft />}
       <span className="sr-only">Previous slide</span>
     </Button>
   );
@@ -198,7 +208,7 @@ function CarouselNext({
   size = 'icon',
   ...props
 }: React.ComponentProps<typeof Button>) {
-  const { orientation, scrollNext, canScrollNext } = useCarousel();
+  const { orientation, scrollNext, canScrollNext, isRTL } = useCarousel();
 
   return (
     <Button
@@ -216,7 +226,7 @@ function CarouselNext({
       onClick={scrollNext}
       {...props}
     >
-      <ArrowRight />
+      {isRTL ? <ArrowLeft /> : <ArrowRight />}
       <span className="sr-only">Next slide</span>
     </Button>
   );

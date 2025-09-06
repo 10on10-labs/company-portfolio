@@ -7,10 +7,39 @@ export const companyTimeline = defineType({
   type: "document",
   fields: [
     defineField({
+      name: "language",
+      type: "string",
+      readOnly: true,
+      hidden: true,
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: "title",
       title: "Timeline Title",
       type: "string",
       description: "E.g. Our Journey or Milestones",
+      validation: (Rule) =>
+        Rule.required().custom(async (title, context) => {
+          const { getClient, document } = context;
+          if (!document?.language || !title) return true;
+
+          const client = getClient({ apiVersion: "2023-04-24" });
+          const id = document._id.replace("drafts.", "");
+
+          const params = {
+            draft: `drafts.${id}`,
+            published: id,
+            language: document.language,
+          };
+
+          const query = `!defined(*[_type == "companyTimeline" && language == $language && !(_id in [$draft, $published])][0]._id)`;
+          const isUnique = await client.fetch(query, params);
+
+          return (
+            isUnique ||
+            `A company timeline already exists for language: ${document.language}`
+          );
+        }),
     }),
     defineField({
       name: "subTitle",
@@ -60,11 +89,20 @@ export const companyTimeline = defineType({
   preview: {
     select: {
       title: "title",
+      language: "language",
     },
-    prepare({ title }) {
+    prepare({ title, language }) {
+      const flag = language === "en" ? "🇺🇸" : language === "ar" ? "🇸🇦" : "🌍";
+      const langLabel =
+        language === "en"
+          ? "EN"
+          : language === "ar"
+            ? "AR"
+            : language || "Unknown";
+
       return {
-        title: title || "Timeline",
-        subtitle: "Company Milestones",
+        title: `${flag} ${title || "Timeline"}`,
+        subtitle: `Singleton • ${langLabel}`,
       };
     },
   },
