@@ -37,6 +37,7 @@ export default defineConfig({
         "service",
         "blog",
         "project",
+        "testimonial",
         "companyTimeline",
         "leadership",
         "aboutHero",
@@ -45,6 +46,10 @@ export default defineConfig({
         "aboutStory",
         "aboutValues",
         "aboutCTA",
+        "pricing",
+        "process",
+        "accelerate",
+        "homepageHero"
       ],
     }),
     structureTool({ structure }),

@@ -3,7 +3,6 @@
 import { Link } from '@/src/i18n/navigation';
 import { Check, Star } from 'lucide-react';
 import { motion } from 'motion/react';
-import { useTranslations } from 'next-intl';
 
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/shadcn/button';
@@ -25,8 +24,6 @@ interface PricingCardProps {
 }
 
 export function PricingCard({ plan, index }: PricingCardProps) {
-  const t = useTranslations('pricing');
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -40,7 +37,7 @@ export function PricingCard({ plan, index }: PricingCardProps) {
         <div className="absolute -top-5 left-0 right-0 flex justify-center z-30">
           <div className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-5 py-2 rounded-full text-sm font-bold shadow-xl flex items-center gap-2 animate-pulse">
             <Star className="w-4 h-4 fill-white" />
-            {t('most_popular')}
+            MOST POPULAR
           </div>
         </div>
       )}
@@ -96,7 +93,7 @@ export function PricingCard({ plan, index }: PricingCardProps) {
               </span>
             </div>
           ) : (
-            <div className="text-2xl font-bold text-white">{t('custom_pricing')}</div>
+            <div className="text-2xl font-bold text-white">Custom Pricing</div>
           )}
         </div>
 
@@ -134,7 +131,7 @@ export function PricingCard({ plan, index }: PricingCardProps) {
                   : 'bg-transparent border-2 border-orange-400 text-orange-400 hover:bg-orange-400 hover:text-white',
             )}
           >
-            {plan.isCustom ? t('get_custom_plan') : t('choose_plan')}
+            {plan.isCustom ? 'Get Custom Plan' : 'Choose Plan'}
           </Button>
         </Link>
       </div>

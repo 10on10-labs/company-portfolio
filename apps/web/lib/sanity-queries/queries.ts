@@ -1,5 +1,8 @@
 import { defineQuery } from 'next-sanity';
 
+// Re-export homepage hero queries
+export * from './homepage-hero-queries';
+
 export const homePageQuery = defineQuery(`
   *[_type == "home"][0]{
     _id,
@@ -33,7 +36,7 @@ export const pagesBySlugQuery = defineQuery(`
 `);
 
 export const projectBySlugQuery = defineQuery(`
-  *[_type == "project" && slug.current == $slug][0] {
+  *[_type == "project" && slug.current == $slug && language == $language][0] {
     _id,
     "slug": slug.current,
     name,
@@ -52,7 +55,7 @@ export const projectBySlugQuery = defineQuery(`
 `);
 
 export const allProjectsQuery = defineQuery(`
-  *[_type == "project"] | order(priority asc, _createdAt desc) {
+  *[_type == "project" && language == $language] | order(priority asc, _createdAt desc) {
     _id,
     "slug": slug.current,
     name,
@@ -101,12 +104,13 @@ export const servicesQuery = defineQuery(`
 `);
 
 export const testimonialsQuery = defineQuery(`
-  *[_type == "testimonial"] {
+  *[_type == "testimonial" && language == $language] {
     _id,
     clientName,
     role,
     testimonial,
     rating,
+    language,
     clientImage {
       asset->{
         url,

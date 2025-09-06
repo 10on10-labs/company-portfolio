@@ -2,7 +2,17 @@ import { Suspense } from 'react';
 import dynamic from 'next/dynamic';
 
 import { sanityFetch } from '@/lib/live';
-import { allProjectsQuery, blogsQuery, brandsQuery, testimonialsQuery } from '@/lib/sanity-queries';
+import {
+  allProjectsQuery,
+  blogsQuery,
+  brandsQuery,
+  homepageHeroQuery,
+  testimonialsQuery,
+} from '@/lib/sanity-queries';
+import { accelerateQuery } from '@/lib/sanity-queries/accelerate-queries';
+import { pricingPageQuery } from '@/lib/sanity-queries/pricing-queries';
+import { processQuery } from '@/lib/sanity-queries/process-queries';
+import { homepageServicesQuery } from '@/lib/sanity-queries/service-queries';
 import { Skeleton } from '@/components/shadcn/skeleton';
 
 import HeroClient from './hero-client';
@@ -41,39 +51,59 @@ const AccelerateSection = dynamic(
 );
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
-  await params;
+  const { locale } = await params;
 
   // Fetch all data in parallel
-  const [brandsResult, testimonialsResult, projectsResult, blogsResult] = await Promise.all([
+  const [
+    brandsResult,
+    testimonialsResult,
+    projectsResult,
+    blogsResult,
+    servicesResult,
+    pricingResult,
+    processResult,
+    accelerateResult,
+    heroResult,
+  ] = await Promise.all([
     sanityFetch({ query: brandsQuery }),
-    sanityFetch({ query: testimonialsQuery }),
-    sanityFetch({ query: allProjectsQuery }),
-    sanityFetch({ query: blogsQuery }),
+    sanityFetch({ query: testimonialsQuery, params: { language: locale } }),
+    sanityFetch({ query: allProjectsQuery, params: { language: locale } }),
+    sanityFetch({ query: blogsQuery, params: { language: locale } }),
+    sanityFetch({ query: homepageServicesQuery, params: { language: locale } }),
+    sanityFetch({ query: pricingPageQuery, params: { language: locale } }),
+    sanityFetch({ query: processQuery, params: { language: locale } }),
+    sanityFetch({ query: accelerateQuery, params: { language: locale } }),
+    sanityFetch({ query: homepageHeroQuery, params: { language: locale } }),
   ]);
 
   const { data: brands } = brandsResult;
   const { data: testimonials } = testimonialsResult;
   const { data: projects } = projectsResult;
   const { data: blogs } = blogsResult;
+  const { data: services } = servicesResult;
+  const { data: pricingData } = pricingResult;
+  const { data: processData } = processResult;
+  const { data: accelerateData } = accelerateResult;
+  const { data: heroData } = heroResult;
 
   return (
     <div className="min-h-screen">
-      <HeroClient brands={brands} />
+      <HeroClient brands={brands} services={services} heroData={heroData} />
 
       <Suspense fallback={<Skeleton className="h-96 w-full" />}>
         <CaseStudiesSection projects={projects} />
       </Suspense>
 
       <Suspense fallback={<Skeleton className="h-96 w-full" />}>
-        <ServicesSection />
+        <ServicesSection services={services} locale={locale} />
       </Suspense>
 
       <Suspense fallback={<Skeleton className="h-96 w-full" />}>
-        <PricingSection />
+        <PricingSection pricingData={pricingData} />
       </Suspense>
 
       <Suspense fallback={<Skeleton className="h-96 w-full" />}>
-        <ProcessSection />
+        <ProcessSection processData={processData} />
       </Suspense>
 
       <Suspense fallback={<Skeleton className="h-96 w-full" />}>
@@ -81,7 +111,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       </Suspense>
 
       <Suspense fallback={<Skeleton className="h-64 w-full" />}>
-        <AccelerateSection />
+        <AccelerateSection accelerateData={accelerateData} />
       </Suspense>
       <Suspense fallback={<Skeleton className="h-96 w-full" />}>
         <ReviewsSection testimonials={testimonials} />

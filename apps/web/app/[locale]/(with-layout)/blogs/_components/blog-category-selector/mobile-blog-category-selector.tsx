@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Check, ChevronsUpDown } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/shadcn/button';
@@ -29,6 +30,7 @@ type Props = {
 export const MobileBlogCategorySelector: React.FC<Props> = ({ blogCategories }) => {
   const { currentCategory, handleCategoryChange } = useBlogCategorySelector();
   const [openPopOver, setOpenPopOver] = useState(false);
+  const t = useTranslations('blogs_page');
 
   return (
     <Popover open={openPopOver} onOpenChange={setOpenPopOver}>
@@ -40,35 +42,43 @@ export const MobileBlogCategorySelector: React.FC<Props> = ({ blogCategories }) 
           className="w-full sm:w-[200px] justify-between text-gray-700 border-gray-200"
         >
           {currentCategory
-            ? blogCategories.find(cat => cat.slug === currentCategory)?.title
-            : 'Select category...'}
+            ? blogCategories.find(
+                cat => (cat.slug === '__view_all__' ? null : cat.slug) === currentCategory,
+              )?.title
+            : blogCategories.find(cat => cat.slug === '__view_all__')?.title ||
+              t('select_category')}
           <ChevronsUpDown className="opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0">
         <Command>
-          <CommandInput placeholder="Search category..." className="h-9" />
+          <CommandInput placeholder={t('search_category')} className="h-9" />
           <CommandList>
-            <CommandEmpty>No category found.</CommandEmpty>
+            <CommandEmpty>{t('no_category_found')}</CommandEmpty>
             <CommandGroup>
-              {blogCategories.map(cat => (
-                <CommandItem
-                  key={cat.slug}
-                  value={cat.slug || ''}
-                  onSelect={selectedCat => {
-                    handleCategoryChange(selectedCat);
-                    setOpenPopOver(false);
-                  }}
-                >
-                  {cat.title}
-                  <Check
-                    className={cn(
-                      'ml-auto',
-                      currentCategory === cat.slug ? 'opacity-100' : 'opacity-0',
-                    )}
-                  />
-                </CommandItem>
-              ))}
+              {blogCategories.map((cat, index) => {
+                const isViewAll = cat.slug === '__view_all__';
+                const actualSlug = isViewAll ? null : cat.slug;
+
+                return (
+                  <CommandItem
+                    key={cat.slug || `category-${index}`}
+                    value={cat.slug || ''}
+                    onSelect={() => {
+                      handleCategoryChange(actualSlug);
+                      setOpenPopOver(false);
+                    }}
+                  >
+                    {cat.title}
+                    <Check
+                      className={cn(
+                        'ml-auto',
+                        currentCategory === actualSlug ? 'opacity-100' : 'opacity-0',
+                      )}
+                    />
+                  </CommandItem>
+                );
+              })}
             </CommandGroup>
           </CommandList>
         </Command>

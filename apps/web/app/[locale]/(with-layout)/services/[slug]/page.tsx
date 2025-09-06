@@ -92,10 +92,13 @@ export default async function ServiceDetailPage({
   // Fetch projects related to this specific service
   const relatedProjects = await sanityClient.fetch(projectsByServiceQuery, {
     serviceSlug: slug,
+    language: locale,
   });
   // Fallback to all projects if no related projects found
   const projects =
-    relatedProjects.length > 0 ? relatedProjects : await sanityClient.fetch(allProjectsQuery);
+    relatedProjects.length > 0
+      ? relatedProjects
+      : await sanityClient.fetch(allProjectsQuery, { language: locale });
 
   if (!service) {
     notFound();

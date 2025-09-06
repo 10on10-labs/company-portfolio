@@ -1,5 +1,9 @@
 import { DocumentIcon } from "@sanity/icons";
 import { defineField, defineType } from "sanity";
+import {
+  createLanguageField,
+  createUniqueSlugField,
+} from "../../lib/validation";
 
 export const project = defineType({
   name: "project",
@@ -7,12 +11,7 @@ export const project = defineType({
   type: "document",
   icon: DocumentIcon,
   fields: [
-    defineField({
-      name: "language",
-      type: "string",
-      readOnly: true,
-      hidden: true,
-    }),
+    createLanguageField(),
     defineField({
       name: "priority",
       title: "Priority",
@@ -27,14 +26,7 @@ export const project = defineType({
       type: "string",
       validation: (rule) => rule.required(),
     }),
-    defineField({
-      name: "slug",
-      type: "slug",
-      validation: (rule) => rule.required(),
-      options: {
-        source: "name",
-      },
-    }),
+    createUniqueSlugField("name", "project"),
     defineField({
       name: "description",
       type: "text",
@@ -219,13 +211,22 @@ export const project = defineType({
       title: "name",
       subtitle: "category",
       priority: "priority",
+      language: "language",
       media: "logo",
     },
     prepare(selection) {
-      const { title, subtitle, priority, media } = selection;
+      const { title, subtitle, priority, language, media } = selection;
+      const flag = language === "en" ? "🇺🇸" : language === "ar" ? "🇸🇦" : "🌍";
+      const langLabel =
+        language === "en"
+          ? "EN"
+          : language === "ar"
+            ? "AR"
+            : language || "Unknown";
+
       return {
-        title: `${priority ? `[${priority}] ` : ""}${title}`,
-        subtitle,
+        title: `${flag} ${priority ? `[${priority}] ` : ""}${title}`,
+        subtitle: `${subtitle} • ${langLabel}`,
         media,
       };
     },

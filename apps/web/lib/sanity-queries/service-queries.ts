@@ -74,7 +74,7 @@ export const servicesSlugQuery = defineQuery(`
 
 // Query to get projects related to a specific service
 export const projectsByServiceQuery = defineQuery(`
-  *[_type == "project" && references(*[_type == "service" && id.current == $serviceSlug]._id)] | order(priority asc, _createdAt desc) {
+  *[_type == "project" && language == $language && references(*[_type == "service" && id.current == $serviceSlug && language == $language]._id)] | order(priority asc, _createdAt desc) {
     _id,
     "slug": slug.current,
     name,
@@ -89,5 +89,16 @@ export const projectsByServiceQuery = defineQuery(`
     "iterations": projectDimensions.iterations,
     "teamSize": projectDimensions.teamSize,
     "timeline": string(projectDimensions.timeline.value) + " " + coalesce(projectDimensions.timeline.unit, ""),
+  }
+`);
+
+// Query for homepage services section
+export const homepageServicesQuery = defineQuery(`
+  *[_type == "service" && language == $language] | order(_createdAt asc) {
+    _id,
+    name,
+    "slug": id.current,
+    shortDescription,
+    icon
   }
 `);
