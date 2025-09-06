@@ -3,7 +3,11 @@ import { notFound } from 'next/navigation';
 import { sanityClient } from '@company/sanity-shared/client';
 import { getTranslations } from 'next-intl/server';
 
-import { BlogWithProcessedImages, fetchBlogsByCategorySlugs } from '@/lib/blog-utils';
+import {
+  BlogWithProcessedImages,
+  fetchBlogsByCategorySlugs,
+  getMidCtaIndex,
+} from '@/lib/blog-utils';
 import { urlFor } from '@/lib/image';
 import { blogBySlugQuery, blogsSlugQuery } from '@/lib/sanity-queries';
 import { CustomPortableText } from '@/components/custom-portable-text';
@@ -17,6 +21,7 @@ import {
 } from '@/components/shadcn/breadcrumb';
 
 import { BlogCard } from '../_components/blog-card';
+import { DownloadPdfCta } from '../_components/download-pdf-cta';
 import { AuthorCard } from './_components/author-card';
 import { BlogBannerCard } from './_components/blog-banner-card';
 
@@ -105,12 +110,17 @@ export default async function BlogDetailsPage({ params }: Props) {
   const relatedBlogs: BlogWithProcessedImages[] = blogsWithSameCategory.filter(
     (blog: BlogWithProcessedImages) => blog.slug !== slug,
   );
-
+  const body = blog?.body ?? [];
+  const ctaIndex = getMidCtaIndex(body, {
+    bias: 0.55, // push slightly past the middle
+    minBlocksBefore: 4, // ensure it’s not near the start
+    minParagraphsBefore: 3,
+    minTotalChars: 1200,
+  });
   const currentUrl = process.env.NEXT_PUBLIC_DEPLOYED_URL + '/blogs/' + slug;
   const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`;
   const linkedInShareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(facebookShareUrl)}`;
   const twitterShareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(blog?.title || '')}&url=${encodeURIComponent(currentUrl)}`;
-
   return (
     <div className="flex flex-col gap-y-4 py-5 px-16">
       <Breadcrumb>
@@ -138,10 +148,21 @@ export default async function BlogDetailsPage({ params }: Props) {
         linkedInShareUrl={linkedInShareUrl}
         twitterShareUrl={twitterShareUrl}
       />
-      <section>
-        {blog?.body && (
+      <DownloadPdfCta variant="compact" />
+      <section className="mt-8">
+        {body.length > 0 && (
           <div className="mt-8">
-            <CustomPortableText value={blog.body || []} />
+            {ctaIndex > 0 ? (
+              <>
+                <CustomPortableText value={body.slice(0, ctaIndex)} />
+                <div className="my-10">
+                  <DownloadPdfCta variant="detailed" />
+                </div>
+                <CustomPortableText value={body.slice(ctaIndex)} />
+              </>
+            ) : (
+              <CustomPortableText value={body} />
+            )}
           </div>
         )}
       </section>
