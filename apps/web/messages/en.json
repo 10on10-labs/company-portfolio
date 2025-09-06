@@ -121,6 +121,11 @@
     "view_case_study": "VIEW CASE STUDY",
     "view_all": "View All Case Studies"
   },
+  "case_studies_page": {
+    "title": "Our Case Studies",
+    "description": "Explore our complete portfolio of successful projects and see how we've helped businesses transform their digital presence",
+    "sub_description": "From innovative startups to established enterprises, we've delivered custom solutions that drive growth, enhance user experience, and create lasting impact"
+  },
   "services_section": {
     "what_we_do": "What We Do",
     "title": "Services That Drive Results",
