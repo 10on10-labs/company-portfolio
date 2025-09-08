@@ -1,7 +1,7 @@
 import { defineQuery } from 'next-sanity';
 
 export const blogBySlugQuery = defineQuery(`
-    *[_type == "blog" && slug.current == $slug][0] {
+    *[_type == "blog" && slug.current == $slug && language == $language][0] {
         title,
         subTitle,
         "modifiedAt": _updatedAt,
@@ -17,7 +17,7 @@ export const blogBySlugQuery = defineQuery(`
 `);
 
 export const blogsSlugQuery = defineQuery(`
-    *[_type == "blog"] {
+    *[_type == "blog" && language == $language] {
         "slug": slug.current
     }
 `);
@@ -30,7 +30,7 @@ export const blogCategoriesQuery = defineQuery(`
 `);
 
 export const blogsByCategoryQuery = defineQuery(`
-   *[_type == "blog" && 
+   *[_type == "blog" && language == $language &&
     ($categorySlugs == null || references(*[_type == "blogCategory" && slug.current in $categorySlugs]._id))
   ] {
     _id,
@@ -54,7 +54,7 @@ export const blogsByCategoryQuery = defineQuery(`
 `);
 
 export const blogsQuery = defineQuery(`
-  *[_type == "blog"] | order(publishedAt desc) [0...10] {
+  *[_type == "blog" && language == $language] | order(publishedAt desc) [0...10] {
     _id,
     title,
     "excerpt": subTitle,

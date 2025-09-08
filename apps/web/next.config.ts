@@ -1,6 +1,9 @@
 import { NextConfig } from 'next';
 import bundleAnalyzer from '@next/bundle-analyzer';
 import { withSentryConfig } from '@sentry/nextjs';
+import createNextIntlPlugin from 'next-intl/plugin';
+
+const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 
 const withBundleAnalyzer = bundleAnalyzer({
   enabled: process.env.ANALYZE === 'true',
@@ -51,7 +54,7 @@ const config: NextConfig = {
 };
 
 export default withBundleAnalyzer(
-  withSentryConfig(config, {
+  withSentryConfig(withNextIntl(config), {
     // For all available options, see:
     // https://www.npmjs.com/package/@sentry/webpack-plugin#options
 

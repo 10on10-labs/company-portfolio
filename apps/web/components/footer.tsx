@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import { Link } from '@/src/i18n/navigation';
 import {
   ArrowRight,
   Facebook,
@@ -11,26 +11,28 @@ import {
   Phone,
   Twitter,
 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 import { subscribeToNewsletter } from '@/app/actions/subscribeToNewsletter';
 
 const Footer = () => {
+  const t = useTranslations('footer');
   const currentYear = new Date().getFullYear();
 
   const navigation = {
     company: [
-      { name: 'About', href: '/about' },
-      { name: 'Process', href: '#process' },
-      { name: 'Projects', href: '#case-studies' },
-      { name: 'Reviews', href: '#reviews' },
+      { name: t('nav_links.about'), href: '/about' },
+      { name: t('nav_links.process'), href: '#process' },
+      { name: t('nav_links.projects'), href: '#case-studies' },
+      { name: t('nav_links.reviews'), href: '#reviews' },
     ],
     services: [
-      { name: 'Web Development', href: '/services/frontend-development' },
-      { name: 'UI/UX Design', href: '/services/ui-ux-services' },
+      { name: t('nav_links.web_development'), href: '/services/frontend-development' },
+      { name: t('nav_links.ui_ux_design'), href: '/services/ui-ux-services' },
     ],
     resources: [
-      { name: 'Blog', href: '/blogs' },
-      { name: 'Contact', href: '/contact-us' },
+      { name: t('nav_links.blog'), href: '/blogs' },
+      { name: t('nav_links.contact'), href: '/contact-us' },
     ],
   };
 
@@ -48,19 +50,15 @@ const Footer = () => {
       <div className="border-b border-gray-800">
         <div className="container mx-auto px-4 py-8">
           <div className="max-w-4xl mx-auto text-center">
-            <h3 className="text-xl md:text-2xl font-bold mb-3">
-              Stay Updated with Our Latest Insights
-            </h3>
-            <p className="text-gray-400 mb-6 text-sm md:text-base">
-              Subscribe to our newsletter for technology trends and case studies.
-            </p>
+            <h3 className="text-xl md:text-2xl font-bold mb-3">{t('newsletter.title')}</h3>
+            <p className="text-gray-400 mb-6 text-sm md:text-base">{t('newsletter.subtitle')}</p>
             <form
               action={subscribeToNewsletter}
               className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto relative z-10"
             >
               <input
                 type="email"
-                placeholder="Enter your email"
+                placeholder={t('newsletter.placeholder')}
                 className="flex-1 px-4 py-2.5 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-sm relative z-20"
                 required
               />
@@ -68,8 +66,8 @@ const Footer = () => {
                 type="submit"
                 className="px-5 py-2.5 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors duration-300 flex items-center justify-center gap-2 font-medium text-sm relative z-20"
               >
-                Subscribe
-                <ArrowRight className="w-4 h-4" />
+                {t('newsletter.button')}
+                <ArrowRight className="w-4 h-4 rtl:rotate-180" />
               </button>
             </form>
           </div>
@@ -84,9 +82,7 @@ const Footer = () => {
             <Link href="/" className="inline-block mb-4">
               <h2 className="text-xl font-bold">10on10 Labs</h2>
             </Link>
-            <p className="text-gray-400 mb-4 text-sm">
-              Transforming ideas into exceptional digital experiences.
-            </p>
+            <p className="text-gray-400 mb-4 text-sm">{t('tagline')}</p>
 
             {/* Contact Info */}
             <div className="space-y-2 mb-4 text-sm">
@@ -95,14 +91,14 @@ const Footer = () => {
                 className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
               >
                 <Mail className="w-4 h-4" />
-                sales@10on10labs.com
+                <span dir="ltr">sales@10on10labs.com</span>
               </a>
               <a
                 href="tel:+923345600371"
                 className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
               >
                 <Phone className="w-4 h-4" />
-                +92 334 5600371
+                <span dir="ltr">+92 334 5600371</span>
               </a>
             </div>
 
@@ -126,7 +122,9 @@ const Footer = () => {
 
           {/* Navigation Links */}
           <div>
-            <h3 className="text-sm font-semibold mb-3 uppercase tracking-wider">Company</h3>
+            <h3 className="text-sm font-semibold mb-3 uppercase tracking-wider">
+              {t('nav_headings.company')}
+            </h3>
             <ul className="space-y-2 text-sm">
               {navigation.company.map(item => (
                 <li key={item.name}>
@@ -142,7 +140,9 @@ const Footer = () => {
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold mb-3 uppercase tracking-wider">Services</h3>
+            <h3 className="text-sm font-semibold mb-3 uppercase tracking-wider">
+              {t('nav_headings.services')}
+            </h3>
             <ul className="space-y-2 text-sm">
               {navigation.services.map(item => (
                 <li key={item.name}>
@@ -158,7 +158,9 @@ const Footer = () => {
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold mb-3 uppercase tracking-wider">Resources</h3>
+            <h3 className="text-sm font-semibold mb-3 uppercase tracking-wider">
+              {t('nav_headings.resources')}
+            </h3>
             <ul className="space-y-2 text-sm">
               {navigation.resources.map(item => (
                 <li key={item.name}>
@@ -172,12 +174,12 @@ const Footer = () => {
               ))}
               <li>
                 <Link href="/privacy" className="text-gray-400 hover:text-white transition-colors">
-                  Privacy Policy
+                  {t('nav_links.privacy_policy')}
                 </Link>
               </li>
               <li>
                 <Link href="/terms" className="text-gray-400 hover:text-white transition-colors">
-                  Terms of Service
+                  {t('nav_links.terms_of_service')}
                 </Link>
               </li>
             </ul>
@@ -189,7 +191,7 @@ const Footer = () => {
       <div className="border-t border-gray-800">
         <div className="container mx-auto px-4 py-4">
           <p className="text-gray-400 text-xs text-center">
-            © {currentYear} 10on10 Labs. All rights reserved.
+            {t('copyright', { year: currentYear })}
           </p>
         </div>
       </div>

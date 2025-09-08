@@ -1,26 +1,19 @@
 import { defineField, defineType } from "sanity";
+import { createLanguageField, createUniqueIdField } from "../../lib/validation";
 
 export const service = defineType({
   name: "service",
   title: "Service",
   type: "document",
   fields: [
+    createLanguageField(),
     defineField({
       name: "name",
       title: "Service Name",
       type: "string",
       validation: (rule) => rule.required(),
     }),
-    defineField({
-      name: "id",
-      title: "URL Slug",
-      type: "slug",
-      options: {
-        source: "name",
-        maxLength: 96,
-      },
-      validation: (rule) => rule.required(),
-    }),
+    createUniqueIdField("name", "service"),
     defineField({
       name: "shortDescription",
       title: "Short Description (for cards)",
@@ -91,6 +84,132 @@ export const service = defineType({
           type: "text",
           rows: 2,
         }),
+        defineField({
+          name: "primaryButtonText",
+          title: "Primary Button Text",
+          type: "string",
+          initialValue: "Start Your Project",
+        }),
+        defineField({
+          name: "secondaryButtonText",
+          title: "Secondary Button Text",
+          type: "string",
+          initialValue: "View Our Work",
+        }),
+      ],
+    }),
+
+    // Features Section Content
+    defineField({
+      name: "featuresSection",
+      title: "Features Section",
+      type: "object",
+      fields: [
+        defineField({
+          name: "title",
+          title: "Section Title",
+          type: "string",
+          initialValue: "Why Choose Our Service",
+        }),
+        defineField({
+          name: "description",
+          title: "Section Description",
+          type: "text",
+          rows: 2,
+          initialValue:
+            "We combine technical expertise with creative vision to deliver outstanding solutions",
+        }),
+      ],
+    }),
+
+    // Technologies Section Content
+    defineField({
+      name: "technologiesSection",
+      title: "Technologies Section",
+      type: "object",
+      fields: [
+        defineField({
+          name: "title",
+          title: "Section Title",
+          type: "string",
+          initialValue: "Technologies We Master",
+        }),
+        defineField({
+          name: "description",
+          title: "Section Description",
+          type: "text",
+          rows: 2,
+          initialValue:
+            "Leveraging cutting-edge technologies to build modern applications",
+        }),
+      ],
+    }),
+
+    // Process Section Content
+    defineField({
+      name: "processSection",
+      title: "Process Section",
+      type: "object",
+      fields: [
+        defineField({
+          name: "title",
+          title: "Section Title",
+          type: "string",
+          initialValue: "Our Development Process",
+          description: "Main heading for the process section",
+        }),
+        defineField({
+          name: "description",
+          title: "Section Description",
+          type: "text",
+          rows: 2,
+          initialValue:
+            "A proven methodology that ensures project success from concept to deployment",
+          description: "Description text below the title",
+        }),
+        defineField({
+          name: "processSteps",
+          title: "Process Steps",
+          type: "array",
+          of: [
+            {
+              type: "object",
+              fields: [
+                defineField({
+                  name: "number",
+                  title: "Step Number",
+                  type: "string",
+                  description: 'e.g., "01", "02"',
+                }),
+                defineField({
+                  name: "title",
+                  title: "Step Title",
+                  type: "string",
+                  validation: (rule) => rule.required(),
+                }),
+                defineField({
+                  name: "description",
+                  title: "Step Description",
+                  type: "text",
+                  rows: 2,
+                  validation: (rule) => rule.required(),
+                }),
+              ],
+              preview: {
+                select: {
+                  title: "title",
+                  subtitle: "number",
+                },
+                prepare({ title, subtitle }) {
+                  return {
+                    title: `${subtitle}. ${title}`,
+                    subtitle: "Process Step",
+                  };
+                },
+              },
+            },
+          ],
+        }),
       ],
     }),
 
@@ -160,37 +279,6 @@ export const service = defineType({
               title: "Icon/Emoji",
               type: "string",
               description: "Emoji or icon identifier (e.g., ⚛️ for React)",
-            }),
-          ],
-        },
-      ],
-    }),
-
-    // Process Steps
-    defineField({
-      name: "processSteps",
-      title: "Process Steps",
-      type: "array",
-      of: [
-        {
-          type: "object",
-          fields: [
-            defineField({
-              name: "number",
-              title: "Step Number",
-              type: "string",
-              description: 'e.g., "01", "02"',
-            }),
-            defineField({
-              name: "title",
-              title: "Step Title",
-              type: "string",
-            }),
-            defineField({
-              name: "description",
-              title: "Step Description",
-              type: "text",
-              rows: 2,
             }),
           ],
         },

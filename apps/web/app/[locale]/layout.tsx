@@ -1,0 +1,127 @@
+import './globals.css';
+
+import { Metadata } from 'next';
+import { Poppins } from 'next/font/google';
+import { draftMode } from 'next/headers';
+import { notFound } from 'next/navigation';
+import { routing } from '@/src/i18n/routing';
+import { GoogleAnalytics } from '@next/third-parties/google';
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages, setRequestLocale } from 'next-intl/server';
+import { VisualEditing } from 'next-sanity';
+
+import { SanityLive } from '@/lib/live';
+
+import { handleError } from '../client-functions';
+import { DraftModeToast } from './DraftModeToast';
+
+const fontPoppins = Poppins({
+  variable: '--font-poppins',
+  subsets: ['latin'],
+  weight: ['500', '700'],
+});
+
+export const metadata: Metadata = {
+  title: { default: '10on10Labs', template: '%s - 10on10Labs' },
+  description:
+    'Engineering digital perfection.We specialize in crafting seamless user experiences and building powerful frontend solutions that are a perfect 10/10.',
+  keywords: [
+    '10on10labs',
+    '10 on 10 Labs',
+    'Engineering digital perfection',
+    'Web development company',
+    'App development company',
+    'UI/UX design agency',
+    'Frontend development services',
+    'Backend development company',
+    'Full-stack development company',
+    'Custom software development',
+  ],
+};
+
+export function generateStaticParams() {
+  return routing.locales.map(locale => ({ locale }));
+}
+
+export default async function LocaleLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode;
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+
+  // Ensure that the incoming `locale` is valid
+  if (!routing.locales.includes(locale as any)) {
+    notFound();
+  }
+
+  // Enable static rendering
+  setRequestLocale(locale);
+
+  // Providing all messages to the client side
+  const messages = await getMessages();
+
+  // Determine text direction based on locale
+  const dir = locale === 'ar' ? 'rtl' : 'ltr';
+
+  return (
+    <html lang={locale} dir={dir} className={`${fontPoppins.variable} font-poppins`}>
+      <body>
+        <main className="relative">
+          <div
+            className="absolute inset-0 opacity-30"
+            style={{
+              background:
+                'radial-gradient(circle at 20% 30%, rgba(255, 126, 0, 0.5) 0%, transparent 35%), radial-gradient(circle at 80% 70%, rgba(255, 126, 0, 0.3) 0%, transparent 40%)',
+              filter: 'blur(60px)',
+            }}
+          ></div>
+
+          <div className="absolute inset-0 opacity-20">
+            <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <pattern
+                  id="neural-net"
+                  x="0"
+                  y="0"
+                  width="100"
+                  height="100"
+                  patternUnits="userSpaceOnUse"
+                >
+                  <g fill="#ff7e00" r="2">
+                    <circle cx="50" cy="50" r="2" />
+                    <circle cx="15" cy="15" r="2" />
+                    <circle cx="85" cy="15" r="2" />
+                    <circle cx="15" cy="85" r="2" />
+                    <circle cx="85" cy="85" r="2" />
+                  </g>
+
+                  <g stroke="#ff7e00" strokeWidth="0.5">
+                    <g opacity="0.6">
+                      <line x1="50" y1="50" x2="15" y2="15" />
+                      <line x1="50" y1="50" x2="85" y2="15" />
+                      <line x1="50" y1="50" x2="15" y2="85" />
+                      <line x1="50" y1="50" x2="85" y2="85" />
+                    </g>
+                  </g>
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#neural-net)" />
+            </svg>
+          </div>
+          <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
+        </main>
+        <SanityLive onError={handleError} />
+        {(await draftMode()).isEnabled && (
+          <>
+            <DraftModeToast />
+            <VisualEditing />
+          </>
+        )}
+      </body>
+      <GoogleAnalytics gaId="G-CRJ3QT48MZ" />
+    </html>
+  );
+}
