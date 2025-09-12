@@ -1,6 +1,6 @@
 'use client';
 
-import type { ProjectBySlugQueryResult } from '@company/sanity-shared';
+import type { AllProjectsQueryResult, ProjectBySlugQueryResult } from '@company/sanity-shared';
 
 import { ProjectCTASection } from './project-cta-section';
 import { ProjectFeaturesSection } from './project-features-section';
@@ -8,7 +8,7 @@ import { ProjectHeroSection } from './project-hero-section';
 import { ProjectShowcaseSection } from './project-showcase-section';
 
 type Props = {
-  project?: ProjectBySlugQueryResult;
+  project?: ProjectBySlugQueryResult | AllProjectsQueryResult[number];
 };
 
 export const ProjectDetail: React.FC<Props> = ({ project }) => {

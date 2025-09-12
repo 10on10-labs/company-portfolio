@@ -2,19 +2,31 @@
 
 import Image from 'next/image';
 import { Link } from '@/src/i18n/navigation';
-import { ProjectBySlugQueryResult } from '@company/sanity-shared';
-import { ArrowLeft, Calendar, ExternalLinkIcon, Layers, Target, Users } from 'lucide-react';
+import { AllProjectsQueryResult, ProjectBySlugQueryResult } from '@company/sanity-shared';
+import {
+  ArrowLeft,
+  ArrowRight,
+  Calendar,
+  ExternalLinkIcon,
+  Layers,
+  Target,
+  Users,
+} from 'lucide-react';
 import { motion } from 'motion/react';
+import { useLocale, useTranslations } from 'next-intl';
 
 import { urlFor } from '@/lib/image';
 
 import { MacBookCarousel } from './macbook-carousel';
 
 type Props = {
-  project: ProjectBySlugQueryResult;
+  project: ProjectBySlugQueryResult | AllProjectsQueryResult[number];
 };
 
 export const ProjectHeroSection: React.FC<Props> = ({ project }) => {
+  const t = useTranslations('case_studies_page');
+  const locale = useLocale();
+  const isRTL = locale === 'ar';
   const logoUrl = project?.logo ? urlFor(project.logo).width(128).height(128).url() : null;
 
   // Process all images
@@ -82,8 +94,12 @@ export const ProjectHeroSection: React.FC<Props> = ({ project }) => {
             className="inline-flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-all cursor-pointer group"
             style={{ cursor: 'pointer' }}
           >
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            <span>Back to Case Studies</span>
+            {isRTL ? (
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            ) : (
+              <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+            )}
+            <span>{t('back_to_case_studies')}</span>
           </Link>
         </motion.div>
 

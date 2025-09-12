@@ -51,6 +51,27 @@ export const projectBySlugQuery = defineQuery(`
     "iterations": projectDimensions.iterations,
     "teamSize": projectDimensions.teamSize,
     "timeline": string(projectDimensions.timeline.value) + " " + coalesce(projectDimensions.timeline.unit, ""),
+    pageContent {
+      keyFeatures {
+        title,
+        subtitle,
+        features[] {
+          icon,
+          label,
+          value
+        }
+      },
+      projectShowcase {
+        title,
+        subtitle
+      },
+      callToAction {
+        title,
+        subtitle,
+        primaryButtonText,
+        secondaryButtonText
+      }
+    }
   }
 `);
 

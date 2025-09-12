@@ -122,9 +122,30 @@
     "view_all": "عرض جميع دراسات الحالة"
   },
   "case_studies_page": {
+    "back_to_case_studies": "العودة إلى دراسات الحالة",
     "title": "دراسات الحالة الخاصة بنا",
     "description": "استكشف محفظة مشاريعنا الكاملة الناجحة وشاهد كيف ساعدنا الشركات في تحويل حضورها الرقمي",
     "sub_description": "من الشركات الناشئة المبتكرة إلى المؤسسات الراسخة، قدمنا حلولاً مخصصة تحفز النمو وتعزز تجربة المستخدم وتخلق تأثيرًا دائمًا"
+  },
+  "blogs_page": {
+    "title": "مدوناتنا",
+    "description": "اكتشف أحدث الرؤى والدروس والتحديثات من فريق خبرائنا.",
+    "latest_articles": "أحدث المقالات",
+    "mins_read": "دقائق قراءة",
+    "no_blogs_found": "لم يتم العثور على مدونات!",
+    "search_category": "البحث عن فئة...",
+    "no_category_found": "لم يتم العثور على فئة.",
+    "view_all": "عرض الكل",
+    "breadcrumb": {
+      "home": "الرئيسية",
+      "blogs": "رؤى"
+    },
+    "newsletter": {
+      "title": "اشترك في نشرتنا الإخبارية",
+      "description": "احصل على أحدث المقالات والدروس والتحديثات مباشرة في صندوق الوارد الخاص بك.",
+      "email_placeholder": "أدخل بريدك الإلكتروني",
+      "subscribe_button": "اشترك"
+    }
   },
   "services_section": {
     "what_we_do": "ماذا نفعل",
@@ -154,31 +175,13 @@
     "bottom_cta_text": "تريد الغوص أعمق في رؤانا؟",
     "explore_all": "استكشف جميع المقالات"
   },
-  "blogs_page": {
-    "meta_title": "المدونة",
-    "breadcrumb_home": "الرئيسية",
-    "breadcrumb_blogs": "المدونة",
-    "no_blogs_found": "لم يتم العثور على مقالات!",
-    "page_title": "مدونتنا",
-    "page_description": "اكتشف أحدث الرؤى والدروس والتحديثات من فريق الخبراء لدينا.",
-    "latest_articles": "أحدث المقالات",
-    "view_all": "عرض الكل",
-    "select_category": "اختر فئة...",
-    "search_category": "البحث عن فئة...",
-    "no_category_found": "لم يتم العثور على فئة.",
-    "mins_read": "دقائق للقراءة",
-    "newsletter": {
-      "title": "اشترك في نشرتنا الإخبارية",
-      "description": "احصل على أحدث المقالات والدروس والتحديثات مباشرة في صندوق الوارد الخاص بك.",
-      "email_placeholder": "أدخل بريدك الإلكتروني",
-      "subscribe_button": "اشترك"
-    }
-  },
   "blog_detail": {
     "about_author": "حول المؤلف",
     "related_blogs": "مقالات ذات صلة",
     "breadcrumb_home": "الرئيسية",
-    "breadcrumb_blogs": "المدونة"
+    "breadcrumb_blogs": "رؤى",
+    "mins_read": "دقائق قراءة",
+    "share_this_on": "شارك هذا على:"
   },
   "accelerate_section": {
     "heading": "دعنا نسرع",

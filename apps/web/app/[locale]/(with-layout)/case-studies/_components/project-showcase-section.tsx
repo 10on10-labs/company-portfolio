@@ -6,14 +6,25 @@ import { Sparkles } from 'lucide-react';
 import { motion } from 'motion/react';
 
 import { urlFor } from '@/lib/image';
+import { translateProjectSectionName } from '@/lib/project-section-translations';
 import { CustomPortableText } from '@/components/custom-portable-text';
 
 type NonNullProject = NonNullable<ProjectBySlugQueryResult>;
 
 // now you can safely Pick
-type ProjectSections = Pick<NonNullProject, 'projectSections'>;
+type ProjectSections = Pick<NonNullProject, 'projectSections'> & {
+  projectShowcase?: {
+    title: string | null;
+    subtitle: string | null;
+  } | null;
+  locale?: string;
+};
 
-export const ProjectShowcaseSection: React.FC<ProjectSections> = ({ projectSections }) => {
+export const ProjectShowcaseSection: React.FC<ProjectSections> = ({
+  projectSections,
+  projectShowcase,
+  locale = 'en',
+}) => {
   if (!projectSections || projectSections.length === 0) return null;
 
   return (
@@ -26,9 +37,12 @@ export const ProjectShowcaseSection: React.FC<ProjectSections> = ({ projectSecti
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">Project Showcase</h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            {projectShowcase?.title || 'Project Showcase'}
+          </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Explore the different sections and features of this project in detail
+            {projectShowcase?.subtitle ||
+              'Explore the different sections and features of this project in detail'}
           </p>
         </motion.div>
 
@@ -59,7 +73,7 @@ export const ProjectShowcaseSection: React.FC<ProjectSections> = ({ projectSecti
                 <div className="flex items-center gap-3 mb-4">
                   <Sparkles className="w-6 h-6 text-primary" />
                   <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 capitalize">
-                    {section.name || `Section ${index + 1}`}
+                    {translateProjectSectionName(section.name || `Section ${index + 1}`, locale)}
                   </h3>
                 </div>
                 <CustomPortableText value={section.description || []} />
