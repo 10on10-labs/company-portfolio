@@ -16,10 +16,28 @@ export const blog = defineType({
     defineField({
       name: "slug",
       type: "slug",
-      validation: (rule) => rule.required(),
       options: {
         source: "title",
+        maxLength: 96,
+        isUnique: async (value, context) => {
+          const { getClient, document } = context;
+          if (!document?.language) {
+            return true;
+          }
+          const client = getClient({ apiVersion: "2023-04-24" });
+          const id = document._id?.replace("drafts.", "") || "new-document";
+          const params = {
+            draft: `drafts.${id}`,
+            published: id,
+            language: document.language,
+            slug: value,
+          };
+          const query = `!defined(*[_type == "blog" && language == $language && slug.current == $slug && !(_id in [$draft, $published])][0]._id)`;
+          const isUnique = await client.fetch(query, params);
+          return isUnique;
+        },
       },
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "subTitle",

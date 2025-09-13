@@ -36,10 +36,15 @@ export const ProcessCard: React.FC<Props> = ({ slide }) => {
     <Card className="rounded-3xl pt-4 pb-4 border border-secondary shadow-sm hover:shadow-lg transition-all duration-300 group">
       <CardContent className="p-2">
         <div
-          className={`flex flex-col gap-4 ${isRTL ? 'lg:flex-row-reverse' : 'lg:flex-row'} bg-white rounded-2xl min-h-[250px] md:min-h-[300px] overflow-hidden`}
+          className={`flex flex-col md:flex-row
+          } gap-4 bg-white rounded-2xl min-h-[250px] md:min-h-[300px] overflow-hidden`}
         >
           {/* Step Number Section - Simple original style */}
-          <div className="bg-secondary p-6 rounded-lg flex flex-col justify-center items-center lg:min-w-[120px]">
+          <div
+            className={`bg-secondary p-6 rounded-lg flex flex-col justify-center items-center ${
+              isRTL ? 'min-w-[120px]' : 'md:min-w-[120px]'
+            }`}
+          >
             <p className="text-xs uppercase">Step</p>
             <div className="text-2xl text-primary font-black leading-none">{slide.number}</div>
           </div>
@@ -67,18 +72,22 @@ export const ProcessCard: React.FC<Props> = ({ slide }) => {
 
             {/* Title and Description with better typography */}
             <div className="space-y-3">
-              <div
-                className={`flex items-start gap-3 ${isRTL ? 'flex-row-reverse text-right' : ''}`}
-              >
+              <div className={`flex items-start gap-3 ${isRTL ? 'text-right' : ''}`}>
                 <div className="w-10 h-10 bg-gradient-to-br from-primary to-orange-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-md group-hover:scale-110 transition-transform">
                   <Icon className="w-5 h-5 text-white" />
                 </div>
-                <h2 className="text-xl md:text-2xl font-black text-gray-900 leading-tight flex-1">
+                <h2
+                  className={`text-xl md:text-2xl font-black text-gray-900 leading-tight flex-1 ${
+                    isRTL ? 'text-right' : 'text-left'
+                  }`}
+                >
                   {slide.title}
                 </h2>
               </div>
               <p
-                className={`text-sm md:text-base text-gray-600 leading-relaxed line-clamp-3 md:line-clamp-none ${isRTL ? 'text-right' : ''}`}
+                className={`text-sm md:text-base text-gray-600 leading-relaxed line-clamp-3 md:line-clamp-none ${
+                  isRTL ? 'text-right' : ''
+                }`}
               >
                 {slide.description}
               </p>

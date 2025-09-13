@@ -68,6 +68,6 @@ const ProjectDetailsPage: FC<Props> = async ({ params }) => {
   const { slug, locale } = pageParams;
   const project = await fetchProjectBySlug(slug, locale);
 
-  return <ProjectDetail project={project} />;
+  return <ProjectDetail project={project} locale={locale} />;
 };
 export default ProjectDetailsPage;

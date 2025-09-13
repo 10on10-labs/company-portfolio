@@ -5,11 +5,11 @@ import Image from 'next/image';
 import { Link } from '@/src/i18n/navigation';
 import { HomepageServicesQueryResult } from '@company/sanity-shared';
 import AutoScroll from 'embla-carousel-auto-scroll';
-import { Palette, Sparkles } from 'lucide-react';
 import { motion } from 'motion/react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 import { HomepageHeroQueryResult } from '@/lib/sanity-queries/homepage-hero-queries';
+import ServiceCard from '@/components/services/service-card';
 import { Button } from '@/components/shadcn/button';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/shadcn/carousel';
 
@@ -29,6 +29,7 @@ interface HeroClientProps {
 
 export default function HeroClient({ brands, services, heroData }: HeroClientProps) {
   const t = useTranslations('home_page.hero_section');
+  const locale = useLocale();
 
   // Use Sanity data or fallbacks
   const heroTitle =
@@ -53,24 +54,6 @@ export default function HeroClient({ brands, services, heroData }: HeroClientPro
   const expertiseSubtitle =
     heroData?.expertiseSection?.subtitle || 'Building digital excellence with proven expertise';
   const trustedByText = heroData?.trustedByText || t('trusted_by_brands');
-
-  // Icon mapping for services
-  const iconMap: Record<string, any> = {
-    monitor: Sparkles,
-    code: Sparkles,
-    smartphone: Sparkles,
-    database: Sparkles,
-    cloud: Sparkles,
-    shield: Sparkles,
-    chart: Sparkles,
-    palette: Palette,
-    rocket: Sparkles,
-    settings: Sparkles,
-  };
-
-  const getServiceIcon = (iconName: string) => {
-    return iconMap[iconName] || Sparkles;
-  };
 
   return (
     <section className="relative w-full text-black overflow-hidden py-8 md:py-12">
@@ -148,41 +131,16 @@ export default function HeroClient({ brands, services, heroData }: HeroClientPro
 
           {/* Expertise Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            {(services || []).map((service, index) => {
-              const Icon = getServiceIcon(service.icon || 'sparkles');
-              return (
-                <Link href={`/services/${service.slug || '#'}`} key={service._id || index}>
-                  <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 1.2 + index * 0.1, duration: 0.6 }}
-                    whileHover={{ y: -8, scale: 1.02 }}
-                    className="group relative bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 min-h-[180px] cursor-pointer overflow-hidden"
-                  >
-                    {/* Subtle gradient overlay on hover */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-                    {/* Content */}
-                    <div className="relative z-10">
-                      <div className="bg-gray-50 rounded-xl p-3 inline-block mb-4 group-hover:bg-primary/10 transition-colors">
-                        <Icon className="text-primary w-7 h-7" />
-                      </div>
-
-                      <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-primary transition-colors">
-                        {service.name || 'Service'}
-                      </h3>
-
-                      <p className="text-sm text-gray-600 leading-relaxed">
-                        {service.shortDescription || 'Professional service'}
-                      </p>
-                    </div>
-
-                    {/* Bottom accent line */}
-                    <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary via-primary/50 to-transparent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
-                  </motion.div>
-                </Link>
-              );
-            })}
+            {(services || []).map((service, index) => (
+              <motion.div
+                key={service._id || index}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.2 + index * 0.1, duration: 0.6 }}
+              >
+                <ServiceCard service={service} index={index} variant="homepage" locale={locale} />
+              </motion.div>
+            ))}
           </div>
         </motion.div>
 

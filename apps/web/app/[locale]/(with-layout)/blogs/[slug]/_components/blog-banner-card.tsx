@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { Author } from '@company/sanity-shared';
 import { format } from 'date-fns';
 import { Facebook, Linkedin } from 'lucide-react';
+import { useLocale, useTranslations } from 'next-intl';
 
 import { urlFor } from '@/lib/image';
 import { Icons } from '@/components/icons';
@@ -27,6 +28,9 @@ export const BlogBannerCard: FC<Props> = ({
   linkedInShareUrl,
   twitterShareUrl,
 }) => {
+  const locale = useLocale();
+  const t = useTranslations('blog_detail');
+  const isRTL = locale === 'ar';
   const authorImageUrl = author?.image ? urlFor(author.image).width(50).url() : null;
   return (
     <Card className="bg-primary/5 text-primary-900 border-0">
@@ -36,7 +40,7 @@ export const BlogBannerCard: FC<Props> = ({
       </CardHeader>
       <hr className="border-neutral-200 pb-6" />
       <CardFooter className="flex flex-col sm:flex-row gap-y-8 justify-between">
-        <div className="flex items-center gap-x-2 capitalize text-neutral-500">
+        <div className="flex items-center gap-2 capitalize text-neutral-500">
           <Avatar className="bg-primary-blue-200">
             <AvatarImage src={authorImageUrl || ''} alt="author_image" />
             <AvatarFallback className="uppercase">
@@ -50,9 +54,9 @@ export const BlogBannerCard: FC<Props> = ({
           <span>{author?.name}</span>
         </div>
         <div className="text-neutral-500">
-          <div className="flex justify-end gap-x-2">
-            <span>Share this on:</span>
-            <div className="flex justify-end gap-x-2">
+          <div className={`flex gap-2 ${isRTL ? 'justify-start' : 'justify-end'}`}>
+            <span>{t('share_this_on')}</span>
+            <div className={`flex gap-2 ${isRTL ? 'justify-start' : 'justify-end'}`}>
               <a
                 href={facebookShareUrl}
                 target="_blank"

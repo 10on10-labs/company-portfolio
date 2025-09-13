@@ -3,31 +3,52 @@
 import { ArrowUpRight, Clock, Mail, MapPin, Phone } from 'lucide-react';
 import { motion } from 'motion/react';
 
-export function ContactInfo() {
-  const contactMethods = [
+// Icon mapping for dynamic icon rendering
+const iconMap = {
+  Mail,
+  Phone,
+  MapPin,
+  Clock,
+};
+
+interface ContactInfoProps {
+  data?: {
+    methods: Array<{
+      icon: string;
+      title: string;
+      primary: string;
+      secondary: string;
+      action: string;
+    }>;
+  };
+}
+
+export function ContactInfo({ data }: ContactInfoProps) {
+  // Fallback data if Sanity data is not available
+  const fallbackContactMethods = [
     {
-      icon: Mail,
+      icon: 'Mail',
       title: 'Email',
       primary: 'sales@10on10labs.com',
       secondary: 'We reply within 24 hours',
       action: 'mailto:sales@10on10labs.com',
     },
     {
-      icon: Phone,
+      icon: 'Phone',
       title: 'Phone',
       primary: '+92 334 5600371',
       secondary: 'Mon-Fri from 9am to 6pm',
       action: 'tel:+923345600371',
     },
     {
-      icon: MapPin,
+      icon: 'MapPin',
       title: 'Office',
       primary: 'Bahria Town, Phase 7',
       secondary: 'Islamabad, Pakistan',
       action: '#',
     },
     {
-      icon: Clock,
+      icon: 'Clock',
       title: 'Working Hours',
       primary: '9:00 AM - 6:00 PM',
       secondary: 'Monday to Friday',
@@ -35,11 +56,14 @@ export function ContactInfo() {
     },
   ];
 
+  const contactMethods = data?.methods || fallbackContactMethods;
+
   return (
     <section className="relative py-20 lg:py-24 bg-muted/30">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {contactMethods.map((method, index) => {
+            const IconComponent = iconMap[method.icon as keyof typeof iconMap] || Mail;
             const isClickable = method.action !== '#';
 
             if (isClickable) {
@@ -54,7 +78,7 @@ export function ContactInfo() {
                 >
                   <div className="flex items-start justify-between mb-4">
                     <div className="p-2 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
-                      <method.icon className="w-5 h-5 text-primary" />
+                      <IconComponent className="w-5 h-5 text-primary" />
                     </div>
                     <ArrowUpRight className="w-4 h-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
                   </div>
@@ -62,7 +86,14 @@ export function ContactInfo() {
                   <h3 className="text-sm font-medium text-muted-foreground mb-2">{method.title}</h3>
                   <p
                     className="font-semibold text-foreground mb-1"
-                    dir={method.title === 'Email' || method.title === 'Phone' ? 'ltr' : undefined}
+                    dir={
+                      method.title === 'Email' ||
+                      method.title === 'Phone' ||
+                      method.title === 'البريد الإلكتروني' ||
+                      method.title === 'الهاتف'
+                        ? 'ltr'
+                        : undefined
+                    }
                   >
                     {method.primary}
                   </p>
@@ -83,14 +114,21 @@ export function ContactInfo() {
                 >
                   <div className="flex items-start justify-between mb-4">
                     <div className="p-2 bg-primary/10 rounded-lg transition-colors">
-                      <method.icon className="w-5 h-5 text-primary" />
+                      <IconComponent className="w-5 h-5 text-primary" />
                     </div>
                   </div>
 
                   <h3 className="text-sm font-medium text-muted-foreground mb-2">{method.title}</h3>
                   <p
                     className="font-semibold text-foreground mb-1"
-                    dir={method.title === 'Email' || method.title === 'Phone' ? 'ltr' : undefined}
+                    dir={
+                      method.title === 'Email' ||
+                      method.title === 'Phone' ||
+                      method.title === 'البريد الإلكتروني' ||
+                      method.title === 'الهاتف'
+                        ? 'ltr'
+                        : undefined
+                    }
                   >
                     {method.primary}
                   </p>
