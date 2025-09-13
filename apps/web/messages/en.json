@@ -124,7 +124,28 @@
   "case_studies_page": {
     "title": "Our Case Studies",
     "description": "Explore our complete portfolio of successful projects and see how we've helped businesses transform their digital presence",
-    "sub_description": "From innovative startups to established enterprises, we've delivered custom solutions that drive growth, enhance user experience, and create lasting impact"
+    "sub_description": "From innovative startups to established enterprises, we've delivered custom solutions that drive growth, enhance user experience, and create lasting impact",
+    "back_to_case_studies": "Back to Case Studies"
+  },
+  "blogs_page": {
+    "title": "Our Blogs",
+    "description": "Discover the latest insights, tutorials, and updates from our team of experts.",
+    "latest_articles": "Latest Articles",
+    "mins_read": "mins read",
+    "no_blogs_found": "No blogs found!",
+    "search_category": "Search category...",
+    "no_category_found": "No category found.",
+    "view_all": "View All",
+    "breadcrumb": {
+      "home": "Home",
+      "blogs": "Insights"
+    },
+    "newsletter": {
+      "title": "Subscribe to our newsletter",
+      "description": "Get the latest articles, tutorials, and updates delivered straight to your inbox.",
+      "email_placeholder": "Enter your email",
+      "subscribe_button": "Subscribe"
+    }
   },
   "services_section": {
     "what_we_do": "What We Do",
@@ -154,31 +175,13 @@
     "bottom_cta_text": "Want to dive deeper into our insights?",
     "explore_all": "Explore All Articles"
   },
-  "blogs_page": {
-    "meta_title": "Blogs",
-    "breadcrumb_home": "Home",
-    "breadcrumb_blogs": "Blogs",
-    "no_blogs_found": "No blogs found!",
-    "page_title": "Our Blogs",
-    "page_description": "Discover the latest insights, tutorials, and updates from our team of experts.",
-    "latest_articles": "Latest Articles",
-    "view_all": "View All",
-    "select_category": "Select category...",
-    "search_category": "Search category...",
-    "no_category_found": "No category found.",
-    "mins_read": "mins read",
-    "newsletter": {
-      "title": "Subscribe to our newsletter",
-      "description": "Get the latest articles, tutorials, and updates delivered straight to your inbox.",
-      "email_placeholder": "Enter your email",
-      "subscribe_button": "Subscribe"
-    }
-  },
   "blog_detail": {
     "about_author": "About the Author",
     "related_blogs": "Related Blogs",
     "breadcrumb_home": "Home",
-    "breadcrumb_blogs": "Blogs"
+    "breadcrumb_blogs": "Insights",
+    "mins_read": "mins read",
+    "share_this_on": "Share this on:"
   },
   "accelerate_section": {
     "heading": "Let us accelerate your",
