@@ -37,7 +37,7 @@ export const ProcessCard: React.FC<Props> = ({ slide }) => {
       <CardContent className="p-2">
         <div
           className={`flex flex-col md:flex-row
-          } gap-4 bg-white rounded-2xl min-h-[250px] md:min-h-[300px] overflow-hidden`}
+          } gap-4 bg-card text-card-foreground rounded-2xl min-h-[250px] md:min-h-[300px] overflow-hidden`}
         >
           {/* Step Number Section - Simple original style */}
           <div
@@ -53,17 +53,17 @@ export const ProcessCard: React.FC<Props> = ({ slide }) => {
           <div className="flex flex-col justify-between p-6 flex-1">
             {/* Tag with improved styling */}
             <div className="mb-6">
-              <div className="inline-flex items-center gap-2.5 px-4 py-2.5 bg-gradient-to-r from-gray-50 to-gray-100 rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+              <div className="inline-flex items-center gap-2.5 px-4 py-2.5 bg-gradient-to-r from-muted/30 to-muted/50 rounded-2xl border border-border shadow-sm hover:shadow-md transition-shadow">
                 <div className="w-7 h-7 bg-gradient-to-br from-primary/20 to-orange-200/40 rounded-lg flex items-center justify-center">
                   <span role="img" aria-label="step-emoji" className="text-base">
                     {emoji}
                   </span>
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-[10px] text-gray-500 font-medium uppercase tracking-wider leading-none mb-0.5">
+                  <span className="text-[10px] text-muted-foreground font-medium uppercase tracking-wider leading-none mb-0.5">
                     Timeline
                   </span>
-                  <span className="text-xs font-bold text-gray-800 uppercase tracking-wide">
+                  <span className="text-xs font-bold text-foreground uppercase tracking-wide">
                     {slide.tag}
                   </span>
                 </div>
@@ -77,7 +77,7 @@ export const ProcessCard: React.FC<Props> = ({ slide }) => {
                   <Icon className="w-5 h-5 text-white" />
                 </div>
                 <h2
-                  className={`text-xl md:text-2xl font-black text-gray-900 leading-tight flex-1 ${
+                  className={`text-xl md:text-2xl font-black text-foreground leading-tight flex-1 ${
                     isRTL ? 'text-right' : 'text-left'
                   }`}
                 >
@@ -85,7 +85,7 @@ export const ProcessCard: React.FC<Props> = ({ slide }) => {
                 </h2>
               </div>
               <p
-                className={`text-sm md:text-base text-gray-600 leading-relaxed line-clamp-3 md:line-clamp-none ${
+                className={`text-sm md:text-base text-muted-foreground leading-relaxed line-clamp-3 md:line-clamp-none ${
                   isRTL ? 'text-right' : ''
                 }`}
               >

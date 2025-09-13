@@ -40,11 +40,11 @@ export const BlogCard: FC<Props> = ({
     <Link href={redirectUrl} className="block h-full">
       <Card
         className={cn(
-          'overflow-hidden w-full h-full flex flex-col transition-all duration-300 hover:shadow-xl hover:-translate-y-1 group bg-white border border-gray-200 hover:border-primary/30',
+          'overflow-hidden w-full h-full flex flex-col transition-all duration-300 hover:shadow-xl hover:-translate-y-1 group bg-card border border-border hover:border-primary/30',
           className,
         )}
       >
-        <div className="relative h-40 overflow-hidden bg-gray-100">
+        <div className="relative h-40 overflow-hidden bg-muted/50">
           {thumbnail && (
             <Image
               src={thumbnail}
@@ -71,10 +71,10 @@ export const BlogCard: FC<Props> = ({
               ))}
             </div>
           )}
-          <CardTitle className="text-base md:text-lg font-semibold text-gray-900 group-hover:text-primary transition-colors leading-snug">
+          <CardTitle className="text-base md:text-lg font-semibold text-card-foreground group-hover:text-primary transition-colors leading-snug">
             {title}
           </CardTitle>
-          <div className="flex items-center text-xs gap-x-2 text-gray-500">
+          <div className="flex items-center text-xs gap-x-2 text-muted-foreground">
             {formattedPublishedDate && <span>{formattedPublishedDate}</span>}
             {formattedPublishedDate && duration && <span>•</span>}
             {duration && (
@@ -86,20 +86,20 @@ export const BlogCard: FC<Props> = ({
           </div>
         </CardHeader>
         <CardContent className="px-4 pb-2 flex-grow">
-          <p className="text-gray-600 line-clamp-2 text-sm leading-relaxed">{subTitle}</p>
+          <p className="text-muted-foreground line-clamp-2 text-sm leading-relaxed">{subTitle}</p>
         </CardContent>
         {author?.name && (
-          <CardFooter className="px-4 py-3 border-t border-gray-100">
+          <CardFooter className="px-4 py-3 border-t border-border">
             <div className="flex items-center gap-2.5">
-              <Avatar className="h-7 w-7 border border-gray-200">
+              <Avatar className="h-7 w-7 border border-border">
                 <AvatarImage src={author?.image || ''} alt={author?.name || ''} />
-                <AvatarFallback className="bg-gray-100 text-gray-600 text-xs font-medium">
+                <AvatarFallback className="bg-muted text-muted-foreground text-xs font-medium">
                   {getAbbreviation(author?.name || '')
                     .slice(0, 2)
                     .toUpperCase()}
                 </AvatarFallback>
               </Avatar>
-              <span className="text-sm text-gray-700">{author?.name}</span>
+              <span className="text-sm text-card-foreground">{author?.name}</span>
             </div>
           </CardFooter>
         )}

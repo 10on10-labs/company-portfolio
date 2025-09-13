@@ -7,6 +7,7 @@ import { AnimatePresence, motion, Variants } from 'motion/react';
 import { useTranslations } from 'next-intl';
 
 import LocaleSwitcher from './locale-switcher';
+import { ThemeToggleSimple } from './theme-toggle';
 
 // Define menu items matching homepage section order
 const getMenuItems = (t: any) => [
@@ -159,12 +160,12 @@ export const TopNavbar = () => {
                 <li className="mr-1" dir="ltr">
                   <Link
                     href="/"
-                    className="flex items-center lg:px-2 xl:px-3 py-1 hover:bg-white/30 rounded-full transition-all duration-200 group"
+                    className="flex items-center lg:px-2 xl:px-3 py-1 hover:bg-background/30 rounded-full transition-all duration-200 group"
                     dir="ltr"
                   >
                     <div className="lg:w-7 xl:w-9 lg:h-7 xl:h-9 relative flex items-center justify-center">
                       {/* White background circle precisely for the 10/10 part */}
-                      <div className="absolute lg:w-[28px] xl:w-[35px] lg:h-[28px] xl:h-[35px] bg-white rounded-md"></div>
+                      <div className="absolute lg:w-[28px] xl:w-[35px] lg:h-[28px] xl:h-[35px] bg-background rounded-md"></div>
                       <Image
                         src="/logo.png"
                         width={36}
@@ -175,7 +176,7 @@ export const TopNavbar = () => {
                       />
                     </div>
                     <span
-                      className="lg:ml-2 xl:ml-2.5 font-semibold text-black lg:text-xs xl:text-sm lg:tracking-tight xl:tracking-wide"
+                      className="lg:ml-2 xl:ml-2.5 font-semibold text-foreground lg:text-xs xl:text-sm lg:tracking-tight xl:tracking-wide"
                       dir="ltr"
                     >
                       10on10labs
@@ -184,7 +185,7 @@ export const TopNavbar = () => {
                 </li>
 
                 {/* Vertical separator with gradient */}
-                <li className="lg:h-5 xl:h-6 w-px bg-gradient-to-b from-transparent via-black/30 to-transparent lg:mx-2 xl:mx-3"></li>
+                <li className="lg:h-5 xl:h-6 w-px bg-gradient-to-b from-transparent via-foreground/30 to-transparent lg:mx-2 xl:mx-3"></li>
 
                 {/* Menu Items */}
                 {menuItems.map(({ title, href, isSection }, index) => {
@@ -217,8 +218,8 @@ export const TopNavbar = () => {
                         <span
                           className={`relative flex items-center lg:py-1.5 xl:py-2 lg:px-3 xl:px-4 rounded-full font-medium lg:text-xs xl:text-[13px] transition-all duration-300 ${
                             isActive
-                              ? 'bg-white text-black shadow-lg shadow-black/20 border border-white/50'
-                              : 'text-black/90 hover:text-black hover:bg-white/50'
+                              ? 'bg-background text-foreground shadow-lg shadow-black/20 border border-white/50 dark:border-white/20'
+                              : 'text-foreground/90 hover:text-foreground hover:bg-background/50'
                           }`}
                         >
                           {/* Active indicator dot */}
@@ -236,19 +237,24 @@ export const TopNavbar = () => {
                 <li className="lg:pl-1 xl:pl-2">
                   <Link
                     href="/contact-us"
-                    className="relative lg:px-4 xl:px-5 lg:py-1.5 xl:py-2 rounded-full font-medium lg:text-xs xl:text-[13px] bg-gradient-to-r from-primary to-primary/80 text-white hover:from-white hover:to-gray-100 hover:text-black transition-all duration-300 shadow-lg hover:shadow-xl group overflow-hidden"
+                    className="relative lg:px-4 xl:px-5 lg:py-1.5 xl:py-2 rounded-full font-medium lg:text-xs xl:text-[13px] bg-gradient-to-r from-primary to-primary/80 text-white hover:from-background hover:to-background hover:text-foreground transition-all duration-300 shadow-lg hover:shadow-xl group overflow-hidden"
                   >
                     <span className="relative z-10 lg:inline xl:inline">
                       <span className="lg:hidden xl:inline">{t('navbar.contact_us')}</span>
                       <span className="lg:inline xl:hidden">{t('navbar.contact_us_short')}</span>
                     </span>
-                    <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full"></div>
+                    <div className="absolute inset-0 bg-background opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full"></div>
                   </Link>
                 </li>
 
                 {/* Language Switcher */}
                 <li className="lg:pl-1 xl:pl-2">
                   <LocaleSwitcher />
+                </li>
+
+                {/* Theme Toggle */}
+                <li className="lg:pl-1 xl:pl-2">
+                  <ThemeToggleSimple />
                 </li>
               </ul>
             </div>
@@ -258,7 +264,7 @@ export const TopNavbar = () => {
       <div className="fixed top-0 left-0 right-0 z-50 lg:hidden" dir="ltr">
         <div className="flex items-center justify-between px-4 py-4" dir="ltr">
           <Link href="/" className="flex-shrink-0" dir="ltr">
-            <div className="bg-white rounded-lg">
+            <div className="bg-background rounded-lg">
               <Image src="/logo.png" width={40} height={40} alt={t('navbar.logo_alt')} />
             </div>
           </Link>
@@ -314,6 +320,10 @@ export const TopNavbar = () => {
         variants={sidebarVariants}
       >
         <div className="bg-primary h-screen w-full flex flex-col overflow-y-auto hide-scrollbar shadow-xl">
+          <div className="flex items-center justify-between p-4 pt-20" dir="ltr">
+            <LocaleSwitcher />
+            <ThemeToggleSimple />
+          </div>
           <nav className="p-20 pt-10 mt-10 pb-0 w-full" dir="ltr">
             <ul className="text-secondary uppercase font-extrabold text-3xl">
               {menuItems.map(({ title, href }, index) => (

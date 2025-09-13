@@ -35,14 +35,14 @@ export function CaseStudyCard({ project, index }: CaseStudyCardProps) {
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
     >
-      <div className="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden">
+      <div className="bg-card text-card-foreground rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
           {/* Left Content */}
           <div className="p-6 lg:p-10 flex flex-col justify-center">
             {/* Project Logo and Title */}
             <div className="flex items-center gap-4 mb-4">
               {project.logo ? (
-                <div className="relative w-16 h-16 rounded-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+                <div className="relative w-16 h-16 rounded-full bg-gradient-to-br from-muted to-muted-foreground/20 flex items-center justify-center">
                   <Image
                     src={urlFor(project.logo)?.width(128)?.height(128)?.url() || ''}
                     alt={`${project.name} logo`}
@@ -59,11 +59,11 @@ export function CaseStudyCard({ project, index }: CaseStudyCardProps) {
                 </div>
               )}
               <div>
-                <h3 className="text-xl lg:text-2xl font-bold text-gray-900 leading-tight">
+                <h3 className="text-xl lg:text-2xl font-bold text-foreground leading-tight">
                   {project.name}
                 </h3>
                 {project.category && (
-                  <span className="text-sm text-gray-500 uppercase tracking-wider">
+                  <span className="text-sm text-muted-foreground uppercase tracking-wider">
                     {project.category}
                   </span>
                 )}
@@ -71,18 +71,18 @@ export function CaseStudyCard({ project, index }: CaseStudyCardProps) {
             </div>
 
             {project.description && (
-              <p className="text-gray-600 mb-6 text-base leading-relaxed line-clamp-3">
+              <p className="text-muted-foreground mb-6 text-base leading-relaxed line-clamp-3">
                 {project.description}
               </p>
             )}
 
             {/* Project Details */}
             <div className="mb-6 space-y-2">
-              <div className="flex items-center gap-2 text-sm text-gray-500">
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <span className="font-medium">{t('industry')}</span>
                 <span>{project.category || 'Technology'}</span>
               </div>
-              <div className="flex items-center gap-2 text-sm text-gray-500">
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <span className="font-medium">{t('services')}</span>
                 <span>{t('default_services')}</span>
               </div>
@@ -107,7 +107,7 @@ export function CaseStudyCard({ project, index }: CaseStudyCardProps) {
           </div>
 
           {/* Right Content - MacBook Display */}
-          <div className="relative h-[350px] lg:h-[400px] bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-6 lg:p-10">
+          <div className="relative h-[350px] lg:h-[400px] bg-gradient-to-br from-muted/30 to-muted/50 flex items-center justify-center p-6 lg:p-10">
             {images.length > 0 ? (
               <div className="relative w-full h-full max-w-[450px] mx-auto flex items-center justify-center">
                 {/* MacBook Frame */}
@@ -134,7 +134,7 @@ export function CaseStudyCard({ project, index }: CaseStudyCardProps) {
               </div>
             ) : (
               <div className="w-full h-full flex items-center justify-center">
-                <span className="text-gray-400">No image available</span>
+                <span className="text-muted-foreground">No image available</span>
               </div>
             )}
           </div>
