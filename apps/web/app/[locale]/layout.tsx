@@ -9,9 +9,9 @@ import { GoogleAnalytics } from '@next/third-parties/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import { VisualEditing } from 'next-sanity';
+import { ThemeProvider } from 'next-themes';
 
 import { SanityLive } from '@/lib/live';
-import { ThemeProvider } from '@/hooks/use-theme';
 import { ThemeBackground } from '@/components/theme-background';
 
 import { handleError } from '../client-functions';
@@ -69,10 +69,20 @@ export default async function LocaleLayout({
   const dir = locale === 'ar' ? 'rtl' : 'ltr';
 
   return (
-    <html lang={locale} dir={dir} className={`${fontPoppins.variable} font-poppins`}>
+    <html
+      lang={locale}
+      dir={dir}
+      className={`${fontPoppins.variable} font-poppins`}
+      suppressHydrationWarning
+    >
       <body className="bg-background text-foreground">
         <main className="relative">
-          <ThemeProvider defaultTheme="light" storageKey="company-portfolio-theme">
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="light"
+            storageKey="company-portfolio-theme"
+            enableSystem
+          >
             <ThemeBackground />
             <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
           </ThemeProvider>

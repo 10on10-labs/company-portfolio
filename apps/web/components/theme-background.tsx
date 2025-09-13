@@ -1,16 +1,12 @@
 'use client';
 
-import { useTheme } from '@/hooks/use-theme';
+import { useTheme } from 'next-themes';
 
 export function ThemeBackground() {
-  const { theme } = useTheme();
+  const { resolvedTheme } = useTheme();
 
-  // Determine if we're in dark mode (either explicitly dark or system with dark preference)
-  const isDark =
-    theme === 'dark' ||
-    (theme === 'system' &&
-      typeof window !== 'undefined' &&
-      window.matchMedia('(prefers-color-scheme: dark)').matches);
+  // Use resolvedTheme which automatically resolves system theme to actual theme
+  const isDark = resolvedTheme === 'dark';
 
   return (
     <>
