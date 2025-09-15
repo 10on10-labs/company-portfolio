@@ -111,7 +111,7 @@ export default function PricingPageClient({ pricingData, locale }: Props) {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative min-h-[60vh] flex items-center overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+      <section className="relative min-h-[60vh] flex items-center overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 dark:from-gray-800 dark:via-gray-700 dark:to-gray-800">
         <div className="absolute inset-0">
           <div className="absolute top-0 left-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
           <div className="absolute bottom-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
@@ -157,7 +157,7 @@ export default function PricingPageClient({ pricingData, locale }: Props) {
       </section>
 
       {/* Value Props */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-background">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {pricingData.valuePropsSection.valueProps.map((valueProp, index) => {
@@ -175,8 +175,8 @@ export default function PricingPageClient({ pricingData, locale }: Props) {
                   <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                     <IconComponent className="w-8 h-8 text-primary" />
                   </div>
-                  <h3 className="font-semibold text-gray-900 mb-2">{valueProp.title}</h3>
-                  <p className="text-sm text-gray-600">{valueProp.description}</p>
+                  <h3 className="font-semibold text-foreground mb-2">{valueProp.title}</h3>
+                  <p className="text-sm text-muted-foreground">{valueProp.description}</p>
                 </motion.div>
               );
             })}
@@ -185,9 +185,9 @@ export default function PricingPageClient({ pricingData, locale }: Props) {
       </section>
 
       {/* Pricing Plans */}
-      <section id="plans" className="relative py-20 bg-gray-900">
+      <section id="plans" className="relative py-20 bg-gray-900 dark:bg-gray-800">
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900" />
+          <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 dark:from-gray-800 dark:via-gray-700 dark:to-gray-800" />
         </div>
 
         <div className="container relative z-10 mx-auto px-4">
@@ -228,7 +228,7 @@ export default function PricingPageClient({ pricingData, locale }: Props) {
       </section>
 
       {/* Comparison Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -236,10 +236,10 @@ export default function PricingPageClient({ pricingData, locale }: Props) {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
               {pricingData.comparisonSection.title}
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               {pricingData.comparisonSection.description}
             </p>
           </motion.div>
@@ -252,14 +252,14 @@ export default function PricingPageClient({ pricingData, locale }: Props) {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="grid grid-cols-1 md:grid-cols-3 gap-4 py-4 border-b border-gray-200"
+                className="grid grid-cols-1 md:grid-cols-3 gap-4 py-4 border-b border-border"
               >
-                <div className="font-semibold text-gray-900">{item.feature}</div>
+                <div className="font-semibold text-foreground">{item.feature}</div>
                 <div className="flex items-center gap-2">
                   <Check className="w-5 h-5 text-green-500" />
-                  <span className="text-gray-700">{item.us}</span>
+                  <span className="text-foreground">{item.us}</span>
                 </div>
-                <div className="flex items-center gap-2 text-gray-500">
+                <div className="flex items-center gap-2 text-muted-foreground">
                   <span>{item.them}</span>
                 </div>
               </motion.div>
@@ -269,7 +269,7 @@ export default function PricingPageClient({ pricingData, locale }: Props) {
       </section>
 
       {/* FAQs */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -277,7 +277,7 @@ export default function PricingPageClient({ pricingData, locale }: Props) {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
               {pricingData.faqsSection.title}
             </h2>
           </motion.div>
@@ -290,13 +290,13 @@ export default function PricingPageClient({ pricingData, locale }: Props) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-white rounded-lg p-6 shadow-sm"
+                className="bg-card rounded-lg p-6 shadow-sm border border-border"
               >
-                <h3 className="font-semibold text-gray-900 mb-2 flex items-start gap-2">
+                <h3 className="font-semibold text-card-foreground mb-2 flex items-start gap-2">
                   <ChevronIcon className="w-5 h-5 text-primary mt-0.5" />
                   {faq.question}
                 </h3>
-                <p className={`text-gray-600 ${isRTL ? 'mr-7' : 'ml-7'}`}>{faq.answer}</p>
+                <p className={`text-muted-foreground ${isRTL ? 'mr-7' : 'ml-7'}`}>{faq.answer}</p>
               </motion.div>
             ))}
           </div>

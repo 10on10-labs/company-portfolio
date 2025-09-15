@@ -55,43 +55,39 @@ export type BlogCategory = {
   chipColor?: Color;
 };
 
-export type BlockContent = Array<
-  | {
-      children?: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
-        _key: string;
-      }>;
-      style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
-      listItem?: "bullet" | "number";
-      markDefs?: Array<{
-        href?: string;
-        _type: "link";
-        _key: string;
-      }>;
-      level?: number;
-      _type: "block";
-      _key: string;
-    }
-  | {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      media?: unknown;
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      alt?: string;
-      _type: "image";
-      _key: string;
-    }
-  | ({
-      _key: string;
-    } & Code)
->;
+export type BlockContent = Array<{
+  children?: Array<{
+    marks?: Array<string>;
+    text?: string;
+    _type: "span";
+    _key: string;
+  }>;
+  style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+  listItem?: "bullet" | "number";
+  markDefs?: Array<{
+    href?: string;
+    _type: "link";
+    _key: string;
+  }>;
+  level?: number;
+  _type: "block";
+  _key: string;
+} | {
+  asset?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+  };
+  media?: unknown;
+  hotspot?: SanityImageHotspot;
+  crop?: SanityImageCrop;
+  alt?: string;
+  _type: "image";
+  _key: string;
+} | {
+  _key: string;
+} & Code>;
 
 export type TranslationMetadata = {
   _id: string;
@@ -99,119 +95,100 @@ export type TranslationMetadata = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  translations?: Array<
-    {
-      _key: string;
-    } & InternationalizedArrayReferenceValue
-  >;
+  translations?: Array<{
+    _key: string;
+  } & InternationalizedArrayReferenceValue>;
   schemaTypes?: Array<string>;
 };
 
 export type InternationalizedArrayReferenceValue = {
   _type: "internationalizedArrayReferenceValue";
-  value?:
-    | {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "service";
-      }
-    | {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "blog";
-      }
-    | {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "project";
-      }
-    | {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "testimonial";
-      }
-    | {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "companyTimeline";
-      }
-    | {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "leadership";
-      }
-    | {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "aboutHero";
-      }
-    | {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "aboutMissionVision";
-      }
-    | {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "aboutStats";
-      }
-    | {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "aboutStory";
-      }
-    | {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "aboutValues";
-      }
-    | {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "aboutCTA";
-      }
-    | {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "pricing";
-      }
-    | {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "process";
-      }
-    | {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "accelerate";
-      }
-    | {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "homepageHero";
-      }
-    | {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "contactUs";
-      };
+  value?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "service";
+  } | {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "blog";
+  } | {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "project";
+  } | {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "testimonial";
+  } | {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "companyTimeline";
+  } | {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "leadership";
+  } | {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "aboutHero";
+  } | {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "aboutMissionVision";
+  } | {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "aboutStats";
+  } | {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "aboutStory";
+  } | {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "aboutValues";
+  } | {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "aboutCTA";
+  } | {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "pricing";
+  } | {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "process";
+  } | {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "accelerate";
+  } | {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "homepageHero";
+  } | {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "contactUs";
+  };
 };
 
 export type ContactUs = {
@@ -358,15 +335,7 @@ export type Pricing = {
   };
   valuePropsSection?: {
     valueProps?: Array<{
-      icon?:
-        | "zap"
-        | "shield"
-        | "users"
-        | "heart-handshake"
-        | "target"
-        | "rocket"
-        | "check-circle"
-        | "star";
+      icon?: "zap" | "shield" | "users" | "heart-handshake" | "target" | "rocket" | "check-circle" | "star";
       title?: string;
       description?: string;
       _key: string;
@@ -441,17 +410,7 @@ export type AboutValues = {
   values?: Array<{
     title?: string;
     description?: string;
-    icon?:
-      | "award"
-      | "users"
-      | "check-circle"
-      | "rocket"
-      | "target"
-      | "heart"
-      | "shield"
-      | "star"
-      | "lightbulb"
-      | "globe";
+    icon?: "award" | "users" | "check-circle" | "rocket" | "target" | "heart" | "shield" | "star" | "lightbulb" | "globe";
     _key: string;
   }>;
 };
@@ -491,15 +450,7 @@ export type AboutStats = {
   stats?: Array<{
     number?: string;
     label?: string;
-    icon?:
-      | "award"
-      | "target"
-      | "users"
-      | "rocket"
-      | "check-circle"
-      | "star"
-      | "trophy"
-      | "heart";
+    icon?: "award" | "target" | "users" | "rocket" | "check-circle" | "star" | "trophy" | "heart";
     _key: string;
   }>;
 };
@@ -803,17 +754,7 @@ export type Service = {
   shortDescription?: string;
   description?: string;
   categories?: Array<string>;
-  icon?:
-    | "monitor"
-    | "code"
-    | "smartphone"
-    | "database"
-    | "cloud"
-    | "shield"
-    | "chart"
-    | "palette"
-    | "rocket"
-    | "settings";
+  icon?: "monitor" | "code" | "smartphone" | "database" | "cloud" | "shield" | "chart" | "palette" | "rocket" | "settings";
   heroSection?: {
     tagline?: string;
     headline?: string;
@@ -842,17 +783,7 @@ export type Service = {
   features?: Array<{
     title?: string;
     description?: string;
-    icon?:
-      | "code"
-      | "zap"
-      | "users"
-      | "palette"
-      | "shield"
-      | "gauge"
-      | "gitbranch"
-      | "globe"
-      | "smartphone"
-      | "rocket";
+    icon?: "code" | "zap" | "users" | "palette" | "shield" | "gauge" | "gitbranch" | "globe" | "smartphone" | "rocket";
     _key: string;
   }>;
   technologies?: Array<{
@@ -883,11 +814,9 @@ export type Service = {
   };
 };
 
-export type InternationalizedArrayReference = Array<
-  {
-    _key: string;
-  } & InternationalizedArrayReferenceValue
->;
+export type InternationalizedArrayReference = Array<{
+  _key: string;
+} & InternationalizedArrayReferenceValue>;
 
 export type Code = {
   _type: "code";
@@ -1048,48 +977,7 @@ export type SanityAssetSourceData = {
   url?: string;
 };
 
-export type AllSanitySchemaTypes =
-  | Duration
-  | Brand
-  | BlogCategory
-  | BlockContent
-  | TranslationMetadata
-  | InternationalizedArrayReferenceValue
-  | ContactUs
-  | HomepageHero
-  | Accelerate
-  | Process
-  | Pricing
-  | AboutCTA
-  | AboutValues
-  | AboutStory
-  | AboutStats
-  | AboutMissionVision
-  | AboutHero
-  | Leadership
-  | CompanyTimeline
-  | Testimonial
-  | Project
-  | Blog
-  | Author
-  | Service
-  | InternationalizedArrayReference
-  | Code
-  | Color
-  | RgbaColor
-  | HsvaColor
-  | HslaColor
-  | SanityImagePaletteSwatch
-  | SanityImagePalette
-  | SanityImageDimensions
-  | SanityImageHotspot
-  | SanityImageCrop
-  | SanityFileAsset
-  | SanityImageAsset
-  | SanityImageMetadata
-  | Geopoint
-  | Slug
-  | SanityAssetSourceData;
+export type AllSanitySchemaTypes = Duration | Brand | BlogCategory | BlockContent | TranslationMetadata | InternationalizedArrayReferenceValue | ContactUs | HomepageHero | Accelerate | Process | Pricing | AboutCTA | AboutValues | AboutStory | AboutStats | AboutMissionVision | AboutHero | Leadership | CompanyTimeline | Testimonial | Project | Blog | Author | Service | InternationalizedArrayReference | Code | Color | RgbaColor | HsvaColor | HslaColor | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ../web/lib/sanity-queries/about-queries.ts
 // Variable: aboutHeroQuery
@@ -1123,16 +1011,7 @@ export type AboutStatsQueryResult = {
   stats: Array<{
     number: string | null;
     label: string | null;
-    icon:
-      | "award"
-      | "check-circle"
-      | "heart"
-      | "rocket"
-      | "star"
-      | "target"
-      | "trophy"
-      | "users"
-      | null;
+    icon: "award" | "check-circle" | "heart" | "rocket" | "star" | "target" | "trophy" | "users" | null;
   }> | null;
 } | null;
 // Variable: aboutStoryQuery
@@ -1166,18 +1045,7 @@ export type AboutValuesQueryResult = {
   values: Array<{
     title: string | null;
     description: string | null;
-    icon:
-      | "award"
-      | "check-circle"
-      | "globe"
-      | "heart"
-      | "lightbulb"
-      | "rocket"
-      | "shield"
-      | "star"
-      | "target"
-      | "users"
-      | null;
+    icon: "award" | "check-circle" | "globe" | "heart" | "lightbulb" | "rocket" | "shield" | "star" | "target" | "users" | null;
   }> | null;
 } | null;
 // Variable: aboutCTAQuery
@@ -1515,16 +1383,7 @@ export type PricingPageQueryResult = {
   } | null;
   valuePropsSection: {
     valueProps: Array<{
-      icon:
-        | "check-circle"
-        | "heart-handshake"
-        | "rocket"
-        | "shield"
-        | "star"
-        | "target"
-        | "users"
-        | "zap"
-        | null;
+      icon: "check-circle" | "heart-handshake" | "rocket" | "shield" | "star" | "target" | "users" | "zap" | null;
       title: string | null;
       description: string | null;
     }> | null;
@@ -1785,18 +1644,7 @@ export type ServiceQueryResult = {
   shortDescription: string | null;
   description: string | null;
   categories: Array<string> | null;
-  icon:
-    | "chart"
-    | "cloud"
-    | "code"
-    | "database"
-    | "monitor"
-    | "palette"
-    | "rocket"
-    | "settings"
-    | "shield"
-    | "smartphone"
-    | null;
+  icon: "chart" | "cloud" | "code" | "database" | "monitor" | "palette" | "rocket" | "settings" | "shield" | "smartphone" | null;
   heroSection: {
     tagline: string | null;
     headline: string | null;
@@ -1824,18 +1672,7 @@ export type ServiceQueryResult = {
   features: Array<{
     title: string | null;
     description: string | null;
-    icon:
-      | "code"
-      | "gauge"
-      | "gitbranch"
-      | "globe"
-      | "palette"
-      | "rocket"
-      | "shield"
-      | "smartphone"
-      | "users"
-      | "zap"
-      | null;
+    icon: "code" | "gauge" | "gitbranch" | "globe" | "palette" | "rocket" | "shield" | "smartphone" | "users" | "zap" | null;
   }> | null;
   technologies: Array<{
     name: string | null;
@@ -1935,54 +1772,43 @@ export type HomepageServicesQueryResult = Array<{
   name: string | null;
   slug: string | null;
   shortDescription: string | null;
-  icon:
-    | "chart"
-    | "cloud"
-    | "code"
-    | "database"
-    | "monitor"
-    | "palette"
-    | "rocket"
-    | "settings"
-    | "shield"
-    | "smartphone"
-    | null;
+  icon: "chart" | "cloud" | "code" | "database" | "monitor" | "palette" | "rocket" | "settings" | "shield" | "smartphone" | null;
 }>;
 
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    '\n *[_type == "aboutHero" && language == $language][0] {\n   _id,\n   language,\n   tagline,\n   title,\n   description\n }\n': AboutHeroQueryResult;
-    '\n *[_type == "aboutMissionVision" && language == $language][0] {\n   _id,\n   language,\n   mission {\n     title,\n     description\n   },\n   vision {\n     title,\n     description\n   }\n }\n': AboutMissionVisionQueryResult;
-    '\n *[_type == "aboutStats" && language == $language][0] {\n   _id,\n   language,\n   stats[] {\n     number,\n     label,\n     icon\n   }\n }\n': AboutStatsQueryResult;
-    '\n *[_type == "aboutStory" && language == $language][0] {\n   _id,\n   language,\n   sectionTitle,\n   subtitle,\n   paragraphs,\n   image\n }\n': AboutStoryQueryResult;
-    '\n *[_type == "aboutValues" && language == $language][0] {\n   _id,\n   language,\n   sectionTitle,\n   subtitle,\n   values[] {\n     title,\n     description,\n     icon\n   }\n }\n': AboutValuesQueryResult;
-    '\n *[_type == "aboutCTA" && language == $language][0] {\n   _id,\n   language,\n   title,\n   description,\n   buttonText\n }\n': AboutCTAQueryResult;
-    '\n *[_type == "companyTimeline" && language == $language][0] {\n   _id,\n   language,\n   title,\n   subTitle,\n   items[] {\n     year,\n     title,\n     description\n   }\n }\n': CompanyTimelineQueryResult;
-    '\n *[_type == "leadership" && language == $language][0] {\n   _id,\n   language,\n   title,\n   subTitle,\n   members[] {\n    name,\n    designation,\n    portfolioUrl,\n    image\n  }\n }\n ': CompanyLeadershipQueryResult;
-    '\n  *[_type == "accelerate" && language == $language][0] {\n    _id,\n    title,\n    language,\n    heading,\n    services,\n    buttonText\n  }\n': AccelerateQueryResult;
-    '\n    *[_type == "blog" && slug.current == $slug && language == $language][0] {\n        title,\n        subTitle,\n        "modifiedAt": _updatedAt,\n        author->,\n        thumbnail,\n        body,\n        blogCategories[]->{\n            title,\n            "chipColor": chipColor.hex,\n            "slug": slug.current, \n        },\n    }\n': BlogBySlugQueryResult;
-    '\n    *[_type == "blog" && language == $language] {\n        "slug": slug.current\n    }\n': BlogsSlugQueryResult;
-    '\n  *[_type == "blogCategory"] {\n  title,\n  "slug": slug.current\n}\n': BlogCategoriesQueryResult;
-    '\n   *[_type == "blog" && language == $language &&\n    ($categorySlugs == null || references(*[_type == "blogCategory" && slug.current in $categorySlugs]._id))\n  ] {\n    _id,\n    title,\n    subTitle,\n    // assumes 5 characters as mean word length\n    // https://ux.stackexchange.com/questions/22520/how-long-does-it-take-to-read-x-number-of-characters\n    "readingTimeInMins": round(length(pt::text(body)) / 5 / 180 ),\n    author->{\n     name,\n     image\n    },\n    blogCategories[]->{\n      title,\n      "chipColor": chipColor.hex\n    },\n    "slug": slug.current,\n    thumbnail,\n    publishedAt\n  }\n': BlogsByCategoryQueryResult;
-    '\n  *[_type == "blog" && language == $language] | order(publishedAt desc) [0...10] {\n    _id,\n    title,\n    "excerpt": subTitle,\n    "estimatedReadingTime": round(length(pt::text(body)) / 5 / 180 ),\n    "slug": slug.current,\n    "image": thumbnail,\n    publishedAt,\n    author->{\n      name,\n      "picture": image\n    },\n    "category": blogCategories[0]->{\n      title,\n      "color": chipColor\n    }\n  }\n': BlogsQueryResult;
-    '\n  *[_type == "brand"] | order(order asc, _createdAt desc) {\n    _id,\n    name,\n    "logoUrl": logo.asset->url,\n    "logoAlt": logo.alt,\n    link\n  }\n': BrandsQueryResult;
-    '\n  *[_type == "contactUs" && language == $language][0] {\n    _id,\n    language,\n    hero {\n      badge,\n      title,\n      subtitle,\n      ctaButtons[] {\n        text,\n        link,\n        variant\n      },\n      stats[] {\n        icon,\n        value,\n        label\n      }\n    },\n    contactSection {\n      badge,\n      title,\n      subtitle,\n      benefits[] {\n        icon,\n        text\n      },\n      tabSchedule,\n      tabMessage,\n      alternativeCtaSchedule,\n      alternativeCtaMessage,\n      alternativeCtaScheduleLink,\n      alternativeCtaMessageLink\n    },\n    contactInfo {\n      methods[] {\n        icon,\n        title,\n        primary,\n        secondary,\n        action\n      }\n    },\n    faq {\n      sectionTitle,\n      sectionSubtitle,\n      questions[] {\n        question,\n        answer\n      },\n      ctaSection {\n        title,\n        description,\n        buttonText,\n        buttonLink\n      }\n    },\n    seo {\n      metaTitle,\n      metaDescription\n    }\n  }\n': ContactUsQueryResult;
-    '\n  *[_type == "homepageHero" && language == $language][0] {\n    _id,\n    language,\n    title,\n    subtitle,\n    description,\n    ctaButtons[] {\n      text,\n      link,\n      variant\n    },\n    expertiseSection {\n      title,\n      subtitle\n    },\n    trustedByText\n  }\n': HomepageHeroQueryResult;
-    '\n  *[_type == "pricing" && language == $language][0] {\n    _id,\n    title,\n    language,\n    \n    heroSection {\n      badge,\n      title,\n      description,\n      primaryButtonText,\n      secondaryButtonText\n    },\n    \n    valuePropsSection {\n      valueProps[] {\n        icon,\n        title,\n        description\n      }\n    },\n    \n    pricingPlansSection {\n      title,\n      description,\n      plans[] {\n        name,\n        price,\n        period,\n        description,\n        isPopular,\n        features[],\n        buttonText\n      }\n    },\n    \n    comparisonSection {\n      title,\n      description,\n      comparisons[] {\n        feature,\n        us,\n        them\n      }\n    },\n    \n    faqsSection {\n      title,\n      faqs[] {\n        question,\n        answer\n      }\n    },\n    \n    ctaSection {\n      title,\n      description,\n      primaryButtonText,\n      secondaryButtonText,\n      disclaimer\n    },\n    \n    seo {\n      metaTitle,\n      metaDescription\n    }\n  }\n': PricingPageQueryResult;
-    '\n  *[_type == "process" && language == $language][0] {\n    _id,\n    title,\n    language,\n    badge,\n    heading,\n    steps[] {\n      number,\n      title,\n      description,\n      tag\n    },\n    progressLabel\n  }\n': ProcessQueryResult;
-    '\n  *[_type == "home"][0]{\n    _id,\n    _type,\n    overview,\n    showcaseProjects[]{\n      _key,\n      ...@->{\n        _id,\n        _type,\n        coverImage,\n        overview,\n        "slug": slug.current,\n        tags,\n        title,\n      }\n    },\n    title,\n  }\n': HomePageQueryResult;
-    '\n  *[_type == "page" && slug.current == $slug][0] {\n    _id,\n    _type,\n    body,\n    overview,\n    title,\n    "slug": slug.current,\n  }\n': PagesBySlugQueryResult;
-    '\n  *[_type == "project" && slug.current == $slug && language == $language][0] {\n    _id,\n    "slug": slug.current,\n    name,\n    category,\n    description,\n    logo,\n    coverImages,\n    projectSections,\n    url,\n    priority,\n    "technologies": projectDimensions.technologies,\n    "iterations": projectDimensions.iterations,\n    "teamSize": projectDimensions.teamSize,\n    "timeline": string(projectDimensions.timeline.value) + " " + coalesce(projectDimensions.timeline.unit, ""),\n    pageContent {\n      keyFeatures {\n        title,\n        subtitle,\n        features[] {\n          icon,\n          label,\n          value\n        }\n      },\n      projectShowcase {\n        title,\n        subtitle\n      },\n      callToAction {\n        title,\n        subtitle,\n        primaryButtonText,\n        secondaryButtonText\n      }\n    }\n  }\n': ProjectBySlugQueryResult;
-    '\n  *[_type == "project" && language == $language] | order(priority asc, _createdAt desc) {\n    _id,\n    "slug": slug.current,\n    name,\n    category,\n    description,\n    logo,\n    coverImages,\n    projectSections,\n    url,\n    priority,\n    "technologies": projectDimensions.technologies,\n    "iterations": projectDimensions.iterations,\n    "teamSize": projectDimensions.teamSize,\n    "timeline": string(projectDimensions.timeline.value) + " " + coalesce(projectDimensions.timeline.unit, ""),\n  }\n': AllProjectsQueryResult;
-    '\n  *[_type == "settings"][0]{\n    _id,\n    _type,\n    footer,\n    menuItems[]{\n      _key,\n      ...@->{\n        _type,\n        "slug": slug.current,\n        title\n      }\n    },\n    ogImage,\n  }\n': SettingsQueryResult;
-    '\n  *[_type == $type && defined(slug.current)]{"slug": slug.current}\n': SlugsByTypeQueryResult;
-    '\n  *[_type == "service" && language == $language] {\n    name,\n    "id": id.current,\n    description,\n    categories,\n    language\n  }\n': ServicesQueryResult;
-    '\n  *[_type == "testimonial" && language == $language] {\n    _id,\n    clientName,\n    role,\n    testimonial,\n    rating,\n    language,\n    clientImage {\n      asset->{\n        url,\n        metadata {\n          dimensions\n        }\n      }\n    }\n  }\n': TestimonialsQueryResult;
-    '\n  *[_type == "service" && id.current == $slug && language == $language][0] {\n    _id,\n    name,\n    "slug": id.current,\n    shortDescription,\n    description,\n    categories,\n    icon,\n    heroSection {\n      tagline,\n      headline,\n      subheadline,\n      primaryButtonText,\n      secondaryButtonText\n    },\n    featuresSection {\n      title,\n      description\n    },\n    technologiesSection {\n      title,\n      description\n    },\n    processSection {\n      title,\n      description,\n      processSteps[] {\n        number,\n        title,\n        description\n      }\n    },\n    features[] {\n      title,\n      description,\n      icon\n    },\n    technologies[] {\n      name,\n      icon\n    },\n    benefits,\n    whyChooseUs {\n      headline,\n      description,\n      reasons[] {\n        title,\n        description,\n        icon\n      }\n    },\n    ctaSection {\n      headline,\n      description,\n      primaryButtonText,\n      secondaryButtonText\n    },\n    seo {\n      metaTitle,\n      metaDescription\n    }\n  }\n': ServiceQueryResult;
-    '\n  *[_type == "service"] {\n    "slug": id.current\n  } | order(slug)\n': ServicesSlugQueryResult;
-    '\n  *[_type == "project" && language == $language && references(*[_type == "service" && id.current == $serviceSlug && language == $language]._id)] | order(priority asc, _createdAt desc) {\n    _id,\n    "slug": slug.current,\n    name,\n    category,\n    description,\n    logo,\n    coverImages,\n    projectSections,\n    url,\n    priority,\n    "technologies": projectDimensions.technologies,\n    "iterations": projectDimensions.iterations,\n    "teamSize": projectDimensions.teamSize,\n    "timeline": string(projectDimensions.timeline.value) + " " + coalesce(projectDimensions.timeline.unit, ""),\n  }\n': ProjectsByServiceQueryResult;
-    '\n  *[_type == "service" && language == $language] | order(_createdAt asc) {\n    _id,\n    name,\n    "slug": id.current,\n    shortDescription,\n    icon\n  }\n': HomepageServicesQueryResult;
+    "\n *[_type == \"aboutHero\" && language == $language][0] {\n   _id,\n   language,\n   tagline,\n   title,\n   description\n }\n": AboutHeroQueryResult;
+    "\n *[_type == \"aboutMissionVision\" && language == $language][0] {\n   _id,\n   language,\n   mission {\n     title,\n     description\n   },\n   vision {\n     title,\n     description\n   }\n }\n": AboutMissionVisionQueryResult;
+    "\n *[_type == \"aboutStats\" && language == $language][0] {\n   _id,\n   language,\n   stats[] {\n     number,\n     label,\n     icon\n   }\n }\n": AboutStatsQueryResult;
+    "\n *[_type == \"aboutStory\" && language == $language][0] {\n   _id,\n   language,\n   sectionTitle,\n   subtitle,\n   paragraphs,\n   image\n }\n": AboutStoryQueryResult;
+    "\n *[_type == \"aboutValues\" && language == $language][0] {\n   _id,\n   language,\n   sectionTitle,\n   subtitle,\n   values[] {\n     title,\n     description,\n     icon\n   }\n }\n": AboutValuesQueryResult;
+    "\n *[_type == \"aboutCTA\" && language == $language][0] {\n   _id,\n   language,\n   title,\n   description,\n   buttonText\n }\n": AboutCTAQueryResult;
+    "\n *[_type == \"companyTimeline\" && language == $language][0] {\n   _id,\n   language,\n   title,\n   subTitle,\n   items[] {\n     year,\n     title,\n     description\n   }\n }\n": CompanyTimelineQueryResult;
+    "\n *[_type == \"leadership\" && language == $language][0] {\n   _id,\n   language,\n   title,\n   subTitle,\n   members[] {\n    name,\n    designation,\n    portfolioUrl,\n    image\n  }\n }\n ": CompanyLeadershipQueryResult;
+    "\n  *[_type == \"accelerate\" && language == $language][0] {\n    _id,\n    title,\n    language,\n    heading,\n    services,\n    buttonText\n  }\n": AccelerateQueryResult;
+    "\n    *[_type == \"blog\" && slug.current == $slug && language == $language][0] {\n        title,\n        subTitle,\n        \"modifiedAt\": _updatedAt,\n        author->,\n        thumbnail,\n        body,\n        blogCategories[]->{\n            title,\n            \"chipColor\": chipColor.hex,\n            \"slug\": slug.current, \n        },\n    }\n": BlogBySlugQueryResult;
+    "\n    *[_type == \"blog\" && language == $language] {\n        \"slug\": slug.current\n    }\n": BlogsSlugQueryResult;
+    "\n  *[_type == \"blogCategory\"] {\n  title,\n  \"slug\": slug.current\n}\n": BlogCategoriesQueryResult;
+    "\n   *[_type == \"blog\" && language == $language &&\n    ($categorySlugs == null || references(*[_type == \"blogCategory\" && slug.current in $categorySlugs]._id))\n  ] {\n    _id,\n    title,\n    subTitle,\n    // assumes 5 characters as mean word length\n    // https://ux.stackexchange.com/questions/22520/how-long-does-it-take-to-read-x-number-of-characters\n    \"readingTimeInMins\": round(length(pt::text(body)) / 5 / 180 ),\n    author->{\n     name,\n     image\n    },\n    blogCategories[]->{\n      title,\n      \"chipColor\": chipColor.hex\n    },\n    \"slug\": slug.current,\n    thumbnail,\n    publishedAt\n  }\n": BlogsByCategoryQueryResult;
+    "\n  *[_type == \"blog\" && language == $language] | order(publishedAt desc) [0...10] {\n    _id,\n    title,\n    \"excerpt\": subTitle,\n    \"estimatedReadingTime\": round(length(pt::text(body)) / 5 / 180 ),\n    \"slug\": slug.current,\n    \"image\": thumbnail,\n    publishedAt,\n    author->{\n      name,\n      \"picture\": image\n    },\n    \"category\": blogCategories[0]->{\n      title,\n      \"color\": chipColor\n    }\n  }\n": BlogsQueryResult;
+    "\n  *[_type == \"brand\"] | order(order asc, _createdAt desc) {\n    _id,\n    name,\n    \"logoUrl\": logo.asset->url,\n    \"logoAlt\": logo.alt,\n    link\n  }\n": BrandsQueryResult;
+    "\n  *[_type == \"contactUs\" && language == $language][0] {\n    _id,\n    language,\n    hero {\n      badge,\n      title,\n      subtitle,\n      ctaButtons[] {\n        text,\n        link,\n        variant\n      },\n      stats[] {\n        icon,\n        value,\n        label\n      }\n    },\n    contactSection {\n      badge,\n      title,\n      subtitle,\n      benefits[] {\n        icon,\n        text\n      },\n      tabSchedule,\n      tabMessage,\n      alternativeCtaSchedule,\n      alternativeCtaMessage,\n      alternativeCtaScheduleLink,\n      alternativeCtaMessageLink\n    },\n    contactInfo {\n      methods[] {\n        icon,\n        title,\n        primary,\n        secondary,\n        action\n      }\n    },\n    faq {\n      sectionTitle,\n      sectionSubtitle,\n      questions[] {\n        question,\n        answer\n      },\n      ctaSection {\n        title,\n        description,\n        buttonText,\n        buttonLink\n      }\n    },\n    seo {\n      metaTitle,\n      metaDescription\n    }\n  }\n": ContactUsQueryResult;
+    "\n  *[_type == \"homepageHero\" && language == $language][0] {\n    _id,\n    language,\n    title,\n    subtitle,\n    description,\n    ctaButtons[] {\n      text,\n      link,\n      variant\n    },\n    expertiseSection {\n      title,\n      subtitle\n    },\n    trustedByText\n  }\n": HomepageHeroQueryResult;
+    "\n  *[_type == \"pricing\" && language == $language][0] {\n    _id,\n    title,\n    language,\n    \n    heroSection {\n      badge,\n      title,\n      description,\n      primaryButtonText,\n      secondaryButtonText\n    },\n    \n    valuePropsSection {\n      valueProps[] {\n        icon,\n        title,\n        description\n      }\n    },\n    \n    pricingPlansSection {\n      title,\n      description,\n      plans[] {\n        name,\n        price,\n        period,\n        description,\n        isPopular,\n        features[],\n        buttonText\n      }\n    },\n    \n    comparisonSection {\n      title,\n      description,\n      comparisons[] {\n        feature,\n        us,\n        them\n      }\n    },\n    \n    faqsSection {\n      title,\n      faqs[] {\n        question,\n        answer\n      }\n    },\n    \n    ctaSection {\n      title,\n      description,\n      primaryButtonText,\n      secondaryButtonText,\n      disclaimer\n    },\n    \n    seo {\n      metaTitle,\n      metaDescription\n    }\n  }\n": PricingPageQueryResult;
+    "\n  *[_type == \"process\" && language == $language][0] {\n    _id,\n    title,\n    language,\n    badge,\n    heading,\n    steps[] {\n      number,\n      title,\n      description,\n      tag\n    },\n    progressLabel\n  }\n": ProcessQueryResult;
+    "\n  *[_type == \"home\"][0]{\n    _id,\n    _type,\n    overview,\n    showcaseProjects[]{\n      _key,\n      ...@->{\n        _id,\n        _type,\n        coverImage,\n        overview,\n        \"slug\": slug.current,\n        tags,\n        title,\n      }\n    },\n    title,\n  }\n": HomePageQueryResult;
+    "\n  *[_type == \"page\" && slug.current == $slug][0] {\n    _id,\n    _type,\n    body,\n    overview,\n    title,\n    \"slug\": slug.current,\n  }\n": PagesBySlugQueryResult;
+    "\n  *[_type == \"project\" && slug.current == $slug && language == $language][0] {\n    _id,\n    \"slug\": slug.current,\n    name,\n    category,\n    description,\n    logo,\n    coverImages,\n    projectSections,\n    url,\n    priority,\n    \"technologies\": projectDimensions.technologies,\n    \"iterations\": projectDimensions.iterations,\n    \"teamSize\": projectDimensions.teamSize,\n    \"timeline\": string(projectDimensions.timeline.value) + \" \" + coalesce(projectDimensions.timeline.unit, \"\"),\n    pageContent {\n      keyFeatures {\n        title,\n        subtitle,\n        features[] {\n          icon,\n          label,\n          value\n        }\n      },\n      projectShowcase {\n        title,\n        subtitle\n      },\n      callToAction {\n        title,\n        subtitle,\n        primaryButtonText,\n        secondaryButtonText\n      }\n    }\n  }\n": ProjectBySlugQueryResult;
+    "\n  *[_type == \"project\" && language == $language] | order(priority asc, _createdAt desc) {\n    _id,\n    \"slug\": slug.current,\n    name,\n    category,\n    description,\n    logo,\n    coverImages,\n    projectSections,\n    url,\n    priority,\n    \"technologies\": projectDimensions.technologies,\n    \"iterations\": projectDimensions.iterations,\n    \"teamSize\": projectDimensions.teamSize,\n    \"timeline\": string(projectDimensions.timeline.value) + \" \" + coalesce(projectDimensions.timeline.unit, \"\"),\n  }\n": AllProjectsQueryResult;
+    "\n  *[_type == \"settings\"][0]{\n    _id,\n    _type,\n    footer,\n    menuItems[]{\n      _key,\n      ...@->{\n        _type,\n        \"slug\": slug.current,\n        title\n      }\n    },\n    ogImage,\n  }\n": SettingsQueryResult;
+    "\n  *[_type == $type && defined(slug.current)]{\"slug\": slug.current}\n": SlugsByTypeQueryResult;
+    "\n  *[_type == \"service\" && language == $language] {\n    name,\n    \"id\": id.current,\n    description,\n    categories,\n    language\n  }\n": ServicesQueryResult;
+    "\n  *[_type == \"testimonial\" && language == $language] {\n    _id,\n    clientName,\n    role,\n    testimonial,\n    rating,\n    language,\n    clientImage {\n      asset->{\n        url,\n        metadata {\n          dimensions\n        }\n      }\n    }\n  }\n": TestimonialsQueryResult;
+    "\n  *[_type == \"service\" && id.current == $slug && language == $language][0] {\n    _id,\n    name,\n    \"slug\": id.current,\n    shortDescription,\n    description,\n    categories,\n    icon,\n    heroSection {\n      tagline,\n      headline,\n      subheadline,\n      primaryButtonText,\n      secondaryButtonText\n    },\n    featuresSection {\n      title,\n      description\n    },\n    technologiesSection {\n      title,\n      description\n    },\n    processSection {\n      title,\n      description,\n      processSteps[] {\n        number,\n        title,\n        description\n      }\n    },\n    features[] {\n      title,\n      description,\n      icon\n    },\n    technologies[] {\n      name,\n      icon\n    },\n    benefits,\n    whyChooseUs {\n      headline,\n      description,\n      reasons[] {\n        title,\n        description,\n        icon\n      }\n    },\n    ctaSection {\n      headline,\n      description,\n      primaryButtonText,\n      secondaryButtonText\n    },\n    seo {\n      metaTitle,\n      metaDescription\n    }\n  }\n": ServiceQueryResult;
+    "\n  *[_type == \"service\"] {\n    \"slug\": id.current\n  } | order(slug)\n": ServicesSlugQueryResult;
+    "\n  *[_type == \"project\" && language == $language && references(*[_type == \"service\" && id.current == $serviceSlug && language == $language]._id)] | order(priority asc, _createdAt desc) {\n    _id,\n    \"slug\": slug.current,\n    name,\n    category,\n    description,\n    logo,\n    coverImages,\n    projectSections,\n    url,\n    priority,\n    \"technologies\": projectDimensions.technologies,\n    \"iterations\": projectDimensions.iterations,\n    \"teamSize\": projectDimensions.teamSize,\n    \"timeline\": string(projectDimensions.timeline.value) + \" \" + coalesce(projectDimensions.timeline.unit, \"\"),\n  }\n": ProjectsByServiceQueryResult;
+    "\n  *[_type == \"service\" && language == $language] | order(_createdAt asc) {\n    _id,\n    name,\n    \"slug\": id.current,\n    shortDescription,\n    icon\n  }\n": HomepageServicesQueryResult;
   }
 }

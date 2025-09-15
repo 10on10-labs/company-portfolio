@@ -28,9 +28,11 @@ export default function CaseStudiesSection({ projects }: Projects) {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">{t('title')}</h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto mb-2">{t('description')}</p>
-          <p className="text-base text-gray-500 max-w-2xl mx-auto">{t('sub_description')}</p>
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">{t('title')}</h2>
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-2">{t('description')}</p>
+          <p className="text-base text-muted-foreground max-w-2xl mx-auto">
+            {t('sub_description')}
+          </p>
         </motion.div>
 
         <div className="max-w-7xl mx-auto space-y-8">
@@ -49,7 +51,7 @@ export default function CaseStudiesSection({ projects }: Projects) {
         >
           <Link
             href="/case-studies"
-            className="inline-flex items-center gap-3 px-8 py-4 bg-primary text-white font-semibold rounded-full hover:bg-primary/90 transition-all duration-300 group shadow-xl shadow-primary/20 hover:shadow-2xl hover:shadow-primary/30"
+            className="inline-flex items-center gap-3 px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-full hover:bg-primary/90 transition-all duration-300 group shadow-xl shadow-primary/20 hover:shadow-2xl hover:shadow-primary/30"
           >
             {isRTL ? (
               <>

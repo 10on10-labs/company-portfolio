@@ -50,19 +50,19 @@ export default function ServicesPageClient() {
             <span className="inline-block text-primary font-semibold text-xs uppercase tracking-wider mb-2 bg-primary/10 px-3 py-1.5 rounded-full">
               {t('ourExpertise')}
             </span>
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">{t('title')}</h1>
-            <p className="text-sm text-gray-600 mb-4 leading-relaxed">{t('description')}</p>
+            <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-2">{t('title')}</h1>
+            <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{t('description')}</p>
           </div>
         </div>
       </section>
 
       {/* Expertise Categories Section */}
-      <section className="py-12 md:py-16 bg-gray-50">
+      <section className="py-12 md:py-16 bg-muted/30">
         <div className="container mx-auto px-4">
           {Object.entries(expertiseData).map(([category, items]) => (
             <div key={category} className="mb-16 last:mb-0">
               <div className="text-center mb-10">
-                <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">{category}</h2>
+                <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">{category}</h2>
                 <div className="w-20 h-1 bg-primary mx-auto rounded-full" />
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
@@ -71,17 +71,19 @@ export default function ServicesPageClient() {
                   return (
                     <div
                       key={index}
-                      className="bg-white rounded-xl p-6 hover:shadow-xl transition-all duration-300 border border-gray-100 group"
+                      className="bg-card rounded-xl p-6 hover:shadow-xl transition-all duration-300 border border-border group"
                     >
                       <div className="mb-4">
                         <div className="w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                           <Icon className="w-7 h-7 text-primary" />
                         </div>
                       </div>
-                      <h3 className="text-lg font-semibold text-gray-900 mb-3 group-hover:text-primary transition-colors">
+                      <h3 className="text-lg font-semibold text-card-foreground mb-3 group-hover:text-primary transition-colors">
                         {item.title}
                       </h3>
-                      <p className="text-sm text-gray-600 leading-relaxed">{item.description}</p>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        {item.description}
+                      </p>
                     </div>
                   );
                 })}
@@ -92,7 +94,7 @@ export default function ServicesPageClient() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-primary relative overflow-hidden">
+      <section className="py-20 bg-secondary relative overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-10">
           <div
@@ -106,13 +108,15 @@ export default function ServicesPageClient() {
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center max-w-3xl mx-auto">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">{t('cta.title')}</h2>
-            <p className="text-xl text-white/90 mb-8">{t('cta.description')}</p>
+            <h2 className="text-4xl md:text-5xl font-bold text-secondary-foreground mb-6">
+              {t('cta.title')}
+            </h2>
+            <p className="text-xl text-secondary-foreground/90 mb-8">{t('cta.description')}</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="px-8 py-4 bg-white text-primary font-semibold rounded-full hover:bg-secondary transition-all duration-300 shadow-2xl">
+              <button className="px-8 py-4 bg-background text-primary font-semibold rounded-full hover:bg-muted transition-all duration-300 shadow-2xl">
                 {t('cta.scheduleButton')}
               </button>
-              <button className="px-8 py-4 bg-transparent text-white font-semibold rounded-full border-2 border-white hover:bg-white hover:text-primary transition-all duration-300">
+              <button className="px-8 py-4 bg-transparent text-secondary-foreground font-semibold rounded-full border-2 border-secondary-foreground hover:bg-background hover:text-primary transition-all duration-300">
                 {t('cta.portfolioButton')}
               </button>
             </div>

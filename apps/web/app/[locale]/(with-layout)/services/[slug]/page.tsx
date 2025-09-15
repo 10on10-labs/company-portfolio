@@ -124,23 +124,23 @@ export default async function ServiceDetailPage({
                   {service.heroSection.tagline}
                 </div>
               )}
-              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+              <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
                 {service.heroSection?.headline || service.name}
               </h1>
-              <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+              <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
                 {service.heroSection?.subheadline || service.description}
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link
                   href="/contact-us"
-                  className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-white font-semibold rounded-full hover:bg-primary/90 transition-colors"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-full hover:bg-primary/90 transition-colors"
                 >
                   {service.ctaSection?.primaryButtonText || 'Start Your Project'}
                   <ArrowRight className="w-5 h-5 rtl:rotate-180" />
                 </Link>
                 <Link
                   href="/case-studies"
-                  className="inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-gray-300 text-gray-700 font-semibold rounded-full hover:border-primary hover:text-primary transition-colors"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-border text-foreground font-semibold rounded-full hover:border-primary hover:text-primary transition-colors"
                 >
                   {service.ctaSection?.secondaryButtonText || 'View Our Work'}
                 </Link>
@@ -152,7 +152,7 @@ export default async function ServiceDetailPage({
                   {React.createElement(getIcon(service.icon || ''), {
                     className: 'w-24 h-24 text-primary/50 mx-auto mb-4',
                   })}
-                  <p className="text-gray-500">{service.name}</p>
+                  <p className="text-muted-foreground">{service.name}</p>
                 </div>
               </div>
             </div>
@@ -161,13 +161,13 @@ export default async function ServiceDetailPage({
       </section>
       {/* Features Grid */}
       {service.features && service.features.length > 0 && (
-        <section className="py-16 md:py-20 bg-gray-50">
+        <section className="py-16 md:py-20 bg-muted/30">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
                 {service.featuresSection?.title || `Why Choose Our ${service.name}`}
               </h2>
-              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
                 {service.featuresSection?.description ||
                   'We combine technical expertise with creative vision to deliver outstanding solutions'}
               </p>
@@ -178,13 +178,15 @@ export default async function ServiceDetailPage({
                 return (
                   <div
                     key={index}
-                    className="bg-white p-6 rounded-2xl hover:shadow-lg transition-shadow"
+                    className="bg-card p-6 rounded-2xl hover:shadow-lg transition-shadow"
                   >
                     <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
                       <Icon className="w-6 h-6 text-primary" />
                     </div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">{feature.title}</h3>
-                    <p className="text-gray-600 text-sm">{feature.description}</p>
+                    <h3 className="text-lg font-semibold text-card-foreground mb-2">
+                      {feature.title}
+                    </h3>
+                    <p className="text-muted-foreground text-sm">{feature.description}</p>
                   </div>
                 );
               })}
@@ -194,13 +196,13 @@ export default async function ServiceDetailPage({
       )}
       {/* Technology Stack */}
       {service.technologies && service.technologies.length > 0 && (
-        <section className="py-16 md:py-20 bg-gray-900">
+        <section className="py-16 md:py-20 bg-gray-900 dark:bg-gray-800">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
                 {service.technologiesSection?.title || 'Technologies We Master'}
               </h2>
-              <p className="text-lg text-gray-300 max-w-3xl mx-auto">
+              <p className="text-lg text-white/90 max-w-3xl mx-auto">
                 {service.technologiesSection?.description ||
                   'Leveraging cutting-edge technologies to build modern applications'}
               </p>
@@ -209,7 +211,7 @@ export default async function ServiceDetailPage({
               {service.technologies.map((tech, index: number) => (
                 <div
                   key={index}
-                  className="bg-gray-800 border-2 border-gray-700 rounded-2xl px-6 py-4 hover:border-primary hover:bg-gray-700 transition-all"
+                  className="bg-gray-800 dark:bg-gray-700 border-2 border-gray-700 dark:border-gray-600 rounded-2xl px-6 py-4 hover:border-primary hover:bg-gray-700 dark:hover:bg-gray-600 transition-all"
                 >
                   <div className="flex items-center gap-3">
                     <span className="text-2xl">{tech.icon}</span>
@@ -223,13 +225,13 @@ export default async function ServiceDetailPage({
       )}
       {/* Process Section */}
       {service.processSection?.processSteps && service.processSection.processSteps?.length > 0 && (
-        <section className="py-16 md:py-20 bg-gray-50">
+        <section className="py-16 md:py-20 bg-muted/30">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
                 {service.processSection?.title || 'Our Development Process'}
               </h2>
-              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
                 {service.processSection?.description ||
                   'A proven methodology that ensures project success from concept to deployment'}
               </p>
@@ -237,12 +239,14 @@ export default async function ServiceDetailPage({
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {service.processSection.processSteps?.map((step, index: number) => (
                 <div key={index} className="relative">
-                  <div className="bg-white p-6 rounded-2xl h-full">
+                  <div className="bg-card p-6 rounded-2xl h-full">
                     <span className="text-4xl font-bold text-primary/20 mb-4 block">
                       {step.number}
                     </span>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">{step.title}</h3>
-                    <p className="text-sm text-gray-600">{step.description}</p>
+                    <h3 className="text-lg font-semibold text-card-foreground mb-2">
+                      {step.title}
+                    </h3>
+                    <p className="text-sm text-muted-foreground">{step.description}</p>
                   </div>
                   {index < (service.processSection?.processSteps ?? []).length - 1 && (
                     <div className="hidden lg:flex absolute top-1/2 right-0 transform translate-x-1/2 -translate-y-1/2 w-16 justify-center items-center rtl:right-auto rtl:left-0 rtl:-translate-x-1/2">
@@ -257,20 +261,20 @@ export default async function ServiceDetailPage({
       )}
       {/* Why Choose Us Section */}
       {service.whyChooseUs && (
-        <section className="py-16 md:py-20 bg-gray-900">
+        <section className="py-16 md:py-20 bg-gray-900 dark:bg-gray-800">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
               <div>
                 <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
                   {service.whyChooseUs.headline}
                 </h2>
-                <p className="text-lg text-gray-300 mb-8">{service.whyChooseUs.description}</p>
+                <p className="text-lg text-white/90 mb-8">{service.whyChooseUs.description}</p>
                 {service.benefits && service.benefits.length > 0 && (
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {service.benefits.map((benefit: string, index: number) => (
                       <div key={index} className="flex items-center gap-3">
                         <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
-                        <span className="text-gray-300">{benefit}</span>
+                        <span className="text-white/90">{benefit}</span>
                       </div>
                     ))}
                   </div>
@@ -283,11 +287,11 @@ export default async function ServiceDetailPage({
                     return (
                       <div
                         key={index}
-                        className="bg-gradient-to-br from-gray-800 to-gray-700 p-6 rounded-2xl border border-gray-700"
+                        className="bg-gradient-to-br from-gray-800 to-gray-700 dark:from-gray-700 dark:to-gray-600 p-6 rounded-2xl border border-gray-700 dark:border-gray-600"
                       >
                         <Icon className="w-12 h-12 text-primary mb-4" />
                         <h3 className="text-lg font-semibold text-white mb-2">{reason.title}</h3>
-                        <p className="text-sm text-gray-300">{reason.description}</p>
+                        <p className="text-sm text-white/90">{reason.description}</p>
                       </div>
                     );
                   })}
@@ -304,21 +308,23 @@ export default async function ServiceDetailPage({
         <section className="py-20 bg-primary">
           <div className="container mx-auto px-4">
             <div className="text-center max-w-3xl mx-auto">
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+              <h2 className="text-3xl md:text-4xl font-bold text-primary-foreground mb-6">
                 {service.ctaSection.headline}
               </h2>
-              <p className="text-lg text-white/90 mb-8">{service.ctaSection.description}</p>
+              <p className="text-lg text-primary-foreground/90 mb-8">
+                {service.ctaSection.description}
+              </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link
                   href="/contact-us"
-                  className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-primary font-semibold rounded-full hover:bg-gray-100 transition-colors"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-background text-primary font-semibold rounded-full hover:bg-muted transition-colors"
                 >
                   {service.ctaSection.primaryButtonText}
                   <ArrowRight className="w-5 h-5 rtl:rotate-180" />
                 </Link>
                 <Link
                   href="/services"
-                  className="inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-white text-white font-semibold rounded-full hover:bg-white/10 transition-colors"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-primary-foreground text-primary-foreground font-semibold rounded-full hover:bg-primary-foreground/10 transition-colors"
                 >
                   {service.ctaSection.secondaryButtonText}
                 </Link>

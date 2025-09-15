@@ -78,7 +78,7 @@ export const ProjectHeroSection: React.FC<Props> = ({ project }) => {
   ];
 
   return (
-    <section className="relative overflow-hidden bg-white">
+    <section className="relative overflow-hidden bg-background">
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5" />
 
       <div className="container mx-auto px-6 lg:px-12 py-8">
@@ -91,7 +91,7 @@ export const ProjectHeroSection: React.FC<Props> = ({ project }) => {
         >
           <Link
             href="/case-studies"
-            className="inline-flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-all cursor-pointer group"
+            className="inline-flex items-center gap-2 px-4 py-2 text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-all cursor-pointer group"
             style={{ cursor: 'pointer' }}
           >
             {isRTL ? (
@@ -137,14 +137,14 @@ export const ProjectHeroSection: React.FC<Props> = ({ project }) => {
 
               <div className="flex-1">
                 <div className="flex">
-                  <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-2">
+                  <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-2">
                     {project?.name}
                   </h1>
                   {project?.url && (
                     <a
                       href={project?.url}
                       target="_blank"
-                      className="ml-4 text-gray-500 hover:text-gray-400 z-20"
+                      className="ml-4 text-muted-foreground hover:text-muted-foreground z-20"
                       rel="noreferrer"
                     >
                       <ExternalLinkIcon />
@@ -161,7 +161,7 @@ export const ProjectHeroSection: React.FC<Props> = ({ project }) => {
 
             {/* Description */}
             {project?.description && (
-              <p className="text-lg text-gray-600 leading-relaxed">{project.description}</p>
+              <p className="text-lg text-muted-foreground leading-relaxed">{project.description}</p>
             )}
 
             {/* Project Stats */}
@@ -172,13 +172,13 @@ export const ProjectHeroSection: React.FC<Props> = ({ project }) => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 + index * 0.05 }}
-                  className="bg-gray-50 rounded-xl p-4 border border-gray-100"
+                  className="bg-muted/50 rounded-xl p-4 border border-border"
                 >
                   <div className="flex items-center gap-3">
                     <stat.icon className="w-5 h-5 text-primary" />
                     <div>
-                      <p className="text-sm text-gray-500">{stat.label}</p>
-                      <p className="font-semibold text-gray-900">{stat.value}</p>
+                      <p className="text-sm text-muted-foreground">{stat.label}</p>
+                      <p className="font-semibold text-foreground">{stat.value}</p>
                     </div>
                   </div>
                 </motion.div>
@@ -197,7 +197,7 @@ export const ProjectHeroSection: React.FC<Props> = ({ project }) => {
               <MacBookCarousel images={allImages} />
             ) : (
               <div className="relative max-w-[600px] mx-auto bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl p-12 flex items-center justify-center min-h-[400px]">
-                <span className="text-gray-400 text-lg">No images available</span>
+                <span className="text-muted-foreground text-lg">No images available</span>
               </div>
             )}
           </motion.div>

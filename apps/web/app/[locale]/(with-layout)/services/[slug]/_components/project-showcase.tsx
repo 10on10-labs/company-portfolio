@@ -24,11 +24,11 @@ export default function ProjectShowcase({ projects }: ProjectShowcaseProps) {
   }
 
   return (
-    <section className="py-16 md:py-20 bg-gray-50">
+    <section className="py-16 md:py-20 bg-muted/30">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{t('title')}</h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">{t('description')}</p>
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">{t('title')}</h2>
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">{t('description')}</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -42,7 +42,7 @@ export default function ProjectShowcase({ projects }: ProjectShowcaseProps) {
                 href={`/case-studies/${project.slug || ''}`}
                 className="group"
               >
-                <div className="bg-white rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300">
+                <div className="bg-card rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300">
                   {/* Project Image */}
                   <div className="relative h-48 bg-gradient-to-br from-primary/10 to-primary/5 overflow-hidden">
                     {imageUrl ? (
@@ -62,12 +62,12 @@ export default function ProjectShowcase({ projects }: ProjectShowcaseProps) {
 
                   {/* Project Info */}
                   <div className="p-6">
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2 group-hover:text-primary transition-colors">
+                    <h3 className="text-xl font-semibold text-card-foreground mb-2 group-hover:text-primary transition-colors">
                       {project.name}
                     </h3>
 
                     {project.description && (
-                      <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+                      <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
                         {project.description}
                       </p>
                     )}
@@ -75,7 +75,7 @@ export default function ProjectShowcase({ projects }: ProjectShowcaseProps) {
                     {/* Category */}
                     {project.category && (
                       <div className="flex flex-wrap gap-2 mb-4">
-                        <span className="text-xs px-3 py-1 bg-gray-100 text-gray-700 rounded-full">
+                        <span className="text-xs px-3 py-1 bg-muted text-muted-foreground rounded-full">
                           {project.category}
                         </span>
                       </div>
@@ -97,7 +97,7 @@ export default function ProjectShowcase({ projects }: ProjectShowcaseProps) {
         <div className="text-center mt-12">
           <Link
             href="/#case-studies"
-            className="inline-flex items-center gap-3 px-8 py-4 bg-primary text-white font-semibold rounded-full hover:bg-primary/90 transition-all duration-300 group shadow-xl shadow-primary/20 hover:shadow-2xl hover:shadow-primary/30"
+            className="inline-flex items-center gap-3 px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-full hover:bg-primary/90 transition-all duration-300 group shadow-xl shadow-primary/20 hover:shadow-2xl hover:shadow-primary/30"
           >
             {t('viewAllCaseStudies')}
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform rtl:rotate-180" />

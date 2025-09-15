@@ -31,11 +31,11 @@ export default function PricingSection({ pricingData }: PricingSectionProps) {
   return (
     <section
       id="pricing"
-      className="relative min-h-screen flex items-center overflow-hidden bg-gray-900 py-16 lg:py-20"
+      className="relative min-h-screen flex items-center overflow-hidden bg-gray-900 dark:bg-gray-800 py-16 lg:py-20"
     >
       {/* Background pattern */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900" />
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 dark:from-gray-800 dark:via-gray-700 dark:to-gray-800" />
         <div className="absolute top-0 left-0 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl" />
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-orange-600/10 rounded-full blur-3xl" />
       </div>

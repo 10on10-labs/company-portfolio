@@ -39,7 +39,7 @@ export const MobileBlogCategorySelector: React.FC<Props> = ({ blogCategories }) 
           variant="outline"
           aria-expanded={openPopOver}
           role="combobox"
-          className="w-full sm:w-[200px] justify-between text-gray-700 border-gray-200 cursor-pointer hover:bg-gray-50"
+          className="w-full sm:w-[200px] justify-between text-foreground border-border cursor-pointer hover:bg-muted"
         >
           {currentCategory
             ? blogCategories.find(

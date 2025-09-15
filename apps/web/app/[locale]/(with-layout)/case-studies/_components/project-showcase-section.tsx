@@ -28,7 +28,7 @@ export const ProjectShowcaseSection: React.FC<ProjectSections> = ({
   if (!projectSections || projectSections.length === 0) return null;
 
   return (
-    <section className="py-16 bg-white">
+    <section className="py-16 bg-background">
       <div className="container mx-auto px-6 lg:px-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -37,10 +37,10 @@ export const ProjectShowcaseSection: React.FC<ProjectSections> = ({
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl font-bold text-foreground mb-4">
             {projectShowcase?.title || 'Project Showcase'}
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
+          <p className="text-muted-foreground max-w-2xl mx-auto">
             {projectShowcase?.subtitle ||
               'Explore the different sections and features of this project in detail'}
           </p>
@@ -72,7 +72,7 @@ export const ProjectShowcaseSection: React.FC<ProjectSections> = ({
               >
                 <div className="flex items-center gap-3 mb-4">
                   <Sparkles className="w-6 h-6 text-primary" />
-                  <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 capitalize">
+                  <h3 className="text-2xl lg:text-3xl font-bold text-foreground capitalize">
                     {translateProjectSectionName(section.name || `Section ${index + 1}`, locale)}
                   </h3>
                 </div>
@@ -84,7 +84,7 @@ export const ProjectShowcaseSection: React.FC<ProjectSections> = ({
                 <div className={`${index % 2 === 1 ? 'lg:order-1' : ''}`}>
                   <div className="relative group">
                     <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-2xl blur-2xl opacity-30 group-hover:opacity-40 transition-opacity" />
-                    <div className="relative bg-white rounded-2xl shadow-xl overflow-hidden">
+                    <div className="relative bg-card rounded-2xl shadow-xl overflow-hidden">
                       {section.images.slice(0, 1).map((image: any) => {
                         const imageUrl = urlFor(image).width(600).height(400).url();
                         return (

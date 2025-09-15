@@ -22,9 +22,9 @@ export default function CaseStudiesList({ projects }: Props) {
         transition={{ duration: 0.6 }}
         className="text-center mb-12"
       >
-        <h1 className="text-4xl md:text-5xl font-bold text-black mb-4">{t('title')}</h1>
-        <p className="text-lg text-gray-600 max-w-3xl mx-auto mb-2">{t('description')}</p>
-        <p className="text-base text-gray-500 max-w-2xl mx-auto">{t('sub_description')}</p>
+        <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">{t('title')}</h1>
+        <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-2">{t('description')}</p>
+        <p className="text-base text-muted-foreground max-w-2xl mx-auto">{t('sub_description')}</p>
       </motion.div>
 
       {/* Projects Grid */}

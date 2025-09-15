@@ -18,7 +18,7 @@ type Props = {
 export const DesktopBlogCategorySelector: FC<Props> = ({ blogCategories }) => {
   const { currentCategory, handleCategoryChange } = useBlogCategorySelector();
   return (
-    <div className="inline-flex items-center gap-2 p-1 rounded-lg bg-gray-100 border border-gray-200">
+    <div className="inline-flex items-center gap-2 p-1 rounded-lg bg-muted border border-border">
       {blogCategories.map((category, index) => {
         const isViewAll = category.slug === '__view_all__';
         const actualSlug = isViewAll ? null : category.slug;
@@ -31,8 +31,8 @@ export const DesktopBlogCategorySelector: FC<Props> = ({ blogCategories }) => {
             className={cn(
               'px-4 py-1.5 text-sm font-medium rounded-md transition-all duration-200 cursor-pointer',
               isActive
-                ? 'bg-primary text-white shadow-sm'
-                : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50',
+                ? 'bg-primary text-primary-foreground shadow-sm'
+                : 'text-muted-foreground hover:text-foreground hover:bg-background',
             )}
           >
             {category.title}
