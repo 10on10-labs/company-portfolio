@@ -61,9 +61,56 @@ export async function GET(req: NextRequest) {
     // Explicitly wait for the blog content to be present using the specific ID
     await page.waitForSelector('#blog-pdf-root', { timeout: 10000 });
 
+    // Read logo file for embedding in header
+    // We use fs to read the public file directly on the server to ensure we have the base64 data
+    const fs = await import('fs');
+    const path = await import('path');
+
+    // Try to resolve the logo path. In Next.js dev vs prod, cwd might differ.
+    // 1. Root of repo: apps/web/public/logo.png
+    // 2. Apps/web root: public/logo.png
+    const possiblePaths = [
+      path.join(process.cwd(), 'apps/web/public/logo.png'),
+      path.join(process.cwd(), 'public/logo.png'),
+    ];
+
+    let logoBase64 = '';
+
+    for (const p of possiblePaths) {
+      if (fs.existsSync(p)) {
+        try {
+          const logoBuffer = fs.readFileSync(p);
+          logoBase64 = `data:image/png;base64,${logoBuffer.toString('base64')}`;
+          console.log(`Loaded logo from: ${p}`);
+          break;
+        } catch (e) {
+          console.error(`Error reading logo at ${p}:`, e);
+        }
+      }
+    }
+
+    if (!logoBase64) {
+      console.warn('Could not find logo.png in:', possiblePaths);
+    }
+
+    // Match TopNavbar styling: The logo sits on a white rounded square.
+    // Since the PDF header is white, we might need to emulate the navbar context if the logo is white.
+    // But TopNavbar puts a WHITE box behind it. This implies the logo is likely dark or colored,
+    // and the white box is for the shape/iconography.
+    // We'll add the background anyway to be safe and match the look.
+    const headerTemplate = `
+      <div style="font-size: 10px; width: 100%; display: flex; align-items: center; padding: 0 20px; margin-bottom: 10px; border-bottom: 1px solid #eee;">
+        <div style="width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; background: #f0f0f0; border-radius: 6px; margin-right: 10px;">
+           <img src="${logoBase64}" style="height: 24px; width: auto;" alt="10on10 Labs" />
+        </div>
+        <span style="font-weight: 600; color: #333;">10on10Labs</span>
+        <span style="margin-left: auto; color: #888;">Blog</span>
+      </div>
+    `;
+
     // Optional: Hide specific elements (like the CTA button itself!) before printing
     await page.evaluate(() => {
-      // Fix for single-page issue: Reset height/overflow constraints that might prevent paging
+      // Fix for single-page issue: Reset height/overflow constraints
       const style = document.createElement('style');
       style.textContent = `
           html, body {
@@ -72,30 +119,83 @@ export async function GET(req: NextRequest) {
             width: auto !important;
             position: static !important;
           }
-          /* Ensure the blog root can expand */
           #blog-pdf-root {
             height: auto !important;
             overflow: visible !important;
           }
+          /* Eliminate huge top gaps often caused by padding on main or body */
+          body, main, #blog-pdf-root {
+             padding-top: 0 !important;
+             margin-top: 0 !important;
+          }
         `;
       document.head.appendChild(style);
 
-      // Example: Hide the PDF download buttons so they don't appear in the PDF
-      const ctas = document.querySelectorAll('button');
-      ctas.forEach(b => {
-        // ... existing logic ...
-        if (b.textContent?.includes('Download PDF')) {
-          b.style.display = 'none';
+      // 1. Hide Global Header, Footer, and Breadcrumbs
+      const header = document.querySelector('header');
+      if (header) header.style.display = 'none';
+
+      const footer = document.querySelector('footer');
+      if (footer) footer.style.display = 'none';
+
+      const nav = document.querySelector('nav');
+      if (nav) nav.style.display = 'none';
+
+      // Specifically target breadcrumbs if they are not the main nav
+      // Tailwind shadcn breadcrumbs usually are inside a nav or list.
+      // Common selector: nav[aria-label="breadcrumb"] or class containing breadcrumb
+      const breadcrumbs = document.querySelectorAll('[aria-label="breadcrumb"], .breadcrumb');
+      breadcrumbs.forEach(el => ((el as HTMLElement).style.display = 'none'));
+
+      // 2. Hide "Download PDF" CTAs
+      const buttons = Array.from(document.querySelectorAll('button'));
+      buttons.forEach(btn => {
+        if (
+          btn.textContent?.includes('Download PDF') ||
+          btn.textContent?.includes('Generating PDF')
+        ) {
+          const card =
+            btn.closest('.mb-8') || btn.closest('.card') || btn.closest('.border-orange-200');
+          if (card) {
+            (card as HTMLElement).style.display = 'none';
+          } else {
+            btn.style.display = 'none';
+          }
         }
       });
+
+      // 3. Hide "Related Blogs" section
+      const article = document.getElementById('blog-pdf-root');
+      if (article) {
+        const sections = article.querySelectorAll('section');
+        sections.forEach(sec => {
+          const h2 = sec.querySelector('h2');
+          if (
+            h2 &&
+            (h2.textContent?.toLowerCase().includes('related') ||
+              h2.textContent?.toLowerCase().includes('blogs'))
+          ) {
+            sec.style.display = 'none';
+          }
+          if (sec.querySelectorAll('a[href*="/blogs/"]').length > 1) {
+            if (sec.className.includes('mt-16')) {
+              sec.style.display = 'none';
+            }
+          }
+        });
+      }
     });
 
     const pdf = await page.pdf({
       format: 'A4',
       printBackground: true,
+      displayHeaderFooter: true,
+      headerTemplate: headerTemplate,
+      footerTemplate:
+        '<div style="font-size: 10px; width: 100%; text-align: center; padding-bottom: 10px;">Page <span class="pageNumber"></span> of <span class="totalPages"></span></div>',
       margin: {
-        top: '20px',
-        bottom: '20px',
+        top: '60px', // Increased to accommodate header
+        bottom: '40px', // Increased for footer
         left: '20px',
         right: '20px',
       },
