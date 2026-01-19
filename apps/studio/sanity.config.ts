@@ -49,7 +49,7 @@ export default defineConfig({
         "pricing",
         "process",
         "accelerate",
-        "homepageHero"
+        "homepageHero",
       ],
     }),
     structureTool({ structure }),

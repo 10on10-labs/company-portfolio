@@ -164,7 +164,9 @@ export const structure: StructureResolver = (S) =>
       S.listItem()
         .title("Homepage Hero")
         .schemaType("homepageHero")
-        .child(S.documentTypeList("homepageHero").title("Homepage Hero Content")),
+        .child(
+          S.documentTypeList("homepageHero").title("Homepage Hero Content"),
+        ),
 
       // Include the rest of the document types automatically
       ...S.documentTypeListItems().filter(

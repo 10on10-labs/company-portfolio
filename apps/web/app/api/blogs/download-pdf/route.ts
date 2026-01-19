@@ -63,9 +63,27 @@ export async function GET(req: NextRequest) {
 
     // Optional: Hide specific elements (like the CTA button itself!) before printing
     await page.evaluate(() => {
+      // Fix for single-page issue: Reset height/overflow constraints that might prevent paging
+      const style = document.createElement('style');
+      style.textContent = `
+          html, body {
+            height: auto !important;
+            overflow: visible !important;
+            width: auto !important;
+            position: static !important;
+          }
+          /* Ensure the blog root can expand */
+          #blog-pdf-root {
+            height: auto !important;
+            overflow: visible !important;
+          }
+        `;
+      document.head.appendChild(style);
+
       // Example: Hide the PDF download buttons so they don't appear in the PDF
       const ctas = document.querySelectorAll('button');
       ctas.forEach(b => {
+        // ... existing logic ...
         if (b.textContent?.includes('Download PDF')) {
           b.style.display = 'none';
         }
