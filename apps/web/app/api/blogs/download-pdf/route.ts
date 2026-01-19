@@ -61,6 +61,62 @@ export async function GET(req: NextRequest) {
     // Explicitly wait for the blog content to be present using the specific ID
     await page.waitForSelector('#blog-pdf-root', { timeout: 10000 });
 
+    // Auto-scroll to trigger lazy loading of images
+    // Next.js Image component lazy loads by default. We need to scroll down to trigger loading.
+    await page.evaluate(async () => {
+      const distance = 100;
+      const delay = 50; // Faster scroll
+      // Scroll to bottom
+      while (
+        document.scrollingElement &&
+        document.scrollingElement.scrollTop + window.innerHeight <
+          document.scrollingElement.scrollHeight
+      ) {
+        document.scrollingElement.scrollBy(0, distance);
+        await new Promise(resolve => setTimeout(resolve, delay));
+      }
+      // Scroll back to top to ensure layout is stable? No, print usually handles it, but let's leave it at bottom or scroll up?
+      // Some lazy loaders unload if you scroll away. Next.js usually keeps them.
+      // Let's scroll back up quickly just in case layout depends on it, but usually not needed for PDF.
+      // actually, let's keep it at bottom or just ensure everything is triggered.
+
+      // Force all images to load eagerly if possible
+      const images = document.querySelectorAll('img');
+      images.forEach(img => {
+        img.setAttribute('loading', 'eager');
+        // @ts-ignore
+        if (img.decode) img.decode().catch(() => {});
+      });
+    });
+
+    // Wait for any network requests triggered by the scroll (like image fetches) to finish
+    try {
+      await page.waitForNetworkIdle({ idleTime: 500, timeout: 5000 });
+    } catch {
+      console.warn('Network idle timeout - proceeding anyway');
+    }
+
+    // Final check: Wait for all images in the blog root to be 'complete'
+    await page.evaluate(async () => {
+      const images = Array.from(
+        document.querySelectorAll('#blog-pdf-root img'),
+      ) as HTMLImageElement[];
+      await Promise.all(
+        images.map(img => {
+          if (img.complete) return Promise.resolve();
+          return new Promise(resolve => {
+            img.onload = resolve;
+            img.onerror = resolve; // Don't block on broken images
+            // Timeout safety
+            setTimeout(resolve, 2000);
+          });
+        }),
+      );
+    });
+
+    // Give a small buffer for final rendering
+    await new Promise(r => setTimeout(r, 500));
+
     // Read logo file for embedding in header
     // We use fs to read the public file directly on the server to ensure we have the base64 data
     const fs = await import('fs');
