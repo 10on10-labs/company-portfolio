@@ -138,68 +138,69 @@ export default async function BlogDetailsPage({ params }: Props) {
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
+      <article id="blog-pdf-root">
+        <BlogBannerCard
+          title={blog?.title}
+          subTitle={blog?.subTitle}
+          author={blog?.author}
+          modifiedAt={blog?.modifiedAt}
+          facebookShareUrl={facebookShareUrl}
+          linkedInShareUrl={linkedInShareUrl}
+          twitterShareUrl={twitterShareUrl}
+        />
+        <DownloadPdfCta variant="compact" slug={slug} locale={locale} />
+        <section className="mt-8">
+          {body.length > 0 && (
+            <div className="mt-8">
+              {ctaIndex > 0 ? (
+                <>
+                  <CustomPortableText value={body.slice(0, ctaIndex)} />
+                  <div className="my-10">
+                    <DownloadPdfCta variant="detailed" slug={slug} locale={locale} />
+                  </div>
+                  <CustomPortableText value={body.slice(ctaIndex)} />
+                </>
+              ) : (
+                <CustomPortableText value={body} />
+              )}
+            </div>
+          )}
+        </section>
 
-      <BlogBannerCard
-        title={blog?.title}
-        subTitle={blog?.subTitle}
-        author={blog?.author}
-        modifiedAt={blog?.modifiedAt}
-        facebookShareUrl={facebookShareUrl}
-        linkedInShareUrl={linkedInShareUrl}
-        twitterShareUrl={twitterShareUrl}
-      />
-      <DownloadPdfCta variant="compact" slug={slug} locale={locale} />
-      <section className="mt-8">
-        {body.length > 0 && (
-          <div className="mt-8">
-            {ctaIndex > 0 ? (
-              <>
-                <CustomPortableText value={body.slice(0, ctaIndex)} />
-                <div className="my-10">
-                  <DownloadPdfCta variant="detailed" slug={slug} locale={locale} />
-                </div>
-                <CustomPortableText value={body.slice(ctaIndex)} />
-              </>
-            ) : (
-              <CustomPortableText value={body} />
-            )}
-          </div>
-        )}
-      </section>
-
-      <section className="mt-8">
-        <h2 className="text-xl font-semibold mb-4 flex text-primary items-center">
-          <span className="bg-primary h-6 w-1 mr-3 rounded-sm"></span>
-          {t('about_author')}
-        </h2>
-        <AuthorCard {...blog?.author} />
-      </section>
-
-      {relatedBlogs.length ? (
-        <section className="mt-16">
+        <section className="mt-8">
           <h2 className="text-xl font-semibold mb-4 flex text-primary items-center">
             <span className="bg-primary h-6 w-1 mr-3 rounded-sm"></span>
-            {t('related_blogs')}
+            {t('about_author')}
           </h2>
-          <div className="flex flex-wrap gap-4 mt-4">
-            {relatedBlogs.map((blog: BlogWithProcessedImages) => (
-              <BlogCard
-                key={blog._id}
-                redirectUrl={`blogs/${blog.slug}`}
-                title={blog.title}
-                subTitle={blog.subTitle}
-                duration={`${blog.readingTimeInMins} mins read`}
-                publishedAt={blog.publishedAt}
-                thumbnail={blog.thumbnail}
-                categories={blog.blogCategories}
-                author={{ name: blog.author?.name, image: blog.author?.image }}
-              />
-            ))}
-          </div>
+          <AuthorCard {...blog?.author} />
         </section>
-      ) : (
-        <></>
-      )}
+
+        {relatedBlogs.length ? (
+          <section className="mt-16">
+            <h2 className="text-xl font-semibold mb-4 flex text-primary items-center">
+              <span className="bg-primary h-6 w-1 mr-3 rounded-sm"></span>
+              {t('related_blogs')}
+            </h2>
+            <div className="flex flex-wrap gap-4 mt-4">
+              {relatedBlogs.map((blog: BlogWithProcessedImages) => (
+                <BlogCard
+                  key={blog._id}
+                  redirectUrl={`blogs/${blog.slug}`}
+                  title={blog.title}
+                  subTitle={blog.subTitle}
+                  duration={`${blog.readingTimeInMins} mins read`}
+                  publishedAt={blog.publishedAt}
+                  thumbnail={blog.thumbnail}
+                  categories={blog.blogCategories}
+                  author={{ name: blog.author?.name, image: blog.author?.image }}
+                />
+              ))}
+            </div>
+          </section>
+        ) : (
+          <></>
+        )}
+      </article>
     </div>
   );
 }
