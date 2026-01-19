@@ -2,61 +2,20 @@
 
 import type React from 'react';
 import { useState } from 'react';
-import { AlertCircle, CheckCircle, Download, FileText, Mail } from 'lucide-react';
+import { Download, FileText } from 'lucide-react';
 
 import { Button } from '@/components/shadcn/button';
 import { Card, CardContent } from '@/components/shadcn/card';
-import { Input } from '@/components/shadcn/input';
 
 import { DownloadPdfProps } from '.';
 
 type Props = Omit<DownloadPdfProps, 'variant'>;
 
 export function PdfCtaCompact({ slug, locale = 'en', className }: Props) {
-  const [showEmailForm, setShowEmailForm] = useState(false);
-  const [email, setEmail] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
-  const [message, setMessage] = useState('');
+  const [isLoading] = useState(false);
 
-  const handleDownload = () => setShowEmailForm(true);
-
-  const handleEmailSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!email || !email.includes('@')) {
-      setStatus('error');
-      setMessage('Please enter a valid email address');
-      return;
-    }
-
-    setIsLoading(true);
-    setStatus('idle');
-    setMessage('');
-
-    try {
-      const res = await fetch('/api/blogs/pdf', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ slug, to: email, locale }),
-      });
-
-      const data = await res.json().catch(() => ({}) as any);
-
-      if (!res.ok) {
-        throw new Error(data?.error || 'Failed to send PDF');
-      }
-
-      setStatus('success');
-      setMessage('PDF sent to your email! Check your inbox.');
-      setEmail('');
-    } catch (err: any) {
-      console.error('PDF email error:', err);
-      setStatus('error');
-      setMessage(err?.message || 'Failed to send PDF. Please try again.');
-    } finally {
-      setIsLoading(false);
-    }
+  const handleDownload = () => {
+    window.open(`/api/blogs/download-pdf?slug=${slug}&locale=${locale}`, '_blank');
   };
 
   return (
@@ -83,57 +42,14 @@ export function PdfCtaCompact({ slug, locale = 'en', className }: Props) {
           </div>
 
           <div className="flex-shrink-0 w-full sm:w-auto">
-            {!showEmailForm ? (
-              <Button
-                onClick={handleDownload}
-                className="bg-orange-500 hover:bg-orange-700 text-white w-full sm:w-auto px-4 sm:px-6 py-2.5 gap-2 text-sm sm:text-base"
-              >
-                <Download className="h-4 w-4" />
-                Email me the PDF
-              </Button>
-            ) : (
-              <div className="w-full sm:w-80">
-                <form onSubmit={handleEmailSubmit} className="space-y-3">
-                  <div className="flex gap-2">
-                    <div className="relative flex-1">
-                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        type="email"
-                        placeholder="Enter your email"
-                        value={email}
-                        onChange={e => setEmail(e.target.value)}
-                        className="pl-10"
-                        disabled={isLoading}
-                        autoComplete="email"
-                        required
-                      />
-                    </div>
-                    <Button
-                      type="submit"
-                      disabled={isLoading}
-                      className="bg-primary text-white px-4"
-                    >
-                      {isLoading ? 'Sending…' : 'Send'}
-                    </Button>
-                  </div>
-
-                  {status !== 'idle' && (
-                    <div
-                      className={`flex items-center gap-2 text-sm ${
-                        status === 'success' ? 'text-green-600' : 'text-red-600'
-                      }`}
-                    >
-                      {status === 'success' ? (
-                        <CheckCircle className="h-4 w-4" />
-                      ) : (
-                        <AlertCircle className="h-4 w-4" />
-                      )}
-                      {message}
-                    </div>
-                  )}
-                </form>
-              </div>
-            )}
+            <Button
+              onClick={handleDownload}
+              disabled={isLoading}
+              className="bg-orange-500 hover:bg-orange-700 text-white w-full sm:w-auto px-4 sm:px-6 py-2.5 gap-2 text-sm sm:text-base"
+            >
+              <Download className="h-4 w-4" />
+              {isLoading ? 'Generating PDF...' : 'Download PDF'}
+            </Button>
           </div>
         </div>
       </CardContent>
