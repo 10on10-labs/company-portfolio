@@ -225,7 +225,7 @@ export const ProcessSection = ({ processData }: ProcessSectionProps) => {
             className={`transition-all duration-300 ${
               current === index
                 ? 'w-8 h-2 bg-primary rounded-full'
-                : 'w-2 h-2 bg-gray-400 rounded-full hover:bg-gray-600'
+                : 'w-2 h-2 bg-muted-foreground rounded-full hover:bg-muted-foreground/80'
             }`}
             aria-label={`Go to step ${index + 1}`}
           />
@@ -261,7 +261,7 @@ export const ProcessSection = ({ processData }: ProcessSectionProps) => {
       <div className="absolute bottom-10 left-0 right-0 px-10">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-semibold text-gray-700">
+            <span className="text-xs font-semibold text-muted-foreground">
               {processData?.progressLabel
                 ? processData.progressLabel
                     .replace('{current}', (current + 1).toString())
@@ -270,7 +270,7 @@ export const ProcessSection = ({ processData }: ProcessSectionProps) => {
             </span>
           </div>
           <div className="relative">
-            <div className="bg-white/50 backdrop-blur-sm w-full h-3 rounded-full overflow-hidden shadow-inner">
+            <div className="bg-background/50 backdrop-blur-sm w-full h-3 rounded-full overflow-hidden shadow-inner">
               <motion.div
                 className="h-full bg-gradient-to-r from-primary to-orange-600 rounded-full"
                 animate={{ width: `${progress}%` }}
@@ -293,15 +293,15 @@ export const ProcessSection = ({ processData }: ProcessSectionProps) => {
                   <div
                     className={`rounded-full transition-all duration-300 cursor-pointer hover:scale-110 ${
                       index <= current
-                        ? 'w-2.5 h-2.5 bg-white shadow-sm'
-                        : 'w-2 h-2 bg-gray-400 hover:bg-gray-300'
+                        ? 'w-2.5 h-2.5 bg-background shadow-sm'
+                        : 'w-2 h-2 bg-muted-foreground hover:bg-muted-foreground/60'
                     }`}
                   />
                   {/* Pulsing dot overlay for current step with glow effect */}
                   {index === current && (
                     <>
-                      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-white/40 rounded-full animate-pulse pointer-events-none" />
-                      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full shadow-lg animate-pulse pointer-events-none" />
+                      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-background/40 rounded-full animate-pulse pointer-events-none" />
+                      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-background rounded-full shadow-lg animate-pulse pointer-events-none" />
                     </>
                   )}
                   {/* Title tooltip on hover or active */}
@@ -309,7 +309,7 @@ export const ProcessSection = ({ processData }: ProcessSectionProps) => {
                     className={`absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap text-xs font-semibold px-2 py-1 rounded transition-opacity duration-200 ${
                       index === current
                         ? 'opacity-100 text-primary'
-                        : 'opacity-0 group-hover:opacity-100 text-gray-600 bg-white/90 shadow-sm'
+                        : 'opacity-0 group-hover:opacity-100 text-muted-foreground bg-background/90 shadow-sm'
                     }`}
                   >
                     {slide.title}

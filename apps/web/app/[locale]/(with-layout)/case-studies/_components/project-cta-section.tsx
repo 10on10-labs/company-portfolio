@@ -23,23 +23,23 @@ export const ProjectCTASection: React.FC<ProjectCTASectionProps> = ({ callToActi
           transition={{ duration: 0.6 }}
           className="max-w-3xl mx-auto"
         >
-          <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
+          <h2 className="text-3xl lg:text-4xl font-bold text-primary-foreground mb-6">
             {callToAction?.title || 'Ready to Build Something Amazing?'}
           </h2>
-          <p className="text-white/90 text-lg mb-8">
+          <p className="text-primary-foreground/90 text-lg mb-8">
             {callToAction?.subtitle ||
               "Let's work together to bring your vision to life with cutting-edge technology and design"}
           </p>
           <div className="flex gap-4 justify-center">
             <Link
               href="/contact-us"
-              className="bg-white text-black px-6 py-3 rounded-[10px] font-medium text-base hover:bg-black hover:text-white transition-colors duration-300 shadow-sm"
+              className="bg-background text-primary px-6 py-3 rounded-[10px] font-medium text-base hover:bg-primary-foreground hover:text-primary transition-colors duration-300 shadow-sm"
             >
               {callToAction?.primaryButtonText || 'Start Your Project'}
             </Link>
             <Link
               href="/case-studies"
-              className="bg-transparent text-white px-6 py-3 rounded-[10px] font-medium text-base hover:bg-white hover:text-black transition-colors duration-300 shadow-sm border-2 border-white"
+              className="bg-transparent text-primary-foreground px-6 py-3 rounded-[10px] font-medium text-base hover:bg-background hover:text-primary transition-colors duration-300 shadow-sm border-2 border-primary-foreground"
             >
               {callToAction?.secondaryButtonText || 'View More Case Studies'}
             </Link>

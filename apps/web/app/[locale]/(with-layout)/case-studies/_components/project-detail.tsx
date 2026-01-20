@@ -16,7 +16,7 @@ export const ProjectDetail: React.FC<Props> = ({ project, locale = 'en' }) => {
   if (!project) return null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-muted/30 to-background">
       {/* Hero Section with MacBook Carousel */}
       <ProjectHeroSection project={project} />
 

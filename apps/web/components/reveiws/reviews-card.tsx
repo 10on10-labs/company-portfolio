@@ -27,26 +27,28 @@ export const ReviewsCard: React.FC<{ review: Review }> = ({ review }) => {
         <Star
           key={i}
           size={16}
-          className={`${i < rating ? 'text-orange-500 fill-orange-500' : 'text-gray-300'}`}
+          className={`${i < rating ? 'text-orange-500 fill-orange-500' : 'text-muted-foreground'}`}
         />
       ));
   };
 
   return (
     <Card
-      className={`rounded-xl md:rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300 w-full flex flex-col relative ${isExpanded ? 'h-auto min-h-[300px] md:min-h-[320px]' : 'h-[300px] md:h-[320px]'}`}
+      className={`rounded-xl md:rounded-2xl border border-border shadow-sm hover:shadow-md transition-all duration-300 w-full flex flex-col relative ${isExpanded ? 'h-auto min-h-[300px] md:min-h-[320px]' : 'h-[300px] md:h-[320px]'}`}
     >
       <CardContent className="p-4 md:p-6 pb-[80px] md:pb-[90px] h-full">
         <div className="flex items-center mb-2 md:mb-3">{renderStars(review.rating)}</div>
 
         <div>
           <p
-            className={`text-sm md:text-base text-gray-700 leading-relaxed transition-all duration-300 ${!isExpanded && isLongContent ? 'line-clamp-5 md:line-clamp-4' : ''}`}
+            className={`text-sm md:text-base text-foreground leading-relaxed transition-all duration-300 ${!isExpanded && isLongContent ? 'line-clamp-5 md:line-clamp-4' : ''}`}
           >
             {review.content}
           </p>
 
-          {isLongContent && !isExpanded && <span className="text-gray-400 text-sm">...</span>}
+          {isLongContent && !isExpanded && (
+            <span className="text-muted-foreground text-sm">...</span>
+          )}
         </div>
 
         {isLongContent && (
@@ -69,10 +71,10 @@ export const ReviewsCard: React.FC<{ review: Review }> = ({ review }) => {
         )}
       </CardContent>
 
-      <div className="absolute bottom-0 left-0 right-0 flex items-center gap-3 p-4 md:p-6 pt-3 md:pt-4 border-t border-gray-100 bg-white rounded-b-xl md:rounded-b-2xl">
-        <Avatar className="size-9 md:size-10 border border-gray-200">
+      <div className="absolute bottom-0 left-0 right-0 flex items-center gap-3 p-4 md:p-6 pt-3 md:pt-4 border-t border-border bg-card rounded-b-xl md:rounded-b-2xl">
+        <Avatar className="size-9 md:size-10 border border-border">
           <AvatarImage src={review.image || ''} alt="author_image" />
-          <AvatarFallback className="uppercase bg-gray-100 text-xs">
+          <AvatarFallback className="uppercase bg-muted text-xs">
             {review.name
               ?.split(' ')
               .slice(0, 2)
@@ -81,8 +83,8 @@ export const ReviewsCard: React.FC<{ review: Review }> = ({ review }) => {
           </AvatarFallback>
         </Avatar>
         <div className="flex-1">
-          <h4 className="text-sm font-semibold text-gray-900 line-clamp-1">{review.name}</h4>
-          <p className="text-xs text-gray-500 line-clamp-1">{review.role}</p>
+          <h4 className="text-sm font-semibold text-foreground line-clamp-1">{review.name}</h4>
+          <p className="text-xs text-muted-foreground line-clamp-1">{review.role}</p>
         </div>
       </div>
     </Card>

@@ -15,12 +15,12 @@ export const EmployeeCard: FC<Props> = ({ portfolioUrl, name, designation, image
     href={portfolioUrl || ''}
     target="_blank"
     rel="noopener noreferrer"
-    className="block p-6 rounded-2xl bg-white border border-gray-100 hover:shadow-lg transition-shadow duration-200 group"
+    className="block p-6 rounded-2xl bg-card border border-border hover:shadow-lg transition-shadow duration-200 group"
   >
     <div className="relative">
-      <ExternalLink className="absolute top-0 right-0 w-4 h-4 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+      <ExternalLink className="absolute top-0 right-0 w-4 h-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
 
-      <div className="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden bg-gray-200">
+      <div className="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden bg-muted">
         {image ? (
           <Image
             src={urlFor(image || '')
@@ -32,7 +32,7 @@ export const EmployeeCard: FC<Props> = ({ portfolioUrl, name, designation, image
             className="w-full h-full object-cover"
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center text-2xl font-bold text-gray-400">
+          <div className="w-full h-full flex items-center justify-center text-2xl font-bold text-muted-foreground">
             {name
               ?.split(' ')
               .map(n => n[0])
@@ -42,8 +42,8 @@ export const EmployeeCard: FC<Props> = ({ portfolioUrl, name, designation, image
       </div>
 
       <div className="text-center">
-        <h3 className="font-semibold text-gray-900 mb-1">{name}</h3>
-        <p className="text-sm text-gray-600">{designation}</p>
+        <h3 className="font-semibold text-card-foreground mb-1">{name}</h3>
+        <p className="text-sm text-muted-foreground">{designation}</p>
       </div>
     </div>
   </a>

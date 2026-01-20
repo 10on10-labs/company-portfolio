@@ -102,7 +102,9 @@ export function FAQ({ data }: FAQProps) {
                     } p-6 transition-all duration-300 hover:border-primary/30`}
                   >
                     <div className="flex items-center justify-between text-left">
-                      <h3 className="text-lg font-semibold text-foreground pr-4">{faq.question}</h3>
+                      <h3 className="text-lg font-semibold text-card-foreground pr-4">
+                        {faq.question}
+                      </h3>
                       <div
                         className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${
                           openIndex === index
@@ -144,7 +146,7 @@ export function FAQ({ data }: FAQProps) {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="mt-12 text-center p-8 bg-muted/50 rounded-3xl"
           >
-            <h3 className="text-xl font-semibold mb-2">
+            <h3 className="text-xl font-semibold text-foreground mb-2">
               {data?.ctaSection?.title || 'Still have questions?'}
             </h3>
             <p className="text-muted-foreground mb-4">
