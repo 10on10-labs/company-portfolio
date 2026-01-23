@@ -2,45 +2,15 @@
 
 import { Link } from '@/src/i18n/navigation';
 import { HomepageServicesQueryResult } from '@company/sanity-shared';
-import {
-  ArrowLeft,
-  ArrowRight,
-  BarChart3,
-  Cloud,
-  Code,
-  Database,
-  Monitor,
-  Palette,
-  Rocket,
-  Settings,
-  Shield,
-  Smartphone,
-} from 'lucide-react';
-import { motion } from 'motion/react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+
+import ServiceCard from '@/components/services/service-card';
 
 interface ServicesSectionType {
   services: HomepageServicesQueryResult;
   locale: string;
 }
-
-// Icon mapping for services (matches service schema)
-const iconMap: Record<string, any> = {
-  monitor: Monitor,
-  code: Code,
-  smartphone: Smartphone,
-  database: Database,
-  cloud: Cloud,
-  shield: Shield,
-  chart: BarChart3,
-  palette: Palette,
-  rocket: Rocket,
-  settings: Settings,
-};
-
-const getServiceIcon = (iconName: string) => {
-  return iconMap[iconName] || Palette; // fallback to Palette
-};
 
 // Fallback services for when Sanity data is unavailable
 const fallbackServices = [
@@ -83,43 +53,15 @@ export default function ServicesSection({ services, locale }: ServicesSectionTyp
         {/* Our Expertise Cards */}
         <div className="mb-16">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            {(services || fallbackServices).map((service, index) => {
-              console.log(service);
-              const Icon = getServiceIcon(service.icon || 'palette');
-              return (
-                <Link href={`/services/${service.slug || '#'}`} key={service._id || index}>
-                  <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                    whileHover={{ y: -8, scale: 1.02 }}
-                    className="group relative bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 min-h-[180px] cursor-pointer overflow-hidden"
-                  >
-                    {/* Subtle gradient overlay on hover */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-                    {/* Content */}
-                    <div className="relative z-10">
-                      <div className="bg-gray-50 rounded-xl p-3 inline-block mb-4 group-hover:bg-primary/10 transition-colors">
-                        <Icon className="text-primary w-7 h-7" />
-                      </div>
-
-                      <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-primary transition-colors">
-                        {service.name || 'Service'}
-                      </h3>
-
-                      <p className="text-sm text-gray-600 leading-relaxed">
-                        {service.shortDescription || 'Professional service'}
-                      </p>
-                    </div>
-
-                    {/* Bottom accent line */}
-                    <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary via-primary/50 to-transparent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
-                  </motion.div>
-                </Link>
-              );
-            })}
+            {(services || fallbackServices).map((service, index) => (
+              <ServiceCard
+                key={service._id || index}
+                service={service}
+                index={index}
+                variant="homepage"
+                locale={locale}
+              />
+            ))}
           </div>
         </div>
 

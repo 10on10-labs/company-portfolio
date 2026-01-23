@@ -29,7 +29,7 @@ export const DesktopBlogCategorySelector: FC<Props> = ({ blogCategories }) => {
             key={category.slug || `category-${index}`}
             onClick={() => handleCategoryChange(actualSlug)}
             className={cn(
-              'px-4 py-1.5 text-sm font-medium rounded-md transition-all duration-200',
+              'px-4 py-1.5 text-sm font-medium rounded-md transition-all duration-200 cursor-pointer',
               isActive
                 ? 'bg-primary text-white shadow-sm'
                 : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50',

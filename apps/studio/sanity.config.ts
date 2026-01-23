@@ -50,6 +50,7 @@ export default defineConfig({
         "process",
         "accelerate",
         "homepageHero",
+        "contactUs",
       ],
     }),
     structureTool({ structure }),

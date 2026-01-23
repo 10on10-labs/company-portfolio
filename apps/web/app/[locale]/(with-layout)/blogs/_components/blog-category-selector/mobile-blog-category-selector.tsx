@@ -39,22 +39,26 @@ export const MobileBlogCategorySelector: React.FC<Props> = ({ blogCategories }) 
           variant="outline"
           aria-expanded={openPopOver}
           role="combobox"
-          className="w-full sm:w-[200px] justify-between text-gray-700 border-gray-200"
+          className="w-full sm:w-[200px] justify-between text-gray-700 border-gray-200 cursor-pointer hover:bg-gray-50"
         >
           {currentCategory
             ? blogCategories.find(
                 cat => (cat.slug === '__view_all__' ? null : cat.slug) === currentCategory,
               )?.title
             : blogCategories.find(cat => cat.slug === '__view_all__')?.title ||
-              t('select_category')}
+              t('select_category') ||
+              'Select category...'}
           <ChevronsUpDown className="opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0">
         <Command>
-          <CommandInput placeholder={t('search_category')} className="h-9" />
+          <CommandInput
+            placeholder={t('search_category') || 'Search category...'}
+            className="h-9"
+          />
           <CommandList>
-            <CommandEmpty>{t('no_category_found')}</CommandEmpty>
+            <CommandEmpty>{t('no_category_found') || 'No category found.'}</CommandEmpty>
             <CommandGroup>
               {blogCategories.map((cat, index) => {
                 const isViewAll = cat.slug === '__view_all__';

@@ -205,6 +205,130 @@ export const project = defineType({
         },
       ],
     }),
+    defineField({
+      name: "pageContent",
+      title: "Page Content",
+      type: "object",
+      fields: [
+        defineField({
+          name: "keyFeatures",
+          title: "Key Features Section",
+          type: "object",
+          fields: [
+            defineField({
+              name: "title",
+              title: "Section Title",
+              type: "string",
+              description: "Title for the key features section",
+              validation: (rule) => rule.required(),
+            }),
+            defineField({
+              name: "subtitle",
+              title: "Section Subtitle",
+              type: "text",
+              description: "Subtitle for the key features section",
+              validation: (rule) => rule.required(),
+            }),
+            defineField({
+              name: "features",
+              title: "Features List",
+              type: "array",
+              of: [
+                {
+                  type: "object",
+                  fields: [
+                    defineField({
+                      name: "icon",
+                      title: "Icon",
+                      type: "string",
+                      description:
+                        "Lucide icon name (e.g., Code2, Palette, Zap, Users)",
+                      validation: (rule) => rule.required(),
+                    }),
+                    defineField({
+                      name: "label",
+                      title: "Feature Label",
+                      type: "string",
+                      validation: (rule) => rule.required(),
+                    }),
+                    defineField({
+                      name: "value",
+                      title: "Feature Value",
+                      type: "string",
+                      validation: (rule) => rule.required(),
+                    }),
+                  ],
+                  preview: {
+                    select: {
+                      title: "label",
+                      subtitle: "value",
+                    },
+                  },
+                },
+              ],
+              validation: (rule) => rule.min(1).max(6),
+            }),
+          ],
+        }),
+        defineField({
+          name: "projectShowcase",
+          title: "Project Showcase Section",
+          type: "object",
+          fields: [
+            defineField({
+              name: "title",
+              title: "Section Title",
+              type: "string",
+              description: "Title for the project showcase section",
+              validation: (rule) => rule.required(),
+            }),
+            defineField({
+              name: "subtitle",
+              title: "Section Subtitle",
+              type: "text",
+              description: "Subtitle for the project showcase section",
+              validation: (rule) => rule.required(),
+            }),
+          ],
+        }),
+        defineField({
+          name: "callToAction",
+          title: "Call to Action Section",
+          type: "object",
+          fields: [
+            defineField({
+              name: "title",
+              title: "CTA Title",
+              type: "string",
+              description: "Main title for the CTA section",
+              validation: (rule) => rule.required(),
+            }),
+            defineField({
+              name: "subtitle",
+              title: "CTA Subtitle",
+              type: "text",
+              description: "Subtitle for the CTA section",
+              validation: (rule) => rule.required(),
+            }),
+            defineField({
+              name: "primaryButtonText",
+              title: "Primary Button Text",
+              type: "string",
+              description: "Text for the primary button (Start Project)",
+              validation: (rule) => rule.required(),
+            }),
+            defineField({
+              name: "secondaryButtonText",
+              title: "Secondary Button Text",
+              type: "string",
+              description:
+                "Text for the secondary button (View More Case Studies)",
+              validation: (rule) => rule.required(),
+            }),
+          ],
+        }),
+      ],
+    }),
   ],
   preview: {
     select: {

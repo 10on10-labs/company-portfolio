@@ -11,6 +11,7 @@ import {
   process,
   accelerate,
   homepageHero,
+  contactUs,
 } from "./documents";
 import { service } from "./documents/service";
 import { testimonial } from "./documents/testimonial";
@@ -49,6 +50,7 @@ export const sanitySchema: { types: SchemaTypeDefinition[] } = {
     process,
     accelerate,
     homepageHero,
+    contactUs,
     duration,
   ],
 };
@@ -168,6 +170,12 @@ export const structure: StructureResolver = (S) =>
           S.documentTypeList("homepageHero").title("Homepage Hero Content"),
         ),
 
+      S.divider(),
+      S.listItem()
+        .title("Contact Us")
+        .schemaType("contactUs")
+        .child(S.documentTypeList("contactUs").title("Contact Us Content")),
+
       // Include the rest of the document types automatically
       ...S.documentTypeListItems().filter(
         (listItem) =>
@@ -187,6 +195,7 @@ export const structure: StructureResolver = (S) =>
             "process",
             "accelerate",
             "homepageHero",
+            "contactUs",
           ].includes(listItem.getId() ?? ""),
       ),
     ]);

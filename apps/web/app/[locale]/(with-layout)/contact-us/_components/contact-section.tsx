@@ -7,15 +7,44 @@ import { motion } from 'motion/react';
 import { CalendlyEmbed } from './calendly-embed';
 import { ContactForm } from './contact-form';
 
-export function ContactSection() {
+// Icon mapping for dynamic icon rendering
+const iconMap = {
+  Clock,
+  Shield,
+  MessageSquare,
+  Calendar,
+};
+
+interface ContactSectionProps {
+  data?: {
+    badge: string;
+    title: string;
+    subtitle: string;
+    benefits: Array<{
+      icon: string;
+      text: string;
+    }>;
+    tabSchedule: string;
+    tabMessage: string;
+    alternativeCtaSchedule: string;
+    alternativeCtaMessage: string;
+    alternativeCtaScheduleLink: string;
+    alternativeCtaMessageLink: string;
+  };
+}
+
+export function ContactSection({ data }: ContactSectionProps) {
   const [activeTab, setActiveTab] = useState<'message' | 'schedule'>('schedule');
 
-  const benefits = [
-    { icon: Clock, text: 'Quick response within 24 hours' },
-    { icon: Shield, text: 'Your data is secure and confidential' },
-    { icon: MessageSquare, text: 'Direct communication with our experts' },
-    { icon: Calendar, text: 'Flexible meeting scheduling' },
+  // Fallback data if Sanity data is not available
+  const fallbackBenefits = [
+    { icon: 'Clock', text: 'Quick response within 24 hours' },
+    { icon: 'Shield', text: 'Your data is secure and confidential' },
+    { icon: 'MessageSquare', text: 'Direct communication with our experts' },
+    { icon: 'Calendar', text: 'Flexible meeting scheduling' },
   ];
+
+  const benefits = data?.benefits || fallbackBenefits;
 
   return (
     <section id="get-started" className="relative pb-10 lg:py-20 bg-gray-700">
@@ -31,14 +60,14 @@ export function ContactSection() {
           className="text-center max-w-4xl mx-auto mb-16"
         >
           <span className="inline-block px-4 py-2 rounded-full bg-primary/20 backdrop-blur-sm text-primary text-sm font-semibold mb-4">
-            Get Started
+            {data?.badge || 'Get Started'}
           </span>
           <h2 className="text-4xl lg:text-5xl font-bold mb-4 text-white">
-            Choose your preferred way to connect
+            {data?.title || 'Choose your preferred way to connect'}
           </h2>
           <p className="text-lg text-gray-200">
-            Whether you prefer a quick message or a scheduled call, we&apos;re here to discuss your
-            project and help bring your vision to life.
+            {data?.subtitle ||
+              "Whether you prefer a quick message or a scheduled call, we're here to discuss your project and help bring your vision to life."}
           </p>
         </motion.div>
 
@@ -50,14 +79,17 @@ export function ContactSection() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mb-16"
         >
-          {benefits.map((benefit, index) => (
-            <div key={index} className="flex flex-col items-center text-center p-4">
-              <div className="w-12 h-12 rounded-full bg-primary/20 backdrop-blur-sm flex items-center justify-center mb-3">
-                <benefit.icon className="w-6 h-6 text-primary" />
+          {benefits.map((benefit, index) => {
+            const IconComponent = iconMap[benefit.icon as keyof typeof iconMap] || Clock;
+            return (
+              <div key={index} className="flex flex-col items-center text-center p-4">
+                <div className="w-12 h-12 rounded-full bg-primary/20 backdrop-blur-sm flex items-center justify-center mb-3">
+                  <IconComponent className="w-6 h-6 text-primary" />
+                </div>
+                <p className="text-sm text-gray-200">{benefit.text}</p>
               </div>
-              <p className="text-sm text-gray-200">{benefit.text}</p>
-            </div>
-          ))}
+            );
+          })}
         </motion.div>
 
         {/* Tab Navigation */}
@@ -73,7 +105,7 @@ export function ContactSection() {
             >
               <span className="flex items-center gap-2">
                 <CalendarCheck className="w-4 h-4" />
-                Schedule a Call
+                {data?.tabSchedule || 'Schedule a Call'}
               </span>
             </button>
             <button
@@ -86,7 +118,7 @@ export function ContactSection() {
             >
               <span className="flex items-center gap-2">
                 <Send className="w-4 h-4" />
-                Send Message
+                {data?.tabMessage || 'Send Message'}
               </span>
             </button>
           </div>
@@ -119,12 +151,12 @@ export function ContactSection() {
             className="text-center mt-8"
           >
             <p className="text-sm text-gray-200">
-              Prefer to send a message instead?{' '}
+              {data?.alternativeCtaMessage || 'Prefer to send a message instead?'}{' '}
               <button
                 onClick={() => setActiveTab('message')}
                 className="text-primary hover:text-primary/80 hover:underline font-medium"
               >
-                Click here to send a message
+                {data?.alternativeCtaMessageLink || 'Click here to send a message'}
               </button>
             </p>
           </motion.div>
@@ -138,12 +170,12 @@ export function ContactSection() {
             className="text-center mt-8"
           >
             <p className="text-sm text-gray-200">
-              Want to schedule a call instead?{' '}
+              {data?.alternativeCtaSchedule || 'Want to schedule a call instead?'}{' '}
               <button
                 onClick={() => setActiveTab('schedule')}
                 className="text-primary hover:text-primary/80 hover:underline font-medium"
               >
-                Book a meeting time
+                {data?.alternativeCtaScheduleLink || 'Book a meeting time'}
               </button>
             </p>
           </motion.div>

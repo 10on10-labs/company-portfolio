@@ -4,10 +4,28 @@ import { useState } from 'react';
 import { HelpCircle, Minus, Plus } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 
-export function FAQ() {
+interface FAQProps {
+  data?: {
+    sectionTitle: string;
+    sectionSubtitle: string;
+    questions: Array<{
+      question: string;
+      answer: string;
+    }>;
+    ctaSection: {
+      title: string;
+      description: string;
+      buttonText: string;
+      buttonLink: string;
+    };
+  };
+}
+
+export function FAQ({ data }: FAQProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
-  const faqs = [
+  // Fallback data if Sanity data is not available
+  const fallbackFaqs = [
     {
       question: 'How quickly can you start working on my project?',
       answer:
@@ -40,6 +58,8 @@ export function FAQ() {
     },
   ];
 
+  const faqs = data?.questions || fallbackFaqs;
+
   return (
     <section className="relative py-20 lg:py-32 bg-background">
       <div className="container mx-auto px-4">
@@ -55,14 +75,16 @@ export function FAQ() {
               <HelpCircle className="w-4 h-4" />
               FAQ
             </span>
-            <h2 className="text-4xl lg:text-5xl font-bold mb-4">Frequently asked questions</h2>
+            <h2 className="text-4xl lg:text-5xl font-bold mb-4">
+              {data?.sectionTitle || 'Frequently asked questions'}
+            </h2>
             <p className="text-lg text-muted-foreground">
-              Everything you need to know about working with us
+              {data?.sectionSubtitle || 'Everything you need to know about working with us'}
             </p>
           </motion.div>
 
           <div className="space-y-4">
-            {faqs.map((faq, index) => (
+            {faqs.map((faq: any, index: number) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
@@ -122,15 +144,18 @@ export function FAQ() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="mt-12 text-center p-8 bg-muted/50 rounded-3xl"
           >
-            <h3 className="text-xl font-semibold mb-2">Still have questions?</h3>
+            <h3 className="text-xl font-semibold mb-2">
+              {data?.ctaSection?.title || 'Still have questions?'}
+            </h3>
             <p className="text-muted-foreground mb-4">
-              Can&apos;t find the answer you&apos;re looking for? Our team is here to help.
+              {data?.ctaSection?.description ||
+                "Can't find the answer you're looking for? Our team is here to help."}
             </p>
             <a
-              href="#get-started"
+              href={data?.ctaSection?.buttonLink || '#get-started'}
               className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-full font-medium hover:bg-primary/90 transition-colors"
             >
-              Get in touch
+              {data?.ctaSection?.buttonText || 'Get in touch'}
             </a>
           </motion.div>
         </div>
