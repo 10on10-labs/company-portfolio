@@ -14,15 +14,16 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    const isLocal = process.env.NODE_ENV === 'development';
+    // Determine if we should use the serverless-optimized Chromium (Vercel)
+    // or fallback to a local browser installation (Local Dev or Local Production Build).
+    const isServerless = !!process.env.VERCEL;
 
     let browser;
-    if (isLocal) {
-      // Local development: use local chrome
+    if (!isServerless) {
+      // Local development or local production build: use local chrome
+      // This avoids the "spawn Unknown system error -8" on macOS when running 'pnpm start'
+      // because @sparticuz/chromium binaries are Linux-only.
       const puppeteerLocal = await import('puppeteer-core');
-      // You might need to adjust the executablePath for your specific OS/Chrome install
-      // Trying common locations or using a library like chrome-launcher if needed.
-      // For now, I'll assume standard Mac Chrome location or rely on channel.
       browser = await puppeteerLocal.launch({
         channel: 'chrome',
         headless: true,
