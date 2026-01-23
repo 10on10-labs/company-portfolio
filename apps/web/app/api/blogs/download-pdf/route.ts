@@ -184,8 +184,51 @@ export async function GET(req: NextRequest) {
              padding-top: 0 !important;
              margin-top: 0 !important;
           }
+          /* Hide Next.js dev overlay and error indicators */
+          nextjs-portal,
+          [data-nextjs-toast],
+          [data-nextjs-dialog],
+          [data-nextjs-dialog-overlay],
+          #__next-build-watcher,
+          #__next-prerender-indicator,
+          [data-next-mark],
+          .nextjs-toast-errors-parent,
+          [class*="Toast"],
+          [class*="nextjs"],
+          div[style*="position: fixed"][style*="bottom"],
+          div[style*="position: fixed"][style*="z-index: 9999"] {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+          }
         `;
       document.head.appendChild(style);
+
+      // Remove Next.js dev overlay elements from DOM
+      const devOverlaySelectors = [
+        'nextjs-portal',
+        '[data-nextjs-toast]',
+        '[data-nextjs-dialog]',
+        '[data-nextjs-dialog-overlay]',
+        '#__next-build-watcher',
+        '#__next-prerender-indicator',
+        '.nextjs-toast-errors-parent',
+      ];
+      devOverlaySelectors.forEach(selector => {
+        document.querySelectorAll(selector).forEach(el => el.remove());
+      });
+
+      // Also remove any fixed position elements at the bottom (likely dev indicators)
+      document.querySelectorAll('div').forEach(div => {
+        const computedStyle = window.getComputedStyle(div);
+        if (
+          computedStyle.position === 'fixed' &&
+          (computedStyle.bottom === '0px' || parseInt(computedStyle.bottom) < 100) &&
+          parseInt(computedStyle.zIndex) > 1000
+        ) {
+          div.remove();
+        }
+      });
 
       // 1. Hide Global Header, Footer, and Breadcrumbs
       const header = document.querySelector('header');
