@@ -30,8 +30,8 @@ export const BlogDetailClient: React.FC<Props> = ({ blog, relatedBlogs, slug, sh
 
   const body = blog?.body ?? [];
   const ctaIndex = getMidCtaIndex(body, {
-    bias: 0.55, // push slightly past the middle
-    minBlocksBefore: 4, // ensure it’s not near the start
+    bias: 0.55,
+    minBlocksBefore: 4,
     minParagraphsBefore: 3,
     minTotalChars: 1200,
   });
@@ -73,26 +73,26 @@ export const BlogDetailClient: React.FC<Props> = ({ blog, relatedBlogs, slug, sh
 
         <section className="mt-8">
           <h2 className="text-xl font-semibold mb-4 flex text-primary items-center">
-            <span className="bg-primary h-6 w-1 mr-3 rounded-sm"></span>
+            <span className={`bg-primary h-6 w-1 rounded-sm ${isRTL ? 'ml-3' : 'mr-3'}`}></span>
             {t('about_author')}
           </h2>
           <AuthorCard {...blog?.author} />
         </section>
 
-        {relatedBlogs.length ? (
+        {relatedBlogs.length > 0 && (
           <section className="mt-16">
-            <h2 className="text-xl font-semibold mb-4 flex text-primary items-center">
-              <span className="bg-primary h-6 w-1 mr-3 rounded-sm"></span>
+            <h2 className="text-xl font-semibold mb-6 flex text-primary items-center">
+              <span className={`bg-primary h-6 w-1 rounded-sm ${isRTL ? 'ml-3' : 'mr-3'}`}></span>
               {t('related_blogs')}
             </h2>
-            <div className="flex flex-wrap gap-4 mt-4">
-              {relatedBlogs.map((blog: BlogWithProcessedImages) => (
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+              {relatedBlogs.slice(0, 6).map((blog: BlogWithProcessedImages) => (
                 <BlogCard
                   key={blog._id}
                   redirectUrl={`blogs/${blog.slug}`}
                   title={blog.title}
                   subTitle={blog.subTitle}
-                  duration={`${blog.readingTimeInMins} mins read`}
+                  duration={`${blog.readingTimeInMins} ${t('mins_read')}`}
                   publishedAt={blog.publishedAt}
                   thumbnail={blog.thumbnail}
                   categories={blog.blogCategories}
@@ -101,8 +101,6 @@ export const BlogDetailClient: React.FC<Props> = ({ blog, relatedBlogs, slug, sh
               ))}
             </div>
           </section>
-        ) : (
-          <></>
         )}
       </article>
     </div>

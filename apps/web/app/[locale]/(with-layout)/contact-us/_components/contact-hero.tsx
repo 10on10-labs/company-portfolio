@@ -65,7 +65,7 @@ export function ContactHero({ data, locale }: ContactHeroProps) {
             transition={{ duration: 0.8 }}
             className="text-center mb-8"
           >
-            <span className="inline-flex items-center gap-2.5 px-4 py-2.5 bg-gradient-to-r from-gray-50 to-gray-100 rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow text-gray-700 text-sm font-semibold">
+            <span className="inline-flex items-center gap-2.5 px-4 py-2.5 bg-gradient-to-r from-muted/50 to-muted/80 rounded-2xl border border-border shadow-sm hover:shadow-md transition-shadow text-foreground text-sm font-semibold">
               <span className="relative flex h-2.5 w-2.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500 shadow-sm shadow-green-500/50"></span>

@@ -45,13 +45,13 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-gray-900 text-white relative z-10">
+    <footer className="bg-gray-900 dark:bg-gray-950 text-white relative z-10">
       {/* Newsletter Section */}
-      <div className="border-b border-gray-800">
+      <div className="border-b border-gray-800 dark:border-gray-700">
         <div className="container mx-auto px-4 py-8">
           <div className="max-w-4xl mx-auto text-center">
             <h3 className="text-xl md:text-2xl font-bold mb-3">{t('newsletter.title')}</h3>
-            <p className="text-gray-400 mb-6 text-sm md:text-base">{t('newsletter.subtitle')}</p>
+            <p className="text-gray-300 mb-6 text-sm md:text-base">{t('newsletter.subtitle')}</p>
             <form
               action={subscribeToNewsletter}
               className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto relative z-10"
@@ -59,7 +59,7 @@ const Footer = () => {
               <input
                 type="email"
                 placeholder={t('newsletter.placeholder')}
-                className="flex-1 px-4 py-2.5 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-sm relative z-20"
+                className="flex-1 px-4 py-2.5 rounded-lg bg-gray-800 dark:bg-gray-800 border border-gray-700 dark:border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-sm relative z-20"
                 required
               />
               <button
@@ -82,20 +82,20 @@ const Footer = () => {
             <Link href="/" className="inline-block mb-4">
               <h2 className="text-xl font-bold">10on10 Labs</h2>
             </Link>
-            <p className="text-gray-400 mb-4 text-sm">{t('tagline')}</p>
+            <p className="text-gray-300 mb-4 text-sm">{t('tagline')}</p>
 
             {/* Contact Info */}
             <div className="space-y-2 mb-4 text-sm">
               <a
                 href="mailto:sales@10on10labs.com"
-                className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
+                className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors"
               >
                 <Mail className="w-4 h-4" />
                 <span dir="ltr">sales@10on10labs.com</span>
               </a>
               <a
                 href="tel:+923345600371"
-                className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
+                className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors"
               >
                 <Phone className="w-4 h-4" />
                 <span dir="ltr">+92 334 5600371</span>
@@ -110,7 +110,7 @@ const Footer = () => {
                   <a
                     key={social.name}
                     href={social.href}
-                    className="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition-colors duration-300"
+                    className="w-8 h-8 rounded-full bg-gray-800 dark:bg-gray-700 flex items-center justify-center hover:bg-primary transition-colors duration-300"
                     aria-label={social.name}
                   >
                     <Icon className="w-4 h-4" />
@@ -130,7 +130,7 @@ const Footer = () => {
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className="text-gray-400 hover:text-white transition-colors"
+                    className="text-gray-300 hover:text-white transition-colors"
                   >
                     {item.name}
                   </Link>
@@ -148,7 +148,7 @@ const Footer = () => {
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className="text-gray-400 hover:text-white transition-colors"
+                    className="text-gray-300 hover:text-white transition-colors"
                   >
                     {item.name}
                   </Link>
@@ -166,19 +166,19 @@ const Footer = () => {
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className="text-gray-400 hover:text-white transition-colors"
+                    className="text-gray-300 hover:text-white transition-colors"
                   >
                     {item.name}
                   </Link>
                 </li>
               ))}
               <li>
-                <Link href="/privacy" className="text-gray-400 hover:text-white transition-colors">
+                <Link href="/privacy" className="text-gray-300 hover:text-white transition-colors">
                   {t('nav_links.privacy_policy')}
                 </Link>
               </li>
               <li>
-                <Link href="/terms" className="text-gray-400 hover:text-white transition-colors">
+                <Link href="/terms" className="text-gray-300 hover:text-white transition-colors">
                   {t('nav_links.terms_of_service')}
                 </Link>
               </li>
@@ -188,9 +188,9 @@ const Footer = () => {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-gray-800">
+      <div className="border-t border-gray-800 dark:border-gray-700">
         <div className="container mx-auto px-4 py-4">
-          <p className="text-gray-400 text-xs text-center">
+          <p className="text-gray-300 text-xs text-center">
             {t('copyright', { year: currentYear })}
           </p>
         </div>

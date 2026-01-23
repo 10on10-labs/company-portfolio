@@ -47,9 +47,9 @@ export function ContactSection({ data }: ContactSectionProps) {
   const benefits = data?.benefits || fallbackBenefits;
 
   return (
-    <section id="get-started" className="relative pb-10 lg:py-20 bg-gray-700">
+    <section id="get-started" className="relative pb-10 lg:py-20 bg-secondary">
       {/* Subtle overlay for better contrast */}
-      <div className="absolute inset-0 bg-gradient-to-b from-gray-700/90 via-gray-700 to-gray-800/90 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-secondary/90 via-secondary to-secondary/90 pointer-events-none" />
 
       <div className="relative container mx-auto px-4 lg:px-8">
         <motion.div
@@ -94,7 +94,7 @@ export function ContactSection({ data }: ContactSectionProps) {
 
         {/* Tab Navigation */}
         <div className="flex justify-center mb-8">
-          <div className="inline-flex bg-gray-800/50 rounded-full p-1.5 backdrop-blur-sm border border-gray-600">
+          <div className="inline-flex bg-background/50 rounded-full p-1.5 backdrop-blur-sm border border-border">
             <button
               onClick={() => setActiveTab('schedule')}
               className={`relative px-8 py-3 rounded-full font-semibold text-sm transition-all duration-200 cursor-pointer ${

@@ -74,7 +74,7 @@ export function ContactInfo({ data }: ContactInfoProps) {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="group relative bg-background rounded-2xl p-6 border border-border transition-all duration-300 hover:border-primary/50 hover:shadow-lg cursor-pointer"
+                  className="group relative bg-card rounded-2xl p-6 border border-border transition-all duration-300 hover:border-primary/50 hover:shadow-lg cursor-pointer"
                 >
                   <div className="flex items-start justify-between mb-4">
                     <div className="p-2 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
@@ -85,7 +85,7 @@ export function ContactInfo({ data }: ContactInfoProps) {
 
                   <h3 className="text-sm font-medium text-muted-foreground mb-2">{method.title}</h3>
                   <p
-                    className="font-semibold text-foreground mb-1"
+                    className="font-semibold text-card-foreground mb-1"
                     dir={
                       method.title === 'Email' ||
                       method.title === 'Phone' ||
@@ -110,7 +110,7 @@ export function ContactInfo({ data }: ContactInfoProps) {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="relative bg-background rounded-2xl p-6 border border-border transition-all duration-300 cursor-default"
+                  className="relative bg-card rounded-2xl p-6 border border-border transition-all duration-300 cursor-default"
                 >
                   <div className="flex items-start justify-between mb-4">
                     <div className="p-2 bg-primary/10 rounded-lg transition-colors">
@@ -120,7 +120,7 @@ export function ContactInfo({ data }: ContactInfoProps) {
 
                   <h3 className="text-sm font-medium text-muted-foreground mb-2">{method.title}</h3>
                   <p
-                    className="font-semibold text-foreground mb-1"
+                    className="font-semibold text-card-foreground mb-1"
                     dir={
                       method.title === 'Email' ||
                       method.title === 'Phone' ||

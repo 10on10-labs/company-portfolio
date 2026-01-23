@@ -27,7 +27,7 @@ export const BlogsPageClient: React.FC<Props> = ({ blogs, blogCategories }) => {
       <div className={`min-h-screen ${isRTL ? 'rtl' : 'ltr'}`} dir={isRTL ? 'rtl' : 'ltr'}>
         <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-7xl py-16">
           <BlogsBreadcrumbs />
-          <p className="text-center text-gray-600 mt-8">{t('no_blogs_found')}</p>
+          <p className="text-center text-muted-foreground mt-8">{t('no_blogs_found')}</p>
         </div>
       </div>
     );
@@ -41,10 +41,12 @@ export const BlogsPageClient: React.FC<Props> = ({ blogs, blogCategories }) => {
           <BlogsBreadcrumbs />
 
           <div className="flex flex-col items-start gap-2 my-6 md:my-8">
-            <h1 className="text-3xl md:text-4xl font-bold tracking-tight bg-gradient-to-r from-primary via-black to-primary bg-clip-text text-transparent">
+            <h1 className="text-3xl md:text-4xl font-bold tracking-tight bg-gradient-to-r from-primary via-foreground to-primary bg-clip-text text-transparent">
               {t('title')}
             </h1>
-            <p className="text-gray-600 text-sm md:text-base max-w-3xl">{t('description')}</p>
+            <p className="text-muted-foreground text-sm md:text-base max-w-3xl">
+              {t('description')}
+            </p>
           </div>
         </div>
       </section>
@@ -57,7 +59,7 @@ export const BlogsPageClient: React.FC<Props> = ({ blogs, blogCategories }) => {
               <span
                 className={`bg-primary h-6 w-1 ${locale === 'ar' ? 'ml-3' : 'mr-3'} rounded-sm`}
               ></span>
-              <span className="bg-gradient-to-r from-primary to-black bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-primary to-foreground bg-clip-text text-transparent">
                 {t('latest_articles')}
               </span>
             </h2>
@@ -85,11 +87,13 @@ export const BlogsPageClient: React.FC<Props> = ({ blogs, blogCategories }) => {
           </div>
 
           {/* Newsletter Signup */}
-          <section className="mt-16 md:mt-20 bg-gray-50 rounded-2xl p-8 md:p-12 text-center">
-            <h2 className="text-2xl md:text-3xl font-bold mb-3 bg-gradient-to-r from-primary to-black bg-clip-text text-transparent">
+          <section className="mt-16 md:mt-20 bg-muted/30 rounded-2xl p-8 md:p-12 text-center">
+            <h2 className="text-2xl md:text-3xl font-bold mb-3 bg-gradient-to-r from-primary to-foreground bg-clip-text text-transparent">
               {t('newsletter.title')}
             </h2>
-            <p className="text-gray-600 mb-6 max-w-2xl mx-auto">{t('newsletter.description')}</p>
+            <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
+              {t('newsletter.description')}
+            </p>
             <form
               action={subscribeToNewsletter}
               className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
@@ -97,9 +101,9 @@ export const BlogsPageClient: React.FC<Props> = ({ blogs, blogCategories }) => {
               <input
                 type="email"
                 placeholder={t('newsletter.email_placeholder')}
-                className="flex-1 px-4 py-2.5 rounded-lg bg-white border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+                className="flex-1 px-4 py-2.5 rounded-lg bg-background border border-border text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
               />
-              <Button className="px-6 py-2.5 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors duration-300">
+              <Button className="px-6 py-2.5 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors duration-300">
                 {t('newsletter.subscribe_button')}
               </Button>
             </form>

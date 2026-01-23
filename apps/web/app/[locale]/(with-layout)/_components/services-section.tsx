@@ -44,8 +44,8 @@ export default function ServicesSection({ services, locale }: ServicesSectionTyp
           <span className="inline-block text-primary font-semibold text-sm uppercase tracking-wider mb-4 bg-primary/10 px-4 py-2 rounded-full">
             {t('what_we_do')}
           </span>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">{t('title')}</h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">{t('title')}</h2>
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             {t('description')}
           </p>
         </div>
@@ -69,7 +69,7 @@ export default function ServicesSection({ services, locale }: ServicesSectionTyp
         <div className="text-center">
           <Link
             href="/services"
-            className="inline-flex items-center gap-3 px-8 py-4 bg-primary text-white font-semibold rounded-full hover:bg-primary/90 transition-all duration-300 group shadow-xl shadow-primary/20 hover:shadow-2xl hover:shadow-primary/30"
+            className="inline-flex items-center gap-3 px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-full hover:bg-primary/90 transition-all duration-300 group shadow-xl shadow-primary/20 hover:shadow-2xl hover:shadow-primary/30"
           >
             {t('explore_all_services')}
             <ArrowIcon
