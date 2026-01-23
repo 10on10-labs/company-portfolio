@@ -41,7 +41,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     applicationName: '10on10Labs',
     authors: { name: blog.author?.name || '' },
     openGraph: {
-      // url: new URL(`/blogs/${slug}`, process.env.NEXT_PUBLIC_DEPLOYED_URL).href,
       title: blog.title || '',
       description: blog.subTitle || '',
       siteName: '10on10Labs',
@@ -57,7 +56,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export async function generateStaticParams() {
-  // Generate for both languages
   const locales = ['en', 'ar'];
   const allSlugs = [];
 
@@ -73,7 +71,7 @@ export async function generateStaticParams() {
   return allSlugs;
 }
 
-export const revalidate = 43200; // 12 hours
+export const revalidate = 43200;
 
 export default async function BlogDetailsPage({ params }: Props) {
   const { slug, locale } = await params;
@@ -88,7 +86,6 @@ export default async function BlogDetailsPage({ params }: Props) {
     locale,
   );
 
-  // exclude the current blog as it also has the same category and will be part of the query result
   const relatedBlogs: BlogWithProcessedImages[] = blogsWithSameCategory.filter(
     (relatedBlog: BlogWithProcessedImages) => relatedBlog.slug !== slug,
   );
@@ -100,5 +97,7 @@ export default async function BlogDetailsPage({ params }: Props) {
     twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(blog?.title || '')}&url=${encodeURIComponent(currentUrl)}`,
   };
 
-  return <BlogDetailClient blog={blog} relatedBlogs={relatedBlogs} shareUrls={shareUrls} />;
+  return (
+    <BlogDetailClient blog={blog} slug={slug} relatedBlogs={relatedBlogs} shareUrls={shareUrls} />
+  );
 }
