@@ -63,7 +63,7 @@ export default function HeroClient({ brands, services, heroData }: HeroClientPro
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.6 }}
-          className="text-3xl md:text-4xl lg:text-5xl font-extrabold bg-gradient-to-r from-primary via-foreground to-primary bg-clip-text text-transparent pb-2"
+          className="text-3xl md:text-4xl lg:text-5xl font-extrabold bg-gradient-to-r from-primary via-foreground to-primary bg-clip-text text-transparent pb-2 max-w-4xl"
         >
           {heroTitle}
         </motion.h1>
